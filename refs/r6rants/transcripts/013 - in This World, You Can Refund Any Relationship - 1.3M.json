@@ -1,0 +1,990 @@
+{
+ "language": "en",
+ "duration": 31.9,
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 4.22,
+   "text": "In this world, if you say I want a refund to someone's face, you get back all the money you spent on them.",
+   "words": [
+    {
+     "start": 0.0,
+     "end": 0.06,
+     "word": "In",
+     "p": 0.887
+    },
+    {
+     "start": 0.06,
+     "end": 0.22,
+     "word": "this",
+     "p": 0.997
+    },
+    {
+     "start": 0.22,
+     "end": 0.58,
+     "word": "world,",
+     "p": 0.997
+    },
+    {
+     "start": 0.68,
+     "end": 0.84,
+     "word": "if",
+     "p": 0.973
+    },
+    {
+     "start": 0.84,
+     "end": 0.94,
+     "word": "you",
+     "p": 0.999
+    },
+    {
+     "start": 0.94,
+     "end": 1.1,
+     "word": "say",
+     "p": 0.994
+    },
+    {
+     "start": 1.1,
+     "end": 1.22,
+     "word": "I",
+     "p": 0.25
+    },
+    {
+     "start": 1.22,
+     "end": 1.36,
+     "word": "want",
+     "p": 0.911
+    },
+    {
+     "start": 1.36,
+     "end": 1.46,
+     "word": "a",
+     "p": 0.892
+    },
+    {
+     "start": 1.46,
+     "end": 1.72,
+     "word": "refund",
+     "p": 0.998
+    },
+    {
+     "start": 1.72,
+     "end": 1.9,
+     "word": "to",
+     "p": 0.992
+    },
+    {
+     "start": 1.9,
+     "end": 2.24,
+     "word": "someone's",
+     "p": 0.995
+    },
+    {
+     "start": 2.24,
+     "end": 2.46,
+     "word": "face,",
+     "p": 0.999
+    },
+    {
+     "start": 2.58,
+     "end": 2.64,
+     "word": "you",
+     "p": 0.986
+    },
+    {
+     "start": 2.64,
+     "end": 2.78,
+     "word": "get",
+     "p": 0.998
+    },
+    {
+     "start": 2.78,
+     "end": 2.98,
+     "word": "back",
+     "p": 0.998
+    },
+    {
+     "start": 2.98,
+     "end": 3.18,
+     "word": "all",
+     "p": 0.995
+    },
+    {
+     "start": 3.18,
+     "end": 3.34,
+     "word": "the",
+     "p": 0.997
+    },
+    {
+     "start": 3.34,
+     "end": 3.56,
+     "word": "money",
+     "p": 1.0
+    },
+    {
+     "start": 3.56,
+     "end": 3.68,
+     "word": "you",
+     "p": 0.998
+    },
+    {
+     "start": 3.68,
+     "end": 3.86,
+     "word": "spent",
+     "p": 0.988
+    },
+    {
+     "start": 3.86,
+     "end": 4.08,
+     "word": "on",
+     "p": 0.999
+    },
+    {
+     "start": 4.08,
+     "end": 4.22,
+     "word": "them.",
+     "p": 0.982
+    }
+   ]
+  },
+  {
+   "start": 4.26,
+   "end": 6.02,
+   "text": "But the catch is, you forget they ever existed.",
+   "words": [
+    {
+     "start": 4.26,
+     "end": 4.36,
+     "word": "But",
+     "p": 0.997
+    },
+    {
+     "start": 4.36,
+     "end": 4.46,
+     "word": "the",
+     "p": 0.994
+    },
+    {
+     "start": 4.46,
+     "end": 4.62,
+     "word": "catch",
+     "p": 0.998
+    },
+    {
+     "start": 4.62,
+     "end": 4.82,
+     "word": "is,",
+     "p": 0.999
+    },
+    {
+     "start": 4.96,
+     "end": 5.06,
+     "word": "you",
+     "p": 0.998
+    },
+    {
+     "start": 5.06,
+     "end": 5.32,
+     "word": "forget",
+     "p": 0.999
+    },
+    {
+     "start": 5.32,
+     "end": 5.52,
+     "word": "they",
+     "p": 0.997
+    },
+    {
+     "start": 5.52,
+     "end": 5.7,
+     "word": "ever",
+     "p": 0.993
+    },
+    {
+     "start": 5.7,
+     "end": 6.02,
+     "word": "existed.",
+     "p": 0.988
+    }
+   ]
+  },
+  {
+   "start": 6.22,
+   "end": 8.48,
+   "text": "A guy named Jake realized how overpowered this was.",
+   "words": [
+    {
+     "start": 6.22,
+     "end": 6.34,
+     "word": "A",
+     "p": 0.999
+    },
+    {
+     "start": 6.34,
+     "end": 6.46,
+     "word": "guy",
+     "p": 1.0
+    },
+    {
+     "start": 6.46,
+     "end": 6.64,
+     "word": "named",
+     "p": 0.998
+    },
+    {
+     "start": 6.64,
+     "end": 6.88,
+     "word": "Jake",
+     "p": 0.999
+    },
+    {
+     "start": 6.88,
+     "end": 7.2,
+     "word": "realized",
+     "p": 0.995
+    },
+    {
+     "start": 7.2,
+     "end": 7.54,
+     "word": "how",
+     "p": 0.999
+    },
+    {
+     "start": 7.54,
+     "end": 8.12,
+     "word": "overpowered",
+     "p": 0.997
+    },
+    {
+     "start": 8.12,
+     "end": 8.26,
+     "word": "this",
+     "p": 0.999
+    },
+    {
+     "start": 8.26,
+     "end": 8.48,
+     "word": "was.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 8.68,
+   "end": 10.68,
+   "text": "He walked up to his toxic ex-girlfriend and yelled,",
+   "words": [
+    {
+     "start": 8.68,
+     "end": 8.74,
+     "word": "He",
+     "p": 1.0
+    },
+    {
+     "start": 8.74,
+     "end": 8.92,
+     "word": "walked",
+     "p": 1.0
+    },
+    {
+     "start": 8.92,
+     "end": 9.1,
+     "word": "up",
+     "p": 1.0
+    },
+    {
+     "start": 9.1,
+     "end": 9.22,
+     "word": "to",
+     "p": 0.999
+    },
+    {
+     "start": 9.22,
+     "end": 9.32,
+     "word": "his",
+     "p": 0.995
+    },
+    {
+     "start": 9.32,
+     "end": 9.62,
+     "word": "toxic",
+     "p": 0.999
+    },
+    {
+     "start": 9.62,
+     "end": 9.94,
+     "word": "ex",
+     "p": 1.0
+    },
+    {
+     "start": 9.94,
+     "end": 10.28,
+     "word": "-girlfriend",
+     "p": 0.998
+    },
+    {
+     "start": 10.28,
+     "end": 10.48,
+     "word": "and",
+     "p": 0.996
+    },
+    {
+     "start": 10.48,
+     "end": 10.68,
+     "word": "yelled,",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 10.8,
+   "end": 11.34,
+   "text": "I want a refund!",
+   "words": [
+    {
+     "start": 10.8,
+     "end": 10.9,
+     "word": "I",
+     "p": 0.941
+    },
+    {
+     "start": 10.9,
+     "end": 11.0,
+     "word": "want",
+     "p": 0.997
+    },
+    {
+     "start": 11.0,
+     "end": 11.1,
+     "word": "a",
+     "p": 1.0
+    },
+    {
+     "start": 11.1,
+     "end": 11.34,
+     "word": "refund!",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 11.62,
+   "end": 13.22,
+   "text": "He instantly got back $5,000.",
+   "words": [
+    {
+     "start": 11.62,
+     "end": 11.7,
+     "word": "He",
+     "p": 1.0
+    },
+    {
+     "start": 11.7,
+     "end": 11.98,
+     "word": "instantly",
+     "p": 1.0
+    },
+    {
+     "start": 11.98,
+     "end": 12.18,
+     "word": "got",
+     "p": 1.0
+    },
+    {
+     "start": 12.18,
+     "end": 12.46,
+     "word": "back",
+     "p": 1.0
+    },
+    {
+     "start": 12.46,
+     "end": 12.62,
+     "word": "$5",
+     "p": 0.997
+    },
+    {
+     "start": 12.62,
+     "end": 13.22,
+     "word": ",000.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 13.52,
+   "end": 14.3,
+   "text": "Jake became addicted.",
+   "words": [
+    {
+     "start": 13.52,
+     "end": 13.8,
+     "word": "Jake",
+     "p": 1.0
+    },
+    {
+     "start": 13.8,
+     "end": 13.98,
+     "word": "became",
+     "p": 1.0
+    },
+    {
+     "start": 13.98,
+     "end": 14.3,
+     "word": "addicted.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 14.56,
+   "end": 16.9,
+   "text": "He refunded his fake friends just to get back his lunch money.",
+   "words": [
+    {
+     "start": 14.56,
+     "end": 14.66,
+     "word": "He",
+     "p": 1.0
+    },
+    {
+     "start": 14.66,
+     "end": 15.12,
+     "word": "refunded",
+     "p": 1.0
+    },
+    {
+     "start": 15.12,
+     "end": 15.22,
+     "word": "his",
+     "p": 1.0
+    },
+    {
+     "start": 15.22,
+     "end": 15.42,
+     "word": "fake",
+     "p": 1.0
+    },
+    {
+     "start": 15.42,
+     "end": 15.68,
+     "word": "friends",
+     "p": 1.0
+    },
+    {
+     "start": 15.68,
+     "end": 15.96,
+     "word": "just",
+     "p": 0.999
+    },
+    {
+     "start": 15.96,
+     "end": 16.1,
+     "word": "to",
+     "p": 1.0
+    },
+    {
+     "start": 16.1,
+     "end": 16.2,
+     "word": "get",
+     "p": 1.0
+    },
+    {
+     "start": 16.2,
+     "end": 16.36,
+     "word": "back",
+     "p": 1.0
+    },
+    {
+     "start": 16.36,
+     "end": 16.5,
+     "word": "his",
+     "p": 1.0
+    },
+    {
+     "start": 16.5,
+     "end": 16.7,
+     "word": "lunch",
+     "p": 1.0
+    },
+    {
+     "start": 16.7,
+     "end": 16.9,
+     "word": "money.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 17.0,
+   "end": 18.26,
+   "text": "Soon, he was incredibly rich.",
+   "words": [
+    {
+     "start": 17.0,
+     "end": 17.18,
+     "word": "Soon,",
+     "p": 1.0
+    },
+    {
+     "start": 17.3,
+     "end": 17.4,
+     "word": "he",
+     "p": 1.0
+    },
+    {
+     "start": 17.4,
+     "end": 17.52,
+     "word": "was",
+     "p": 1.0
+    },
+    {
+     "start": 17.52,
+     "end": 17.88,
+     "word": "incredibly",
+     "p": 1.0
+    },
+    {
+     "start": 17.88,
+     "end": 18.26,
+     "word": "rich.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 18.44,
+   "end": 20.82,
+   "text": "But one evening, his mom grounded him for failing a math test.",
+   "words": [
+    {
+     "start": 18.44,
+     "end": 18.56,
+     "word": "But",
+     "p": 1.0
+    },
+    {
+     "start": 18.56,
+     "end": 18.68,
+     "word": "one",
+     "p": 1.0
+    },
+    {
+     "start": 18.68,
+     "end": 18.96,
+     "word": "evening,",
+     "p": 1.0
+    },
+    {
+     "start": 19.06,
+     "end": 19.18,
+     "word": "his",
+     "p": 1.0
+    },
+    {
+     "start": 19.18,
+     "end": 19.38,
+     "word": "mom",
+     "p": 1.0
+    },
+    {
+     "start": 19.38,
+     "end": 19.76,
+     "word": "grounded",
+     "p": 1.0
+    },
+    {
+     "start": 19.76,
+     "end": 19.92,
+     "word": "him",
+     "p": 1.0
+    },
+    {
+     "start": 19.92,
+     "end": 20.04,
+     "word": "for",
+     "p": 1.0
+    },
+    {
+     "start": 20.04,
+     "end": 20.26,
+     "word": "failing",
+     "p": 1.0
+    },
+    {
+     "start": 20.26,
+     "end": 20.42,
+     "word": "a",
+     "p": 1.0
+    },
+    {
+     "start": 20.42,
+     "end": 20.58,
+     "word": "math",
+     "p": 1.0
+    },
+    {
+     "start": 20.58,
+     "end": 20.82,
+     "word": "test.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 21.02,
+   "end": 21.66,
+   "text": "Jake was furious.",
+   "words": [
+    {
+     "start": 21.02,
+     "end": 21.18,
+     "word": "Jake",
+     "p": 1.0
+    },
+    {
+     "start": 21.18,
+     "end": 21.34,
+     "word": "was",
+     "p": 1.0
+    },
+    {
+     "start": 21.34,
+     "end": 21.66,
+     "word": "furious.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 21.9,
+   "end": 23.86,
+   "text": "He stormed downstairs, walked up to her and yelled,",
+   "words": [
+    {
+     "start": 21.9,
+     "end": 22.0,
+     "word": "He",
+     "p": 1.0
+    },
+    {
+     "start": 22.0,
+     "end": 22.4,
+     "word": "stormed",
+     "p": 1.0
+    },
+    {
+     "start": 22.4,
+     "end": 22.62,
+     "word": "downstairs,",
+     "p": 1.0
+    },
+    {
+     "start": 22.94,
+     "end": 23.14,
+     "word": "walked",
+     "p": 1.0
+    },
+    {
+     "start": 23.14,
+     "end": 23.32,
+     "word": "up",
+     "p": 1.0
+    },
+    {
+     "start": 23.32,
+     "end": 23.42,
+     "word": "to",
+     "p": 1.0
+    },
+    {
+     "start": 23.42,
+     "end": 23.52,
+     "word": "her",
+     "p": 1.0
+    },
+    {
+     "start": 23.52,
+     "end": 23.66,
+     "word": "and",
+     "p": 0.901
+    },
+    {
+     "start": 23.66,
+     "end": 23.86,
+     "word": "yelled,",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 24.02,
+   "end": 24.62,
+   "text": "I want a refund!",
+   "words": [
+    {
+     "start": 24.02,
+     "end": 24.1,
+     "word": "I",
+     "p": 1.0
+    },
+    {
+     "start": 24.1,
+     "end": 24.28,
+     "word": "want",
+     "p": 1.0
+    },
+    {
+     "start": 24.28,
+     "end": 24.36,
+     "word": "a",
+     "p": 1.0
+    },
+    {
+     "start": 24.36,
+     "end": 24.62,
+     "word": "refund!",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 25.02,
+   "end": 26.86,
+   "text": "Instantly, a huge pile of cash appeared.",
+   "words": [
+    {
+     "start": 25.02,
+     "end": 25.38,
+     "word": "Instantly,",
+     "p": 0.999
+    },
+    {
+     "start": 25.38,
+     "end": 25.56,
+     "word": "a",
+     "p": 1.0
+    },
+    {
+     "start": 25.56,
+     "end": 25.82,
+     "word": "huge",
+     "p": 1.0
+    },
+    {
+     "start": 25.82,
+     "end": 26.18,
+     "word": "pile",
+     "p": 1.0
+    },
+    {
+     "start": 26.18,
+     "end": 26.4,
+     "word": "of",
+     "p": 1.0
+    },
+    {
+     "start": 26.4,
+     "end": 26.56,
+     "word": "cash",
+     "p": 1.0
+    },
+    {
+     "start": 26.56,
+     "end": 26.86,
+     "word": "appeared.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 27.06,
+   "end": 28.16,
+   "text": "But Jake collapsed to the ground.",
+   "words": [
+    {
+     "start": 27.06,
+     "end": 27.14,
+     "word": "But",
+     "p": 1.0
+    },
+    {
+     "start": 27.14,
+     "end": 27.34,
+     "word": "Jake",
+     "p": 1.0
+    },
+    {
+     "start": 27.34,
+     "end": 27.72,
+     "word": "collapsed",
+     "p": 1.0
+    },
+    {
+     "start": 27.72,
+     "end": 27.88,
+     "word": "to",
+     "p": 1.0
+    },
+    {
+     "start": 27.88,
+     "end": 27.96,
+     "word": "the",
+     "p": 1.0
+    },
+    {
+     "start": 27.96,
+     "end": 28.16,
+     "word": "ground.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 28.16,
+   "end": 31.58,
+   "text": "He had forgotten how to walk, talk, or eat because his mom was the one who taught him everything.",
+   "words": [
+    {
+     "start": 28.16,
+     "end": 28.44,
+     "word": "He",
+     "p": 0.576
+    },
+    {
+     "start": 28.44,
+     "end": 28.5,
+     "word": "had",
+     "p": 0.897
+    },
+    {
+     "start": 28.5,
+     "end": 28.66,
+     "word": "forgotten",
+     "p": 0.992
+    },
+    {
+     "start": 28.66,
+     "end": 28.84,
+     "word": "how",
+     "p": 0.989
+    },
+    {
+     "start": 28.84,
+     "end": 28.92,
+     "word": "to",
+     "p": 0.997
+    },
+    {
+     "start": 28.92,
+     "end": 29.16,
+     "word": "walk,",
+     "p": 0.992
+    },
+    {
+     "start": 29.26,
+     "end": 29.46,
+     "word": "talk,",
+     "p": 0.997
+    },
+    {
+     "start": 29.6,
+     "end": 29.74,
+     "word": "or",
+     "p": 0.997
+    },
+    {
+     "start": 29.74,
+     "end": 29.94,
+     "word": "eat",
+     "p": 0.999
+    },
+    {
+     "start": 29.94,
+     "end": 30.2,
+     "word": "because",
+     "p": 0.261
+    },
+    {
+     "start": 30.2,
+     "end": 30.38,
+     "word": "his",
+     "p": 0.998
+    },
+    {
+     "start": 30.38,
+     "end": 30.58,
+     "word": "mom",
+     "p": 0.949
+    },
+    {
+     "start": 30.58,
+     "end": 30.76,
+     "word": "was",
+     "p": 0.994
+    },
+    {
+     "start": 30.76,
+     "end": 30.84,
+     "word": "the",
+     "p": 0.997
+    },
+    {
+     "start": 30.84,
+     "end": 30.98,
+     "word": "one",
+     "p": 0.998
+    },
+    {
+     "start": 30.98,
+     "end": 31.08,
+     "word": "who",
+     "p": 0.982
+    },
+    {
+     "start": 31.08,
+     "end": 31.26,
+     "word": "taught",
+     "p": 0.969
+    },
+    {
+     "start": 31.26,
+     "end": 31.4,
+     "word": "him",
+     "p": 0.98
+    },
+    {
+     "start": 31.4,
+     "end": 31.58,
+     "word": "everything.",
+     "p": 0.79
+    }
+   ]
+  }
+ ],
+ "file": "013 - in This World, You Can Refund Any Relationship - 1.3M.mp4",
+ "stats": {
+  "words": 141,
+  "first_word": 0.0,
+  "last_word_end": 31.58,
+  "words_per_s": 4.46,
+  "pauses": [
+   {
+    "from": 24.62,
+    "to": 25.02,
+    "s": 0.4
+   }
+  ],
+  "low_confidence": [
+   {
+    "t": 1.1,
+    "word": "I",
+    "p": 0.25
+   },
+   {
+    "t": 29.94,
+    "word": "because",
+    "p": 0.261
+   }
+  ]
+ }
+}

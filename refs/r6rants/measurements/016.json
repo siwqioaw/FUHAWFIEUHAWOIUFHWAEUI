@@ -1,0 +1,66 @@
+{
+ "file": "016 - Why Do Little Brothers ALWAYS do this - 1.0M.mp4",
+ "size": "1080x1920",
+ "fps": 60.0,
+ "duration": 29.44,
+ "cuts": [
+  1.25,
+  1.9,
+  2.533,
+  4.067,
+  4.967,
+  5.017,
+  5.55,
+  6.133,
+  7.467,
+  9.267,
+  11.767,
+  13.167,
+  13.233,
+  15.25,
+  16.667,
+  18.3,
+  22.817,
+  22.9,
+  24.367,
+  24.983,
+  25.95,
+  27.533,
+  27.733
+ ],
+ "shots": 24,
+ "shot_median": 1.29,
+ "shot_mean": 1.23,
+ "shot_min": 0.05,
+ "shot_max": 4.52,
+ "first_cut": 1.25,
+ "shot_lengths": {
+  "0-0.5 s": 4,
+  "0.5-1 s": 7,
+  "1-2 s": 10,
+  "2-4 s": 2,
+  "over 4 s": 1
+ },
+ "transients": 0,
+ "cuts_per_5s": [
+  5,
+  5,
+  3,
+  3,
+  4,
+  3
+ ],
+ "loudness": {
+  "I": -12.3,
+  "LRA": 2.6,
+  "TP": 0.0
+ },
+ "flash_problems": [],
+ "black": [],
+ "freeze": [
+  "lavfi.freezedetect.freeze_start: 28.833333"
+ ],
+ "sheets": [
+  "build\\analysis\\r6rants\\016 - Why Do Little Brothers ALWAYS do this - 1.0M\\shots_00.jpg"
+ ]
+}

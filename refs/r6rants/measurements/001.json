@@ -1,0 +1,72 @@
+{
+ "file": "001 - Why Do POPULAR Girls Do This - 9.9M.mp4",
+ "size": "1080x1920",
+ "fps": 60.0,
+ "duration": 28.21,
+ "cuts": [
+  0.517,
+  0.617,
+  0.667,
+  2.567,
+  2.7,
+  4.6,
+  5.567,
+  6.917,
+  7.267,
+  10.633,
+  10.7,
+  10.75,
+  10.817,
+  12.5,
+  12.567,
+  15.367,
+  16.15,
+  16.2,
+  17.367,
+  17.45,
+  17.817,
+  17.967,
+  18.05,
+  18.933,
+  19.833,
+  19.9,
+  21.633,
+  21.683,
+  26.4,
+  26.533,
+  26.6
+ ],
+ "shots": 32,
+ "shot_median": 0.36,
+ "shot_mean": 0.88,
+ "shot_min": 0.05,
+ "shot_max": 4.72,
+ "first_cut": 0.52,
+ "shot_lengths": {
+  "0-0.5 s": 17,
+  "0.5-1 s": 5,
+  "1-2 s": 7,
+  "2-4 s": 2,
+  "over 4 s": 1
+ },
+ "transients": 0,
+ "cuts_per_5s": [
+  6,
+  3,
+  6,
+  11,
+  2,
+  3
+ ],
+ "loudness": {
+  "I": -13.1,
+  "LRA": 4.0,
+  "TP": 0.2
+ },
+ "flash_problems": [],
+ "black": [],
+ "freeze": [],
+ "sheets": [
+  "build\\analysis\\r6rants\\001 - Why Do POPULAR Girls Do This - 9.9M\\shots_00.jpg"
+ ]
+}

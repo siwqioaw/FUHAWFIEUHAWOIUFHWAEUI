@@ -35,22 +35,46 @@ from timeline import Timeline  # noqa: E402
 def detect_cuts(video: str, ratio: float = 4.0, floor: float = 0.02, fps: float | None = None
                 ) -> tuple[list[tuple[float, float]], int]:
     """([(time, strength)], transients): the cuts (time of the first frame after each), and how many jumps came back
-    within three frames. Decodes the video small (180 px wide) into memory: fine for shorts."""
+    within three frames. Decodes the video small (180 px wide), a chunk at a time, keeping only the last four frames:
+    memory stays flat for any length."""
     fps = fps or media.fps_of(media.probe(video))
-    fr = media.frames_small(video)
-    n = len(fr)
-    d = np.concatenate([[0.0], np.abs(np.diff(fr, axis=0)).mean(axis=(1, 2, 3))])
+    # d[i]: frame i against frame i-1. back[k][j]: frame j+1+k against frame j (did a jump at j+1 come back?).
+    d: list[float] = []
+    back: dict[int, dict[int, float]] = {1: {}, 2: {}, 3: {}}
+    prev: list[np.ndarray] = []
+    n = 0
+    for chunk in media.frames_small_chunks(video):
+        for f in chunk:
+            d.append(float(np.abs(f - prev[-1]).mean()) if prev else 0.0)
+            for k in (1, 2, 3):
+                if len(prev) >= k + 1:
+                    back[k][n - k - 1] = float(np.abs(f - prev[-(k + 1)]).mean())
+            prev = (prev + [f])[-4:]
+            n += 1
+    d = np.array(d)
     cuts, transients = [], 0
     for i in range(1, n):
         around = np.concatenate([d[max(1, i - 12):max(1, i - 1)], d[i + 2:i + 13]])
         usual = float(np.median(around)) if len(around) else 0.0
         if d[i] < floor or d[i] < ratio * max(usual, 1e-3) or d[i] < d[max(1, i - 2):i + 3].max():
             continue
-        if any(i + k < n and float(np.abs(fr[i + k] - fr[i - 1]).mean()) < 0.35 * d[i] for k in (1, 2, 3)):
+        if any(i + k < n and back[k][i - 1] < 0.35 * d[i] for k in (1, 2, 3)):
             transients += 1
             continue
         cuts.append((i / fps, float(d[i])))
     return cuts, transients
+
+
+def group(times: list[float], within: float = 0.3) -> list[float]:
+    """Cuts closer than `within` seconds to the one before counted once, at the first. In animated footage a fast
+    camera move or a snappy pose (a big pose reached in 4 to 6 frames) reads as a run of cuts; on the reference shorts
+    this kit was tuned on, a run within 0.3 s was one cut and its motion. A genuine cut faster than that is rare."""
+    out: list[float] = []
+    for t in times:
+        if not out or t - prev > within:
+            out.append(t)
+        prev = t
+    return out
 
 
 def score(found: list[float], truth: list[float], tol: float) -> tuple[int, int, int]:
@@ -79,6 +103,9 @@ def analyze(video: str, out_dir: str, ratio: float, truth: Timeline | None = Non
     hist = {f"{a:g}-{b:g} s" if b < 1e9 else f"over {a:g} s": int(((lens >= a) & (lens < b)).sum())
             for a, b in buckets}
     pace = [int(sum(1 for t in times if k <= t < k + 5)) for k in range(0, int(np.ceil(dur)), 5)]
+    grouped = group(times)
+    gb = [0.0] + grouped + [dur]
+    glens = np.array([b - a for a, b in zip(gb, gb[1:]) if b - a > 1e-3])
     loud = media.loudness(video) if has_audio else None
     flashes = qc.flashes(video, fps)
     blacks, freezes = qc.blacks_and_freezes(video)
@@ -89,6 +116,8 @@ def analyze(video: str, out_dir: str, ratio: float, truth: Timeline | None = Non
         "shot_min": round(float(lens.min()), 2), "shot_max": round(float(lens.max()), 2),
         "first_cut": round(times[0], 2) if times else None, "shot_lengths": hist, "transients": transients,
         "cuts_per_5s": pace, "loudness": loud, "flash_problems": flashes, "black": blacks, "freeze": freezes,
+        "cut_groups": [round(t, 3) for t in grouped], "shot_median_grouped": round(float(np.median(glens)), 2),
+        "shot_mean_grouped": round(float(glens.mean()), 2),
     }
     if truth:
         tc = [truth.sec(f) for _, _, f in truth.cuts()]
@@ -113,6 +142,10 @@ def analyze(video: str, out_dir: str, ratio: float, truth: Timeline | None = Non
              f"- {len(times)} cuts detected, {res['shots']} shots: median {res['shot_median']} s, mean "
              f"{res['shot_mean']} s, {res['shot_min']}-{res['shot_max']} s; first cut at {res['first_cut']} s; "
              f"{transients} flashes or glitches (jumps that came back) not counted",
+             f"- counting cuts within 0.3 s of each other once (a fast move or a snappy pose reads as a run of cuts): "
+             f"{len(grouped)} cuts, {len(glens)} shots, median {res['shot_median_grouped']} s, mean "
+             f"{res['shot_mean_grouped']} s. Neither count sees a camera move that sweeps from one framing to another "
+             f"over several frames: look at the sheets",
              "- shot lengths: " + ", ".join(f"{k}: {n}" for k, n in hist.items()),
              "- cuts in each 5 s: " + " ".join(str(n) for n in pace)]
     if loud:

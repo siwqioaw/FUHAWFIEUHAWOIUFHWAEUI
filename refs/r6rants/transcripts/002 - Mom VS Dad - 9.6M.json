@@ -1,0 +1,285 @@
+{
+ "language": "en",
+ "duration": 11.47,
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 2.76,
+   "text": "I'm a legendary, tropical, fraternizing",
+   "words": [
+    {
+     "start": 0.0,
+     "end": 0.2,
+     "word": "I'm",
+     "p": 0.402
+    },
+    {
+     "start": 0.2,
+     "end": 0.3,
+     "word": "a",
+     "p": 0.729
+    },
+    {
+     "start": 0.3,
+     "end": 0.92,
+     "word": "legendary,",
+     "p": 0.85
+    },
+    {
+     "start": 1.16,
+     "end": 1.7,
+     "word": "tropical,",
+     "p": 0.407
+    },
+    {
+     "start": 2.0,
+     "end": 2.76,
+     "word": "fraternizing",
+     "p": 0.901
+    }
+   ]
+  },
+  {
+   "start": 2.76,
+   "end": 6.24,
+   "text": "The world's most of my heart, I'm a sim to a god",
+   "words": [
+    {
+     "start": 2.76,
+     "end": 3.12,
+     "word": "The",
+     "p": 0.156
+    },
+    {
+     "start": 3.12,
+     "end": 3.6,
+     "word": "world's",
+     "p": 0.205
+    },
+    {
+     "start": 3.6,
+     "end": 3.68,
+     "word": "most",
+     "p": 0.498
+    },
+    {
+     "start": 3.68,
+     "end": 3.94,
+     "word": "of",
+     "p": 0.494
+    },
+    {
+     "start": 3.94,
+     "end": 4.18,
+     "word": "my",
+     "p": 0.997
+    },
+    {
+     "start": 4.18,
+     "end": 4.52,
+     "word": "heart,",
+     "p": 0.907
+    },
+    {
+     "start": 4.62,
+     "end": 4.84,
+     "word": "I'm",
+     "p": 0.669
+    },
+    {
+     "start": 4.84,
+     "end": 5.06,
+     "word": "a",
+     "p": 0.498
+    },
+    {
+     "start": 5.06,
+     "end": 5.32,
+     "word": "sim",
+     "p": 0.104
+    },
+    {
+     "start": 5.32,
+     "end": 5.56,
+     "word": "to",
+     "p": 0.781
+    },
+    {
+     "start": 5.56,
+     "end": 5.84,
+     "word": "a",
+     "p": 0.925
+    },
+    {
+     "start": 5.84,
+     "end": 6.24,
+     "word": "god",
+     "p": 0.306
+    }
+   ]
+  },
+  {
+   "start": 6.24,
+   "end": 8.4,
+   "text": "Bang, bang, bang, bang, bang",
+   "words": [
+    {
+     "start": 6.24,
+     "end": 6.66,
+     "word": "Bang,",
+     "p": 0.973
+    },
+    {
+     "start": 6.74,
+     "end": 7.08,
+     "word": "bang,",
+     "p": 0.998
+    },
+    {
+     "start": 7.24,
+     "end": 7.4,
+     "word": "bang,",
+     "p": 0.995
+    },
+    {
+     "start": 7.76,
+     "end": 7.98,
+     "word": "bang,",
+     "p": 0.999
+    },
+    {
+     "start": 7.98,
+     "end": 8.4,
+     "word": "bang",
+     "p": 0.997
+    }
+   ]
+  },
+  {
+   "start": 8.4,
+   "end": 11.34,
+   "text": "Till I take you down, down, down, down",
+   "words": [
+    {
+     "start": 8.4,
+     "end": 8.68,
+     "word": "Till",
+     "p": 0.1
+    },
+    {
+     "start": 8.68,
+     "end": 8.86,
+     "word": "I",
+     "p": 0.998
+    },
+    {
+     "start": 8.86,
+     "end": 9.08,
+     "word": "take",
+     "p": 0.369
+    },
+    {
+     "start": 9.08,
+     "end": 9.58,
+     "word": "you",
+     "p": 0.992
+    },
+    {
+     "start": 9.58,
+     "end": 9.88,
+     "word": "down,",
+     "p": 0.973
+    },
+    {
+     "start": 10.16,
+     "end": 10.54,
+     "word": "down,",
+     "p": 1.0
+    },
+    {
+     "start": 10.58,
+     "end": 10.82,
+     "word": "down,",
+     "p": 1.0
+    },
+    {
+     "start": 10.96,
+     "end": 11.34,
+     "word": "down",
+     "p": 1.0
+    }
+   ]
+  }
+ ],
+ "file": "002 - Mom VS Dad - 9.6M.mp4",
+ "stats": {
+  "words": 30,
+  "first_word": 0.0,
+  "last_word_end": 11.34,
+  "words_per_s": 2.65,
+  "pauses": [
+   {
+    "from": 7.4,
+    "to": 7.76,
+    "s": 0.36
+   }
+  ],
+  "low_confidence": [
+   {
+    "t": 0.0,
+    "word": "I'm",
+    "p": 0.402
+   },
+   {
+    "t": 1.16,
+    "word": "tropical,",
+    "p": 0.407
+   },
+   {
+    "t": 2.76,
+    "word": "The",
+    "p": 0.156
+   },
+   {
+    "t": 3.12,
+    "word": "world's",
+    "p": 0.205
+   },
+   {
+    "t": 3.6,
+    "word": "most",
+    "p": 0.498
+   },
+   {
+    "t": 3.68,
+    "word": "of",
+    "p": 0.494
+   },
+   {
+    "t": 4.84,
+    "word": "a",
+    "p": 0.498
+   },
+   {
+    "t": 5.06,
+    "word": "sim",
+    "p": 0.104
+   },
+   {
+    "t": 5.84,
+    "word": "god",
+    "p": 0.306
+   },
+   {
+    "t": 8.4,
+    "word": "Till",
+    "p": 0.1
+   },
+   {
+    "t": 8.86,
+    "word": "take",
+    "p": 0.369
+   }
+  ]
+ }
+}

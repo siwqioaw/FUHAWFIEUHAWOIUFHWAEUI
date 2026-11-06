@@ -6,6 +6,9 @@
         the two frames before and the two after every cut, a row per cut
     python tools/verify/sheets.py frames VIDEO.mp4 FRAME [FRAME ...] [--out DIR]
         single frames at full size, to look at anything a tile left in doubt
+    python tools/verify/sheets.py strip VIDEO.mp4 [FRAME ...] [--from S --to S --step N] [--name NAME] [--out DIR]
+        a run of frames side by side, each labelled with its number and time: to tell a cut from a fast camera
+        move or snappy animation, or to see how a move eases
 
 Look at the full-size frames before calling anything fine: a contact sheet's tiles are small, and the misplaced
 overlay that got a cut rejected was a few dozen pixels.
@@ -80,15 +83,40 @@ def cuts(video: str, tl: Timeline, out: str, per_sheet: int = 6) -> list[str]:
     return sheets
 
 
+def strip(video: str, frames: list[int], out: str, name: str = "strip.jpg") -> str:
+    """The given frames side by side, 8 to a row (4 for landscape), labelled with frame number and time."""
+    info = media.probe(video)
+    fps = media.fps_of(info)
+    portrait = int(media.video_stream(info)["height"]) > int(media.video_stream(info)["width"])
+    paths = media.extract_frames(video, frames, os.path.join(out, "_strip"), width=360 if portrait else 640)
+    ok = [f for f in frames if f in paths]
+    return tile([paths[f] for f in ok], [f"f{f} {f / fps:.2f}s" for f in ok], os.path.join(out, name),
+                8 if portrait else 4, 225 if portrait else 400)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["contact", "cuts", "frames"])
+    ap.add_argument("what", choices=["contact", "cuts", "frames", "strip"])
     ap.add_argument("video")
     ap.add_argument("frame", nargs="*", type=int)
     ap.add_argument("--every", type=int, default=6)
     ap.add_argument("--timeline")
     ap.add_argument("--out", default="build/verify")
+    ap.add_argument("--from", dest="t0", type=float, help="strip: first second")
+    ap.add_argument("--to", dest="t1", type=float, help="strip: last second")
+    ap.add_argument("--step", type=int, default=2, help="strip: every Nth frame between --from and --to")
+    ap.add_argument("--name", default="strip.jpg", help="strip: the sheet's file name")
     args = ap.parse_args()
+    if args.what == "strip":
+        frames = list(args.frame)
+        if args.t0 is not None and args.t1 is not None:
+            fps = media.fps_of(media.probe(args.video))
+            frames += list(range(int(round(args.t0 * fps)), int(round(args.t1 * fps)) + 1, max(1, args.step)))
+        if not frames:
+            ap.error("strip needs frame numbers, or --from and --to")
+        os.makedirs(args.out, exist_ok=True)
+        print(strip(args.video, sorted(set(frames)), args.out, args.name))
+        return 0
     tl = Timeline.load(args.timeline) if args.timeline else None
     os.makedirs(args.out, exist_ok=True)
     if args.what == "contact":

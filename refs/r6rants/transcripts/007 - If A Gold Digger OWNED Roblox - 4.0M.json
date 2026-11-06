@@ -1,0 +1,566 @@
+{
+ "language": "en",
+ "duration": 23.38,
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 2.8,
+   "text": "Bro, imagine if a gold digger owned Roblox.",
+   "words": [
+    {
+     "start": 0.0,
+     "end": 0.2,
+     "word": "Bro,",
+     "p": 0.875
+    },
+    {
+     "start": 0.44,
+     "end": 0.92,
+     "word": "imagine",
+     "p": 0.895
+    },
+    {
+     "start": 0.92,
+     "end": 1.26,
+     "word": "if",
+     "p": 0.997
+    },
+    {
+     "start": 1.26,
+     "end": 1.38,
+     "word": "a",
+     "p": 0.992
+    },
+    {
+     "start": 1.38,
+     "end": 1.64,
+     "word": "gold",
+     "p": 0.947
+    },
+    {
+     "start": 1.64,
+     "end": 1.94,
+     "word": "digger",
+     "p": 0.934
+    },
+    {
+     "start": 1.94,
+     "end": 2.14,
+     "word": "owned",
+     "p": 0.989
+    },
+    {
+     "start": 2.14,
+     "end": 2.8,
+     "word": "Roblox.",
+     "p": 0.789
+    }
+   ]
+  },
+  {
+   "start": 2.84,
+   "end": 4.58,
+   "text": "You log in and the first update says,",
+   "words": [
+    {
+     "start": 2.84,
+     "end": 3.1,
+     "word": "You",
+     "p": 0.988
+    },
+    {
+     "start": 3.1,
+     "end": 3.32,
+     "word": "log",
+     "p": 0.94
+    },
+    {
+     "start": 3.32,
+     "end": 3.58,
+     "word": "in",
+     "p": 0.988
+    },
+    {
+     "start": 3.58,
+     "end": 3.74,
+     "word": "and",
+     "p": 0.831
+    },
+    {
+     "start": 3.74,
+     "end": 3.84,
+     "word": "the",
+     "p": 0.997
+    },
+    {
+     "start": 3.84,
+     "end": 4.0,
+     "word": "first",
+     "p": 0.996
+    },
+    {
+     "start": 4.0,
+     "end": 4.28,
+     "word": "update",
+     "p": 0.995
+    },
+    {
+     "start": 4.28,
+     "end": 4.58,
+     "word": "says,",
+     "p": 0.996
+    }
+   ]
+  },
+  {
+   "start": 4.7,
+   "end": 5.6,
+   "text": "Rich players only.",
+   "words": [
+    {
+     "start": 4.7,
+     "end": 4.98,
+     "word": "Rich",
+     "p": 0.227
+    },
+    {
+     "start": 4.98,
+     "end": 5.3,
+     "word": "players",
+     "p": 0.646
+    },
+    {
+     "start": 5.3,
+     "end": 5.6,
+     "word": "only.",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 5.8,
+   "end": 8.28,
+   "text": "Now if you don't have Robux, you're basically a ghost.",
+   "words": [
+    {
+     "start": 5.8,
+     "end": 6.12,
+     "word": "Now",
+     "p": 1.0
+    },
+    {
+     "start": 6.12,
+     "end": 6.24,
+     "word": "if",
+     "p": 0.906
+    },
+    {
+     "start": 6.24,
+     "end": 6.34,
+     "word": "you",
+     "p": 1.0
+    },
+    {
+     "start": 6.34,
+     "end": 6.54,
+     "word": "don't",
+     "p": 0.999
+    },
+    {
+     "start": 6.54,
+     "end": 6.64,
+     "word": "have",
+     "p": 1.0
+    },
+    {
+     "start": 6.64,
+     "end": 7.08,
+     "word": "Robux,",
+     "p": 0.984
+    },
+    {
+     "start": 7.24,
+     "end": 7.54,
+     "word": "you're",
+     "p": 0.995
+    },
+    {
+     "start": 7.54,
+     "end": 7.82,
+     "word": "basically",
+     "p": 1.0
+    },
+    {
+     "start": 7.82,
+     "end": 8.04,
+     "word": "a",
+     "p": 1.0
+    },
+    {
+     "start": 8.04,
+     "end": 8.28,
+     "word": "ghost.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 8.56,
+   "end": 10.12,
+   "text": "So you buy one expensive outfit,",
+   "words": [
+    {
+     "start": 8.56,
+     "end": 8.8,
+     "word": "So",
+     "p": 1.0
+    },
+    {
+     "start": 8.8,
+     "end": 8.92,
+     "word": "you",
+     "p": 0.999
+    },
+    {
+     "start": 8.92,
+     "end": 9.08,
+     "word": "buy",
+     "p": 1.0
+    },
+    {
+     "start": 9.08,
+     "end": 9.32,
+     "word": "one",
+     "p": 0.999
+    },
+    {
+     "start": 9.32,
+     "end": 9.7,
+     "word": "expensive",
+     "p": 1.0
+    },
+    {
+     "start": 9.7,
+     "end": 10.12,
+     "word": "outfit,",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 10.34,
+   "end": 12.28,
+   "text": "and suddenly everybody wants to talk to you.",
+   "words": [
+    {
+     "start": 10.34,
+     "end": 10.66,
+     "word": "and",
+     "p": 0.978
+    },
+    {
+     "start": 10.66,
+     "end": 10.94,
+     "word": "suddenly",
+     "p": 1.0
+    },
+    {
+     "start": 10.94,
+     "end": 11.28,
+     "word": "everybody",
+     "p": 0.998
+    },
+    {
+     "start": 11.28,
+     "end": 11.66,
+     "word": "wants",
+     "p": 1.0
+    },
+    {
+     "start": 11.66,
+     "end": 11.82,
+     "word": "to",
+     "p": 1.0
+    },
+    {
+     "start": 11.82,
+     "end": 12.04,
+     "word": "talk",
+     "p": 1.0
+    },
+    {
+     "start": 12.04,
+     "end": 12.16,
+     "word": "to",
+     "p": 1.0
+    },
+    {
+     "start": 12.16,
+     "end": 12.28,
+     "word": "you.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 12.66,
+   "end": 13.72,
+   "text": "Relationship perks unlocked.",
+   "words": [
+    {
+     "start": 12.66,
+     "end": 13.16,
+     "word": "Relationship",
+     "p": 1.0
+    },
+    {
+     "start": 13.16,
+     "end": 13.34,
+     "word": "perks",
+     "p": 0.926
+    },
+    {
+     "start": 13.34,
+     "end": 13.72,
+     "word": "unlocked.",
+     "p": 0.996
+    }
+   ]
+  },
+  {
+   "start": 14.16,
+   "end": 15.68,
+   "text": "Suddenly girls are following you,",
+   "words": [
+    {
+     "start": 14.16,
+     "end": 14.6,
+     "word": "Suddenly",
+     "p": 0.999
+    },
+    {
+     "start": 14.6,
+     "end": 14.88,
+     "word": "girls",
+     "p": 0.999
+    },
+    {
+     "start": 14.88,
+     "end": 15.12,
+     "word": "are",
+     "p": 1.0
+    },
+    {
+     "start": 15.12,
+     "end": 15.44,
+     "word": "following",
+     "p": 1.0
+    },
+    {
+     "start": 15.44,
+     "end": 15.68,
+     "word": "you,",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 15.8,
+   "end": 16.86,
+   "text": "asking if you're single,",
+   "words": [
+    {
+     "start": 15.8,
+     "end": 16.2,
+     "word": "asking",
+     "p": 0.998
+    },
+    {
+     "start": 16.2,
+     "end": 16.44,
+     "word": "if",
+     "p": 1.0
+    },
+    {
+     "start": 16.44,
+     "end": 16.56,
+     "word": "you're",
+     "p": 1.0
+    },
+    {
+     "start": 16.56,
+     "end": 16.86,
+     "word": "single,",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 16.98,
+   "end": 18.18,
+   "text": "even fighting over you.",
+   "words": [
+    {
+     "start": 16.98,
+     "end": 17.34,
+     "word": "even",
+     "p": 0.999
+    },
+    {
+     "start": 17.34,
+     "end": 17.72,
+     "word": "fighting",
+     "p": 1.0
+    },
+    {
+     "start": 17.72,
+     "end": 18.0,
+     "word": "over",
+     "p": 1.0
+    },
+    {
+     "start": 18.0,
+     "end": 18.18,
+     "word": "you.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 18.28,
+   "end": 19.5,
+   "text": "Then you run out of Robux,",
+   "words": [
+    {
+     "start": 18.28,
+     "end": 18.6,
+     "word": "Then",
+     "p": 1.0
+    },
+    {
+     "start": 18.6,
+     "end": 18.72,
+     "word": "you",
+     "p": 1.0
+    },
+    {
+     "start": 18.72,
+     "end": 18.86,
+     "word": "run",
+     "p": 1.0
+    },
+    {
+     "start": 18.86,
+     "end": 19.04,
+     "word": "out",
+     "p": 1.0
+    },
+    {
+     "start": 19.04,
+     "end": 19.16,
+     "word": "of",
+     "p": 1.0
+    },
+    {
+     "start": 19.16,
+     "end": 19.5,
+     "word": "Robux,",
+     "p": 0.998
+    }
+   ]
+  },
+  {
+   "start": 19.66,
+   "end": 20.98,
+   "text": "and suddenly everybody disappears.",
+   "words": [
+    {
+     "start": 19.66,
+     "end": 19.94,
+     "word": "and",
+     "p": 1.0
+    },
+    {
+     "start": 19.94,
+     "end": 20.24,
+     "word": "suddenly",
+     "p": 1.0
+    },
+    {
+     "start": 20.24,
+     "end": 20.54,
+     "word": "everybody",
+     "p": 1.0
+    },
+    {
+     "start": 20.54,
+     "end": 20.98,
+     "word": "disappears.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 21.76,
+   "end": 22.92,
+   "text": "Relationship perks have expired.",
+   "words": [
+    {
+     "start": 21.76,
+     "end": 22.26,
+     "word": "Relationship",
+     "p": 1.0
+    },
+    {
+     "start": 22.26,
+     "end": 22.42,
+     "word": "perks",
+     "p": 1.0
+    },
+    {
+     "start": 22.42,
+     "end": 22.6,
+     "word": "have",
+     "p": 1.0
+    },
+    {
+     "start": 22.6,
+     "end": 22.92,
+     "word": "expired.",
+     "p": 0.962
+    }
+   ]
+  }
+ ],
+ "file": "007 - If A Gold Digger OWNED Roblox - 4.0M.mp4",
+ "stats": {
+  "words": 73,
+  "first_word": 0.0,
+  "last_word_end": 22.92,
+  "words_per_s": 3.18,
+  "pauses": [
+   {
+    "from": 12.28,
+    "to": 12.66,
+    "s": 0.38
+   },
+   {
+    "from": 13.72,
+    "to": 14.16,
+    "s": 0.44
+   },
+   {
+    "from": 20.98,
+    "to": 21.76,
+    "s": 0.78
+   }
+  ],
+  "low_confidence": [
+   {
+    "t": 4.7,
+    "word": "Rich",
+    "p": 0.227
+   }
+  ]
+ }
+}

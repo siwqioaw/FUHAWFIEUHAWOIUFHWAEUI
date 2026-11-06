@@ -55,7 +55,10 @@ replace what doesn't. The trailer's style doesn't carry over; its methods and ch
 
 ```
 python tests/selftest.py                                     # every tool, against planted failures
-python tools/verify/analyze.py refs/*.mp4                    # measure reference videos
+python tools/verify/analyze.py refs/r6rants/videos/*.mp4 --out build/analysis/r6rants   # measure reference videos
+python tools/verify/transcribe.py refs/r6rants/videos/*.mp4 --out refs/r6rants/transcripts --device cpu
+python tools/verify/study.py refs/r6rants/videos/*.mp4 --out build/study/r6rants --words refs/r6rants/transcripts --analysis build/analysis/r6rants
+python tools/verify/sheets.py strip VIDEO --from 10.5 --to 11.0 --step 2 --out DIR   # a cut, or a fast move?
 python tools/verify/qc.py out/x.mp4 --timeline cut.json      # the file
 python tools/verify/audio.py cut.json out/x.mp4              # the sound against the cut
 python tools/verify/sheets.py cuts out/x.mp4 --timeline cut.json

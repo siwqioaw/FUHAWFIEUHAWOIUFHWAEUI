@@ -20,12 +20,15 @@ the owner rejected the first two (`docs/LESSONS.md` says why). The horror style 
 | [`docs/AUDIO.md`](docs/AUDIO.md), [`docs/PICTURE.md`](docs/PICTURE.md) | The rules for sound and picture, and why |
 | [`docs/ROBLOX_CAPTURE.md`](docs/ROBLOX_CAPTURE.md) | Capturing posed frames from Roblox Studio through its MCP server |
 | [`docs/KIDS_SHORTS.md`](docs/KIDS_SHORTS.md) | What changes for kids' shorts: untested advice, to check |
+| [`docs/ROBLOX_SHORTS_PLAN.md`](docs/ROBLOX_SHORTS_PLAN.md) | The plan for one-prompt Roblox Shorts, and the decisions it needs |
+| [`refs/r6rants/`](refs/r6rants/) | The first reference set: 16 Shorts over 1M views, studied one by one, and what they share |
 
 ## Layout
 
 | Folder | What |
 |---|---|
-| `tools/verify/` | `qc.py` (the file: loudness, flashes, read time, clicks, black), `audio.py` (sound across cuts, silences, sync, spectrogram), `sheets.py` (cut and contact sheets), `analyze.py` (reference videos), `timeline.py`, `media.py` |
+| `tools/verify/` | `qc.py` (the file: loudness, flashes, read time, clicks, black), `audio.py` (sound across cuts, silences, sync, spectrogram), `sheets.py` (cut and contact sheets, frame strips), `analyze.py` (reference videos), `study.py` (reference study sheets: hook, contact sheets with the words, a map of the sound), `transcribe.py` (words with times, speech-to-text on this PC), `timeline.py`, `media.py` |
+| `refs/` | reference sets: transcripts, measurements and study notes (the videos themselves are ignored); `NOTES_TEMPLATE.md` |
 | `tools/edit/` | `cues.py` (the cue sheet), `master.py` (loudness and true peak), `look.py`, `typeset.py`, `fx.py`, `render.py` (the parallel master render), `deliver.py` (the encode) |
 | `tools/roblox/` | `studio_mcp.py` (the MCP client and bridge), `studio.py`, `harness.luau`, `capture.py`, `stage.py` |
 | `tests/` | `selftest.py`: a test cut with planted failures that every check must catch |

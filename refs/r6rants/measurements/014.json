@@ -1,0 +1,47 @@
+{
+ "file": "014 - When The Bell Rings - 1.1M.mp4",
+ "size": "1080x1920",
+ "fps": 30.0,
+ "duration": 11.63,
+ "cuts": [
+  0.5,
+  1.2,
+  1.533,
+  2.667,
+  2.767,
+  5.0,
+  5.333,
+  7.333,
+  9.633
+ ],
+ "shots": 10,
+ "shot_median": 0.92,
+ "shot_mean": 1.16,
+ "shot_min": 0.1,
+ "shot_max": 2.3,
+ "first_cut": 0.5,
+ "shot_lengths": {
+  "0-0.5 s": 3,
+  "0.5-1 s": 2,
+  "1-2 s": 2,
+  "2-4 s": 3,
+  "over 4 s": 0
+ },
+ "transients": 0,
+ "cuts_per_5s": [
+  5,
+  4,
+  0
+ ],
+ "loudness": {
+  "I": -6.2,
+  "LRA": 0.7,
+  "TP": 1.5
+ },
+ "flash_problems": [],
+ "black": [],
+ "freeze": [],
+ "sheets": [
+  "build\\analysis\\r6rants\\014 - When The Bell Rings - 1.1M\\shots_00.jpg"
+ ]
+}

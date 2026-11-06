@@ -1,0 +1,987 @@
+{
+ "language": "en",
+ "duration": 32.69,
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 2.14,
+   "text": "In this world, the first time you hold hands with someone,",
+   "words": [
+    {
+     "start": 0.0,
+     "end": 0.12,
+     "word": "In",
+     "p": 0.906
+    },
+    {
+     "start": 0.12,
+     "end": 0.24,
+     "word": "this",
+     "p": 0.998
+    },
+    {
+     "start": 0.24,
+     "end": 0.52,
+     "word": "world,",
+     "p": 0.999
+    },
+    {
+     "start": 0.62,
+     "end": 0.68,
+     "word": "the",
+     "p": 0.992
+    },
+    {
+     "start": 0.68,
+     "end": 0.88,
+     "word": "first",
+     "p": 0.999
+    },
+    {
+     "start": 0.88,
+     "end": 1.1,
+     "word": "time",
+     "p": 0.999
+    },
+    {
+     "start": 1.1,
+     "end": 1.28,
+     "word": "you",
+     "p": 0.998
+    },
+    {
+     "start": 1.28,
+     "end": 1.46,
+     "word": "hold",
+     "p": 0.998
+    },
+    {
+     "start": 1.46,
+     "end": 1.7,
+     "word": "hands",
+     "p": 0.998
+    },
+    {
+     "start": 1.7,
+     "end": 1.88,
+     "word": "with",
+     "p": 0.998
+    },
+    {
+     "start": 1.88,
+     "end": 2.14,
+     "word": "someone,",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 2.24,
+   "end": 4.34,
+   "text": "you instantly see how your relationship will end.",
+   "words": [
+    {
+     "start": 2.24,
+     "end": 2.34,
+     "word": "you",
+     "p": 0.978
+    },
+    {
+     "start": 2.34,
+     "end": 2.7,
+     "word": "instantly",
+     "p": 0.996
+    },
+    {
+     "start": 2.7,
+     "end": 3.04,
+     "word": "see",
+     "p": 0.998
+    },
+    {
+     "start": 3.04,
+     "end": 3.24,
+     "word": "how",
+     "p": 0.999
+    },
+    {
+     "start": 3.24,
+     "end": 3.42,
+     "word": "your",
+     "p": 0.998
+    },
+    {
+     "start": 3.42,
+     "end": 3.8,
+     "word": "relationship",
+     "p": 0.999
+    },
+    {
+     "start": 3.8,
+     "end": 4.12,
+     "word": "will",
+     "p": 0.999
+    },
+    {
+     "start": 4.12,
+     "end": 4.34,
+     "word": "end.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 4.46,
+   "end": 6.52,
+   "text": "Most people saw messy breakups, partners cheating,",
+   "words": [
+    {
+     "start": 4.46,
+     "end": 4.58,
+     "word": "Most",
+     "p": 0.999
+    },
+    {
+     "start": 4.58,
+     "end": 4.78,
+     "word": "people",
+     "p": 0.999
+    },
+    {
+     "start": 4.78,
+     "end": 5.02,
+     "word": "saw",
+     "p": 0.996
+    },
+    {
+     "start": 5.02,
+     "end": 5.26,
+     "word": "messy",
+     "p": 0.997
+    },
+    {
+     "start": 5.26,
+     "end": 5.82,
+     "word": "breakups,",
+     "p": 0.843
+    },
+    {
+     "start": 5.92,
+     "end": 6.18,
+     "word": "partners",
+     "p": 0.982
+    },
+    {
+     "start": 6.18,
+     "end": 6.52,
+     "word": "cheating,",
+     "p": 0.998
+    }
+   ]
+  },
+  {
+   "start": 6.68,
+   "end": 7.88,
+   "text": "or just slowly drifting apart.",
+   "words": [
+    {
+     "start": 6.68,
+     "end": 6.8,
+     "word": "or",
+     "p": 0.999
+    },
+    {
+     "start": 6.8,
+     "end": 6.94,
+     "word": "just",
+     "p": 0.999
+    },
+    {
+     "start": 6.94,
+     "end": 7.26,
+     "word": "slowly",
+     "p": 0.999
+    },
+    {
+     "start": 7.26,
+     "end": 7.58,
+     "word": "drifting",
+     "p": 0.999
+    },
+    {
+     "start": 7.58,
+     "end": 7.88,
+     "word": "apart.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 8.12,
+   "end": 9.62,
+   "text": "David's first date with Sarah was perfect.",
+   "words": [
+    {
+     "start": 8.12,
+     "end": 8.42,
+     "word": "David's",
+     "p": 0.998
+    },
+    {
+     "start": 8.42,
+     "end": 8.56,
+     "word": "first",
+     "p": 0.998
+    },
+    {
+     "start": 8.56,
+     "end": 8.76,
+     "word": "date",
+     "p": 0.997
+    },
+    {
+     "start": 8.76,
+     "end": 8.92,
+     "word": "with",
+     "p": 0.997
+    },
+    {
+     "start": 8.92,
+     "end": 9.08,
+     "word": "Sarah",
+     "p": 0.957
+    },
+    {
+     "start": 9.08,
+     "end": 9.28,
+     "word": "was",
+     "p": 0.999
+    },
+    {
+     "start": 9.28,
+     "end": 9.62,
+     "word": "perfect.",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 9.8,
+   "end": 11.5,
+   "text": "At the end of the night, standing on her front porch,",
+   "words": [
+    {
+     "start": 9.8,
+     "end": 9.86,
+     "word": "At",
+     "p": 0.999
+    },
+    {
+     "start": 9.86,
+     "end": 9.96,
+     "word": "the",
+     "p": 1.0
+    },
+    {
+     "start": 9.96,
+     "end": 10.1,
+     "word": "end",
+     "p": 1.0
+    },
+    {
+     "start": 10.1,
+     "end": 10.2,
+     "word": "of",
+     "p": 0.999
+    },
+    {
+     "start": 10.2,
+     "end": 10.22,
+     "word": "the",
+     "p": 0.998
+    },
+    {
+     "start": 10.22,
+     "end": 10.46,
+     "word": "night,",
+     "p": 1.0
+    },
+    {
+     "start": 10.52,
+     "end": 10.74,
+     "word": "standing",
+     "p": 0.999
+    },
+    {
+     "start": 10.74,
+     "end": 10.92,
+     "word": "on",
+     "p": 0.999
+    },
+    {
+     "start": 10.92,
+     "end": 11.04,
+     "word": "her",
+     "p": 0.999
+    },
+    {
+     "start": 11.04,
+     "end": 11.22,
+     "word": "front",
+     "p": 0.998
+    },
+    {
+     "start": 11.22,
+     "end": 11.5,
+     "word": "porch,",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 11.6,
+   "end": 13.24,
+   "text": "he nervously reached out and took her hand.",
+   "words": [
+    {
+     "start": 11.6,
+     "end": 11.68,
+     "word": "he",
+     "p": 0.997
+    },
+    {
+     "start": 11.68,
+     "end": 12.06,
+     "word": "nervously",
+     "p": 0.999
+    },
+    {
+     "start": 12.06,
+     "end": 12.34,
+     "word": "reached",
+     "p": 0.999
+    },
+    {
+     "start": 12.34,
+     "end": 12.64,
+     "word": "out",
+     "p": 1.0
+    },
+    {
+     "start": 12.64,
+     "end": 12.76,
+     "word": "and",
+     "p": 0.998
+    },
+    {
+     "start": 12.76,
+     "end": 12.9,
+     "word": "took",
+     "p": 1.0
+    },
+    {
+     "start": 12.9,
+     "end": 13.04,
+     "word": "her",
+     "p": 1.0
+    },
+    {
+     "start": 13.04,
+     "end": 13.24,
+     "word": "hand.",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 13.4,
+   "end": 15.5,
+   "text": "He saw himself as an older man in a hospital room,",
+   "words": [
+    {
+     "start": 13.4,
+     "end": 13.48,
+     "word": "He",
+     "p": 0.999
+    },
+    {
+     "start": 13.48,
+     "end": 13.64,
+     "word": "saw",
+     "p": 1.0
+    },
+    {
+     "start": 13.64,
+     "end": 13.9,
+     "word": "himself",
+     "p": 1.0
+    },
+    {
+     "start": 13.9,
+     "end": 14.14,
+     "word": "as",
+     "p": 0.999
+    },
+    {
+     "start": 14.14,
+     "end": 14.22,
+     "word": "an",
+     "p": 0.999
+    },
+    {
+     "start": 14.22,
+     "end": 14.44,
+     "word": "older",
+     "p": 1.0
+    },
+    {
+     "start": 14.44,
+     "end": 14.66,
+     "word": "man",
+     "p": 1.0
+    },
+    {
+     "start": 14.66,
+     "end": 14.88,
+     "word": "in",
+     "p": 0.998
+    },
+    {
+     "start": 14.88,
+     "end": 14.96,
+     "word": "a",
+     "p": 0.998
+    },
+    {
+     "start": 14.96,
+     "end": 15.22,
+     "word": "hospital",
+     "p": 0.999
+    },
+    {
+     "start": 15.22,
+     "end": 15.5,
+     "word": "room,",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 15.62,
+   "end": 17.78,
+   "text": "tightly gripping Sarah's hand in her final moments.",
+   "words": [
+    {
+     "start": 15.62,
+     "end": 15.82,
+     "word": "tightly",
+     "p": 0.999
+    },
+    {
+     "start": 15.82,
+     "end": 16.26,
+     "word": "gripping",
+     "p": 0.999
+    },
+    {
+     "start": 16.26,
+     "end": 16.68,
+     "word": "Sarah's",
+     "p": 1.0
+    },
+    {
+     "start": 16.68,
+     "end": 16.9,
+     "word": "hand",
+     "p": 1.0
+    },
+    {
+     "start": 16.9,
+     "end": 17.1,
+     "word": "in",
+     "p": 0.999
+    },
+    {
+     "start": 17.1,
+     "end": 17.16,
+     "word": "her",
+     "p": 1.0
+    },
+    {
+     "start": 17.16,
+     "end": 17.42,
+     "word": "final",
+     "p": 1.0
+    },
+    {
+     "start": 17.42,
+     "end": 17.78,
+     "word": "moments.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 17.88,
+   "end": 19.0,
+   "text": "It was heartbreaking, yet beautiful.",
+   "words": [
+    {
+     "start": 17.88,
+     "end": 17.94,
+     "word": "It",
+     "p": 1.0
+    },
+    {
+     "start": 17.94,
+     "end": 18.04,
+     "word": "was",
+     "p": 1.0
+    },
+    {
+     "start": 18.04,
+     "end": 18.32,
+     "word": "heartbreaking,",
+     "p": 0.995
+    },
+    {
+     "start": 18.56,
+     "end": 18.7,
+     "word": "yet",
+     "p": 1.0
+    },
+    {
+     "start": 18.7,
+     "end": 19.0,
+     "word": "beautiful.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 19.18,
+   "end": 21.08,
+   "text": "It meant they had lived a long, full life together.",
+   "words": [
+    {
+     "start": 19.18,
+     "end": 19.34,
+     "word": "It",
+     "p": 1.0
+    },
+    {
+     "start": 19.34,
+     "end": 19.48,
+     "word": "meant",
+     "p": 1.0
+    },
+    {
+     "start": 19.48,
+     "end": 19.6,
+     "word": "they",
+     "p": 0.999
+    },
+    {
+     "start": 19.6,
+     "end": 19.7,
+     "word": "had",
+     "p": 0.999
+    },
+    {
+     "start": 19.7,
+     "end": 19.9,
+     "word": "lived",
+     "p": 1.0
+    },
+    {
+     "start": 19.9,
+     "end": 20.02,
+     "word": "a",
+     "p": 0.999
+    },
+    {
+     "start": 20.02,
+     "end": 20.32,
+     "word": "long,",
+     "p": 1.0
+    },
+    {
+     "start": 20.32,
+     "end": 20.5,
+     "word": "full",
+     "p": 1.0
+    },
+    {
+     "start": 20.5,
+     "end": 20.8,
+     "word": "life",
+     "p": 1.0
+    },
+    {
+     "start": 20.8,
+     "end": 21.08,
+     "word": "together.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 21.24,
+   "end": 22.24,
+   "text": "He opened his eyes, happy.",
+   "words": [
+    {
+     "start": 21.24,
+     "end": 21.32,
+     "word": "He",
+     "p": 1.0
+    },
+    {
+     "start": 21.32,
+     "end": 21.52,
+     "word": "opened",
+     "p": 1.0
+    },
+    {
+     "start": 21.52,
+     "end": 21.64,
+     "word": "his",
+     "p": 1.0
+    },
+    {
+     "start": 21.64,
+     "end": 21.94,
+     "word": "eyes,",
+     "p": 1.0
+    },
+    {
+     "start": 21.98,
+     "end": 22.24,
+     "word": "happy.",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 22.34,
+   "end": 23.3,
+   "text": "But Sarah wasn't smiling.",
+   "words": [
+    {
+     "start": 22.34,
+     "end": 22.46,
+     "word": "But",
+     "p": 1.0
+    },
+    {
+     "start": 22.46,
+     "end": 22.62,
+     "word": "Sarah",
+     "p": 1.0
+    },
+    {
+     "start": 22.62,
+     "end": 22.96,
+     "word": "wasn't",
+     "p": 1.0
+    },
+    {
+     "start": 22.96,
+     "end": 23.3,
+     "word": "smiling.",
+     "p": 0.994
+    }
+   ]
+  },
+  {
+   "start": 23.4,
+   "end": 24.9,
+   "text": "She violently yanked her hand away.",
+   "words": [
+    {
+     "start": 23.4,
+     "end": 23.56,
+     "word": "She",
+     "p": 1.0
+    },
+    {
+     "start": 23.56,
+     "end": 23.94,
+     "word": "violently",
+     "p": 1.0
+    },
+    {
+     "start": 23.94,
+     "end": 24.42,
+     "word": "yanked",
+     "p": 1.0
+    },
+    {
+     "start": 24.42,
+     "end": 24.48,
+     "word": "her",
+     "p": 1.0
+    },
+    {
+     "start": 24.48,
+     "end": 24.7,
+     "word": "hand",
+     "p": 1.0
+    },
+    {
+     "start": 24.7,
+     "end": 24.9,
+     "word": "away.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 25.16,
+   "end": 26.68,
+   "text": "Confused, David asked her what was wrong.",
+   "words": [
+    {
+     "start": 25.16,
+     "end": 25.52,
+     "word": "Confused,",
+     "p": 1.0
+    },
+    {
+     "start": 25.64,
+     "end": 25.84,
+     "word": "David",
+     "p": 1.0
+    },
+    {
+     "start": 25.84,
+     "end": 26.12,
+     "word": "asked",
+     "p": 1.0
+    },
+    {
+     "start": 26.12,
+     "end": 26.24,
+     "word": "her",
+     "p": 1.0
+    },
+    {
+     "start": 26.24,
+     "end": 26.36,
+     "word": "what",
+     "p": 1.0
+    },
+    {
+     "start": 26.36,
+     "end": 26.46,
+     "word": "was",
+     "p": 1.0
+    },
+    {
+     "start": 26.46,
+     "end": 26.68,
+     "word": "wrong.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 26.82,
+   "end": 28.0,
+   "text": "Sarah stared at him in terror.",
+   "words": [
+    {
+     "start": 26.82,
+     "end": 27.0,
+     "word": "Sarah",
+     "p": 1.0
+    },
+    {
+     "start": 27.0,
+     "end": 27.24,
+     "word": "stared",
+     "p": 1.0
+    },
+    {
+     "start": 27.24,
+     "end": 27.54,
+     "word": "at",
+     "p": 1.0
+    },
+    {
+     "start": 27.54,
+     "end": 27.66,
+     "word": "him",
+     "p": 1.0
+    },
+    {
+     "start": 27.66,
+     "end": 27.76,
+     "word": "in",
+     "p": 1.0
+    },
+    {
+     "start": 27.76,
+     "end": 28.0,
+     "word": "terror.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 28.14,
+   "end": 29.84,
+   "text": "You weren't holding my hand to comfort me, David.",
+   "words": [
+    {
+     "start": 28.14,
+     "end": 28.26,
+     "word": "You",
+     "p": 0.985
+    },
+    {
+     "start": 28.26,
+     "end": 28.48,
+     "word": "weren't",
+     "p": 1.0
+    },
+    {
+     "start": 28.48,
+     "end": 28.66,
+     "word": "holding",
+     "p": 1.0
+    },
+    {
+     "start": 28.66,
+     "end": 28.8,
+     "word": "my",
+     "p": 1.0
+    },
+    {
+     "start": 28.8,
+     "end": 29.06,
+     "word": "hand",
+     "p": 1.0
+    },
+    {
+     "start": 29.06,
+     "end": 29.16,
+     "word": "to",
+     "p": 1.0
+    },
+    {
+     "start": 29.16,
+     "end": 29.4,
+     "word": "comfort",
+     "p": 1.0
+    },
+    {
+     "start": 29.4,
+     "end": 29.58,
+     "word": "me,",
+     "p": 1.0
+    },
+    {
+     "start": 29.64,
+     "end": 29.84,
+     "word": "David.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 30.0,
+   "end": 32.5,
+   "text": "You were pinning my arms down so I couldn't reach the emergency button.",
+   "words": [
+    {
+     "start": 30.0,
+     "end": 30.1,
+     "word": "You",
+     "p": 0.925
+    },
+    {
+     "start": 30.1,
+     "end": 30.14,
+     "word": "were",
+     "p": 0.998
+    },
+    {
+     "start": 30.14,
+     "end": 30.42,
+     "word": "pinning",
+     "p": 0.999
+    },
+    {
+     "start": 30.42,
+     "end": 30.52,
+     "word": "my",
+     "p": 0.999
+    },
+    {
+     "start": 30.52,
+     "end": 30.8,
+     "word": "arms",
+     "p": 0.998
+    },
+    {
+     "start": 30.8,
+     "end": 31.0,
+     "word": "down",
+     "p": 1.0
+    },
+    {
+     "start": 31.0,
+     "end": 31.16,
+     "word": "so",
+     "p": 0.925
+    },
+    {
+     "start": 31.16,
+     "end": 31.28,
+     "word": "I",
+     "p": 0.997
+    },
+    {
+     "start": 31.28,
+     "end": 31.54,
+     "word": "couldn't",
+     "p": 0.999
+    },
+    {
+     "start": 31.54,
+     "end": 31.66,
+     "word": "reach",
+     "p": 1.0
+    },
+    {
+     "start": 31.66,
+     "end": 31.82,
+     "word": "the",
+     "p": 0.999
+    },
+    {
+     "start": 31.82,
+     "end": 32.08,
+     "word": "emergency",
+     "p": 0.991
+    },
+    {
+     "start": 32.08,
+     "end": 32.5,
+     "word": "button.",
+     "p": 0.993
+    }
+   ]
+  }
+ ],
+ "file": "011 - In This World When You Hold Hands For The First Time You See The Relationship's End - 2.1M.mp4",
+ "stats": {
+  "words": 141,
+  "first_word": 0.0,
+  "last_word_end": 32.5,
+  "words_per_s": 4.34,
+  "pauses": [],
+  "low_confidence": []
+ }
+}

@@ -1,0 +1,713 @@
+{
+ "language": "en",
+ "duration": 31.32,
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 3.32,
+   "text": "Bro, once your mom says your full name, just know it's over.",
+   "words": [
+    {
+     "start": 0.0,
+     "end": 0.18,
+     "word": "Bro,",
+     "p": 0.692
+    },
+    {
+     "start": 0.42,
+     "end": 1.0,
+     "word": "once",
+     "p": 0.966
+    },
+    {
+     "start": 1.0,
+     "end": 1.14,
+     "word": "your",
+     "p": 0.986
+    },
+    {
+     "start": 1.14,
+     "end": 1.3,
+     "word": "mom",
+     "p": 0.971
+    },
+    {
+     "start": 1.3,
+     "end": 1.54,
+     "word": "says",
+     "p": 0.991
+    },
+    {
+     "start": 1.54,
+     "end": 1.7,
+     "word": "your",
+     "p": 0.986
+    },
+    {
+     "start": 1.7,
+     "end": 1.86,
+     "word": "full",
+     "p": 0.994
+    },
+    {
+     "start": 1.86,
+     "end": 2.16,
+     "word": "name,",
+     "p": 0.999
+    },
+    {
+     "start": 2.32,
+     "end": 2.76,
+     "word": "just",
+     "p": 0.974
+    },
+    {
+     "start": 2.76,
+     "end": 2.96,
+     "word": "know",
+     "p": 0.997
+    },
+    {
+     "start": 2.96,
+     "end": 3.12,
+     "word": "it's",
+     "p": 0.981
+    },
+    {
+     "start": 3.12,
+     "end": 3.32,
+     "word": "over.",
+     "p": 0.904
+    }
+   ]
+  },
+  {
+   "start": 3.52,
+   "end": 6.36,
+   "text": "You could be doing absolutely nothing, and suddenly you hear,",
+   "words": [
+    {
+     "start": 3.52,
+     "end": 3.94,
+     "word": "You",
+     "p": 0.962
+    },
+    {
+     "start": 3.94,
+     "end": 4.02,
+     "word": "could",
+     "p": 0.765
+    },
+    {
+     "start": 4.02,
+     "end": 4.14,
+     "word": "be",
+     "p": 0.997
+    },
+    {
+     "start": 4.14,
+     "end": 4.3,
+     "word": "doing",
+     "p": 0.998
+    },
+    {
+     "start": 4.3,
+     "end": 4.7,
+     "word": "absolutely",
+     "p": 0.989
+    },
+    {
+     "start": 4.7,
+     "end": 5.16,
+     "word": "nothing,",
+     "p": 0.995
+    },
+    {
+     "start": 5.3,
+     "end": 5.64,
+     "word": "and",
+     "p": 0.981
+    },
+    {
+     "start": 5.64,
+     "end": 5.94,
+     "word": "suddenly",
+     "p": 0.993
+    },
+    {
+     "start": 5.94,
+     "end": 6.14,
+     "word": "you",
+     "p": 0.972
+    },
+    {
+     "start": 6.14,
+     "end": 6.36,
+     "word": "hear,",
+     "p": 0.996
+    }
+   ]
+  },
+  {
+   "start": 7.34,
+   "end": 9.98,
+   "text": "Bartholomew Jamalathan Quadravious Thompson III.",
+   "words": [
+    {
+     "start": 7.34,
+     "end": 7.78,
+     "word": "Bartholomew",
+     "p": 0.939
+    },
+    {
+     "start": 7.78,
+     "end": 8.22,
+     "word": "Jamalathan",
+     "p": 0.889
+    },
+    {
+     "start": 8.22,
+     "end": 9.06,
+     "word": "Quadravious",
+     "p": 0.799
+    },
+    {
+     "start": 9.06,
+     "end": 9.48,
+     "word": "Thompson",
+     "p": 0.994
+    },
+    {
+     "start": 9.48,
+     "end": 9.98,
+     "word": "III.",
+     "p": 0.804
+    }
+   ]
+  },
+  {
+   "start": 10.78,
+   "end": 12.42,
+   "text": "Nah, bro, what did I even do?",
+   "words": [
+    {
+     "start": 10.78,
+     "end": 11.22,
+     "word": "Nah,",
+     "p": 0.994
+    },
+    {
+     "start": 11.36,
+     "end": 11.58,
+     "word": "bro,",
+     "p": 0.998
+    },
+    {
+     "start": 11.7,
+     "end": 11.82,
+     "word": "what",
+     "p": 1.0
+    },
+    {
+     "start": 11.82,
+     "end": 11.92,
+     "word": "did",
+     "p": 0.999
+    },
+    {
+     "start": 11.92,
+     "end": 12.0,
+     "word": "I",
+     "p": 1.0
+    },
+    {
+     "start": 12.0,
+     "end": 12.22,
+     "word": "even",
+     "p": 1.0
+    },
+    {
+     "start": 12.22,
+     "end": 12.42,
+     "word": "do?",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 12.64,
+   "end": 15.96,
+   "text": "Now I'm reviewing my last 48 hours like it's a crime documentary.",
+   "words": [
+    {
+     "start": 12.64,
+     "end": 13.08,
+     "word": "Now",
+     "p": 1.0
+    },
+    {
+     "start": 13.08,
+     "end": 13.3,
+     "word": "I'm",
+     "p": 0.999
+    },
+    {
+     "start": 13.3,
+     "end": 13.56,
+     "word": "reviewing",
+     "p": 1.0
+    },
+    {
+     "start": 13.56,
+     "end": 13.76,
+     "word": "my",
+     "p": 1.0
+    },
+    {
+     "start": 13.76,
+     "end": 14.06,
+     "word": "last",
+     "p": 1.0
+    },
+    {
+     "start": 14.06,
+     "end": 14.42,
+     "word": "48",
+     "p": 0.999
+    },
+    {
+     "start": 14.42,
+     "end": 14.78,
+     "word": "hours",
+     "p": 0.999
+    },
+    {
+     "start": 14.78,
+     "end": 14.98,
+     "word": "like",
+     "p": 0.999
+    },
+    {
+     "start": 14.98,
+     "end": 15.2,
+     "word": "it's",
+     "p": 1.0
+    },
+    {
+     "start": 15.2,
+     "end": 15.22,
+     "word": "a",
+     "p": 1.0
+    },
+    {
+     "start": 15.22,
+     "end": 15.46,
+     "word": "crime",
+     "p": 1.0
+    },
+    {
+     "start": 15.46,
+     "end": 15.96,
+     "word": "documentary.",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 16.34,
+   "end": 17.16,
+   "text": "Did I break something?",
+   "words": [
+    {
+     "start": 16.34,
+     "end": 16.66,
+     "word": "Did",
+     "p": 1.0
+    },
+    {
+     "start": 16.66,
+     "end": 16.76,
+     "word": "I",
+     "p": 1.0
+    },
+    {
+     "start": 16.76,
+     "end": 16.92,
+     "word": "break",
+     "p": 1.0
+    },
+    {
+     "start": 16.92,
+     "end": 17.16,
+     "word": "something?",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 17.5,
+   "end": 18.7,
+   "text": "Did little bro snitch?",
+   "words": [
+    {
+     "start": 17.5,
+     "end": 17.94,
+     "word": "Did",
+     "p": 1.0
+    },
+    {
+     "start": 17.94,
+     "end": 18.08,
+     "word": "little",
+     "p": 0.746
+    },
+    {
+     "start": 18.08,
+     "end": 18.26,
+     "word": "bro",
+     "p": 0.986
+    },
+    {
+     "start": 18.26,
+     "end": 18.7,
+     "word": "snitch?",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 18.92,
+   "end": 20.08,
+   "text": "And the craziest part?",
+   "words": [
+    {
+     "start": 18.92,
+     "end": 19.36,
+     "word": "And",
+     "p": 1.0
+    },
+    {
+     "start": 19.36,
+     "end": 19.44,
+     "word": "the",
+     "p": 1.0
+    },
+    {
+     "start": 19.44,
+     "end": 19.8,
+     "word": "craziest",
+     "p": 1.0
+    },
+    {
+     "start": 19.8,
+     "end": 20.08,
+     "word": "part?",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 20.36,
+   "end": 22.18,
+   "text": "You get there and they say something dumb like,",
+   "words": [
+    {
+     "start": 20.36,
+     "end": 20.74,
+     "word": "You",
+     "p": 1.0
+    },
+    {
+     "start": 20.74,
+     "end": 20.88,
+     "word": "get",
+     "p": 1.0
+    },
+    {
+     "start": 20.88,
+     "end": 21.08,
+     "word": "there",
+     "p": 1.0
+    },
+    {
+     "start": 21.08,
+     "end": 21.18,
+     "word": "and",
+     "p": 0.98
+    },
+    {
+     "start": 21.18,
+     "end": 21.26,
+     "word": "they",
+     "p": 1.0
+    },
+    {
+     "start": 21.26,
+     "end": 21.44,
+     "word": "say",
+     "p": 1.0
+    },
+    {
+     "start": 21.44,
+     "end": 21.66,
+     "word": "something",
+     "p": 1.0
+    },
+    {
+     "start": 21.66,
+     "end": 21.9,
+     "word": "dumb",
+     "p": 0.999
+    },
+    {
+     "start": 21.9,
+     "end": 22.18,
+     "word": "like,",
+     "p": 0.995
+    }
+   ]
+  },
+  {
+   "start": 22.3,
+   "end": 23.18,
+   "text": "Pass me the remote.",
+   "words": [
+    {
+     "start": 22.3,
+     "end": 22.64,
+     "word": "Pass",
+     "p": 0.098
+    },
+    {
+     "start": 22.64,
+     "end": 22.8,
+     "word": "me",
+     "p": 1.0
+    },
+    {
+     "start": 22.8,
+     "end": 22.92,
+     "word": "the",
+     "p": 1.0
+    },
+    {
+     "start": 22.92,
+     "end": 23.18,
+     "word": "remote.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 23.72,
+   "end": 26.1,
+   "text": "Bro, you summoned me like a fallen warrior.",
+   "words": [
+    {
+     "start": 23.72,
+     "end": 24.16,
+     "word": "Bro,",
+     "p": 0.999
+    },
+    {
+     "start": 24.28,
+     "end": 24.44,
+     "word": "you",
+     "p": 1.0
+    },
+    {
+     "start": 24.44,
+     "end": 24.86,
+     "word": "summoned",
+     "p": 1.0
+    },
+    {
+     "start": 24.86,
+     "end": 25.08,
+     "word": "me",
+     "p": 1.0
+    },
+    {
+     "start": 25.08,
+     "end": 25.26,
+     "word": "like",
+     "p": 1.0
+    },
+    {
+     "start": 25.26,
+     "end": 25.36,
+     "word": "a",
+     "p": 1.0
+    },
+    {
+     "start": 25.36,
+     "end": 25.68,
+     "word": "fallen",
+     "p": 1.0
+    },
+    {
+     "start": 25.68,
+     "end": 26.1,
+     "word": "warrior.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 26.54,
+   "end": 27.7,
+   "text": "To pass the remote.",
+   "words": [
+    {
+     "start": 26.54,
+     "end": 26.76,
+     "word": "To",
+     "p": 0.999
+    },
+    {
+     "start": 26.76,
+     "end": 27.06,
+     "word": "pass",
+     "p": 1.0
+    },
+    {
+     "start": 27.06,
+     "end": 27.32,
+     "word": "the",
+     "p": 1.0
+    },
+    {
+     "start": 27.32,
+     "end": 27.7,
+     "word": "remote.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 28.16,
+   "end": 31.0,
+   "text": "Bro, if you say my full name like that again, I'm vanishing.",
+   "words": [
+    {
+     "start": 28.16,
+     "end": 28.52,
+     "word": "Bro,",
+     "p": 0.718
+    },
+    {
+     "start": 28.62,
+     "end": 28.72,
+     "word": "if",
+     "p": 0.979
+    },
+    {
+     "start": 28.72,
+     "end": 28.8,
+     "word": "you",
+     "p": 0.998
+    },
+    {
+     "start": 28.8,
+     "end": 29.0,
+     "word": "say",
+     "p": 0.998
+    },
+    {
+     "start": 29.0,
+     "end": 29.14,
+     "word": "my",
+     "p": 0.998
+    },
+    {
+     "start": 29.14,
+     "end": 29.34,
+     "word": "full",
+     "p": 0.989
+    },
+    {
+     "start": 29.34,
+     "end": 29.56,
+     "word": "name",
+     "p": 0.999
+    },
+    {
+     "start": 29.56,
+     "end": 29.74,
+     "word": "like",
+     "p": 0.992
+    },
+    {
+     "start": 29.74,
+     "end": 29.9,
+     "word": "that",
+     "p": 0.999
+    },
+    {
+     "start": 29.9,
+     "end": 30.12,
+     "word": "again,",
+     "p": 0.994
+    },
+    {
+     "start": 30.24,
+     "end": 30.48,
+     "word": "I'm",
+     "p": 0.985
+    },
+    {
+     "start": 30.48,
+     "end": 31.0,
+     "word": "vanishing.",
+     "p": 0.991
+    }
+   ]
+  }
+ ],
+ "file": "005 - Why do MOMS do this bro - 5.6M.mp4",
+ "stats": {
+  "words": 95,
+  "first_word": 0.0,
+  "last_word_end": 31.0,
+  "words_per_s": 3.06,
+  "pauses": [
+   {
+    "from": 6.36,
+    "to": 7.34,
+    "s": 0.98
+   },
+   {
+    "from": 9.98,
+    "to": 10.78,
+    "s": 0.8
+   },
+   {
+    "from": 15.96,
+    "to": 16.34,
+    "s": 0.38
+   },
+   {
+    "from": 23.18,
+    "to": 23.72,
+    "s": 0.54
+   },
+   {
+    "from": 26.1,
+    "to": 26.54,
+    "s": 0.44
+   },
+   {
+    "from": 27.7,
+    "to": 28.16,
+    "s": 0.46
+   }
+  ],
+  "low_confidence": [
+   {
+    "t": 22.3,
+    "word": "Pass",
+    "p": 0.098
+   }
+  ]
+ }
+}

@@ -3,3 +3,8 @@ out/
 __pycache__/
 *.pyc
 .venv/
+
+# Reference videos are someone else's work, kept on this machine for study only: never commit them.
+refs/**/videos/
+*.mp4
+*.mov

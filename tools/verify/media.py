@@ -45,14 +45,33 @@ def audio(path: str, sr: int = 48000) -> tuple[np.ndarray, int]:
 
 
 def frames_small(video: str, width: int = 180) -> np.ndarray:
-    """Every frame decoded small (keeping the aspect), as float RGB 0..1: N x H x W x 3."""
+    """Every frame decoded small (keeping the aspect), as float RGB 0..1: N x H x W x 3. All of it in memory: at
+    180 px wide that's 0.7 MB a frame, so a 2.5-minute short at 60 fps would need 6.5 GB. For anything long, use
+    `frames_small_chunks`."""
+    return np.concatenate(list(frames_small_chunks(video, width)))
+
+
+def frames_small_chunks(video: str, width: int = 180, chunk: int = 300):
+    """The same frames as `frames_small`, in order, as arrays of up to `chunk` frames each, so memory stays flat
+    however long the video is."""
     info = probe(video)
     v = video_stream(info)
     w = width
     h = max(2, int(round(width * int(v["height"]) / int(v["width"]) / 2)) * 2)
-    p = subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-i", video, "-vf", f"scale={w}:{h}",
-                        "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True, check=True)
-    return np.frombuffer(p.stdout, dtype=np.uint8).reshape(-1, h, w, 3).astype(np.float32) / 255.0
+    size = w * h * 3
+    p = subprocess.Popen(["ffmpeg", "-hide_banner", "-loglevel", "error", "-i", video, "-vf", f"scale={w}:{h}",
+                          "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
+    try:
+        while True:
+            buf = p.stdout.read(size * chunk)  # blocks until a full chunk, or the end of the video
+            n = len(buf) // size
+            if n == 0:
+                break
+            yield np.frombuffer(buf[:n * size], dtype=np.uint8).reshape(n, h, w, 3).astype(np.float32) / 255.0
+    finally:
+        p.stdout.close()
+        if p.wait() != 0:
+            raise subprocess.CalledProcessError(p.returncode, "ffmpeg")
 
 
 def extract_frames(video: str, frames: list[int], out_dir: str, width: int | None = None) -> dict[int, str]:

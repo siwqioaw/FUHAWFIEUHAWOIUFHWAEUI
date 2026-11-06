@@ -1,0 +1,323 @@
+{
+ "language": "en",
+ "duration": 11.63,
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 1.84,
+   "text": "It doesn't hold the moment, it's our time",
+   "words": [
+    {
+     "start": 0.0,
+     "end": 0.12,
+     "word": "It",
+     "p": 0.116
+    },
+    {
+     "start": 0.12,
+     "end": 0.48,
+     "word": "doesn't",
+     "p": 0.991
+    },
+    {
+     "start": 0.48,
+     "end": 0.56,
+     "word": "hold",
+     "p": 0.995
+    },
+    {
+     "start": 0.56,
+     "end": 0.7,
+     "word": "the",
+     "p": 0.476
+    },
+    {
+     "start": 0.7,
+     "end": 0.9,
+     "word": "moment,",
+     "p": 0.943
+    },
+    {
+     "start": 0.9,
+     "end": 1.24,
+     "word": "it's",
+     "p": 0.576
+    },
+    {
+     "start": 1.24,
+     "end": 1.42,
+     "word": "our",
+     "p": 0.94
+    },
+    {
+     "start": 1.42,
+     "end": 1.84,
+     "word": "time",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 1.84,
+   "end": 4.6,
+   "text": "Now come on, clickin' and hoppin', pop out",
+   "words": [
+    {
+     "start": 1.84,
+     "end": 2.4,
+     "word": "Now",
+     "p": 0.826
+    },
+    {
+     "start": 2.4,
+     "end": 2.58,
+     "word": "come",
+     "p": 0.987
+    },
+    {
+     "start": 2.58,
+     "end": 2.8,
+     "word": "on,",
+     "p": 0.999
+    },
+    {
+     "start": 2.88,
+     "end": 3.44,
+     "word": "clickin'",
+     "p": 0.793
+    },
+    {
+     "start": 3.44,
+     "end": 3.54,
+     "word": "and",
+     "p": 0.596
+    },
+    {
+     "start": 3.54,
+     "end": 4.08,
+     "word": "hoppin',",
+     "p": 0.91
+    },
+    {
+     "start": 4.08,
+     "end": 4.26,
+     "word": "pop",
+     "p": 0.999
+    },
+    {
+     "start": 4.26,
+     "end": 4.6,
+     "word": "out",
+     "p": 0.992
+    }
+   ]
+  },
+  {
+   "start": 4.6,
+   "end": 6.84,
+   "text": "Now come on, runnin', comin', I've been on route",
+   "words": [
+    {
+     "start": 4.6,
+     "end": 4.74,
+     "word": "Now",
+     "p": 0.975
+    },
+    {
+     "start": 4.74,
+     "end": 4.88,
+     "word": "come",
+     "p": 1.0
+    },
+    {
+     "start": 4.88,
+     "end": 5.14,
+     "word": "on,",
+     "p": 1.0
+    },
+    {
+     "start": 5.22,
+     "end": 5.62,
+     "word": "runnin',",
+     "p": 0.976
+    },
+    {
+     "start": 5.62,
+     "end": 5.96,
+     "word": "comin',",
+     "p": 0.9
+    },
+    {
+     "start": 5.96,
+     "end": 6.06,
+     "word": "I've",
+     "p": 0.943
+    },
+    {
+     "start": 6.06,
+     "end": 6.3,
+     "word": "been",
+     "p": 1.0
+    },
+    {
+     "start": 6.3,
+     "end": 6.6,
+     "word": "on",
+     "p": 0.966
+    },
+    {
+     "start": 6.6,
+     "end": 6.84,
+     "word": "route",
+     "p": 0.99
+    }
+   ]
+  },
+  {
+   "start": 6.84,
+   "end": 9.12,
+   "text": "Now come on, second guessin', I've been on now",
+   "words": [
+    {
+     "start": 6.84,
+     "end": 6.98,
+     "word": "Now",
+     "p": 0.997
+    },
+    {
+     "start": 6.98,
+     "end": 7.16,
+     "word": "come",
+     "p": 1.0
+    },
+    {
+     "start": 7.16,
+     "end": 7.4,
+     "word": "on,",
+     "p": 1.0
+    },
+    {
+     "start": 7.46,
+     "end": 7.74,
+     "word": "second",
+     "p": 0.997
+    },
+    {
+     "start": 7.74,
+     "end": 8.16,
+     "word": "guessin',",
+     "p": 0.846
+    },
+    {
+     "start": 8.16,
+     "end": 8.34,
+     "word": "I've",
+     "p": 0.415
+    },
+    {
+     "start": 8.34,
+     "end": 8.6,
+     "word": "been",
+     "p": 0.996
+    },
+    {
+     "start": 8.6,
+     "end": 8.86,
+     "word": "on",
+     "p": 0.959
+    },
+    {
+     "start": 8.86,
+     "end": 9.12,
+     "word": "now",
+     "p": 0.4
+    }
+   ]
+  },
+  {
+   "start": 9.12,
+   "end": 11.38,
+   "text": "Now come on, representin', I can't pipe down",
+   "words": [
+    {
+     "start": 9.12,
+     "end": 9.34,
+     "word": "Now",
+     "p": 0.923
+    },
+    {
+     "start": 9.34,
+     "end": 9.46,
+     "word": "come",
+     "p": 1.0
+    },
+    {
+     "start": 9.46,
+     "end": 9.7,
+     "word": "on,",
+     "p": 1.0
+    },
+    {
+     "start": 9.76,
+     "end": 10.44,
+     "word": "representin',",
+     "p": 0.982
+    },
+    {
+     "start": 10.44,
+     "end": 10.56,
+     "word": "I",
+     "p": 1.0
+    },
+    {
+     "start": 10.56,
+     "end": 11.0,
+     "word": "can't",
+     "p": 1.0
+    },
+    {
+     "start": 11.0,
+     "end": 11.1,
+     "word": "pipe",
+     "p": 0.984
+    },
+    {
+     "start": 11.1,
+     "end": 11.38,
+     "word": "down",
+     "p": 0.995
+    }
+   ]
+  }
+ ],
+ "file": "014 - When The Bell Rings - 1.1M.mp4",
+ "stats": {
+  "words": 42,
+  "first_word": 0.0,
+  "last_word_end": 11.38,
+  "words_per_s": 3.69,
+  "pauses": [],
+  "low_confidence": [
+   {
+    "t": 0.0,
+    "word": "It",
+    "p": 0.116
+   },
+   {
+    "t": 0.56,
+    "word": "the",
+    "p": 0.476
+   },
+   {
+    "t": 8.16,
+    "word": "I've",
+    "p": 0.415
+   },
+   {
+    "t": 8.86,
+    "word": "now",
+    "p": 0.4
+   }
+  ]
+ }
+}

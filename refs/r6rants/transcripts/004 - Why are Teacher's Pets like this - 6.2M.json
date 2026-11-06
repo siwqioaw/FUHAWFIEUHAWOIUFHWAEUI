@@ -1,0 +1,663 @@
+{
+ "language": "en",
+ "duration": 25.91,
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 2.04,
+   "text": "Bro, why are teacher's pets so annoying?",
+   "words": [
+    {
+     "start": 0.0,
+     "end": 0.28,
+     "word": "Bro,",
+     "p": 0.828
+    },
+    {
+     "start": 0.46,
+     "end": 0.8,
+     "word": "why",
+     "p": 0.981
+    },
+    {
+     "start": 0.8,
+     "end": 0.96,
+     "word": "are",
+     "p": 0.993
+    },
+    {
+     "start": 0.96,
+     "end": 1.28,
+     "word": "teacher's",
+     "p": 0.748
+    },
+    {
+     "start": 1.28,
+     "end": 1.44,
+     "word": "pets",
+     "p": 0.966
+    },
+    {
+     "start": 1.44,
+     "end": 1.66,
+     "word": "so",
+     "p": 0.99
+    },
+    {
+     "start": 1.66,
+     "end": 2.04,
+     "word": "annoying?",
+     "p": 0.987
+    }
+   ]
+  },
+  {
+   "start": 2.32,
+   "end": 5.54,
+   "text": "Like the teacher barely finishes the question, and their hand is already up.",
+   "words": [
+    {
+     "start": 2.32,
+     "end": 2.64,
+     "word": "Like",
+     "p": 0.973
+    },
+    {
+     "start": 2.64,
+     "end": 2.74,
+     "word": "the",
+     "p": 0.868
+    },
+    {
+     "start": 2.74,
+     "end": 2.96,
+     "word": "teacher",
+     "p": 0.997
+    },
+    {
+     "start": 2.96,
+     "end": 3.18,
+     "word": "barely",
+     "p": 0.995
+    },
+    {
+     "start": 3.18,
+     "end": 3.62,
+     "word": "finishes",
+     "p": 0.99
+    },
+    {
+     "start": 3.62,
+     "end": 3.82,
+     "word": "the",
+     "p": 0.998
+    },
+    {
+     "start": 3.82,
+     "end": 4.12,
+     "word": "question,",
+     "p": 0.994
+    },
+    {
+     "start": 4.26,
+     "end": 4.54,
+     "word": "and",
+     "p": 0.973
+    },
+    {
+     "start": 4.54,
+     "end": 4.68,
+     "word": "their",
+     "p": 0.988
+    },
+    {
+     "start": 4.68,
+     "end": 4.88,
+     "word": "hand",
+     "p": 0.998
+    },
+    {
+     "start": 4.88,
+     "end": 5.04,
+     "word": "is",
+     "p": 0.996
+    },
+    {
+     "start": 5.04,
+     "end": 5.24,
+     "word": "already",
+     "p": 0.998
+    },
+    {
+     "start": 5.24,
+     "end": 5.54,
+     "word": "up.",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 5.76,
+   "end": 8.22,
+   "text": "Relax, little bro. The question isn't going anywhere.",
+   "words": [
+    {
+     "start": 5.76,
+     "end": 6.2,
+     "word": "Relax,",
+     "p": 0.991
+    },
+    {
+     "start": 6.38,
+     "end": 6.5,
+     "word": "little",
+     "p": 0.462
+    },
+    {
+     "start": 6.5,
+     "end": 6.74,
+     "word": "bro.",
+     "p": 0.995
+    },
+    {
+     "start": 6.94,
+     "end": 7.2,
+     "word": "The",
+     "p": 0.997
+    },
+    {
+     "start": 7.2,
+     "end": 7.44,
+     "word": "question",
+     "p": 0.997
+    },
+    {
+     "start": 7.44,
+     "end": 7.78,
+     "word": "isn't",
+     "p": 0.999
+    },
+    {
+     "start": 7.78,
+     "end": 7.88,
+     "word": "going",
+     "p": 0.983
+    },
+    {
+     "start": 7.88,
+     "end": 8.22,
+     "word": "anywhere.",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 8.46,
+   "end": 11.6,
+   "text": "And if someone gets an answer slightly wrong, they're already jumping in.",
+   "words": [
+    {
+     "start": 8.46,
+     "end": 8.74,
+     "word": "And",
+     "p": 0.978
+    },
+    {
+     "start": 8.74,
+     "end": 8.86,
+     "word": "if",
+     "p": 0.997
+    },
+    {
+     "start": 8.86,
+     "end": 9.02,
+     "word": "someone",
+     "p": 0.997
+    },
+    {
+     "start": 9.02,
+     "end": 9.24,
+     "word": "gets",
+     "p": 0.997
+    },
+    {
+     "start": 9.24,
+     "end": 9.36,
+     "word": "an",
+     "p": 0.996
+    },
+    {
+     "start": 9.36,
+     "end": 9.58,
+     "word": "answer",
+     "p": 0.999
+    },
+    {
+     "start": 9.58,
+     "end": 9.8,
+     "word": "slightly",
+     "p": 0.992
+    },
+    {
+     "start": 9.8,
+     "end": 10.22,
+     "word": "wrong,",
+     "p": 0.998
+    },
+    {
+     "start": 10.38,
+     "end": 10.7,
+     "word": "they're",
+     "p": 0.994
+    },
+    {
+     "start": 10.7,
+     "end": 10.96,
+     "word": "already",
+     "p": 0.999
+    },
+    {
+     "start": 10.96,
+     "end": 11.32,
+     "word": "jumping",
+     "p": 0.972
+    },
+    {
+     "start": 11.32,
+     "end": 11.6,
+     "word": "in.",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 11.74,
+   "end": 12.7,
+   "text": "Actually, it's...",
+   "words": [
+    {
+     "start": 11.74,
+     "end": 12.16,
+     "word": "Actually,",
+     "p": 0.93
+    },
+    {
+     "start": 12.38,
+     "end": 12.7,
+     "word": "it's...",
+     "p": 0.829
+    }
+   ]
+  },
+  {
+   "start": 12.7,
+   "end": 12.8,
+   "text": "Bro!",
+   "words": [
+    {
+     "start": 12.7,
+     "end": 12.8,
+     "word": "Bro!",
+     "p": 0.984
+    }
+   ]
+  },
+  {
+   "start": 13.08,
+   "end": 14.28,
+   "text": "It's not that serious.",
+   "words": [
+    {
+     "start": 13.08,
+     "end": 13.46,
+     "word": "It's",
+     "p": 0.994
+    },
+    {
+     "start": 13.46,
+     "end": 13.6,
+     "word": "not",
+     "p": 1.0
+    },
+    {
+     "start": 13.6,
+     "end": 13.84,
+     "word": "that",
+     "p": 1.0
+    },
+    {
+     "start": 13.84,
+     "end": 14.28,
+     "word": "serious.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 14.8,
+   "end": 18.58,
+   "text": "And when the whole class is sitting in peace, silently praying the teacher forgot about the homework,",
+   "words": [
+    {
+     "start": 14.8,
+     "end": 14.88,
+     "word": "And",
+     "p": 0.999
+    },
+    {
+     "start": 14.88,
+     "end": 15.0,
+     "word": "when",
+     "p": 1.0
+    },
+    {
+     "start": 15.0,
+     "end": 15.12,
+     "word": "the",
+     "p": 1.0
+    },
+    {
+     "start": 15.12,
+     "end": 15.26,
+     "word": "whole",
+     "p": 1.0
+    },
+    {
+     "start": 15.26,
+     "end": 15.58,
+     "word": "class",
+     "p": 1.0
+    },
+    {
+     "start": 15.58,
+     "end": 15.76,
+     "word": "is",
+     "p": 1.0
+    },
+    {
+     "start": 15.76,
+     "end": 15.94,
+     "word": "sitting",
+     "p": 1.0
+    },
+    {
+     "start": 15.94,
+     "end": 16.1,
+     "word": "in",
+     "p": 0.999
+    },
+    {
+     "start": 16.1,
+     "end": 16.32,
+     "word": "peace,",
+     "p": 0.999
+    },
+    {
+     "start": 16.46,
+     "end": 16.88,
+     "word": "silently",
+     "p": 1.0
+    },
+    {
+     "start": 16.88,
+     "end": 17.24,
+     "word": "praying",
+     "p": 0.999
+    },
+    {
+     "start": 17.24,
+     "end": 17.46,
+     "word": "the",
+     "p": 0.998
+    },
+    {
+     "start": 17.46,
+     "end": 17.64,
+     "word": "teacher",
+     "p": 1.0
+    },
+    {
+     "start": 17.64,
+     "end": 17.88,
+     "word": "forgot",
+     "p": 1.0
+    },
+    {
+     "start": 17.88,
+     "end": 18.18,
+     "word": "about",
+     "p": 1.0
+    },
+    {
+     "start": 18.18,
+     "end": 18.32,
+     "word": "the",
+     "p": 1.0
+    },
+    {
+     "start": 18.32,
+     "end": 18.58,
+     "word": "homework,",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 18.78,
+   "end": 19.82,
+   "text": "out of nowhere she goes,",
+   "words": [
+    {
+     "start": 18.78,
+     "end": 18.98,
+     "word": "out",
+     "p": 0.997
+    },
+    {
+     "start": 18.98,
+     "end": 19.1,
+     "word": "of",
+     "p": 1.0
+    },
+    {
+     "start": 19.1,
+     "end": 19.34,
+     "word": "nowhere",
+     "p": 1.0
+    },
+    {
+     "start": 19.34,
+     "end": 19.54,
+     "word": "she",
+     "p": 0.868
+    },
+    {
+     "start": 19.54,
+     "end": 19.82,
+     "word": "goes,",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 19.96,
+   "end": 21.58,
+   "text": "Um, didn't we have homework due today?",
+   "words": [
+    {
+     "start": 19.96,
+     "end": 20.14,
+     "word": "Um,",
+     "p": 0.984
+    },
+    {
+     "start": 20.36,
+     "end": 20.74,
+     "word": "didn't",
+     "p": 1.0
+    },
+    {
+     "start": 20.74,
+     "end": 20.78,
+     "word": "we",
+     "p": 1.0
+    },
+    {
+     "start": 20.78,
+     "end": 20.94,
+     "word": "have",
+     "p": 1.0
+    },
+    {
+     "start": 20.94,
+     "end": 21.22,
+     "word": "homework",
+     "p": 1.0
+    },
+    {
+     "start": 21.22,
+     "end": 21.4,
+     "word": "due",
+     "p": 0.991
+    },
+    {
+     "start": 21.4,
+     "end": 21.58,
+     "word": "today?",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 21.78,
+   "end": 23.14,
+   "text": "Bro, whose side are you on?",
+   "words": [
+    {
+     "start": 21.78,
+     "end": 22.14,
+     "word": "Bro,",
+     "p": 0.999
+    },
+    {
+     "start": 22.28,
+     "end": 22.42,
+     "word": "whose",
+     "p": 0.997
+    },
+    {
+     "start": 22.42,
+     "end": 22.64,
+     "word": "side",
+     "p": 1.0
+    },
+    {
+     "start": 22.64,
+     "end": 22.8,
+     "word": "are",
+     "p": 1.0
+    },
+    {
+     "start": 22.8,
+     "end": 22.92,
+     "word": "you",
+     "p": 1.0
+    },
+    {
+     "start": 22.92,
+     "end": 23.14,
+     "word": "on?",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 23.32,
+   "end": 25.54,
+   "text": "At this point, I'm taking matters into my own hands.",
+   "words": [
+    {
+     "start": 23.32,
+     "end": 23.64,
+     "word": "At",
+     "p": 1.0
+    },
+    {
+     "start": 23.64,
+     "end": 23.78,
+     "word": "this",
+     "p": 1.0
+    },
+    {
+     "start": 23.78,
+     "end": 24.06,
+     "word": "point,",
+     "p": 1.0
+    },
+    {
+     "start": 24.1,
+     "end": 24.36,
+     "word": "I'm",
+     "p": 1.0
+    },
+    {
+     "start": 24.36,
+     "end": 24.54,
+     "word": "taking",
+     "p": 1.0
+    },
+    {
+     "start": 24.54,
+     "end": 24.82,
+     "word": "matters",
+     "p": 1.0
+    },
+    {
+     "start": 24.82,
+     "end": 25.02,
+     "word": "into",
+     "p": 1.0
+    },
+    {
+     "start": 25.02,
+     "end": 25.14,
+     "word": "my",
+     "p": 1.0
+    },
+    {
+     "start": 25.14,
+     "end": 25.32,
+     "word": "own",
+     "p": 1.0
+    },
+    {
+     "start": 25.32,
+     "end": 25.54,
+     "word": "hands.",
+     "p": 0.996
+    }
+   ]
+  }
+ ],
+ "file": "004 - Why are Teacher's Pets like this - 6.2M.mp4",
+ "stats": {
+  "words": 92,
+  "first_word": 0.0,
+  "last_word_end": 25.54,
+  "words_per_s": 3.6,
+  "pauses": [
+   {
+    "from": 14.28,
+    "to": 14.8,
+    "s": 0.52
+   }
+  ],
+  "low_confidence": [
+   {
+    "t": 6.38,
+    "word": "little",
+    "p": 0.462
+   }
+  ]
+ }
+}

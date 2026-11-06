@@ -1,0 +1,72 @@
+{
+ "file": "011 - In This World When You Hold Hands For The First Time You See The Relationship's End - 2.1M.mp4",
+ "size": "1080x1920",
+ "fps": 60.0,
+ "duration": 32.69,
+ "cuts": [
+  0.633,
+  3.133,
+  3.967,
+  5.117,
+  5.917,
+  6.717,
+  7.417,
+  8.45,
+  9.783,
+  10.517,
+  11.067,
+  11.583,
+  13.317,
+  14.05,
+  14.783,
+  15.633,
+  17.867,
+  19.133,
+  20.4,
+  22.0,
+  22.367,
+  23.433,
+  25.067,
+  25.4,
+  26.233,
+  26.75,
+  27.017,
+  28.15,
+  29.983,
+  31.417
+ ],
+ "shots": 31,
+ "shot_median": 0.85,
+ "shot_mean": 1.05,
+ "shot_min": 0.27,
+ "shot_max": 2.5,
+ "first_cut": 0.63,
+ "shot_lengths": {
+  "0-0.5 s": 3,
+  "0.5-1 s": 13,
+  "1-2 s": 13,
+  "2-4 s": 2,
+  "over 4 s": 0
+ },
+ "transients": 0,
+ "cuts_per_5s": [
+  3,
+  6,
+  6,
+  3,
+  4,
+  7,
+  1
+ ],
+ "loudness": {
+  "I": -13.7,
+  "LRA": 1.9,
+  "TP": -0.1
+ },
+ "flash_problems": [],
+ "black": [],
+ "freeze": [],
+ "sheets": [
+  "build\\analysis\\r6rants\\011 - In This World When You Hold Hands For The First Time You See The Relationship's End - 2.1M\\shots_00.jpg"
+ ]
+}

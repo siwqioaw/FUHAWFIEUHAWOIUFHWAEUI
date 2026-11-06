@@ -1,0 +1,683 @@
+{
+ "language": "en",
+ "duration": 28.21,
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 2.06,
+   "text": "Bro, why are popular girls so annoying?",
+   "words": [
+    {
+     "start": 0.0,
+     "end": 0.26,
+     "word": "Bro,",
+     "p": 0.761
+    },
+    {
+     "start": 0.4,
+     "end": 0.74,
+     "word": "why",
+     "p": 0.971
+    },
+    {
+     "start": 0.74,
+     "end": 0.9,
+     "word": "are",
+     "p": 0.994
+    },
+    {
+     "start": 0.9,
+     "end": 1.18,
+     "word": "popular",
+     "p": 0.993
+    },
+    {
+     "start": 1.18,
+     "end": 1.52,
+     "word": "girls",
+     "p": 0.996
+    },
+    {
+     "start": 1.52,
+     "end": 1.72,
+     "word": "so",
+     "p": 0.992
+    },
+    {
+     "start": 1.72,
+     "end": 2.06,
+     "word": "annoying?",
+     "p": 0.956
+    }
+   ]
+  },
+  {
+   "start": 2.24,
+   "end": 4.22,
+   "text": "Like she walks into class 20 minutes late,",
+   "words": [
+    {
+     "start": 2.24,
+     "end": 2.7,
+     "word": "Like",
+     "p": 0.964
+    },
+    {
+     "start": 2.7,
+     "end": 2.78,
+     "word": "she",
+     "p": 0.784
+    },
+    {
+     "start": 2.78,
+     "end": 3.02,
+     "word": "walks",
+     "p": 0.996
+    },
+    {
+     "start": 3.02,
+     "end": 3.18,
+     "word": "into",
+     "p": 0.969
+    },
+    {
+     "start": 3.18,
+     "end": 3.46,
+     "word": "class",
+     "p": 0.992
+    },
+    {
+     "start": 3.46,
+     "end": 3.72,
+     "word": "20",
+     "p": 0.801
+    },
+    {
+     "start": 3.72,
+     "end": 3.92,
+     "word": "minutes",
+     "p": 0.986
+    },
+    {
+     "start": 3.92,
+     "end": 4.22,
+     "word": "late,",
+     "p": 0.998
+    }
+   ]
+  },
+  {
+   "start": 4.38,
+   "end": 6.4,
+   "text": "sits down, gives me the side eye,",
+   "words": [
+    {
+     "start": 4.38,
+     "end": 4.7,
+     "word": "sits",
+     "p": 0.951
+    },
+    {
+     "start": 4.7,
+     "end": 5.1,
+     "word": "down,",
+     "p": 1.0
+    },
+    {
+     "start": 5.22,
+     "end": 5.64,
+     "word": "gives",
+     "p": 0.986
+    },
+    {
+     "start": 5.64,
+     "end": 5.8,
+     "word": "me",
+     "p": 0.998
+    },
+    {
+     "start": 5.8,
+     "end": 5.94,
+     "word": "the",
+     "p": 0.99
+    },
+    {
+     "start": 5.94,
+     "end": 6.18,
+     "word": "side",
+     "p": 0.993
+    },
+    {
+     "start": 6.18,
+     "end": 6.4,
+     "word": "eye,",
+     "p": 0.65
+    }
+   ]
+  },
+  {
+   "start": 6.56,
+   "end": 7.64,
+   "text": "turns to her friend,",
+   "words": [
+    {
+     "start": 6.56,
+     "end": 7.0,
+     "word": "turns",
+     "p": 0.978
+    },
+    {
+     "start": 7.0,
+     "end": 7.2,
+     "word": "to",
+     "p": 0.999
+    },
+    {
+     "start": 7.2,
+     "end": 7.32,
+     "word": "her",
+     "p": 0.994
+    },
+    {
+     "start": 7.32,
+     "end": 7.64,
+     "word": "friend,",
+     "p": 0.996
+    }
+   ]
+  },
+  {
+   "start": 7.8,
+   "end": 9.26,
+   "text": "and they both start laughing.",
+   "words": [
+    {
+     "start": 7.8,
+     "end": 8.0,
+     "word": "and",
+     "p": 0.672
+    },
+    {
+     "start": 8.0,
+     "end": 8.14,
+     "word": "they",
+     "p": 0.99
+    },
+    {
+     "start": 8.14,
+     "end": 8.38,
+     "word": "both",
+     "p": 0.999
+    },
+    {
+     "start": 8.38,
+     "end": 8.64,
+     "word": "start",
+     "p": 0.994
+    },
+    {
+     "start": 8.64,
+     "end": 9.26,
+     "word": "laughing.",
+     "p": 0.992
+    }
+   ]
+  },
+  {
+   "start": 9.36,
+   "end": 10.26,
+   "text": "What's so funny?",
+   "words": [
+    {
+     "start": 9.36,
+     "end": 9.84,
+     "word": "What's",
+     "p": 0.995
+    },
+    {
+     "start": 9.84,
+     "end": 9.9,
+     "word": "so",
+     "p": 0.999
+    },
+    {
+     "start": 9.9,
+     "end": 10.26,
+     "word": "funny?",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 10.32,
+   "end": 11.84,
+   "text": "And don't get me started on presentations.",
+   "words": [
+    {
+     "start": 10.32,
+     "end": 10.64,
+     "word": "And",
+     "p": 0.998
+    },
+    {
+     "start": 10.64,
+     "end": 10.82,
+     "word": "don't",
+     "p": 0.999
+    },
+    {
+     "start": 10.82,
+     "end": 10.92,
+     "word": "get",
+     "p": 0.999
+    },
+    {
+     "start": 10.92,
+     "end": 11.0,
+     "word": "me",
+     "p": 0.999
+    },
+    {
+     "start": 11.0,
+     "end": 11.28,
+     "word": "started",
+     "p": 1.0
+    },
+    {
+     "start": 11.28,
+     "end": 11.46,
+     "word": "on",
+     "p": 1.0
+    },
+    {
+     "start": 11.46,
+     "end": 11.84,
+     "word": "presentations.",
+     "p": 0.996
+    }
+   ]
+  },
+  {
+   "start": 12.28,
+   "end": 14.76,
+   "text": "She gets up, opens her mouth, and starts laughing again.",
+   "words": [
+    {
+     "start": 12.28,
+     "end": 12.6,
+     "word": "She",
+     "p": 0.999
+    },
+    {
+     "start": 12.6,
+     "end": 12.78,
+     "word": "gets",
+     "p": 1.0
+    },
+    {
+     "start": 12.78,
+     "end": 13.02,
+     "word": "up,",
+     "p": 1.0
+    },
+    {
+     "start": 13.02,
+     "end": 13.26,
+     "word": "opens",
+     "p": 1.0
+    },
+    {
+     "start": 13.26,
+     "end": 13.42,
+     "word": "her",
+     "p": 1.0
+    },
+    {
+     "start": 13.42,
+     "end": 13.66,
+     "word": "mouth,",
+     "p": 1.0
+    },
+    {
+     "start": 13.72,
+     "end": 13.78,
+     "word": "and",
+     "p": 1.0
+    },
+    {
+     "start": 13.78,
+     "end": 14.0,
+     "word": "starts",
+     "p": 1.0
+    },
+    {
+     "start": 14.0,
+     "end": 14.36,
+     "word": "laughing",
+     "p": 0.996
+    },
+    {
+     "start": 14.36,
+     "end": 14.76,
+     "word": "again.",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 15.1,
+   "end": 16.8,
+   "text": "Brad, stop making me laugh!",
+   "words": [
+    {
+     "start": 15.1,
+     "end": 15.54,
+     "word": "Brad,",
+     "p": 0.988
+    },
+    {
+     "start": 15.7,
+     "end": 16.02,
+     "word": "stop",
+     "p": 1.0
+    },
+    {
+     "start": 16.02,
+     "end": 16.3,
+     "word": "making",
+     "p": 1.0
+    },
+    {
+     "start": 16.3,
+     "end": 16.52,
+     "word": "me",
+     "p": 1.0
+    },
+    {
+     "start": 16.52,
+     "end": 16.8,
+     "word": "laugh!",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 17.12,
+   "end": 18.2,
+   "text": "Brad is asleep.",
+   "words": [
+    {
+     "start": 17.12,
+     "end": 17.56,
+     "word": "Brad",
+     "p": 0.993
+    },
+    {
+     "start": 17.56,
+     "end": 17.88,
+     "word": "is",
+     "p": 1.0
+    },
+    {
+     "start": 17.88,
+     "end": 18.2,
+     "word": "asleep.",
+     "p": 0.992
+    }
+   ]
+  },
+  {
+   "start": 18.64,
+   "end": 19.32,
+   "text": "What do you mean?",
+   "words": [
+    {
+     "start": 18.64,
+     "end": 19.04,
+     "word": "What",
+     "p": 0.999
+    },
+    {
+     "start": 19.04,
+     "end": 19.1,
+     "word": "do",
+     "p": 1.0
+    },
+    {
+     "start": 19.1,
+     "end": 19.12,
+     "word": "you",
+     "p": 1.0
+    },
+    {
+     "start": 19.12,
+     "end": 19.32,
+     "word": "mean?",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 19.48,
+   "end": 21.16,
+   "text": "And she's always trying to get compliments.",
+   "words": [
+    {
+     "start": 19.48,
+     "end": 19.86,
+     "word": "And",
+     "p": 1.0
+    },
+    {
+     "start": 19.86,
+     "end": 20.02,
+     "word": "she's",
+     "p": 1.0
+    },
+    {
+     "start": 20.02,
+     "end": 20.24,
+     "word": "always",
+     "p": 1.0
+    },
+    {
+     "start": 20.24,
+     "end": 20.52,
+     "word": "trying",
+     "p": 1.0
+    },
+    {
+     "start": 20.52,
+     "end": 20.66,
+     "word": "to",
+     "p": 1.0
+    },
+    {
+     "start": 20.66,
+     "end": 20.78,
+     "word": "get",
+     "p": 1.0
+    },
+    {
+     "start": 20.78,
+     "end": 21.16,
+     "word": "compliments.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 21.44,
+   "end": 23.02,
+   "text": "The class is completely silent,",
+   "words": [
+    {
+     "start": 21.44,
+     "end": 21.68,
+     "word": "The",
+     "p": 1.0
+    },
+    {
+     "start": 21.68,
+     "end": 21.92,
+     "word": "class",
+     "p": 1.0
+    },
+    {
+     "start": 21.92,
+     "end": 22.1,
+     "word": "is",
+     "p": 1.0
+    },
+    {
+     "start": 22.1,
+     "end": 22.4,
+     "word": "completely",
+     "p": 1.0
+    },
+    {
+     "start": 22.4,
+     "end": 23.02,
+     "word": "silent,",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 23.16,
+   "end": 24.46,
+   "text": "and then out of nowhere she goes,",
+   "words": [
+    {
+     "start": 23.16,
+     "end": 23.42,
+     "word": "and",
+     "p": 1.0
+    },
+    {
+     "start": 23.42,
+     "end": 23.54,
+     "word": "then",
+     "p": 1.0
+    },
+    {
+     "start": 23.54,
+     "end": 23.66,
+     "word": "out",
+     "p": 0.999
+    },
+    {
+     "start": 23.66,
+     "end": 23.78,
+     "word": "of",
+     "p": 1.0
+    },
+    {
+     "start": 23.78,
+     "end": 24.0,
+     "word": "nowhere",
+     "p": 1.0
+    },
+    {
+     "start": 24.0,
+     "end": 24.26,
+     "word": "she",
+     "p": 0.912
+    },
+    {
+     "start": 24.26,
+     "end": 24.46,
+     "word": "goes,",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 24.58,
+   "end": 25.92,
+   "text": "I look so bad today.",
+   "words": [
+    {
+     "start": 24.58,
+     "end": 24.8,
+     "word": "I",
+     "p": 0.994
+    },
+    {
+     "start": 24.8,
+     "end": 25.02,
+     "word": "look",
+     "p": 0.996
+    },
+    {
+     "start": 25.02,
+     "end": 25.24,
+     "word": "so",
+     "p": 1.0
+    },
+    {
+     "start": 25.24,
+     "end": 25.56,
+     "word": "bad",
+     "p": 1.0
+    },
+    {
+     "start": 25.56,
+     "end": 25.92,
+     "word": "today.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 26.3,
+   "end": 27.58,
+   "text": "Bro, we know.",
+   "words": [
+    {
+     "start": 26.3,
+     "end": 26.78,
+     "word": "Bro,",
+     "p": 0.993
+    },
+    {
+     "start": 26.8,
+     "end": 27.28,
+     "word": "we",
+     "p": 0.999
+    },
+    {
+     "start": 27.28,
+     "end": 27.58,
+     "word": "know.",
+     "p": 1.0
+    }
+   ]
+  }
+ ],
+ "file": "001 - Why Do POPULAR Girls Do This - 9.9M.mp4",
+ "stats": {
+  "words": 90,
+  "first_word": 0.0,
+  "last_word_end": 27.58,
+  "words_per_s": 3.26,
+  "pauses": [
+   {
+    "from": 11.84,
+    "to": 12.28,
+    "s": 0.44
+   },
+   {
+    "from": 18.2,
+    "to": 18.64,
+    "s": 0.44
+   },
+   {
+    "from": 25.92,
+    "to": 26.3,
+    "s": 0.38
+   }
+  ],
+  "low_confidence": []
+ }
+}

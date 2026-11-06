@@ -91,3 +91,18 @@ For each video, `analyze.py` reports:
 
 Then write a short table of what the references have in common, and what they vary. That becomes the spec for the
 first video. Score the cut detection on one of your own renders before trusting it (`--truth`).
+
+What the first reference set taught about these tools (`refs/r6rants/`, 16 animated Roblox Shorts):
+
+- **Raw cut counts overstate the pace of animated footage.** Snappy pose animation (a big pose reached in 4 to 6
+  frames at 60 fps) and fast camera moves read as runs of cuts: on the top video, 31 raw cuts were about 17 real ones
+  (median raw shot 0.36 s, real about 1.6 s). `analyze.py` now also counts cuts within 0.3 s of each other once.
+  Neither count sees a camera swoop that moves from one framing to another over 6 to 10 frames. Look at strips
+  (`sheets.py strip`) around every run of cuts.
+- **The words come from `transcribe.py`** (a speech-to-text model run on the CPU here: about 3 s per second of audio when
+  the machine is otherwise idle, much slower when it isn't). It hears song lyrics as words in music-only videos.
+- **`study.py` lays out what a viewer sees and hears:** the first 3 s every quarter second, the whole video every
+  half second labelled with the words said, and a map of the sound with the cuts and the onsets outside speech. It
+  shows where a sound hits, not what it is: for that, `docs/prompts/listener-pass.md`.
+- **Whole-video decodes ran out of memory** on a 157 s, 60 fps reference (6.5 GB at 180 px wide). The frame checks
+  now read the video in chunks.

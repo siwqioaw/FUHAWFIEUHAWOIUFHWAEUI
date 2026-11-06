@@ -1,0 +1,1024 @@
+{
+ "language": "en",
+ "duration": 36.62,
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 3.8,
+   "text": "A delivery driver noticed an old man ordering the exact same meal every night.",
+   "words": [
+    {
+     "start": 0.0,
+     "end": 0.06,
+     "word": "A",
+     "p": 0.558
+    },
+    {
+     "start": 0.06,
+     "end": 0.26,
+     "word": "delivery",
+     "p": 0.981
+    },
+    {
+     "start": 0.26,
+     "end": 0.6,
+     "word": "driver",
+     "p": 0.992
+    },
+    {
+     "start": 0.6,
+     "end": 0.94,
+     "word": "noticed",
+     "p": 0.989
+    },
+    {
+     "start": 0.94,
+     "end": 1.18,
+     "word": "an",
+     "p": 0.991
+    },
+    {
+     "start": 1.18,
+     "end": 1.36,
+     "word": "old",
+     "p": 0.994
+    },
+    {
+     "start": 1.36,
+     "end": 1.66,
+     "word": "man",
+     "p": 0.999
+    },
+    {
+     "start": 1.66,
+     "end": 2.02,
+     "word": "ordering",
+     "p": 0.991
+    },
+    {
+     "start": 2.02,
+     "end": 2.26,
+     "word": "the",
+     "p": 0.994
+    },
+    {
+     "start": 2.26,
+     "end": 2.5,
+     "word": "exact",
+     "p": 0.98
+    },
+    {
+     "start": 2.5,
+     "end": 2.84,
+     "word": "same",
+     "p": 0.998
+    },
+    {
+     "start": 2.84,
+     "end": 3.24,
+     "word": "meal",
+     "p": 0.994
+    },
+    {
+     "start": 3.24,
+     "end": 3.52,
+     "word": "every",
+     "p": 0.988
+    },
+    {
+     "start": 3.52,
+     "end": 3.8,
+     "word": "night.",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 3.94,
+   "end": 6.14,
+   "text": "Two soups, two drinks, two slices of pie.",
+   "words": [
+    {
+     "start": 3.94,
+     "end": 4.06,
+     "word": "Two",
+     "p": 0.917
+    },
+    {
+     "start": 4.06,
+     "end": 4.58,
+     "word": "soups,",
+     "p": 0.995
+    },
+    {
+     "start": 4.58,
+     "end": 4.74,
+     "word": "two",
+     "p": 0.988
+    },
+    {
+     "start": 4.74,
+     "end": 5.12,
+     "word": "drinks,",
+     "p": 0.999
+    },
+    {
+     "start": 5.22,
+     "end": 5.42,
+     "word": "two",
+     "p": 0.994
+    },
+    {
+     "start": 5.42,
+     "end": 5.74,
+     "word": "slices",
+     "p": 0.998
+    },
+    {
+     "start": 5.74,
+     "end": 5.96,
+     "word": "of",
+     "p": 0.992
+    },
+    {
+     "start": 5.96,
+     "end": 6.14,
+     "word": "pie.",
+     "p": 0.998
+    }
+   ]
+  },
+  {
+   "start": 6.38,
+   "end": 8.34,
+   "text": "But the strange part was, he always ate alone.",
+   "words": [
+    {
+     "start": 6.38,
+     "end": 6.52,
+     "word": "But",
+     "p": 0.992
+    },
+    {
+     "start": 6.52,
+     "end": 6.58,
+     "word": "the",
+     "p": 0.987
+    },
+    {
+     "start": 6.58,
+     "end": 6.82,
+     "word": "strange",
+     "p": 0.998
+    },
+    {
+     "start": 6.82,
+     "end": 7.04,
+     "word": "part",
+     "p": 0.999
+    },
+    {
+     "start": 7.04,
+     "end": 7.32,
+     "word": "was,",
+     "p": 0.996
+    },
+    {
+     "start": 7.4,
+     "end": 7.52,
+     "word": "he",
+     "p": 0.997
+    },
+    {
+     "start": 7.52,
+     "end": 7.84,
+     "word": "always",
+     "p": 0.996
+    },
+    {
+     "start": 7.84,
+     "end": 8.14,
+     "word": "ate",
+     "p": 0.998
+    },
+    {
+     "start": 8.14,
+     "end": 8.34,
+     "word": "alone.",
+     "p": 0.998
+    }
+   ]
+  },
+  {
+   "start": 8.68,
+   "end": 10.24,
+   "text": "One night, the driver finally asked why.",
+   "words": [
+    {
+     "start": 8.68,
+     "end": 8.82,
+     "word": "One",
+     "p": 0.997
+    },
+    {
+     "start": 8.82,
+     "end": 9.06,
+     "word": "night,",
+     "p": 0.999
+    },
+    {
+     "start": 9.12,
+     "end": 9.18,
+     "word": "the",
+     "p": 0.998
+    },
+    {
+     "start": 9.18,
+     "end": 9.4,
+     "word": "driver",
+     "p": 0.998
+    },
+    {
+     "start": 9.4,
+     "end": 9.74,
+     "word": "finally",
+     "p": 0.994
+    },
+    {
+     "start": 9.74,
+     "end": 10.02,
+     "word": "asked",
+     "p": 0.997
+    },
+    {
+     "start": 10.02,
+     "end": 10.24,
+     "word": "why.",
+     "p": 0.979
+    }
+   ]
+  },
+  {
+   "start": 10.52,
+   "end": 13.78,
+   "text": "The old man smiled sadly and pointed at the empty chair across from him.",
+   "words": [
+    {
+     "start": 10.52,
+     "end": 10.7,
+     "word": "The",
+     "p": 0.997
+    },
+    {
+     "start": 10.7,
+     "end": 10.84,
+     "word": "old",
+     "p": 0.997
+    },
+    {
+     "start": 10.84,
+     "end": 11.02,
+     "word": "man",
+     "p": 0.999
+    },
+    {
+     "start": 11.02,
+     "end": 11.34,
+     "word": "smiled",
+     "p": 0.997
+    },
+    {
+     "start": 11.34,
+     "end": 11.88,
+     "word": "sadly",
+     "p": 0.992
+    },
+    {
+     "start": 11.88,
+     "end": 12.12,
+     "word": "and",
+     "p": 0.854
+    },
+    {
+     "start": 12.12,
+     "end": 12.42,
+     "word": "pointed",
+     "p": 0.998
+    },
+    {
+     "start": 12.42,
+     "end": 12.58,
+     "word": "at",
+     "p": 0.997
+    },
+    {
+     "start": 12.58,
+     "end": 12.64,
+     "word": "the",
+     "p": 0.999
+    },
+    {
+     "start": 12.64,
+     "end": 12.82,
+     "word": "empty",
+     "p": 0.998
+    },
+    {
+     "start": 12.82,
+     "end": 13.1,
+     "word": "chair",
+     "p": 0.998
+    },
+    {
+     "start": 13.1,
+     "end": 13.38,
+     "word": "across",
+     "p": 0.998
+    },
+    {
+     "start": 13.38,
+     "end": 13.66,
+     "word": "from",
+     "p": 0.997
+    },
+    {
+     "start": 13.66,
+     "end": 13.78,
+     "word": "him.",
+     "p": 0.992
+    }
+   ]
+  },
+  {
+   "start": 13.92,
+   "end": 15.02,
+   "text": "My wife used to sit there.",
+   "words": [
+    {
+     "start": 13.92,
+     "end": 14.06,
+     "word": "My",
+     "p": 0.755
+    },
+    {
+     "start": 14.06,
+     "end": 14.32,
+     "word": "wife",
+     "p": 1.0
+    },
+    {
+     "start": 14.32,
+     "end": 14.5,
+     "word": "used",
+     "p": 0.998
+    },
+    {
+     "start": 14.5,
+     "end": 14.66,
+     "word": "to",
+     "p": 0.999
+    },
+    {
+     "start": 14.66,
+     "end": 14.82,
+     "word": "sit",
+     "p": 0.999
+    },
+    {
+     "start": 14.82,
+     "end": 15.02,
+     "word": "there.",
+     "p": 0.998
+    }
+   ]
+  },
+  {
+   "start": 15.18,
+   "end": 18.26,
+   "text": "She passed away three years ago, but eating alone feels colder.",
+   "words": [
+    {
+     "start": 15.18,
+     "end": 15.38,
+     "word": "She",
+     "p": 0.997
+    },
+    {
+     "start": 15.38,
+     "end": 15.58,
+     "word": "passed",
+     "p": 0.998
+    },
+    {
+     "start": 15.58,
+     "end": 15.82,
+     "word": "away",
+     "p": 0.999
+    },
+    {
+     "start": 15.82,
+     "end": 16.04,
+     "word": "three",
+     "p": 0.941
+    },
+    {
+     "start": 16.04,
+     "end": 16.26,
+     "word": "years",
+     "p": 0.999
+    },
+    {
+     "start": 16.26,
+     "end": 16.56,
+     "word": "ago,",
+     "p": 1.0
+    },
+    {
+     "start": 16.66,
+     "end": 16.9,
+     "word": "but",
+     "p": 0.994
+    },
+    {
+     "start": 16.9,
+     "end": 17.1,
+     "word": "eating",
+     "p": 0.999
+    },
+    {
+     "start": 17.1,
+     "end": 17.32,
+     "word": "alone",
+     "p": 0.999
+    },
+    {
+     "start": 17.32,
+     "end": 17.78,
+     "word": "feels",
+     "p": 0.998
+    },
+    {
+     "start": 17.78,
+     "end": 18.26,
+     "word": "colder.",
+     "p": 0.98
+    }
+   ]
+  },
+  {
+   "start": 18.54,
+   "end": 21.92,
+   "text": "The next day, the driver brought him a free homemade dessert and stayed to eat with him.",
+   "words": [
+    {
+     "start": 18.54,
+     "end": 18.68,
+     "word": "The",
+     "p": 0.996
+    },
+    {
+     "start": 18.68,
+     "end": 18.82,
+     "word": "next",
+     "p": 1.0
+    },
+    {
+     "start": 18.82,
+     "end": 19.02,
+     "word": "day,",
+     "p": 0.999
+    },
+    {
+     "start": 19.04,
+     "end": 19.1,
+     "word": "the",
+     "p": 0.999
+    },
+    {
+     "start": 19.1,
+     "end": 19.32,
+     "word": "driver",
+     "p": 0.999
+    },
+    {
+     "start": 19.32,
+     "end": 19.6,
+     "word": "brought",
+     "p": 0.992
+    },
+    {
+     "start": 19.6,
+     "end": 19.72,
+     "word": "him",
+     "p": 0.993
+    },
+    {
+     "start": 19.72,
+     "end": 19.84,
+     "word": "a",
+     "p": 0.999
+    },
+    {
+     "start": 19.84,
+     "end": 20.02,
+     "word": "free",
+     "p": 0.998
+    },
+    {
+     "start": 20.02,
+     "end": 20.34,
+     "word": "homemade",
+     "p": 0.741
+    },
+    {
+     "start": 20.34,
+     "end": 20.8,
+     "word": "dessert",
+     "p": 0.979
+    },
+    {
+     "start": 20.8,
+     "end": 21.06,
+     "word": "and",
+     "p": 0.976
+    },
+    {
+     "start": 21.06,
+     "end": 21.26,
+     "word": "stayed",
+     "p": 0.998
+    },
+    {
+     "start": 21.26,
+     "end": 21.46,
+     "word": "to",
+     "p": 0.999
+    },
+    {
+     "start": 21.46,
+     "end": 21.64,
+     "word": "eat",
+     "p": 1.0
+    },
+    {
+     "start": 21.64,
+     "end": 21.8,
+     "word": "with",
+     "p": 0.997
+    },
+    {
+     "start": 21.8,
+     "end": 21.92,
+     "word": "him.",
+     "p": 0.991
+    }
+   ]
+  },
+  {
+   "start": 22.02,
+   "end": 24.46,
+   "text": "After that, he sat with the old man every night after work.",
+   "words": [
+    {
+     "start": 22.02,
+     "end": 22.22,
+     "word": "After",
+     "p": 0.998
+    },
+    {
+     "start": 22.22,
+     "end": 22.42,
+     "word": "that,",
+     "p": 1.0
+    },
+    {
+     "start": 22.5,
+     "end": 22.58,
+     "word": "he",
+     "p": 0.999
+    },
+    {
+     "start": 22.58,
+     "end": 22.74,
+     "word": "sat",
+     "p": 0.998
+    },
+    {
+     "start": 22.74,
+     "end": 22.94,
+     "word": "with",
+     "p": 0.999
+    },
+    {
+     "start": 22.94,
+     "end": 23.02,
+     "word": "the",
+     "p": 0.999
+    },
+    {
+     "start": 23.02,
+     "end": 23.16,
+     "word": "old",
+     "p": 0.999
+    },
+    {
+     "start": 23.16,
+     "end": 23.36,
+     "word": "man",
+     "p": 1.0
+    },
+    {
+     "start": 23.36,
+     "end": 23.66,
+     "word": "every",
+     "p": 0.998
+    },
+    {
+     "start": 23.66,
+     "end": 23.88,
+     "word": "night",
+     "p": 1.0
+    },
+    {
+     "start": 23.88,
+     "end": 24.14,
+     "word": "after",
+     "p": 0.998
+    },
+    {
+     "start": 24.14,
+     "end": 24.46,
+     "word": "work.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 24.58,
+   "end": 26.3,
+   "text": "Then one evening, nobody answered the door.",
+   "words": [
+    {
+     "start": 24.58,
+     "end": 24.78,
+     "word": "Then",
+     "p": 0.998
+    },
+    {
+     "start": 24.78,
+     "end": 24.92,
+     "word": "one",
+     "p": 0.892
+    },
+    {
+     "start": 24.92,
+     "end": 25.2,
+     "word": "evening,",
+     "p": 1.0
+    },
+    {
+     "start": 25.3,
+     "end": 25.56,
+     "word": "nobody",
+     "p": 0.998
+    },
+    {
+     "start": 25.56,
+     "end": 25.92,
+     "word": "answered",
+     "p": 0.999
+    },
+    {
+     "start": 25.92,
+     "end": 26.1,
+     "word": "the",
+     "p": 1.0
+    },
+    {
+     "start": 26.1,
+     "end": 26.3,
+     "word": "door.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 26.48,
+   "end": 29.18,
+   "text": "A neighbor quietly told him the old man had passed away in his sleep.",
+   "words": [
+    {
+     "start": 26.48,
+     "end": 26.66,
+     "word": "A",
+     "p": 0.998
+    },
+    {
+     "start": 26.66,
+     "end": 26.86,
+     "word": "neighbor",
+     "p": 0.978
+    },
+    {
+     "start": 26.86,
+     "end": 27.18,
+     "word": "quietly",
+     "p": 0.998
+    },
+    {
+     "start": 27.18,
+     "end": 27.48,
+     "word": "told",
+     "p": 1.0
+    },
+    {
+     "start": 27.48,
+     "end": 27.64,
+     "word": "him",
+     "p": 0.997
+    },
+    {
+     "start": 27.64,
+     "end": 27.72,
+     "word": "the",
+     "p": 0.996
+    },
+    {
+     "start": 27.72,
+     "end": 27.86,
+     "word": "old",
+     "p": 1.0
+    },
+    {
+     "start": 27.86,
+     "end": 28.06,
+     "word": "man",
+     "p": 1.0
+    },
+    {
+     "start": 28.06,
+     "end": 28.2,
+     "word": "had",
+     "p": 0.996
+    },
+    {
+     "start": 28.2,
+     "end": 28.42,
+     "word": "passed",
+     "p": 0.999
+    },
+    {
+     "start": 28.42,
+     "end": 28.66,
+     "word": "away",
+     "p": 0.999
+    },
+    {
+     "start": 28.66,
+     "end": 28.82,
+     "word": "in",
+     "p": 0.998
+    },
+    {
+     "start": 28.82,
+     "end": 28.92,
+     "word": "his",
+     "p": 0.999
+    },
+    {
+     "start": 28.92,
+     "end": 29.18,
+     "word": "sleep.",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 29.18,
+   "end": 32.32,
+   "text": "A week later, the driver received a letter the old man had written before he died.",
+   "words": [
+    {
+     "start": 29.18,
+     "end": 29.46,
+     "word": "A",
+     "p": 0.919
+    },
+    {
+     "start": 29.46,
+     "end": 29.58,
+     "word": "week",
+     "p": 0.995
+    },
+    {
+     "start": 29.58,
+     "end": 29.84,
+     "word": "later,",
+     "p": 0.999
+    },
+    {
+     "start": 29.9,
+     "end": 29.96,
+     "word": "the",
+     "p": 0.997
+    },
+    {
+     "start": 29.96,
+     "end": 30.16,
+     "word": "driver",
+     "p": 0.996
+    },
+    {
+     "start": 30.16,
+     "end": 30.5,
+     "word": "received",
+     "p": 0.989
+    },
+    {
+     "start": 30.5,
+     "end": 30.7,
+     "word": "a",
+     "p": 0.999
+    },
+    {
+     "start": 30.7,
+     "end": 30.86,
+     "word": "letter",
+     "p": 1.0
+    },
+    {
+     "start": 30.86,
+     "end": 30.98,
+     "word": "the",
+     "p": 0.984
+    },
+    {
+     "start": 30.98,
+     "end": 31.14,
+     "word": "old",
+     "p": 0.997
+    },
+    {
+     "start": 31.14,
+     "end": 31.34,
+     "word": "man",
+     "p": 0.999
+    },
+    {
+     "start": 31.34,
+     "end": 31.52,
+     "word": "had",
+     "p": 0.998
+    },
+    {
+     "start": 31.52,
+     "end": 31.72,
+     "word": "written",
+     "p": 0.999
+    },
+    {
+     "start": 31.72,
+     "end": 31.94,
+     "word": "before",
+     "p": 0.999
+    },
+    {
+     "start": 31.94,
+     "end": 32.1,
+     "word": "he",
+     "p": 1.0
+    },
+    {
+     "start": 32.1,
+     "end": 32.32,
+     "word": "died.",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 32.52,
+   "end": 36.32,
+   "text": "Thank you for making me feel like I was waiting for someone again, instead of waiting to die.",
+   "words": [
+    {
+     "start": 32.52,
+     "end": 32.8,
+     "word": "Thank",
+     "p": 0.931
+    },
+    {
+     "start": 32.8,
+     "end": 33.0,
+     "word": "you",
+     "p": 1.0
+    },
+    {
+     "start": 33.0,
+     "end": 33.14,
+     "word": "for",
+     "p": 0.999
+    },
+    {
+     "start": 33.14,
+     "end": 33.38,
+     "word": "making",
+     "p": 1.0
+    },
+    {
+     "start": 33.38,
+     "end": 33.58,
+     "word": "me",
+     "p": 1.0
+    },
+    {
+     "start": 33.58,
+     "end": 33.8,
+     "word": "feel",
+     "p": 1.0
+    },
+    {
+     "start": 33.8,
+     "end": 33.98,
+     "word": "like",
+     "p": 1.0
+    },
+    {
+     "start": 33.98,
+     "end": 34.08,
+     "word": "I",
+     "p": 0.996
+    },
+    {
+     "start": 34.08,
+     "end": 34.24,
+     "word": "was",
+     "p": 1.0
+    },
+    {
+     "start": 34.24,
+     "end": 34.46,
+     "word": "waiting",
+     "p": 0.999
+    },
+    {
+     "start": 34.46,
+     "end": 34.66,
+     "word": "for",
+     "p": 1.0
+    },
+    {
+     "start": 34.66,
+     "end": 34.88,
+     "word": "someone",
+     "p": 1.0
+    },
+    {
+     "start": 34.88,
+     "end": 35.18,
+     "word": "again,",
+     "p": 0.999
+    },
+    {
+     "start": 35.3,
+     "end": 35.58,
+     "word": "instead",
+     "p": 0.991
+    },
+    {
+     "start": 35.58,
+     "end": 35.78,
+     "word": "of",
+     "p": 1.0
+    },
+    {
+     "start": 35.78,
+     "end": 35.94,
+     "word": "waiting",
+     "p": 0.999
+    },
+    {
+     "start": 35.94,
+     "end": 36.14,
+     "word": "to",
+     "p": 1.0
+    },
+    {
+     "start": 36.14,
+     "end": 36.32,
+     "word": "die.",
+     "p": 0.998
+    }
+   ]
+  }
+ ],
+ "file": "003 - He Ordered 2 Dinners Every Night - 6.4M.mp4",
+ "stats": {
+  "words": 153,
+  "first_word": 0.0,
+  "last_word_end": 36.32,
+  "words_per_s": 4.21,
+  "pauses": [],
+  "low_confidence": []
+ }
+}

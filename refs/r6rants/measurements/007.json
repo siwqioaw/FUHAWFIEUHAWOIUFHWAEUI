@@ -1,0 +1,72 @@
+{
+ "file": "007 - If A Gold Digger OWNED Roblox - 4.0M.mp4",
+ "size": "1080x1920",
+ "fps": 60.0,
+ "duration": 23.38,
+ "cuts": [
+  0.567,
+  0.633,
+  0.733,
+  3.033,
+  3.733,
+  6.0,
+  7.3,
+  8.667,
+  10.567,
+  12.567,
+  13.5,
+  13.65,
+  13.767,
+  13.9,
+  14.1,
+  14.217,
+  14.3,
+  15.1,
+  16.0,
+  16.667,
+  17.233,
+  18.533,
+  18.65,
+  19.05,
+  19.117,
+  19.2,
+  19.883,
+  21.65
+ ],
+ "shots": 29,
+ "shot_median": 0.67,
+ "shot_mean": 0.81,
+ "shot_min": 0.07,
+ "shot_max": 2.3,
+ "first_cut": 0.57,
+ "shot_lengths": {
+  "0-0.5 s": 12,
+  "0.5-1 s": 8,
+  "1-2 s": 6,
+  "2-4 s": 3,
+  "over 4 s": 0
+ },
+ "transients": 0,
+ "cuts_per_5s": [
+  5,
+  3,
+  9,
+  10,
+  1
+ ],
+ "loudness": {
+  "I": -12.0,
+  "LRA": 2.0,
+  "TP": 0.1
+ },
+ "flash_problems": [
+  "general flashes over region 4: 4 in the second from 18.53 s",
+  "general flashes over region 5: 5 in the second from 18.37 s",
+  "general flashes over region 8: 5 in the second from 18.37 s"
+ ],
+ "black": [],
+ "freeze": [],
+ "sheets": [
+  "build\\analysis\\r6rants\\007 - If A Gold Digger OWNED Roblox - 4.0M\\shots_00.jpg"
+ ]
+}

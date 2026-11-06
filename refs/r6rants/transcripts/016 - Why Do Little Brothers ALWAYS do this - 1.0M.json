@@ -1,0 +1,638 @@
+{
+ "language": "en",
+ "duration": 29.44,
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 2.02,
+   "text": "Bro, why are little brothers like this?",
+   "words": [
+    {
+     "start": 0.0,
+     "end": 0.22,
+     "word": "Bro,",
+     "p": 0.756
+    },
+    {
+     "start": 0.42,
+     "end": 0.9,
+     "word": "why",
+     "p": 0.976
+    },
+    {
+     "start": 0.9,
+     "end": 1.1,
+     "word": "are",
+     "p": 0.99
+    },
+    {
+     "start": 1.1,
+     "end": 1.28,
+     "word": "little",
+     "p": 0.968
+    },
+    {
+     "start": 1.28,
+     "end": 1.58,
+     "word": "brothers",
+     "p": 0.986
+    },
+    {
+     "start": 1.58,
+     "end": 1.8,
+     "word": "like",
+     "p": 0.999
+    },
+    {
+     "start": 1.8,
+     "end": 2.02,
+     "word": "this?",
+     "p": 0.998
+    }
+   ]
+  },
+  {
+   "start": 2.26,
+   "end": 4.22,
+   "text": "You'll be minding your own business, peacefully.",
+   "words": [
+    {
+     "start": 2.26,
+     "end": 2.7,
+     "word": "You'll",
+     "p": 0.978
+    },
+    {
+     "start": 2.7,
+     "end": 2.72,
+     "word": "be",
+     "p": 0.997
+    },
+    {
+     "start": 2.72,
+     "end": 3.1,
+     "word": "minding",
+     "p": 0.997
+    },
+    {
+     "start": 3.1,
+     "end": 3.16,
+     "word": "your",
+     "p": 0.994
+    },
+    {
+     "start": 3.16,
+     "end": 3.32,
+     "word": "own",
+     "p": 0.996
+    },
+    {
+     "start": 3.32,
+     "end": 3.66,
+     "word": "business,",
+     "p": 0.994
+    },
+    {
+     "start": 3.82,
+     "end": 4.22,
+     "word": "peacefully.",
+     "p": 0.979
+    }
+   ]
+  },
+  {
+   "start": 4.62,
+   "end": 6.8,
+   "text": "And suddenly he walks in like it's a boss fight.",
+   "words": [
+    {
+     "start": 4.62,
+     "end": 5.02,
+     "word": "And",
+     "p": 0.938
+    },
+    {
+     "start": 5.02,
+     "end": 5.36,
+     "word": "suddenly",
+     "p": 0.988
+    },
+    {
+     "start": 5.36,
+     "end": 5.5,
+     "word": "he",
+     "p": 0.84
+    },
+    {
+     "start": 5.5,
+     "end": 5.7,
+     "word": "walks",
+     "p": 0.996
+    },
+    {
+     "start": 5.7,
+     "end": 5.88,
+     "word": "in",
+     "p": 0.994
+    },
+    {
+     "start": 5.88,
+     "end": 6.02,
+     "word": "like",
+     "p": 0.993
+    },
+    {
+     "start": 6.02,
+     "end": 6.2,
+     "word": "it's",
+     "p": 0.976
+    },
+    {
+     "start": 6.2,
+     "end": 6.26,
+     "word": "a",
+     "p": 0.992
+    },
+    {
+     "start": 6.26,
+     "end": 6.52,
+     "word": "boss",
+     "p": 0.993
+    },
+    {
+     "start": 6.52,
+     "end": 6.8,
+     "word": "fight.",
+     "p": 0.98
+    }
+   ]
+  },
+  {
+   "start": 7.06,
+   "end": 8.56,
+   "text": "My phone? Gone.",
+   "words": [
+    {
+     "start": 7.06,
+     "end": 7.54,
+     "word": "My",
+     "p": 0.988
+    },
+    {
+     "start": 7.54,
+     "end": 7.84,
+     "word": "phone?",
+     "p": 0.997
+    },
+    {
+     "start": 8.08,
+     "end": 8.56,
+     "word": "Gone.",
+     "p": 0.977
+    }
+   ]
+  },
+  {
+   "start": 8.9,
+   "end": 11.32,
+   "text": "My personal space? Non-existent.",
+   "words": [
+    {
+     "start": 8.9,
+     "end": 9.38,
+     "word": "My",
+     "p": 0.998
+    },
+    {
+     "start": 9.38,
+     "end": 9.7,
+     "word": "personal",
+     "p": 0.997
+    },
+    {
+     "start": 9.7,
+     "end": 9.94,
+     "word": "space?",
+     "p": 0.998
+    },
+    {
+     "start": 10.24,
+     "end": 10.72,
+     "word": "Non",
+     "p": 0.865
+    },
+    {
+     "start": 10.72,
+     "end": 11.32,
+     "word": "-existent.",
+     "p": 0.987
+    }
+   ]
+  },
+  {
+   "start": 11.46,
+   "end": 13.22,
+   "text": "Then he has the audacity to say,",
+   "words": [
+    {
+     "start": 11.46,
+     "end": 11.94,
+     "word": "Then",
+     "p": 0.998
+    },
+    {
+     "start": 11.94,
+     "end": 12.04,
+     "word": "he",
+     "p": 0.994
+    },
+    {
+     "start": 12.04,
+     "end": 12.22,
+     "word": "has",
+     "p": 0.999
+    },
+    {
+     "start": 12.22,
+     "end": 12.32,
+     "word": "the",
+     "p": 0.998
+    },
+    {
+     "start": 12.32,
+     "end": 12.84,
+     "word": "audacity",
+     "p": 0.999
+    },
+    {
+     "start": 12.84,
+     "end": 13.02,
+     "word": "to",
+     "p": 0.999
+    },
+    {
+     "start": 13.02,
+     "end": 13.22,
+     "word": "say,",
+     "p": 0.999
+    }
+   ]
+  },
+  {
+   "start": 13.34,
+   "end": 14.18,
+   "text": "You mad?",
+   "words": [
+    {
+     "start": 13.34,
+     "end": 13.72,
+     "word": "You",
+     "p": 0.627
+    },
+    {
+     "start": 13.72,
+     "end": 14.18,
+     "word": "mad?",
+     "p": 0.998
+    }
+   ]
+  },
+  {
+   "start": 14.64,
+   "end": 16.1,
+   "text": "With that smug little grin.",
+   "words": [
+    {
+     "start": 14.64,
+     "end": 15.06,
+     "word": "With",
+     "p": 0.756
+    },
+    {
+     "start": 15.06,
+     "end": 15.2,
+     "word": "that",
+     "p": 0.998
+    },
+    {
+     "start": 15.2,
+     "end": 15.7,
+     "word": "smug",
+     "p": 1.0
+    },
+    {
+     "start": 15.7,
+     "end": 15.82,
+     "word": "little",
+     "p": 0.998
+    },
+    {
+     "start": 15.82,
+     "end": 16.1,
+     "word": "grin.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 16.34,
+   "end": 17.68,
+   "text": "And when you finally get mad,",
+   "words": [
+    {
+     "start": 16.34,
+     "end": 16.78,
+     "word": "And",
+     "p": 1.0
+    },
+    {
+     "start": 16.78,
+     "end": 16.9,
+     "word": "when",
+     "p": 1.0
+    },
+    {
+     "start": 16.9,
+     "end": 17.02,
+     "word": "you",
+     "p": 1.0
+    },
+    {
+     "start": 17.02,
+     "end": 17.26,
+     "word": "finally",
+     "p": 1.0
+    },
+    {
+     "start": 17.26,
+     "end": 17.44,
+     "word": "get",
+     "p": 1.0
+    },
+    {
+     "start": 17.44,
+     "end": 17.68,
+     "word": "mad,",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 17.92,
+   "end": 19.94,
+   "text": "suddenly you're the bad guy.",
+   "words": [
+    {
+     "start": 17.92,
+     "end": 18.56,
+     "word": "suddenly",
+     "p": 0.954
+    },
+    {
+     "start": 18.56,
+     "end": 19.26,
+     "word": "you're",
+     "p": 0.989
+    },
+    {
+     "start": 19.26,
+     "end": 19.44,
+     "word": "the",
+     "p": 1.0
+    },
+    {
+     "start": 19.44,
+     "end": 19.68,
+     "word": "bad",
+     "p": 1.0
+    },
+    {
+     "start": 19.68,
+     "end": 19.94,
+     "word": "guy.",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 20.5,
+   "end": 22.22,
+   "text": "Mom! He yelled at me!",
+   "words": [
+    {
+     "start": 20.5,
+     "end": 20.84,
+     "word": "Mom!",
+     "p": 0.997
+    },
+    {
+     "start": 21.22,
+     "end": 21.52,
+     "word": "He",
+     "p": 0.999
+    },
+    {
+     "start": 21.52,
+     "end": 21.88,
+     "word": "yelled",
+     "p": 1.0
+    },
+    {
+     "start": 21.88,
+     "end": 22.06,
+     "word": "at",
+     "p": 1.0
+    },
+    {
+     "start": 22.06,
+     "end": 22.22,
+     "word": "me!",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 22.52,
+   "end": 25.3,
+   "text": "Bro, you started a war and now you're calling for backup?",
+   "words": [
+    {
+     "start": 22.52,
+     "end": 23.0,
+     "word": "Bro,",
+     "p": 1.0
+    },
+    {
+     "start": 23.22,
+     "end": 23.5,
+     "word": "you",
+     "p": 1.0
+    },
+    {
+     "start": 23.5,
+     "end": 23.82,
+     "word": "started",
+     "p": 1.0
+    },
+    {
+     "start": 23.82,
+     "end": 23.96,
+     "word": "a",
+     "p": 1.0
+    },
+    {
+     "start": 23.96,
+     "end": 24.14,
+     "word": "war",
+     "p": 1.0
+    },
+    {
+     "start": 24.14,
+     "end": 24.34,
+     "word": "and",
+     "p": 0.999
+    },
+    {
+     "start": 24.34,
+     "end": 24.46,
+     "word": "now",
+     "p": 1.0
+    },
+    {
+     "start": 24.46,
+     "end": 24.64,
+     "word": "you're",
+     "p": 1.0
+    },
+    {
+     "start": 24.64,
+     "end": 24.84,
+     "word": "calling",
+     "p": 1.0
+    },
+    {
+     "start": 24.84,
+     "end": 25.04,
+     "word": "for",
+     "p": 1.0
+    },
+    {
+     "start": 25.04,
+     "end": 25.3,
+     "word": "backup?",
+     "p": 0.995
+    }
+   ]
+  },
+  {
+   "start": 25.52,
+   "end": 27.18,
+   "text": "Next time he barges into my room,",
+   "words": [
+    {
+     "start": 25.52,
+     "end": 25.94,
+     "word": "Next",
+     "p": 0.994
+    },
+    {
+     "start": 25.94,
+     "end": 26.22,
+     "word": "time",
+     "p": 1.0
+    },
+    {
+     "start": 26.22,
+     "end": 26.34,
+     "word": "he",
+     "p": 0.997
+    },
+    {
+     "start": 26.34,
+     "end": 26.58,
+     "word": "barges",
+     "p": 1.0
+    },
+    {
+     "start": 26.58,
+     "end": 26.78,
+     "word": "into",
+     "p": 1.0
+    },
+    {
+     "start": 26.78,
+     "end": 26.94,
+     "word": "my",
+     "p": 1.0
+    },
+    {
+     "start": 26.94,
+     "end": 27.18,
+     "word": "room,",
+     "p": 1.0
+    }
+   ]
+  },
+  {
+   "start": 27.32,
+   "end": 28.58,
+   "text": "I'm throwing hands immediately.",
+   "words": [
+    {
+     "start": 27.32,
+     "end": 27.66,
+     "word": "I'm",
+     "p": 1.0
+    },
+    {
+     "start": 27.66,
+     "end": 27.86,
+     "word": "throwing",
+     "p": 0.998
+    },
+    {
+     "start": 27.86,
+     "end": 28.22,
+     "word": "hands",
+     "p": 1.0
+    },
+    {
+     "start": 28.22,
+     "end": 28.58,
+     "word": "immediately.",
+     "p": 1.0
+    }
+   ]
+  }
+ ],
+ "file": "016 - Why Do Little Brothers ALWAYS do this - 1.0M.mp4",
+ "stats": {
+  "words": 84,
+  "first_word": 0.0,
+  "last_word_end": 28.58,
+  "words_per_s": 2.94,
+  "pauses": [
+   {
+    "from": 4.22,
+    "to": 4.62,
+    "s": 0.4
+   },
+   {
+    "from": 14.18,
+    "to": 14.64,
+    "s": 0.46
+   },
+   {
+    "from": 19.94,
+    "to": 20.5,
+    "s": 0.56
+   },
+   {
+    "from": 20.84,
+    "to": 21.22,
+    "s": 0.38
+   }
+  ],
+  "low_confidence": []
+ }
+}

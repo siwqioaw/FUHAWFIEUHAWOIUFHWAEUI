@@ -67,19 +67,29 @@ def flashes(video: str, fps: float) -> list[str]:
     where the darker state is below 0.80, over 25% of the frame or more (the whole frame, and every 2 x 2 block of a
     4 x 4 grid), more than 3 times in any second. Red flashes: changes to or from saturated red (R/(R+G+B) >= 0.8) over
     a quarter of a region, counted the same way. A simplification of the guideline, on the safe side."""
-    raw = media.frames_small(video)
-    lin = np.where(raw <= 0.04045, raw / 12.92, ((raw + 0.055) / 1.055) ** 2.4)
-    lum = lin @ np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
-    n, h, w = lum.shape
-    regions = [(slice(0, h), slice(0, w))]
-    for gy in range(3):
-        for gx in range(3):
-            regions.append((slice(gy * h // 4, (gy + 2) * h // 4), slice(gx * w // 4, (gx + 2) * w // 4)))
+    # Each frame comes down to two numbers per region, so the video is read a chunk at a time.
+    regions: list[tuple[slice, slice]] = []
+    lums: list[list[np.ndarray]] = []
+    reds: list[list[np.ndarray]] = []
+    for raw in media.frames_small_chunks(video):
+        lin = np.where(raw <= 0.04045, raw / 12.92, ((raw + 0.055) / 1.055) ** 2.4)
+        lum = lin @ np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
+        if not regions:
+            h, w = lum.shape[1:]
+            regions = [(slice(0, h), slice(0, w))]
+            for gy in range(3):
+                for gx in range(3):
+                    regions.append((slice(gy * h // 4, (gy + 2) * h // 4), slice(gx * w // 4, (gx + 2) * w // 4)))
+            lums, reds = [[] for _ in regions], [[] for _ in regions]
+        for ri, (sy, sx) in enumerate(regions):
+            lums[ri].append(lum[:, sy, sx].mean(axis=(1, 2)))
+            reds[ri].append((raw[:, sy, sx, 0] / np.maximum(raw[:, sy, sx].sum(axis=-1), 1e-6) >= 0.8)
+                            .mean(axis=(1, 2)))
     per_second = int(round(fps))
     problems = []
-    for ri, (sy, sx) in enumerate(regions):
-        series = lum[:, sy, sx].mean(axis=(1, 2))
-        redness = (raw[:, sy, sx, 0] / np.maximum(raw[:, sy, sx].sum(axis=-1), 1e-6) >= 0.8).mean(axis=(1, 2))
+    for ri in range(len(regions)):
+        series, redness = np.concatenate(lums[ri]), np.concatenate(reds[ri])
+        n = len(series)
         for name, s, thresh in (("general", series, 0.1), ("red", redness, 0.25)):
             events = []
             last_ext, last_dir = s[0], 0

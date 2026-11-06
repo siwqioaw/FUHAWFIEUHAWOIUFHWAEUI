@@ -1,0 +1,47 @@
+{
+ "file": "002 - Mom VS Dad - 9.6M.mp4",
+ "size": "1080x1920",
+ "fps": 60.0,
+ "duration": 11.47,
+ "cuts": [
+  1.217,
+  2.367,
+  3.717,
+  3.85,
+  4.933,
+  6.367,
+  7.7,
+  9.183,
+  10.567
+ ],
+ "shots": 10,
+ "shot_median": 1.28,
+ "shot_mean": 1.15,
+ "shot_min": 0.13,
+ "shot_max": 1.48,
+ "first_cut": 1.22,
+ "shot_lengths": {
+  "0-0.5 s": 1,
+  "0.5-1 s": 1,
+  "1-2 s": 8,
+  "2-4 s": 0,
+  "over 4 s": 0
+ },
+ "transients": 0,
+ "cuts_per_5s": [
+  5,
+  3,
+  1
+ ],
+ "loudness": {
+  "I": -8.5,
+  "LRA": 1.2,
+  "TP": 0.3
+ },
+ "flash_problems": [],
+ "black": [],
+ "freeze": [],
+ "sheets": [
+  "build\\analysis\\r6rants\\002 - Mom VS Dad - 9.6M\\shots_00.jpg"
+ ]
+}

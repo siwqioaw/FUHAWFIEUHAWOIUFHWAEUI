@@ -1,0 +1,64 @@
+{
+ "file": "010 - If Your Mom OWNED Roblox - 2.6M.mp4",
+ "size": "1080x1920",
+ "fps": 60.0,
+ "duration": 20.5,
+ "cuts": [
+  0.517,
+  0.633,
+  2.4,
+  2.617,
+  2.717,
+  3.267,
+  4.133,
+  6.133,
+  6.267,
+  6.317,
+  6.367,
+  6.5,
+  7.367,
+  8.733,
+  9.617,
+  10.617,
+  11.45,
+  11.917,
+  12.6,
+  13.933,
+  14.167,
+  15.1,
+  18.383,
+  18.433
+ ],
+ "shots": 25,
+ "shot_median": 0.68,
+ "shot_mean": 0.82,
+ "shot_min": 0.05,
+ "shot_max": 3.28,
+ "first_cut": 0.52,
+ "shot_lengths": {
+  "0-0.5 s": 10,
+  "0.5-1 s": 8,
+  "1-2 s": 4,
+  "2-4 s": 3,
+  "over 4 s": 0
+ },
+ "transients": 0,
+ "cuts_per_5s": [
+  7,
+  8,
+  6,
+  3,
+  0
+ ],
+ "loudness": {
+  "I": -12.0,
+  "LRA": 3.6,
+  "TP": 0.1
+ },
+ "flash_problems": [],
+ "black": [],
+ "freeze": [],
+ "sheets": [
+  "build\\analysis\\r6rants\\010 - If Your Mom OWNED Roblox - 2.6M\\shots_00.jpg"
+ ]
+}
