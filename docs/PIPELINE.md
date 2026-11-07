@@ -7,7 +7,7 @@ Each step writes files that the next step reads, so any step can be rerun alone 
 | 0 | Measure the references | `tools/verify/analyze.py` | `build/analysis/` |
 | 1 | Write the beat sheet | you | `beats.md` |
 | 2 | Write the timeline | you | `cut.json` |
-| 3 | Capture the shots | `tools/roblox/capture.py`, `stage.py` | `build/shots/<shot>/f00000.png ...` |
+| 3 | Capture the shots | `tools/roblox/capture.py`, `stage.py`, `pose.py` | `build/shots/<shot>/f00000.png ...` |
 | 4 | Show stills | `render.stills` | `build/stills/` |
 | 5 | Write the edit | your `frame_at(r)` | |
 | 6 | Render the master | `render.master` | `build/master.mov` |
@@ -74,7 +74,7 @@ The trailer's numbers are the only ones measured so far:
 
 | Step | Time |
 |---|---|
-| Capture | about 1 s a frame (30 minutes for 60 s at 30 fps; three times that with 3 motion-blur sub-frames). Portrait at 960 x 1707, measured 2026-11-07: 0.94 s a frame, so 28 minutes for 60 s at 30 fps |
+| Capture | about 1 s a frame (30 minutes for 60 s at 30 fps; three times that with 3 motion-blur sub-frames). Portrait at 960 x 1707, measured 2026-11-07: 0.94 s a frame on an empty set, about 1.3 s with two posed actors, so 28-39 minutes for 60 s at 30 fps and twice that at 60, plus a minute or two for a new scene to settle |
 | Render | 1,600 frames at 1080p: 12 to 20 minutes, 12 processes |
 | Checks | under a minute for a minute of video (the trailer's full set: about 70 s) |
 | A review round, fix included | about an hour |

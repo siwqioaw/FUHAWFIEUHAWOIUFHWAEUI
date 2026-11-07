@@ -116,6 +116,12 @@ The checks have to come back clean first. Then:
 - every hit: a sound on it?
 - every key word of the voice: nothing louder on top of it;
 - continuity: who, where and what, shot to shot;
+- every walk and lean: full-size crops of the feet at full stride and as they pass, from a camera at ankle height
+  where you can: the planted foot stays put and no planted sole goes into the floor (`pose.walk_check` measures a
+  walk, `pose.soles` any pose);
+- every pose, and every snap between poses: no arm through the head or chest (`pose.clearance`,
+  `pose.snap_clearance`), and a face the hands don't hide;
+- the first frames of every take: nothing in the scene still loading (textures, lights or shadows popping in);
 - the first two seconds: what is this, and why keep watching?
 - and every failure in `docs/LESSONS.md`, and every one found since.
 
@@ -128,10 +134,13 @@ The checks have to come back clean first. Then:
 - a sound across a cut;
 - a click;
 - a noisy silence;
-- a hit with nothing on it.
+- a hit with nothing on it;
+- R6 poses that go wrong (`pose.py`): a lean that isn't planted; a walk 10% too fast, at standing height, or not
+  planted; a swing that jumps speed; an overshoot that stalls; an arm through the head or chest, at rest or between
+  poses.
 
 It confirms that each check catches its failure and passes the clean parts. It also checks `master.py`'s loudness
-meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 30 of 30.
+meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 46 of 46.
 
 On the third trailer cut, the delivered file measured:
 

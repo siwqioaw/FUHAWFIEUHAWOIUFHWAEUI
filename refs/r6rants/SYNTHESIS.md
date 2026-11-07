@@ -206,6 +206,17 @@ night street). Stories add grade and light changes as story signals (above).
 
 - **Pose to pose, snappy:** big poses reached in 4-6 frames at 60 fps, held with drift; anticipation (the head drops,
   then snaps up into a grin, 014). Stock-style cycles for dances, runs and walks.
+- **Snaps, frame by frame (spike S3; `sheets.py strip --step 1` over each):**
+  - 001, 17.37-17.45: head down to a yell over 5 frames, 4 different pictures (one frame repeats). The head
+    leads and the hands land on the last frame.
+  - 004, 20.07-20.15: an arm from the desk to straight up over 5 frames, 4 different pictures in steps of
+    similar size, the biggest the last, under a push-in.
+  - 008, 12.72-12.75: both arms jump to a new pose in one frame, on the caption change, and settle over 2.
+  - So most snaps take about 5 frames at 60 fps and the hardest hits 1-2. They don't all ease out, and in 001
+    the body moves in overlapping parts, the head first and the hands last.
+- **Frame rate:** 14 of the 16 are 60 fps files, and while something moves they show 48-57 different pictures a
+  second; the rest repeat the frame before, as a real-time capture that drops frames does. 014 and 015 are 30 fps
+  files that change on every frame.
 - **Game logic as gags:** spawning as an empty frame and a pop-in (007, 010), a freeze as a blank face on a locked
   mid-stride pose (010), an outfit swap hidden behind a spin and revealed with a glow (007).
 - **Effects in the scene:** money rain, hearts, a gold aura with rays, blue square particles (laughing, running), smoke

@@ -26,7 +26,10 @@
 --   actors   {{name, cf, anims = {{key, t, w, priority}}, face, hidden, optional}}: the model _Actor_<name> (stage.py
 --            makes them) or <name> in Workspace, pivoted to cf; each animation held at t seconds with weight w. key
 --            is a name below (walk, run, idle, ...), a number, or "rbxassetid://N". face: a texture for the head's
---            face decal (faces.py), set when it changes
+--            face decal (faces.py), set when it changes. joints: R6 posing (pose.py), {neck, ls, rs, lh, rh, root}
+--            each {x, y, z}: CFrame.Angles degrees about the joint, in its parent part's axes; rootpos {x, y, z} studs
+--            moves the body. Applied to the joints' C0 and held every frame until a frame sets them again (a frame
+--            that leaves joints out, or names only some, leaves the rest as they were; pose.py gives all six)
 --   moves    {{path, cf}}: any model or part pivoted to cf
 --   attrs    {{path, name, value}}: attributes set, for the game's own code to read
 --   t        the shot's time in seconds, left in the attribute T for your own code
@@ -77,6 +80,16 @@ local heldLights = {} -- light -> {on, b}
 local wasLights = {} -- light -> {Enabled, Brightness}
 local frozen = {} -- emitter or beam -> its TimeScale or TextureSpeed
 local tracks = {} -- model -> {id -> AnimationTrack}
+local baseC0 = {} -- Motor6D -> its C0 before posing
+local heldC0 = {} -- Motor6D -> the C0 to hold
+local R6 = {
+	neck = { "Torso", "Neck" },
+	ls = { "Torso", "Left Shoulder" },
+	rs = { "Torso", "Right Shoulder" },
+	lh = { "Torso", "Left Hip" },
+	rh = { "Torso", "Right Hip" },
+	root = { "HumanoidRootPart", "RootJoint" },
+}
 
 local ANIMS = { -- Roblox's own R15 animations (they load in any experience)
 	walk = "rbxassetid://913402848",
@@ -133,6 +146,36 @@ local function freeze()
 	end
 end
 
+local function poseJoints(m, a)
+	-- C0 = the joint's resting C0 turned by the pose about the joint, in the parent part's axes (Transform would turn
+	-- it about the joint's own axes, which on R6 aren't the torso's, and the Animator writes Transform every frame).
+	local joints = a.joints or {}
+	if a.rootpos and not joints.root then
+		joints = table.clone(joints)
+		joints.root = { 0, 0, 0 }
+	end
+	for key, deg in joints do
+		local spec = R6[key]
+		local part = spec and m:FindFirstChild(spec[1])
+		local motor = part and part:FindFirstChild(spec[2])
+		if not (motor and motor:IsA("Motor6D")) then
+			error("no R6 joint " .. tostring(key) .. " on " .. m.Name)
+		end
+		local base = baseC0[motor]
+		if not base then
+			base = motor.C0
+			baseC0[motor] = base
+		end
+		local pos = base.Position
+		if key == "root" and a.rootpos then
+			pos += Vector3.new(a.rootpos[1], a.rootpos[2], a.rootpos[3])
+		end
+		local c0 = CFrame.new(pos) * CFrame.Angles(math.rad(deg[1]), math.rad(deg[2]), math.rad(deg[3])) * base.Rotation
+		heldC0[motor] = c0
+		motor.C0 = c0
+	end
+end
+
 local function poseActor(a)
 	local m = workspace:FindFirstChild("_Actor_" .. a.name) or workspace:FindFirstChild(a.name)
 	if not m then
@@ -154,6 +197,9 @@ local function poseActor(a)
 		if decal.Texture ~= a.face then
 			decal.Texture = a.face
 		end
+	end
+	if a.joints or a.rootpos then
+		poseJoints(m, a)
 	end
 	local ctl = m:FindFirstChildOfClass("Humanoid") or m:FindFirstChildOfClass("AnimationController")
 	if not ctl then
@@ -313,9 +359,16 @@ RunService:BindToRenderStep("_CaptureHarness", Enum.RenderPriority.Last.Value, f
 	if ambient then
 		Lighting.Ambient = ambient
 	end
+	for motor, c0 in heldC0 do
+		if motor.Parent then
+			motor.C0 = c0
+		end
+	end
 end)
 
+local released = false
 local function release()
+	released = true
 	pcall(function()
 		RunService:UnbindFromRenderStep("_CaptureHarness")
 	end)
@@ -344,12 +397,23 @@ local function release()
 			tr:Stop(0)
 		end
 	end
+	for motor, c0 in baseC0 do
+		if motor.Parent then
+			motor.C0 = c0
+		end
+	end
+	table.clear(heldC0)
 	dof:Destroy()
 	cam.CameraType = Enum.CameraType.Custom
 	script:SetAttribute("Released", true)
 end
 
 script:GetAttributeChangedSignal("Frame"):Connect(function()
+	if released then
+		script:SetAttribute("Err", "released: install the harness again")
+		script:SetAttribute("Applied", -1)
+		return
+	end
 	local raw = script:GetAttribute("Frame")
 	local ok, err = pcall(function()
 		local f = HttpService:JSONDecode(raw)

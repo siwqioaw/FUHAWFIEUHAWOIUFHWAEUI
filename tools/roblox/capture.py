@@ -131,6 +131,37 @@ def release() -> str:
     return studio.luau(f"local h = {_H} if h then h:SetAttribute('Release', true) end return 'released'", dm="Client")
 
 
+def settle(out_dir: str, quiet: float = 15.0, timeout: float = 120.0, log=print) -> float:
+    """Capture the held first frame about once a second until no pixel has changed by more than 8 grey levels for
+    `quiet` seconds. For up to about 45 s after a scene is set up, Studio keeps refining it in steps 2 to 11 s apart
+    (the floor's lighting and texture detail, a shadow appearing, anti-aliasing coming on), with only small changes
+    between the steps, so two captures that nearly agree don't mean it's done (spike S3: the steps landed in the first
+    10 frames of a take as pops). It looks like Studio's automatic quality level climbing, which can also drop while the
+    PC is busy: a fixed level would settle at once and stay put (docs/ROBLOX_CAPTURE.md, "Studio's gotchas"). Returns
+    the seconds it took."""
+    from PIL import Image, ImageChops
+
+    path = os.path.join(out_dir, "_settle.png")
+    t0 = last = time.time()
+    prev = None
+    while True:
+        studio.capture(path)
+        with Image.open(path) as im:
+            cur = im.convert("L")
+        if prev is not None and ImageChops.difference(cur, prev).point(lambda v: 255 if v > 8 else 0).getbbox():
+            last = time.time()
+        prev = cur
+        now = time.time()
+        if now - last >= quiet:
+            break
+        if now - t0 > timeout:
+            log(f"  still changing after {timeout:.0f} s: capturing anyway")
+            break
+        time.sleep(0.5)
+    os.remove(path)
+    return time.time() - t0
+
+
 def take(out_dir: str, shot, seconds: float, fps: float = FPS, start: int = 0, warmup: float = 4.0, blur: int = 1,
          shutter: float = 0.5, speed: float = 1.0, only: list[int] | None = None, portrait: bool = False,
          log=print) -> int:
@@ -141,7 +172,8 @@ def take(out_dir: str, shot, seconds: float, fps: float = FPS, start: int = 0, w
     jump inside a shot, use only the last sub-frame.
     speed < 1: slow motion (t advances `speed` seconds per second of output). Everything posed from t slows with it.
     warmup: real seconds to wait on the first frame (animations and textures load, lights settle), which is then
-    applied again. only: just these frame numbers (to redo a bad frame).
+    applied again and captured until the picture stops changing (settle()). only: just these frame numbers (to redo
+    a bad frame).
     portrait: roll the camera 90 degrees and save each frame upright, cropped to 9:16 (the module's docstring)."""
     os.makedirs(out_dir, exist_ok=True)
     n = int(round(seconds * fps))
@@ -167,6 +199,8 @@ def take(out_dir: str, shot, seconds: float, fps: float = FPS, start: int = 0, w
             if first:
                 frame(dict(state, freeze=True))
                 time.sleep(warmup)
+                frame(state)
+                log(f"  settled in {settle(out_dir, log=log):.1f} s")
                 first = False
             frame(state)
             name = f"f{f:05d}.png" if blur <= 1 else f"f{f:05d}_{j}.png"

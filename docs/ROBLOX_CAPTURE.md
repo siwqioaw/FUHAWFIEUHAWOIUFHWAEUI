@@ -8,9 +8,10 @@ What was verified, and where:
 
 - **Verified in that project.** The bridge and the MCP calls, over many hours. A game-specific harness doing the same
   jobs as `harness.luau`, across three cuts.
-- **Run in Studio on 2026-11-07** (spike S1, a scratch Baseplate place): `harness.luau` and `capture.py`, including
-  the smoke test (no HUD, cursor or character) and portrait takes of 15 and 30 frames. See "Resolution".
-- **Not yet run:** `stage.py`. Run `capture.py smoke` before every session anyway, and fix what it shows.
+- **Run in Studio on 2026-11-07** (spikes S1-S3, a scratch Baseplate place): `harness.luau` and `capture.py`,
+  including the smoke test (no HUD, cursor or character) and portrait takes ("Resolution"); `stage.py` and
+  `faces.py` ("Actors", "Faces"); `pose.py` ("Posing R6"). Run `capture.py smoke` before every session anyway, and
+  fix what it shows.
 
 ## What you need
 
@@ -52,7 +53,7 @@ python tools/roblox/studio_mcp.py call execute_luau '{"code": "return game.Name"
 - **Code that runs more than a few seconds without yielding** comes back "not reachable", though Studio finishes it.
   Run long work in `task.spawn`, leave its result somewhere, and poll for it.
 - **`execute_luau` runs without plugin-level capabilities.** Some properties (`Lighting.Technology`, say) can't be
-  set from it.
+  set from it, or even read ("lacking capability RobloxScript").
 - **The capture is the viewport.** `screen_capture` returns the viewport at its own size: 1280 x 841 in that
   project. If Studio's window is minimized the capture fails or comes back blank. See "Resolution".
 - **Desktop screenshots of Studio can come back flat grey.** Use `screen_capture`, or PowerShell's `CopyFromScreen`
@@ -80,6 +81,15 @@ python tools/roblox/studio_mcp.py call execute_luau '{"code": "return game.Name"
   (`SetWindowPos` without activation), and close any extra instance.
 - **The bridge's link to Studio can drop for a few seconds** ("WebSocket ... Connection reset" in
   `build/studio_mcp.log`); `list_roblox_studios` then returns nothing. Retry after a few seconds.
+- **A new scene keeps changing for up to about 45 s.** After two actors were staged and the camera put on the shot, a
+  held frame changed by itself in steps 2 to 11 s apart: the floor's lighting and texture detail, a shadow appearing,
+  then anti-aliasing coming on. The steps shrank (on average 3.8 grey levels, then 1.3, 1.2, 0.7, 0.4, 0.2, 0.1 and
+  0.2), the last about 40 s in, and between them only small changes (under 8 grey levels, some captures identical). The
+  last two came just after that experiment set the wind to zero, so may not be Studio's own. `capture.take` waits until
+  no pixel has changed by more than 8 grey levels for 15 s (`capture.settle`). Studio's rendering Quality Level is
+  Automatic on this PC, and the steps look like it climbing; it can drop again while the PC is busy, which a check
+  before the take can't see. A fixed level (Studio Settings, Rendering, Quality Level) should settle at once and stay
+  put: the owner's setting to change. (2026-11-07)
 
 ## The harness
 
@@ -110,7 +120,7 @@ particles would jump between frames.
 | `dof` | `[focus, radius, near, far]` for depth of field |
 | `hud`, `keepGuis`, `me` | show the game's GUIs; leave named ones showing; show the local character |
 | `clock`, `ambient`, `lights` | Lighting.ClockTime; Lighting.Ambient; `[[path, on, brightness], ...]` held |
-| `actors` | `[{"name", "cf", "anims": [[key, t, w]], "hidden"}]`: models posed, each animation held at t seconds |
+| `actors` | `[{"name", "cf", "anims": [[key, t, w]], "face", "joints", "rootpos", "hidden"}]`: models pivoted to `cf`; each animation held at t seconds; `face` a texture for the head; `joints` and `rootpos` an R6 pose ("Posing R6") |
 | `moves`, `attrs` | `[[path, cf], ...]` pivoted; `[[path, name, value], ...]` attributes set for the game's code |
 | `t` | the shot's time, left in the attribute `T` for your own code |
 
@@ -125,24 +135,32 @@ A shot is a function of its time t that returns the frame's state. Everything in
 - the lights.
 
 ```python
-def shot(t):
+def shot(t):                                      # an R6 actor walks towards the camera ("Posing R6")
+    z = -6 + pose.walk_travel(t)
+    joints, rootpos = pose.walking(t)
     return {"cam": {"pos": [0, 6, 18 - 1.5 * t], "look": [0, 4, 0]}, "fov": 55,
-            "actors": [{"name": "kid", "cf": {"pos": [0, 3, 8 - 4 * t], "look": [0, 3, -10]},
-                        "anims": [["walk", t, 1.0]]}]}
-capture.take("build/shots/walk_in", shot, seconds=2.5, fps=30)
+            "actors": [{"name": "kid", "cf": {"pos": [0, 3, z], "look": [0, 3, z + 10]},
+                        "joints": joints, "rootpos": rootpos}]}
+capture.take("build/shots/walk_in", shot, seconds=2.5, fps=60)
 ```
+
+An R15 actor (`"rig": "R15"` in `stage.py`) takes Roblox's own animations instead: `"anims": [["walk", t, 1.0]]`.
 
 How `take` runs:
 
-- **Warmup.** The first frame is applied, then the world gets 4 real seconds (animations and textures load, lights
-  settle), and then it's applied again.
+- **Warmup and settle.** The first frame is applied, the world gets 4 real seconds (animations load), the frame is
+  applied again, and then it's captured about once a second until no pixel has changed by more than 8 grey levels
+  for 15 seconds (`capture.settle`). For up to about 45 s after a scene is set up, Studio keeps refining it in steps
+  2 to 11 s apart ("Studio's gotchas"). Between the steps the picture changes only a little, so two captures that
+  nearly agree don't mean it's done (spike S3: the steps landed in a take's first 10 frames as pops).
 - **Frame timing.** Each frame is exactly 1/fps after the last, however long the capture took.
 - **Motion blur.** `blur=3` captures 3 sub-frames per frame across the shutter.
 - **Slow motion.** `speed=0.25` is quarter speed: t advances a quarter as fast, and everything posed from it slows
   with it.
 - **Redoing frames.** `only=[...]` recaptures just those frames.
-- **Walks.** Match a walk's playback rate to the distance covered, or the feet slide. A stiff walk was one of cut 1's
-  rejections.
+- **Walks.** Match a walk to the distance covered, or the feet slide. A stiff walk was one of cut 1's rejections.
+  An R6 walk from `pose.py` moves by `pose.walk_travel(t)` ("Posing R6"); an animation's playback rate has to
+  match its speed.
 
 **Anything the harness doesn't hold moves in real time between frames:** the game's own NPCs, tweens, physics, its
 own animations. Hold it, drive it from the frame state (`moves`, `attrs`), or keep it out of shot.
@@ -162,8 +180,8 @@ own animations. Hold it, drive it from the frame state (`moves`, `attrs`), or ke
   loaded with InsertService and attached with `Humanoid:AddAccessory`, because a description silently drops newer
   accessories on R6. The report lists each accessory's offset from the head and marks **MISFIT** any more than
   1.2 studs below it.
-  - Fits R6: Straight Blonde Hair (376526888, 2016), 0.3 below the head centre as a long hair should; Black Glasses
-    (130858694386007, a free community item), 0.6 in front of the face.
+  - Fits R6: Straight Blonde Hair (376526888, 2016), 0.3 below the head centre as a long hair should; Pal Hair
+    (63690008), 0.2 above it; Black Glasses (130858694386007, a free community item), 0.6 in front of the face.
   - Doesn't: Short and Sleek - Black (9243992729, 2022), 2.0 below the head, hidden in the torso. It fits R15.
   - Find items from edit mode with `AvatarEditorService:SearchCatalog` (free Roblox-made hair, shirts and pants come
     up first with `MaxPrice = 0`). Skip anything with the Roblox logo or another brand on it. Log every item a video
@@ -177,7 +195,7 @@ client only has the parts near its character.
 
 The harness knows Roblox's own R15 animations by name: `walk` (913402848), `run` (913376220), `idle` (507766388),
 `toolnone`, `wave`, `laugh`, `point` and `cheer`. Any other animation is `"rbxassetid://N"`, which the place's owner
-must be able to use. They don't drive R6 bodies: R6 posing is spike S3.
+must be able to use. They don't drive R6 bodies: pose those with `pose.py` ("Posing R6").
 
 ## Faces
 
@@ -199,6 +217,123 @@ faces render in captures without ever going to Roblox. What to know:
 - **The image:** square, transparent background, black line art; features in the middle, as in Roblox's default face
   (`content/textures/face.png`: 128 x 128, features within x 42-88, y 27-101). At 512 x 512 a face stays crisp in a
   close-up that fills the frame with the head. `faces.py test` draws a three-face test set (smile, shock, angry).
+
+## Posing R6
+
+`tools/roblox/pose.py` works out each frame's R6 joints in Python, and the harness applies them (spike S3, run in
+Studio on 2026-11-07). Nothing is uploaded, a take is exact, and any frame can be redone. `tests/studio_pose.py` is
+the spike itself: the check against Roblox, the takes and their measurements.
+
+```python
+import faces, pose
+keys = [(0.0, "idle"), (0.35, "arms_out"), (0.85, "hands_on_head"), (1.35, "laugh", 2 / 60)]
+def shot(t):
+    joints, rootpos = pose.at(keys, t)
+    return {"cam": {"pos": [0, 3.6, 12], "look": [0, 3, 0]}, "fov": 55,
+            "actors": [{"name": "kid", "cf": {"pos": [0, 3, 0], "look": [0, 3, 10]}, "face": faces.url("shock"),
+                        "joints": joints, "rootpos": rootpos}]}
+```
+
+- **Poses are data.** `pose.POSES` has 13: idle, arms_out, hands_on_head, point, point_left, arms_crossed,
+  hands_on_hips, laugh, facepalm, cheer, slump, think, lean_in. Each names only the joints it moves, as angles in
+  degrees (the signs are in `pose.py`'s docstring). A key can also give a dict.
+  - **Angle order:** every joint turns by z, then x, then y about its parent's axes, so y aims: an arm held forward
+    swings towards the character's left with y > 0. The root's angles lean, turn and roll the whole body.
+  - **Pointing:** `point` is straight ahead, so an actor facing the camera points into the lens. For a point across
+    the frame, turn the actor.
+  - **Width:** `arms_out` is about 5.6 studs from hand to hand. A 9:16 frame 12 studs away at 55 degrees is 7 studs
+    wide.
+  - **Hands at the head:** `pose.clearance` measures how far an arm goes into the head (or its lower half into the
+    torso). A straight R6 arm can't put its hand on the face without its forearm cutting into the head, so
+    `facepalm` and `think` hold the hand just before the face and chin, and `hands_on_head` puts the hands beside
+    the top of the head. The first `hands_on_head` sank them 0.34 studs into it, and the hair drew over them.
+  - **Between poses:** a snap can clip where neither pose does. `pose.snap_clearance(a, b)` measures every frame of
+    one. 50 of the 156 snaps between the 13 poses go more than 0.05 studs in on some frame, the worst into and out
+    of `arms_crossed` (0.23-0.28 into the chest: the arms swing inward before they swing forward). Where it shows,
+    key a pose in between (arms forward first). The take's snaps stay within 0.09, its overshoot grazing the top of
+    the head under the hair.
+- **Snaps.** Each key snaps from wherever the body was to its pose in 5 frames at 60 fps, or in the key's third
+  value, in seconds (2/60 for a hard hit).
+  - **The ease:** each angle moves straight from its value to the next, so a path follows the numbers: an arm going
+    from x = -10 to 176 rises through the front, never round the back. A raise seen from the front passes the lens
+    on its first frame, as a real one does; for another path, key a pose in between.
+  - **The overshoot:** a joint goes two thirds of the way on the first frame, about 7% past the pose on the third,
+    and settles on the fifth. A joint with a long way to go eases more gently, so that it goes at most 6 degrees
+    past (`pose.CAP`).
+  - **Against the references:** they snap in about 5 frames, their hardest hits in 1-2, and don't all ease out the
+    same way (`refs/r6rants/SYNTHESIS.md`, "Animation"). Every joint moves at once here; in 001 the head leads and
+    the hands land last, which the pose library should add.
+- **Faces.** The takes change a face on the first frame the body moves, a frame after its key.
+- **Drift.** `pose.at` adds slow swings under 2 degrees (head, body, arms) so a held pose stays alive.
+  `drift_amount=0` for none; a different `seed` per actor keeps two actors out of step.
+- **Planted.** The R6 root joint is at the torso's centre, a stud above the hips: a lean there swings the legs, and
+  `laugh` would move the feet 0.63 studs. `pose.at` leans and turns the body about the hips and keeps each leg as
+  posed (`pose.plant`).
+  - **Leans:** the soles stay where they were, drift and all.
+  - **Turns:** the feet turn with the body about the hips' centre, so each slides about 0.2 studs (0.48 at its
+    corners) over a 25 degree turn. For a big turn, step instead.
+  - **Rolls:** a roll tilts the hips, which would push one foot into the floor, so the body rises until no sole is
+    under the floor and the other foot lifts (0.28 studs for 8 degrees).
+- **Walks.** `pose.walking(t)` walks at 1.5 cycles a second: 3 steps, or 180 a minute.
+  - **Legs:** they reach 30 degrees each way, or 31 as each foot reaches past its stride and comes back onto it. The
+    arms swing against them.
+  - **Feet:** an R6 leg is a straight block hinged at the top, so a planted foot rolls over its heel while the leg is
+    ahead and over its toe once it's behind. Each foot moves with the floor for 60% of the cycle (its stance; under
+    half is refused). It comes down from about 0.07 studs up over the first 2 frames of that, as the body settles
+    onto it, and both feet are down for a
+    moment at each change of step. `pose.walk_steps` gives the frames a foot lands on, for footsteps (frames 2, 22,
+    42... at 60 fps).
+  - **Height:** the body sits as high as the feet in their stance put it. That is highest while a foot balances on
+    an edge (0.06 studs up) and lowest as a sole lies flat, so it bobs twice a step. That's the opposite of a
+    person's walk, which rides highest as the legs pass, but with straight block legs any other height would sink
+    a planted foot or lift it.
+  - **Moving it:** move the actor by `pose.walk_travel(t)`, a steady 5.33 studs a second (`pose.walk_speed()`), and
+    track it with the camera at the same speed. The planted feet stay still and the walker stays put in frame.
+  - **The passing foot:** with no knees, it skims the floor, up to 0.025 studs into it.
+- **Checks.**
+  - `pose.soles(joints, rootpos)` gives each sole's corners as the harness poses them.
+  - `pose.walk_check()` gives a walk's planted feet's worst slip, sink and lift, all about 0, and the passing foot's
+    scrape, 0.025.
+  - `pose.clearance(joints)` gives how far an arm goes into the head (an upright cylinder 1.2 studs across, about
+    its rounded mesh) or its lower half into the torso. At rest every pose stays within 0.1 studs: `think`'s hand
+    touches the chin at 0.095. `pose.snap_clearance(a, b)` gives the worst over a snap's frames.
+  - `python tests/studio_pose.py check` poses an actor in a playtest and compares every sole corner with Roblox's.
+    All were within 0.00001 studs: five walk frames, two leans, a turned lean, a roll, a drifting idle and a
+    `rootpos` alone.
+  - `tests/selftest.py` checks all of these against planted failures: a lean that isn't planted; a walk 10% too
+    fast, at standing height, or not planted; a swing that jumps speed; an overshoot that stalls; an arm through the
+    head or chest, at rest or between poses.
+- **How the harness poses.**
+  - **Each joint:** it sets the Motor6D's C0 to its resting position (plus `rootpos`, for the root), then the frame's
+    angles, then its resting rotation, and sets it again every rendered frame.
+  - **Held poses:** a pose holds until a frame sets it again. A frame that leaves an actor's joints out, or names
+    only some, leaves the rest as they were (`pose.py` gives all six). `rootpos` without a root, or without joints,
+    moves the body with the root at rest. A joint that errors part-way through a frame leaves the joints before it
+    posed until the next frame or release.
+  - **Release:** it puts the joints back, and refuses any frame after.
+  - **Other animation:** `stage.py` removes the Animate script, so nothing else moves its actors' joints. On a game's
+    own animated model the pose would add to whatever its Animator plays.
+
+**Spike S3** (2026-11-07), in portrait at 60 fps, 1.3-1.4 s a frame with two posed actors (median 1.34, slowest 1.6):
+
+- **Acting**, 2.4 s: five keys and four face swaps. Every snap moved for 5 frames, then only the drift moved. The
+  mean difference between frames, at 180 px wide, in grey levels:
+  - arms_out 5.5, 3.8, 1.3, 0.6, 0.6;
+  - hands_on_head 5.8, 6.2, 2.9, 0.4, 0.9;
+  - laugh 8.1, 4.9, 2.3, 0.3, 0.7;
+  - point 5.2, 3.9, 1.4, 0.7, 0.7;
+  - between snaps, never more than 0.16, the first frames included.
+
+  The hands stay clear of the face, and the hair no longer draws over them.
+- **Walk**, 1.5 s, side on with the camera tracking: the walker stays put in frame. Her hair's back edge doesn't
+  move, its front edge moves at most 2 px between frames, and its top bobs within 12 px (at 1080 wide). The first
+  walk, which followed the planted foot's speed, lurched back about 23 px at every step (measured in review).
+- **Feet**, 1.0 s, the camera at ankle height: the soles roll from heel to toe and the planted ones stay on the floor.
+  The camera can't show the passing foot's 0.025 studs under the floor, which the floor hides. The first walk sank
+  the edge of each sole 0.25 studs into the floor at full stride: it kept only the sole's centre on the floor.
+
+The acting take began after a 61 s settle; the walk and feet takes, shot after it, settled in 16 s. Shot after a
+3 s warmup, the first acting take changed by 2.0-2.5 grey levels at frames 5, 7 and 9: the scene still settling.
 
 ## Resolution
 
@@ -232,8 +367,10 @@ collapsed; Full Screen on; Command Bar off. `take` prints the frame size it will
 1080 wide.
 
 **Speed, measured:** 0.47 s a capture in edit mode at 928 x 841; 0.52 s a frame applied and captured in a playtest at
-1280 x 841; **0.94 s a frame at 1914 x 960 with the portrait turn and crop**. So about 28 minutes of capture for a
-minute of video at 30 fps, 56 at 60.
+1280 x 841; **0.94 s a frame at 1914 x 960 with the portrait turn and crop**, on an empty baseplate. So about 28 minutes
+of capture for a minute of video at 30 fps, 56 at 60. With two posed, dressed actors on set (S3): about 1.3 s a frame
+(median 1.27-1.37 over five takes, slowest 1.8), so about 39 and 78 minutes. Heavy work on the same PC slows it: frames
+took 4-6 s while a video decode ran.
 
 **Not needed, but possible, for true 1080 x 1920:** capture each frame as two tiles (the camera turned up and down
 about the same point, so no parallax) and stitch them with a homography. It doubles the capture time.

@@ -127,7 +127,7 @@ Each spike has a test it must pass. None depends on the others except S7.
 |---|---|---|
 | S1 Portrait capture | How to get 1080 x 1920 out of Studio on a 1920 x 1080 monitor? Try (a) rolling the camera 90 degrees and turning the landscape capture upright, (b) Studio's device emulator in portrait, (c) a portrait or virtual display. | a frame at least 1000 px wide of real pixels, no UI, under 1.5 s a frame. **Passed 2026-11-07 with (a)**, one number short: 960 x 1707 real pixels (sharp after the 1.125x scale), no UI, 0.94 s a frame; Studio needs its own uncovered screen and the capture layout (`docs/ROBLOX_CAPTURE.md`, "Resolution") |
 | S2 R6 actors | Can `stage.py` make R6 actors with catalog hair, clothes and accessories, and swap a face texture per frame? | a still of two dressed R6 actors, each face changed between two frames. **Passed 2026-11-07:** two dressed R6 actors, every face changed between two frames, faces drawn here and rendered from Studio's content folder (no upload). Newer hair doesn't fit R6: the cast library needs hair checked on R6 (`stage.py` flags misfits) |
-| S3 Snappy animation | Can the harness pose R6 joints per frame with ease-out snaps and held drift, plus a walk cycle? | frame strips that match the reference strips' timing (4-6 frame snaps) |
+| S3 Snappy animation | Can the harness pose R6 joints per frame with ease-out snaps and held drift, plus a walk cycle? | frame strips that match the reference strips' timing (4-6 frame snaps). **Passed 2026-11-07:** `pose.py` poses R6 from Python: snaps of 5 frames at 60 fps, as long as most of the references' (which also hit in 1-2 frames, and don't all ease out: 001 moves the head before the hands, 004's biggest step is its last); held poses drift; leans and a heel-to-toe walk keep the planted soles still and on the floor, checked against Roblox's own positions to 0.00001 studs; no pose at rest puts an arm through the head (some snaps between poses still clip, and are measured); a new scene needs up to about 45 s to settle before a take (`docs/ROBLOX_CAPTURE.md`, "Posing R6") |
 | S4 Camera grammar | Push-in, 0.15 s swoop, dutch roll, desk-height low angle, over-the-shoulder with depth of field. | a strip of each move |
 | S5 Voice | Which voice tool, which voices? Three lines in two voices. | owner approves by ear; word times from `transcribe.py` |
 | S6 Captions | Reproduce the caption and header spec. | side by side with a reference frame at full size, no visible difference in style |
@@ -204,7 +204,9 @@ Each spike has a test it must pass. None depends on the others except S7.
 **Still open** (none blocks the spikes):
 
 5. **Frame rate:** 60 fps like most of the set, or 30 like 014 and 015? Measured: 0.94 s a captured frame, so a
-   35 s story takes about 16 minutes to shoot at 30 fps and 33 at 60.
+   35 s story takes about 16 minutes to shoot at 30 fps and 33 at 60; with two posed actors (S3, about 1.3 s a
+   frame) about 23 and 46. The 14 files at 60 fps really move at 60 (48-57 different pictures a second while something
+   moves), and a snap lasts about 5 frames at 60, 2-3 at 30.
 6. ~~**Portrait capture:** if the camera-roll trick fails, a rotated monitor or a virtual display?~~ Not needed: the
    roll works (S1). Studio needs the left monitor to itself while it shoots.
 7. **Where it lives:** keep building on the `roblox-shorts-skill` branch of `vid-editing` and merge, or split into a

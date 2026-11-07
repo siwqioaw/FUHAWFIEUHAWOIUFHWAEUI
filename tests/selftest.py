@@ -5,13 +5,16 @@ each check catches what it should and passes what it should (docs/VERIFY.md, "Tr
 
 Planted: photosensitive flashes; a caption too short to read; an accent number (exempt); a black stretch; a sound
 running across a cut undeclared; a declared bridge and a prelap (allowed); a click at a cut; a silence that isn't; a
-picture hit with no sound on it. It also renders through render.py's worker processes, masters through master.py
-(checked against ffmpeg's own loudness meter) and encodes through deliver.py, so a broken tool fails here first.
+picture hit with no sound on it; R6 poses that go wrong (an unplanted lean; a walk too fast, at standing height or
+not planted; an arm in the head or chest; a swing that jumps speed). It also renders through render.py's worker
+processes, masters through master.py (checked against ffmpeg's own loudness meter) and encodes through deliver.py,
+so a broken tool fails here first.
 """
 
 from __future__ import annotations
 
 import json
+import math
 import os
 import sys
 
@@ -207,6 +210,100 @@ def main() -> int:
             expect(f"fx/look {name} runs", True)
         except Exception as e:  # noqa: BLE001
             expect(f"fx/look {name} runs ({e})", False)
+
+    sys.path.insert(0, os.path.join(ROOT, "tools", "roblox"))
+    import pose
+
+    rest = pose.soles(*pose.at([(0.0, "idle")], 0.0, drift_amount=0.0))
+
+    def feet_off(keys_pose, drifting: bool = True, planted: bool = True) -> float:
+        """How far a pose's sole corners are from rest, turned with the body about the hips (studs), with drift."""
+        joints, rootpos = pose.at([(0.0, keys_pose)], 1.0, drift_amount=1.0 if drifting else 0.0, seed=2,
+                                  planted=planted)
+        yaw = pose.body_angles(pose.angles(*joints["root"]))[1]
+        ry = pose.angles(0, yaw, 0)
+        worst = 0.0
+        for leg, cs in pose.soles(joints, rootpos).items():
+            for a, b in zip(cs, rest[leg]):
+                e = pose._apply(ry, (b[0], b[1] + 1.0, b[2]))
+                worst = max(worst, abs(a[0] - e[0]), abs(a[1] - (e[1] - 1.0)), abs(a[2] - e[2]))
+        return worst
+
+    off = max(feet_off(p) for p in ("laugh", "slump", "lean_in", {"root": (-12, 25, 0)}))
+    expect(f"pose keeps the feet still under leans, a turned lean and drift ({off:.5f} studs)", off < 0.001)
+    off = feet_off("laugh", drifting=False, planted=False)
+    expect(f"pose: an unplanted lean moves them ({off:.2f} studs)", off > 0.3)
+    j, rp = pose.at([(0.0, {"root": (0, 0, 8)})], 0.0, drift_amount=0.0)
+    lows = {leg: min(c[1] for c in cs) + 3.0 for leg, cs in pose.soles(j, rp).items()}
+    expect(f"pose: a roll lifts a foot and sinks none ({lows['rh']:.3f}, {lows['lh']:.3f} studs above the floor)",
+           min(lows.values()) > -0.001 and min(lows.values()) < 0.001 and max(lows.values()) > 0.1)
+
+    def unplanted(t):
+        w = pose.walk(t)
+        return pose._harness({jn: pose.rotation(jn, w[jn]) for jn in pose.JOINTS}, w["rootpos"])
+
+    good = pose.walk_check()
+    fast = pose.walk_check(travel=lambda t: 1.1 * pose.walk_travel(t))
+    low = pose.walk_check(frames=lambda t: (lambda jj, r: (jj, [r[0], 0.0, r[2]]))(*pose.walking(t)))
+    loose = pose.walk_check(frames=unplanted)
+    fmt = lambda r: ", ".join(f"{k} {v:.4f}" for k, v in r.items())  # noqa: E731
+    expect(f"pose: the walk keeps its feet ({fmt(good)})",
+           good["slip"] < 0.001 and good["sink"] < 0.001 and good["lift"] < 0.001 and good["scrape"] < 0.04)
+    expect(f"pose: a walk 10% too fast slips ({fmt(fast)})", fast["slip"] > 0.005)
+    expect(f"pose: a walk at standing height sinks ({fmt(low)})", low["sink"] > 0.03)
+    expect(f"pose: a walk that isn't planted floats or sinks ({fmt(loose)})",
+           loose["lift"] > 0.01 or loose["sink"] > 0.01)
+    steps = pose.walk_steps(2.0)
+    gaps = [b[0] - a[0] for a, b in zip(steps, steps[1:])]
+    expect(f"pose: footsteps every 20 frames, left and right in turn ({steps[:4]}...)",
+           all(19 <= g <= 21 for g in gaps) and all(a[1] != b[1] for a, b in zip(steps, steps[1:])))
+    against = all(pose.walk(k / 60)["rs"][0] * pose.walk(k / 60)["rh"][0] < 0 for k in range(40)
+                  if abs(pose.walk(k / 60)["rh"][0]) > 10)
+    expect("pose: the walk's arms swing against its legs", against)
+
+    def speed_jump(leg_angle) -> float:
+        """The biggest jump in a leg's angular speed (degrees a frame at 60 fps) where its phases change."""
+        d = 1e-7
+        rate = lambda p: (leg_angle(p + d) - leg_angle(p - d)) / (2 * d) / 40  # noqa: E731  (40 frames a cycle)
+        return max(abs(rate(b + 1e-5) - rate(b - 1e-5)) for b in (0.6, 1.0))
+    good_jump = speed_jump(lambda p: math.degrees(pose._leg(p % 1.0, 30.0, 0.6)[0]))
+    bad_jump = speed_jump(lambda p: math.degrees(pose._leg(p % 1.0, 30.0, 0.6)[0]) if p % 1.0 < 0.6 else
+                          (-30 + 60 * (3 * ((p % 1.0 - 0.6) / 0.4) ** 2 - 2 * ((p % 1.0 - 0.6) / 0.4) ** 3)))
+    expect(f"pose: a leg changes phase at an even speed ({good_jump:.3f} deg a frame; a swing that starts and ends "
+           f"still jumps {bad_jump:.2f})", good_jump < 0.1 and bad_jump > 0.5)
+    try:
+        pose.walk(0.1, stance=0.45)
+        expect("pose: a walk with a stance under half is refused", False)
+    except ValueError:
+        expect("pose: a walk with a stance under half is refused", True)
+
+    xs = [pose.pose_at([(0.0, "idle"), (0.1, "point")], 0.1 + k / 60)["rs"][0] for k in range(8)]
+    expect(f"pose snaps in 5 frames, two thirds of the way on the first, a little past ({[round(x) for x in xs]})",
+           0.6 < xs[1] / 90 < 0.75 and all(abs(x - 90) < 1e-6 for x in xs[5:]) and 90 < max(xs) <= 90 + pose.CAP)
+    keys = [(0.0, "arms_out"), (0.1, "hands_on_head")]
+    big = [pose.pose_at(keys, 0.1 + k / 60)["rs"] for k in range(8)]
+    target, begin = pose.resolve("hands_on_head")["rs"], pose.resolve("arms_out")["rs"]
+    beyond = [max((a - b) * (1 if b > c else -1) for a, b, c in zip(f, target, begin) if b != c) for f in big]
+    past = max(beyond)
+    flat = any(x > past / 2 and y > past / 2 and abs(x - y) < 0.5 for x, y in zip(beyond, beyond[1:]))
+    expect(f"pose: a big snap goes at most {pose.CAP:.0f} degrees past, without stalling ({past:.1f})",
+           past <= pose.CAP + 0.01 and not flat)
+    path = pose.pose_at([(0.0, "hands_on_hips"), (0.1, "cheer")], 0.1 + 1 / 60)["rs"]
+    expect(f"pose: a raise follows the numbers, through the front ({tuple(round(v) for v in path)})",
+           -10 < path[0] < 176)
+
+    def gap(p):
+        return pose.clearance(pose.at([(0.0, p)], 0.0, drift_amount=0.0)[0])
+
+    worst = max((gap(p), p) for p in pose.POSES)
+    old = gap({"ls": (158, 0, 32), "rs": (158, 0, -32), "neck": (-8, 0, 0)})
+    chest = gap({"ls": (60, 0, 75), "rs": (64, 0, -75)})
+    expect(f"pose: every pose keeps its arms out of the head and torso (worst {worst[0]:.3f} studs, {worst[1]}); "
+           f"the old hands_on_head went {old:.2f} into the head, forearms pushed in {chest:.2f} into the chest",
+           worst[0] <= 0.1 and old > 0.25 and chest > 0.25)
+    clips, clean = pose.snap_clearance("idle", "arms_crossed"), pose.snap_clearance("idle", "arms_out")
+    expect(f"pose: snap_clearance finds an arm through the chest between poses ({clips:.2f} studs; a clean snap "
+           f"{clean:.3f})", clips > 0.2 and clean < 0.01)
 
     bad = [w for w, ok in results if not ok]
     print(f"\n{len(results) - len(bad)}/{len(results)} as expected. Files in {OUT}")
