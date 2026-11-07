@@ -8,13 +8,14 @@ What was verified, and where:
 
 - **Verified in that project.** The bridge and the MCP calls, over many hours. A game-specific harness doing the same
   jobs as `harness.luau`, across three cuts.
-- **Not yet run.** `harness.luau`, `capture.py` and `stage.py` here are that harness and its tools made generic for
-  any place. **They haven't been run in Studio yet.** Run `capture.py smoke` before relying on them, and fix what it
-  shows.
+- **Run in Studio on 2026-11-07** (spike S1, a scratch Baseplate place): `harness.luau` and `capture.py`, including
+  the smoke test (no HUD, cursor or character) and portrait takes of 15 and 30 frames. See "Resolution".
+- **Not yet run:** `stage.py`. Run `capture.py smoke` before every session anyway, and fix what it shows.
 
 ## What you need
 
-- **Studio,** open on the place, signed in.
+- **Studio,** open on the place, signed in, **on a screen of its own that nothing covers** (see "Studio's
+  gotchas"), laid out for the most viewport (see "Resolution").
 - **The bridge** (`tools/roblox/studio_mcp.py serve`), running in the background. It keeps one session with
   Studio's MCP server (`StudioMCP.exe`, which ships with Studio) open, so a call takes a fraction of a second instead
   of seconds.
@@ -63,6 +64,22 @@ python tools/roblox/studio_mcp.py call execute_luau '{"code": "return game.Name"
 - **Team Create saves every edit as you make it.** "Close without saving" keeps nothing out. Anything temporary you
   put in the place in edit mode, you must remove by hand. Playtest changes vanish when the test stops.
 - **The PC's screensaver or lock** stops desktop control and screenshots. MCP keeps working.
+- **A covered Studio draws nothing.** With Studio maximized behind other windows, `screen_capture` returned an empty
+  grey viewport with only the view cube. Moved to a monitor of its own it rendered at once. Focus isn't needed, and a
+  window partly covered (the taskbar along the bottom) still renders in full. (2026-11-07)
+- **In edit mode, set the camera's Focus with its CFrame.** Studio's editor camera keeps aiming at its focus point: a
+  CFrame set alone was re-aimed (the up vector read back tilted) and the capture came from elsewhere. Setting
+  `Camera.Focus` to the target, then the CFrame, held.
+- **Studio's edit-mode camera applies roll backwards:** a +90 degree roll read back as -90. The playtest's Scriptable
+  camera does it exactly. Shoot in a playtest.
+- **`screen_capture` leaves out BillboardGuis.** One showed in Studio's window but in no capture, in edit or play.
+  SurfaceGuis, particles and shadows are captured. Billboards also stay upright on screen when the camera rolls, so
+  they couldn't be used in portrait anyway: put text on a SurfaceGui or add it in the edit.
+- **Don't start Studio from an automation tool to bring it forward.** One "open application" call launched a second
+  Studio, and the bridge then listed two (one named "None"). Move Studio's window with the window API instead
+  (`SetWindowPos` without activation), and close any extra instance.
+- **The bridge's link to Studio can drop for a few seconds** ("WebSocket ... Connection reset" in
+  `build/studio_mcp.log`); `list_roblox_studios` then returns nothing. Retry after a few seconds.
 
 ## The harness
 
@@ -149,15 +166,42 @@ must be able to use.
 
 ## Resolution
 
-The capture is the viewport, at whatever size Studio's viewport is. That project captured 1280 x 841 and reframed to
-1920 x 1080. A vertical short needs 1080 x 1920. Cropping 9:16 out of an 841-pixel-tall landscape viewport leaves about
-470 x 841, a 2.3x upscale: soft. **None of these has been tried. Test them first:**
+The capture is the viewport, at whatever size Studio's viewport is. A vertical short needs 1080 x 1920, and the
+monitors here are 1920 x 1080. Cropping 9:16 straight out of a landscape viewport leaves under half the width.
 
-1. a portrait monitor, or Studio's window made tall, with the viewport filling it;
-2. Studio's device emulator set to a phone in portrait (check that `screen_capture` returns the emulated frame);
-3. a bigger viewport on a high-resolution monitor, then a crop.
+**What works (spike S1, measured on 2026-11-07): roll the camera 90 degrees.** `capture.take(..., portrait=True)` and
+`capture.py smoke --portrait`:
 
-Measure what each returns (`capture.py smoke`, then the image's size) and pick the one with the most real pixels.
+1. each frame's camera is rolled +90 degrees (the harness applies `CFrame.Angles(0, 0, roll)`), and its field of view
+   set so the finished 9:16 frame has the vertical field of view the shot asked for (`capture.portrait_fov`);
+2. the capture is turned 90 degrees anticlockwise and cropped to 9:16 about its centre (`capture.upright`), saved at
+   its own pixels: the edit scales it to 1080 x 1920 once, with `look.reframe`.
+
+The frame's width comes from the viewport's **height**, and its height from the viewport's **width**, so the layout
+matters:
+
+| Studio's layout on a 1920 x 1080 monitor | Viewport | Portrait frame | To 1080 wide |
+|---|---|---|---|
+| Default panels and ribbon, edit mode | 928 x 841 | 522 x 928 | 2.07x |
+| Default panels and ribbon, in a playtest | 1280 x 841 | 720 x 1280 | 1.50x |
+| Side panels closed | 1914 x 841 | 841 x 1495 | 1.28x |
+| ... and the ribbon collapsed (double-click the Home tab) | 1914 x 900 | 900 x 1600 | 1.20x |
+| ... and View > Full Screen (F11) | 1914 x 923 | 923 x 1641 | 1.17x |
+| ... and Window > Script > Command Bar off | **1914 x 960** | **960 x 1707** | **1.125x** |
+
+At the last layout the frames are sharp at delivery size: on a test chart, SurfaceGui text of 20 px read cleanly
+after the 1.125x scale, and an R6 dummy's face and the baseplate's studs stayed crisp. The capture-layout checklist, in that order: Studio maximized
+on a monitor of its own; Explorer, Properties, Toolbox and Output closed (Window menu brings them back); ribbon
+collapsed; Full Screen on; Command Bar off. `take` prints the frame size it will get, and warns when it's short of
+1080 wide.
+
+**Speed, measured:** 0.47 s a capture in edit mode at 928 x 841; 0.52 s a frame applied and captured in a playtest at
+1280 x 841; **0.94 s a frame at 1914 x 960 with the portrait turn and crop**. So about 28 minutes of capture for a
+minute of video at 30 fps, 56 at 60.
+
+**Not needed, but possible, for true 1080 x 1920:** capture each frame as two tiles (the camera turned up and down
+about the same point, so no parallax) and stitch them with a homography. It doubles the capture time.
+Untested alternatives: a portrait monitor (about 1080 x 1750 of viewport without a roll), and Studio's device emulator.
 
 ## Smoke test, before every capture session
 

@@ -42,7 +42,8 @@ the owner rejected the first two (`docs/LESSONS.md` says why). The horror style 
 | Mastering, render, encode (`tools/edit/`) | Run by the self-test; the loudness meter agrees with ffmpeg's to 0.05 LU. |
 | Type and effects | Run by the self-test; captions looked at in its contact sheet. Mostly ported from the trailer, where they were used. |
 | The Studio bridge (`studio_mcp.py`) | Ported from the trailer, where it ran for hours; only the server lookup is new. |
-| The capture harness, capture loop, actors | Made generic from the trailer's game-specific versions. **Not yet run in Studio**: run `capture.py smoke` first. |
+| The capture harness and capture loop | Run in Studio on 2026-11-07: smoke test clean, portrait takes of 15 and 30 frames at 960 x 1707 (`docs/ROBLOX_CAPTURE.md`, "Resolution"). |
+| Actors (`stage.py`) | Made generic from the trailer's game-specific version. **Not yet run in Studio.** |
 | Kids' shorts advice | Untested. |
 
 ## Setup

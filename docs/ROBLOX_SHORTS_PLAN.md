@@ -125,7 +125,7 @@ Each spike has a test it must pass. None depends on the others except S7.
 
 | Spike | Question | Passes when |
 |---|---|---|
-| S1 Portrait capture | How to get 1080 x 1920 out of Studio on a 1920 x 1080 monitor? Try (a) rolling the camera 90 degrees and turning the landscape capture upright, (b) Studio's device emulator in portrait, (c) a portrait or virtual display. | a frame at least 1000 px wide of real pixels, no UI, under 1.5 s a frame |
+| S1 Portrait capture | How to get 1080 x 1920 out of Studio on a 1920 x 1080 monitor? Try (a) rolling the camera 90 degrees and turning the landscape capture upright, (b) Studio's device emulator in portrait, (c) a portrait or virtual display. | a frame at least 1000 px wide of real pixels, no UI, under 1.5 s a frame. **Passed 2026-11-07 with (a)**, one number short: 960 x 1707 real pixels (sharp after the 1.125x scale), no UI, 0.94 s a frame; Studio needs its own uncovered screen and the capture layout (`docs/ROBLOX_CAPTURE.md`, "Resolution") |
 | S2 R6 actors | Can `stage.py` make R6 actors with catalog hair, clothes and accessories, and swap a face texture per frame? | a still of two dressed R6 actors, each face changed between two frames |
 | S3 Snappy animation | Can the harness pose R6 joints per frame with ease-out snaps and held drift, plus a walk cycle? | frame strips that match the reference strips' timing (4-6 frame snaps) |
 | S4 Camera grammar | Push-in, 0.15 s swoop, dutch roll, desk-height low angle, over-the-shoulder with depth of field. | a strip of each move |
@@ -202,9 +202,10 @@ Each spike has a test it must pass. None depends on the others except S7.
 
 **Still open** (none blocks the spikes):
 
-5. **Frame rate:** 60 fps like most of the set (double the shoot time) or 30 like 014 and 015?
-6. **Portrait capture:** if the camera-roll trick fails, are you willing to rotate a monitor or install a virtual
-   display driver?
+5. **Frame rate:** 60 fps like most of the set, or 30 like 014 and 015? Measured: 0.94 s a captured frame, so a
+   35 s story takes about 16 minutes to shoot at 30 fps and 33 at 60.
+6. ~~**Portrait capture:** if the camera-roll trick fails, a rotated monitor or a virtual display?~~ Not needed: the
+   roll works (S1). Studio needs the left monitor to itself while it shoots.
 7. **Where it lives:** keep building on the `roblox-shorts-skill` branch of `vid-editing` and merge, or split into a
    new repository later?
 8. **The channel's main model:** narrated comedy and stories in English, or wordless music gags that travel across

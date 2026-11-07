@@ -74,7 +74,7 @@ The trailer's numbers are the only ones measured so far:
 
 | Step | Time |
 |---|---|
-| Capture | about 1 s a frame (30 minutes for 60 s at 30 fps; three times that with 3 motion-blur sub-frames) |
+| Capture | about 1 s a frame (30 minutes for 60 s at 30 fps; three times that with 3 motion-blur sub-frames). Portrait at 960 x 1707, measured 2026-11-07: 0.94 s a frame, so 28 minutes for 60 s at 30 fps |
 | Render | 1,600 frames at 1080p: 12 to 20 minutes, 12 processes |
 | Checks | under a minute for a minute of video (the trailer's full set: about 70 s) |
 | A review round, fix included | about an hour |
