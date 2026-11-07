@@ -149,20 +149,56 @@ own animations. Hold it, drive it from the frame state (`moves`, `attrs`), or ke
 
 ## Actors
 
-`stage.py` makes actors on the server:
+`stage.py` makes actors on the server (spike S2 ran it in Studio on 2026-11-07):
 
-- **What they are.** R15 bodies from a HumanoidDescription, named `_Actor_<name>`.
-- **How they're set up.** Each is anchored, with its Animate script removed and its name and health bars off.
-- **What they look like.** By default, plain bodies in the colours you give: no one's avatar. `user_id` loads a real
-  person's avatar, only with that person's permission. In that project the owner wanted their friends in it, and the
-  friends had agreed.
+- **What they are.** Bodies from a HumanoidDescription, named `_Actor_<name>`: **R6** unless the spec says
+  `"rig": "R15"`. Two took 2.8 s to make, dressed.
+- **How they're set up.** Root anchored, Animate script removed, name and health bars off. The pivot is the
+  HumanoidRootPart for every rig, so an actor's `cf` is its torso centre: for R6, **3 studs above its feet**. (An R6
+  model made from a description has its Head as PrimaryPart: pivoted as it came, the head went where the root
+  should, 1.5 studs low with the feet in the floor.)
+- **What they wear.** Body colours; classic clothing by asset id (`shirt`, `pants`, `tshirt`); catalog accessories
+  by asset id (`hair`, `hat`, `face_acc`, `neck`, `shoulder`, `front`, `back`, `waist`). On R6 every accessory is
+  loaded with InsertService and attached with `Humanoid:AddAccessory`, because a description silently drops newer
+  accessories on R6. The report lists each accessory's offset from the head and marks **MISFIT** any more than
+  1.2 studs below it.
+  - Fits R6: Straight Blonde Hair (376526888, 2016), 0.3 below the head centre as a long hair should; Black Glasses
+    (130858694386007, a free community item), 0.6 in front of the face.
+  - Doesn't: Short and Sleek - Black (9243992729, 2022), 2.0 below the head, hidden in the torso. It fits R15.
+  - Find items from edit mode with `AvatarEditorService:SearchCatalog` (free Roblox-made hair, shirts and pants come
+    up first with `MaxPrice = 0`). Skip anything with the Roblox logo or another brand on it. Log every item a video
+    uses in `ATTRIBUTION.md`.
+- **Nobody's avatar.** By default, plain bodies dressed from the catalog. `user_id` loads a real person's avatar,
+  only with that person's permission. In the trailer project the owner wanted their friends in it, and the friends had
+  agreed.
 
 `stage.park(pos)` anchors the player's own character out of shot. Choose a spot near the shot: with streaming on, the
 client only has the parts near its character.
 
 The harness knows Roblox's own R15 animations by name: `walk` (913402848), `run` (913376220), `idle` (507766388),
 `toolnone`, `wave`, `laugh`, `point` and `cheer`. Any other animation is `"rbxassetid://N"`, which the place's owner
-must be able to use.
+must be able to use. They don't drive R6 bodies: R6 posing is spike S3.
+
+## Faces
+
+An R6 head wears its face as a Decal named `face`. Each actor in a frame can carry `"face": <texture>`, and the
+harness sets the decal when it changes, so a face changes on exactly the frame the edit wants (spike S2: four
+swaps across two frames, all landed).
+
+**No upload needed for capture.** Studio reads `rbxasset://` textures from its own content folder, in edit mode and
+in playtests. `tools/roblox/faces.py` installs PNGs there (`faces.install(folder)`, then `faces.url(name)`), so drawn
+faces render in captures without ever going to Roblox. What to know:
+
+- **Find the folder from the running Studio,** not the registry: on 2026-11-07 the registry's ContentFolder still
+  named the version before an update, and faces installed there never showed. `faces.content_dir()` asks Windows for
+  the running RobloxStudioBeta.exe.
+- **A Studio update starts a new version folder** without our faces: run `faces.install()` at the start of every
+  session (or the face renders blank).
+- **Preload before a take:** `capture.preload([urls])` on the client (3 faces in 0.03-0.08 s), so a swap never shows a
+  frame of blank texture.
+- **The image:** square, transparent background, black line art; features in the middle, as in Roblox's default face
+  (`content/textures/face.png`: 128 x 128, features within x 42-88, y 27-101). At 512 x 512 a face stays crisp in a
+  close-up that fills the frame with the head. `faces.py test` draws a three-face test set (smile, shock, angry).
 
 ## Resolution
 

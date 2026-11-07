@@ -118,6 +118,15 @@ def frame(state: dict, settle_frames: int = 3, timeout: float = 20) -> None:
         raise RuntimeError(f"frame {_fid} not applied: {out}")
 
 
+def preload(urls: list[str], timeout: float = 60) -> str:
+    """Load textures on the client before a take (faces above all), so a swap never shows a frame of blank texture."""
+    code = ("local list = game:GetService('HttpService'):JSONDecode(" + json.dumps(json.dumps(list(urls))) + ")\n"
+            "local t0 = os.clock()\n"
+            "game:GetService('ContentProvider'):PreloadAsync(list)\n"
+            "return string.format('preloaded %d in %.2f s', #list, os.clock() - t0)")
+    return studio.luau(code, dm="Client", timeout=timeout)
+
+
 def release() -> str:
     return studio.luau(f"local h = {_H} if h then h:SetAttribute('Release', true) end return 'released'", dm="Client")
 

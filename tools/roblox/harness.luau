@@ -23,9 +23,10 @@
 --   clock    Lighting.ClockTime, held
 --   ambient  {r, g, b} in 0..1: Lighting.Ambient, held
 --   lights   {{path, on, brightness}}: lights held on or off, e.g. "Workspace.Lamps.Lamp1.PointLight"
---   actors   {{name, cf, anims = {{key, t, w, priority}}, hidden, optional}}: the model _Actor_<name> (stage.py
+--   actors   {{name, cf, anims = {{key, t, w, priority}}, face, hidden, optional}}: the model _Actor_<name> (stage.py
 --            makes them) or <name> in Workspace, pivoted to cf; each animation held at t seconds with weight w. key
---            is a name below (walk, run, idle, ...), a number, or "rbxassetid://N"
+--            is a name below (walk, run, idle, ...), a number, or "rbxassetid://N". face: a texture for the head's
+--            face decal (faces.py), set when it changes
 --   moves    {{path, cf}}: any model or part pivoted to cf
 --   attrs    {{path, name, value}}: attributes set, for the game's own code to read
 --   t        the shot's time in seconds, left in the attribute T for your own code
@@ -144,6 +145,16 @@ local function poseActor(a)
 		m:PivotTo(cframe(a.cf))
 	end
 	setHidden(m, a.hidden == true)
+	if a.face then
+		local head = m:FindFirstChild("Head")
+		local decal = head and head:FindFirstChild("face")
+		if not decal then
+			error("no face decal on " .. a.name)
+		end
+		if decal.Texture ~= a.face then
+			decal.Texture = a.face
+		end
+	end
 	local ctl = m:FindFirstChildOfClass("Humanoid") or m:FindFirstChildOfClass("AnimationController")
 	if not ctl then
 		return

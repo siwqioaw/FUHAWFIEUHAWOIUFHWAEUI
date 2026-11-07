@@ -126,7 +126,7 @@ Each spike has a test it must pass. None depends on the others except S7.
 | Spike | Question | Passes when |
 |---|---|---|
 | S1 Portrait capture | How to get 1080 x 1920 out of Studio on a 1920 x 1080 monitor? Try (a) rolling the camera 90 degrees and turning the landscape capture upright, (b) Studio's device emulator in portrait, (c) a portrait or virtual display. | a frame at least 1000 px wide of real pixels, no UI, under 1.5 s a frame. **Passed 2026-11-07 with (a)**, one number short: 960 x 1707 real pixels (sharp after the 1.125x scale), no UI, 0.94 s a frame; Studio needs its own uncovered screen and the capture layout (`docs/ROBLOX_CAPTURE.md`, "Resolution") |
-| S2 R6 actors | Can `stage.py` make R6 actors with catalog hair, clothes and accessories, and swap a face texture per frame? | a still of two dressed R6 actors, each face changed between two frames |
+| S2 R6 actors | Can `stage.py` make R6 actors with catalog hair, clothes and accessories, and swap a face texture per frame? | a still of two dressed R6 actors, each face changed between two frames. **Passed 2026-11-07:** two dressed R6 actors, every face changed between two frames, faces drawn here and rendered from Studio's content folder (no upload). Newer hair doesn't fit R6: the cast library needs hair checked on R6 (`stage.py` flags misfits) |
 | S3 Snappy animation | Can the harness pose R6 joints per frame with ease-out snaps and held drift, plus a walk cycle? | frame strips that match the reference strips' timing (4-6 frame snaps) |
 | S4 Camera grammar | Push-in, 0.15 s swoop, dutch roll, desk-height low angle, over-the-shoulder with depth of field. | a strip of each move |
 | S5 Voice | Which voice tool, which voices? Three lines in two voices. | owner approves by ear; word times from `transcribe.py` |
@@ -195,8 +195,9 @@ Each spike has a test it must pass. None depends on the others except S7.
    terminal; the agent never sees it. Never a clone of a real person's voice.
 2. **Audience: teens, not made for kids.** The content rules are in `CLAUDE.md` ("Audience, safety and privacy");
    `docs/KIDS_SHORTS.md` defers to them. The owner sets the channel's "made for kids" setting.
-3. **Faces: our own drawn set** (classic faces have moved to Dynamic Heads, and face packs restrict use). The owner
-   uploads the finished set to their Roblox account.
+3. **Faces: our own drawn set** (classic faces have moved to Dynamic Heads, and face packs restrict use). Spike S2
+   found that captures need no upload: Studio renders them from its own content folder (`tools/roblox/faces.py`).
+   Uploading stays optional, for faces that must show outside this machine.
 4. **Assets: free Toolbox models and catalog items**, each checked for scripts before use and logged in
    `ATTRIBUTION.md`; music from YouTube's Audio Library.
 

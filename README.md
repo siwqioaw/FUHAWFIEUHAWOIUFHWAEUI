@@ -43,7 +43,7 @@ the owner rejected the first two (`docs/LESSONS.md` says why). The horror style 
 | Type and effects | Run by the self-test; captions looked at in its contact sheet. Mostly ported from the trailer, where they were used. |
 | The Studio bridge (`studio_mcp.py`) | Ported from the trailer, where it ran for hours; only the server lookup is new. |
 | The capture harness and capture loop | Run in Studio on 2026-11-07: smoke test clean, portrait takes of 15 and 30 frames at 960 x 1707 (`docs/ROBLOX_CAPTURE.md`, "Resolution"). |
-| Actors (`stage.py`) | Made generic from the trailer's game-specific version. **Not yet run in Studio.** |
+| Actors (`stage.py`) and faces (`faces.py`) | Run in Studio on 2026-11-07 (spike S2): dressed R6 actors from catalog items, faces drawn here and swapped per frame from Studio's content folder (`docs/ROBLOX_CAPTURE.md`, "Actors" and "Faces"). |
 | Kids' shorts advice | Untested. |
 
 ## Setup
