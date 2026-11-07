@@ -1,0 +1,220 @@
+{
+ "file": "016 - Why Do Little Brothers ALWAYS do this - 1.0M.mp4",
+ "voices": [
+  {
+   "who": "older brother / narrator (also doing whiny brother impression at 0:20.6)",
+   "first_words": "Bro, why are little brothers like this?",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs/CapCut energetic young-male rant TTS ('Liam'/'Josh'), ~85% sure",
+   "gender_age_impression": "teen / young adult male (approx. 16-22)",
+   "accent": "General American",
+   "pitch_or_speed_effect": "sped up",
+   "other_effects": "none",
+   "energy_1_to_10": 8,
+   "delivery": "exasperated, punchy, indignant older-brother rant",
+   "timing_notes": "Dry 'BRO' (0:00.1-0:00.4) + 0.4s pause (0:00.4-0:00.8); slows smugly on 'peacefully' (0:04.1); crisp setups ('My phone?' 0:07.5, 'My personal space?' 0:09.0); pauses before 'You mad?' (0:13.4-0:13.8) and after 'smug little grin' (0:16.2-0:16.7); whiny pitched-up 'Mooom, he yelled at me!' (0:20.6-0:22.0); races through 'throwing hands immediately' (0:25.9-0:29.3)."
+  },
+  {
+   "who": "deep punchline voice ('GONE' at 0:08.2 & brother's 'You mad?' at 0:13.8)",
+   "first_words": "Gone.",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs 'Adam' deep baritone TTS, ~90% sure",
+   "gender_age_impression": "adult male with deep baritone voice (approx. 30-40)",
+   "accent": "General American",
+   "pitch_or_speed_effect": "other (slightly slowed and pitched down for bass weight)",
+   "other_effects": "distortion / heavy low-mid bass boost",
+   "energy_1_to_10": 6,
+   "delivery": "deadpan, booming, mock-dramatic and smug",
+   "timing_notes": "Cuts in twice for bass-heavy contrast: deadpan 'GONE' (0:08.2-0:08.8) into a 0:08.5 Vine boom, and drawled 'You maaad?' (0:13.8-0:14.7) after a 0.4s pause into a 0:14.4 Vine boom."
+  }
+ ],
+ "one_voice_plays_several_characters": "yes — Voice 1 (teen narrator) also voices the little brother's whiny 'Mom, he yelled at me!' (0:20.6) via higher whiny inflection, while Voice 2 (deep 'Adam' baritone) voices both the narrator's 'GONE' (0:08.2) and the brother's smug 'You mad?' (0:13.8).",
+ "music": [
+  {
+   "start": "0:00.8",
+   "end": "0:29.4",
+   "description": "quirky comedy-gaming loop with bouncy pizzicato strings, playful marimba plucks, light percussion",
+   "tempo_bpm": 104,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Enters at 0:00.8 after the 'BRO' silence hook and loops to 0:29.4, briefly overridden by the 0:05.5-0:07.3 boss-fight choir and repeatedly crushed by loud Vine booms (0:02.1, 0:08.5, 0:10.1-0:11.3, 0:14.4, 0:22.0)."
+  },
+  {
+   "start": "0:05.5",
+   "end": "0:07.3",
+   "description": "ominous dark orchestral brass and Gothic choir boss-fight stinger",
+   "tempo_bpm": 90,
+   "has_vocals": true,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Swells at 0:05.5 as the door opens on 'walks in like it's a boss fight', holding ominous Gothic choir/low brass over heavy footsteps before cutting cleanly at 0:07.3."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:02.1",
+   "sound": "heavy sub-bass boom",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:03.4",
+   "sound": "PC keyboard typing clacks",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:04.1",
+   "sound": "faint high anime 'kawaii' voice from monitor",
+   "meme_name": null,
+   "purpose": "punchline",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:05.2",
+   "sound": "door latch click + wooden creak",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:05.6",
+   "sound": "heavy slow boss footsteps (0:05.6-0:07.2)",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:07.7",
+   "sound": "quick phone-snatch swipe",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:08.5",
+   "sound": "heavy sub-bass boom",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:10.1",
+   "sound": "1st stacked sub-bass boom",
+   "meme_name": "vine boom",
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:10.7",
+   "sound": "2nd stacked sub-bass boom",
+   "meme_name": "vine boom",
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:11.3",
+   "sound": "3rd stacked sub-bass boom",
+   "meme_name": "vine boom",
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:14.4",
+   "sound": "heavy sub-bass boom",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:17.2",
+   "sound": "muffled cartoon rage roar (0:17.2-0:18.0)",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:22.0",
+   "sound": "heavy sub-bass boom",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:24.4",
+   "sound": "abrupt door barge hit",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:25.2",
+   "sound": "reverbed male 'Ooooh!' crowd reaction",
+   "meme_name": "oh / crowd oooh reaction",
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:26.0",
+   "sound": "rapid cartoon punches, slaps, yelling (0:26.0-0:27.4)",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:27.6",
+   "sound": "window glass shatter, crash rumble, fading scream (to 0:29.3)",
+   "meme_name": null,
+   "purpose": "punchline",
+   "loudness": "loud"
+  }
+ ],
+ "ambience": "none — dry indoor rant with pizzicato BGM and meme SFX",
+ "silences": [
+  {
+   "t": "0:00.4",
+   "length_s": 0.4,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:13.4",
+   "length_s": 0.4,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:16.2",
+   "length_s": 0.5,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:20.0",
+   "length_s": 0.6,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:23.3",
+   "length_s": 0.2,
+   "purpose": "breath"
+  }
+ ],
+ "sync_with_picture": "0:02.1 Vine boom hits brother cut; faint 'kawaii' (0:04.1) matches PC cat-girl dance + smirk; door creak (0:05.2) + boss choir (0:05.5) hit terrified face (0:06.1); 0:08.5 boom hits phone snatch; triple booms (0:10.1, 0:10.7, 0:11.3) hit close-up space invasion; 0:14.4 boom hits 'You mad?' grin; 0:17.2 rage yell hits shaking red head; 0:22.0 boom hits crying-to-evil grin flip; 'Ooooh!' (0:25.2) hits Mom's blue chancla; slaps (0:26.0) + window shatter (0:27.6) match brother flying out window.",
+ "faces_and_mouths": "Static 2D decals swap on cuts (no lip-sync): older brother shifts from blue-glasses ':)' (0:00.0) to smirk (0:04.1), horror (0:06.1), sweat (0:09.3), and shaking red rage face (0:16.7); little brother swaps smug smirk (0:02.1, 0:15.0), glee (0:07.5), talking grin (0:13.6), bawling mouth (0:20.0) snapping to evil grin (0:21.0), and mid-air scream (0:27.5).",
+ "comedic_or_emotional_timing": "0.4s dead-air after 'BRO' (0:00.4-0:00.8); subtle 'kawaii' monitor leak under 'PEACEFULLY' (0:04.1); 0.4s pocket (0:13.4-0:13.8) teeing up deep baritone 'You maaad?' + 0:14.4 Vine boom; and 0.6s pause (0:20.0-0:20.6) into fake-crying 'Mom, he yelled at me!' ratified by the 0:22.0 evil-grin Vine boom.",
+ "first_3_seconds": "Loud dry 'BRO' (0:00.1-0:00.4), crisp 0.4s silence (0:00.4-0:00.8), quirky pizzicato BGM entering at 0:00.8 under 'why are little brothers like this?', and a -5.8 dB RMS Vine boom at 0:02.1.",
+ "ending": "Rapid slaps (0:26.0-0:27.4) explode into loud window-glass shatter + crash rumble (0:27.6-0:29.4) under 'throwing hands immediately', hard-cutting mid-tail (-27.1 dB) at 0:29.4 into 0:00.1 'BRO'.",
+ "mix": "Loud bass-heavy meme mix (-12.3 LUFS, LRA 2.6 LU, 0.0 dBTP) with 50.2% energy <80 Hz from Vine booms/crash rumble and dry midrange speech (36.7% in 250 Hz-4 kHz, warm 0.8% >4 kHz).",
+ "why_the_sound_works": [
+  "Teen narrator vs. slowed 'Adam' baritone ('GONE' 0:08.2, 'You mad?' 0:13.8) turns short words into meme hits.",
+  "Setup pauses (0:00.4, 0:13.4, 0:16.2, 0:20.0) maximize the slam of each following Vine boom.",
+  "Easter-egg layers ('kawaii' leak 0:04.1, boss choir 0:05.5, chancla 'Ooooh!' 0:25.2) reward rewatches.",
+  "Escalating finale foley (0:25.2 'Ooooh!' -> 0:26.0 punches -> 0:27.6 glass shatter) ends at peak energy."
+ ],
+ "unsure_about": "Titles of 0:00.8-0:29.4 comedy loop (same in 001, 004, 007, 010) and 0:05.5-0:07.3 choir stinger (both null)."
+}

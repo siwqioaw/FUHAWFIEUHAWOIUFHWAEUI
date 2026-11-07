@@ -79,6 +79,9 @@ shots.
 - Cuts on the beat; one in-camera flight instead of a cut.
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/015.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 - **Voice:** none.
 - **Music:** about 105 BPM, the same tempo and level as 014 (likely the same track).
 - **Mix:** -6.3 LUFS, true peak +1.8 dBTP, clipped.

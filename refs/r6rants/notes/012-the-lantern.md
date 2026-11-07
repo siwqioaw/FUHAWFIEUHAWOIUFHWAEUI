@@ -463,6 +463,9 @@ cut; the only swoop is the move into the first frame.
 | ending loops into the start | holds (155.93 back to 0.00) |
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/012.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 - **Voice.**
   - One narrator voice throughout, 4.06 words/s overall. *measured*
   - By act: 3.98, 4.55, 4.27, 4.37, 3.95, 4.09, 3.65 words/s. The ending is the slowest.

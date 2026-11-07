@@ -1,0 +1,183 @@
+{
+ "file": "001 - Why Do POPULAR Girls Do This - 9.9M.mp4",
+ "voices": [
+  {
+   "who": "narrator (bacon-hair guy in purple sunglasses)",
+   "first_words": "BRO, why are popular girls so annoying?",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs energetic young male TTS ('Liam'/'Josh' style), ~85% sure",
+   "gender_age_impression": "teen or young adult male, ~17-22",
+   "accent": "General American",
+   "pitch_or_speed_effect": "sped up",
+   "other_effects": "none",
+   "energy_1_to_10": 9,
+   "delivery": "exasperated, punchy, indignant comedic rant",
+   "timing_notes": "Shouts 'BRO' dry at 0:00.0, pauses 0.2s (0:00.5-0:00.7), fires staccato setup clauses (0:04.7, 0:05.6, 0:07.0) and fast jabs (0:09.7, 0:19.8), slows at 0:21.8-0:23.1 ('completely silent'), and sighs 'bro...' at 0:26.4."
+  },
+  {
+   "who": "narrator deep punchline voice-swap",
+   "first_words": "and they BOTH start LAUGHING",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs 'Adam' deep baritone TTS, ~95% sure",
+   "gender_age_impression": "adult male, ~30-40, deep baritone",
+   "accent": "General American",
+   "pitch_or_speed_effect": "none",
+   "other_effects": "none",
+   "energy_1_to_10": 8,
+   "delivery": "booming, mock-serious movie-trailer gravitas",
+   "timing_notes": "Cuts in mid-sentence four times on all-caps punchlines—0:08.0-0:09.4 ('and they BOTH start LAUGHING'), 0:14.0-0:15.2 ('LAUGHING AGAIN'), 0:17.4-0:18.6 ('BRAD IS ASLEEP'), and 0:27.3-0:28.2 ('WE KNOW')—stretching vowels onto Vine booms."
+  },
+  {
+   "who": "blonde popular girl in white crop top",
+   "first_words": "Brad, stop making me laugh!",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs/TikTok bratty teen female TTS ('Gigi'/'Bella' style), ~80% sure",
+   "gender_age_impression": "teenage girl, ~15-18",
+   "accent": "General American",
+   "pitch_or_speed_effect": "none",
+   "other_effects": "none",
+   "energy_1_to_10": 7,
+   "delivery": "fake-annoyed on line 1; whiny compliment-fishing on line 2",
+   "timing_notes": "Snaps 'Brad, stop making me laugh!' briskly (0:16.0-0:16.9) before a 0.4s comedic pause (0:17.0-0:17.4); returns at 0:24.8-0:26.3 dragging out 'so bad' over the music-free room."
+  }
+ ],
+ "one_voice_plays_several_characters": "no — three TTS voices: main narrator splits between a fast ~200 Hz teen male setup voice and a deep ~150 Hz ElevenLabs 'Adam' punchline baritone, plus a ~320 Hz teen female TTS for the popular girl.",
+ "music": [
+  {
+   "start": "0:00.7",
+   "end": "0:21.7",
+   "description": "quirky comedy-gaming loop with bouncy pizzicato strings, playful marimba plucks, light percussion",
+   "tempo_bpm": 104,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": true,
+   "how_it_follows_the_story": "Silent on 'BRO' (0:00.0-0:00.6), enters at 0:00.7 on the hook question, runs steadily under the hallway/whiteboard scenes, and cuts out at 0:21.7 on 'the class is completely silent' so crickets and the final joke land in dead air."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:00.7",
+   "sound": "crisp transition pop/whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:02.1",
+   "sound": "heavy 50 Hz sub-bass impact thud",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:02.6",
+   "sound": "secondary sub-bass boom on cut",
+   "meme_name": "vine boom",
+   "purpose": "transition",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:06.1",
+   "sound": "drawn-out nasal vocal groan ('uhhh')",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:08.4",
+   "sound": "heavy sub-bass impact hit",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:08.5",
+   "sound": "high-pitched girls giggling and cackling",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:14.5",
+   "sound": "heavy sub-bass impact hit",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:14.6",
+   "sound": "manic girl wheezing giggle",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:18.4",
+   "sound": "heavy sub-bass impact hit",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:18.6",
+   "sound": "exaggerated snoring groan and high whistle-snore",
+   "meme_name": "AUUGHHH / cartoon snoring meme",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:22.0",
+   "sound": "high-pitched cartoon cricket chirps and dry breeze",
+   "meme_name": "awkward crickets",
+   "purpose": "ambience",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:26.8",
+   "sound": "exasperated male vocal 'oh my god' groan",
+   "meme_name": "oh my god / bruh groan",
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:27.7",
+   "sound": "massive sub-bass impact hit",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  }
+ ],
+ "ambience": "none during 0:00.0-0:21.7; sparse cartoon crickets in silent classroom (0:22.0-0:25.2)",
+ "silences": [
+  {
+   "t": "0:00.5",
+   "length_s": 0.2,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:17.0",
+   "length_s": 0.4,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:23.1",
+   "length_s": 0.3,
+   "purpose": "comedic pause"
+  }
+ ],
+ "sync_with_picture": "0:00.6 widen-cut sits in the post-'BRO' gap; 0:02.1 Vine boom hits her disgusted scowl and 0:02.6 boom hits the hallway cut; 0:06.1 groan matches her pink side-eye; 0:08.4 and 0:14.5 booms + giggles hit open-mouth pixel-tear laughs; 0:18.4 boom + 0:18.6 snore hit sleeping Brad's 'Z z' cut; music stops at 0:21.7 as a tumbleweed rolls (0:22.0); 0:27.7 boom hits 'WE KNOW'.",
+ "faces_and_mouths": "Swapped 2D face decals on R6 heads rather than phoneme lip-sync: static smug/annoyed/puppy-eye decals snap on cuts, swapping to wide open-mouthed scream/laugh decals on bursts (0:08.4, 0:14.5, 0:17.4, 0:27.3).",
+ "comedic_or_emotional_timing": "(1) Dry 'BRO' at 0:00.0 + 0.2s pause (0:00.5) before music; (2) mid-sentence baritone swap + Vine boom on 'BOTH start LAUGHING' (0:08.0) and 'LAUGHING AGAIN' (0:14.0); (3) 0.4s beat (0:17.0-0:17.4) before cutting to unconscious Brad snoring (0:18.6); (4) hard music kill at 0:21.7 for crickets before chopping 'WE KNOW' mid-boom at 0:28.2.",
+ "first_3_seconds": "Loud dry male shout 'BRO!' at 0:00.0, a 0.2s gap (0:00.5-0:00.7), bouncy pizzicato/marimba BGM entering at 0:00.7 under 'why are popular girls so annoying?', and Vine booms at 0:02.1 and 0:02.6 — instant vocal urgency + meme bass impact.",
+ "ending": "Hard smash-cut at 0:28.2 (-15.0 dB) mid-tail of 'WE KNOW!' and the 0:27.7 Vine boom; with music already muted since 0:21.7, it loops cleanly into the dry 0:00.0 'BRO!'.",
+ "mix": "Loud, punchy (-13.1 LUFS, 0.2 dBTP, LRA 4.0 LU) with heavy sub-bass (48.1% <80 Hz from five 50 Hz Vine booms); dry crisp TTS voices in 250 Hz-4 kHz sit 12-15 dB above the clean BGM.",
+ "why_the_sound_works": [
+  "Dry 'BRO!' at 0:00.0 + 0.2s gap creates high-contrast scroll-stopping urgency before music enters at 0:00.7.",
+  "Mid-sentence swaps to deep 'Adam' baritone + 50 Hz Vine booms (0:08.0, 0:14.0, 0:17.4, 0:27.3) turn complaints into audio punchlines.",
+  "Killing the BGM at 0:21.7 for quiet crickets makes the 'silent class' setup physically felt.",
+  "Cutting mid-decay on 'WE KNOW!' at 0:28.2 feeds straight back into 0:00.0 'BRO!' on replay."
+ ],
+ "unsure_about": "Stock title of the 0:00.7-0:21.7 pizzicato/marimba loop (same track in 004, 007, 010, 016; left null)."
+}

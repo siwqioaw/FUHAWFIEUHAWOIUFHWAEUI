@@ -210,6 +210,9 @@ shots (the hallway at both ends, the interrogation, the summoning). Props get th
   stickers. *seen*
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/005.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 - **Voice:** 3.06 words/s with six pauses of 0.35 s or more, each a comic beat: 6.36-7.34 (0.98 s, before the name),
   9.98-10.78 (0.80 s, after "III", while "THE THIRD" holds and a sub-bass note plays), 15.96-16.34 (0.38 s), 23.18-23.72
   (0.54 s, after "remote", sub-bass), 26.10-26.54 (0.44 s, before "To pass the remote"), 27.70-28.16 (0.46 s, after it,

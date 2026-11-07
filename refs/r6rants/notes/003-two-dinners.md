@@ -317,6 +317,9 @@ Sizes: EWS/WS/MWS/MS/MCU/CU are extreme wide to close-up; OTS is over the should
   - "Builder Brothers PIZZA" on the box.
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/003.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 - **Voice.** As far as measurement can tell, one narrator reads everything, including the old man's lines and the letter.
   *measured, rough* The voice's harmonic spacing (cepstrum, 200-4000 Hz) has a median of about 170 Hz on the narration
   and 164-171 Hz on the old man's lines, so his voice isn't pitched down. The letter measures about 211 Hz. That puts the

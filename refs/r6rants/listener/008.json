@@ -1,0 +1,324 @@
+{
+ "file": "008 - In This Town Secrets Turn To MICE - 3.3M.mp4",
+ "voices": [
+  {
+   "who": "narrator (blue star-jacket boy), also voicing Fire Chief and Milo",
+   "first_words": "In this town, every secret you say out loud",
+   "kind": "AI voice clone",
+   "sounds_like": "ElevenLabs expressive youthful voice / Speech-to-Speech (~80% sure)",
+   "gender_age_impression": "young teen boy or androgynous youth (approx. 12-15)",
+   "accent": "General American",
+   "pitch_or_speed_effect": "other (sped up ~1.1x with mild upward pitch shift and trimmed breaths)",
+   "other_effects": "none",
+   "energy_1_to_10": 8,
+   "delivery": "animated, whimsical, and brisk in Act 1; urgent, strained, and emotionally raw in Acts 2-3",
+   "timing_notes": "Brisk Act 1 worldbuilding (0:00.0-0:36.1) with micro-pauses (0:08.1, 0:11.0, 0:29.8); 0.2s pivot pause at 0:37.5 before the blizzard; gruff urgent bark as Fire Chief (0:41.1-0:42.4); escalating shouts at 0:49.0, 0:57.0, 0:59.7, and 1:07.5 peaking in a voice-cracking 'three years that I'm not his!' (1:09.8-1:11.3); soft raspy whisper-shout for Milo's 'You idiot!' (1:30.4-1:31.2)."
+  }
+ ],
+ "one_voice_plays_several_characters": "yes — one youthful voice performs narrator, Fire Chief (0:41.1-0:42.4), and Milo (1:30.4-1:31.2), separated purely by vocal acting (gruff bark, voice-cracking shout, teary rasp) with no separate TTS swap or filter.",
+ "music": [
+  {
+   "start": "0:00.0",
+   "end": "0:37.6",
+   "description": "playful pizzicato strings and marimba/woodwinds, whimsical storybook comedy",
+   "tempo_bpm": 118,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Starts at 0:00.0 under sunny town rules and Milo's goofy secrets, fading cleanly at 0:37.6 after 'I swore I'd never tell' to set up the sudden blizzard."
+  },
+  {
+   "start": "0:37.7",
+   "end": "1:11.5",
+   "description": "tense minor-key piano and sustained strings, urgent and cold",
+   "tempo_bpm": 110,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Enters at 0:37.7 with howling wind on 'biggest blizzard in 100 years', pulsing tensely as three small mice freeze (0:55.8, 0:59.1, 1:02.6) and swelling into the narrator's shouted confession (1:07.5-1:11.3)."
+  },
+  {
+   "start": "1:11.5",
+   "end": "1:39.8",
+   "description": "warm soaring major-key piano and legato strings, hopeful resolution",
+   "tempo_bpm": 110,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Blooms into warm major-key strings/piano as the horse-sized mouse spawns (1:11.5-1:13.5), carrying the forest rescue (1:17.6), softening under Milo's 'You idiot!' (1:30.4), and resolving over the cat button joke (1:39.8)."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:02.2",
+   "sound": "smoke puff pop + mouse squeak",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:03.4",
+   "sound": "crisp cartoon pop",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:04.5",
+   "sound": "soft air puff whoosh",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:05.5",
+   "sound": "rapid mouse scurrying + squeaks",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:07.4",
+   "sound": "faint whisper flutter + squeak",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:08.0",
+   "sound": "low reaction pop",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:08.7",
+   "sound": "high mouse squeak",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:10.7",
+   "sound": "low thud pop",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:13.4",
+   "sound": "smoke poof, swarming squeaks, girl scream (to 0:15.6)",
+   "meme_name": null,
+   "purpose": "punchline",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:18.6",
+   "sound": "adhesive tape rip + mouth slap",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:20.8",
+   "sound": "high cat meow",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:21.8",
+   "sound": "soft catch thud/pop",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:25.0",
+   "sound": "hushed classmate whispers (0:25.0-0:26.5)",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:29.8",
+   "sound": "faint rubber-duck squeak",
+   "meme_name": null,
+   "purpose": "punchline",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:33.4",
+   "sound": "wooden fence rattle/bonk",
+   "meme_name": null,
+   "purpose": "punchline",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:38.2",
+   "sound": "howling blizzard wind gust",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:40.0",
+   "sound": "muffled snow-crunch footsteps",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:44.2",
+   "sound": "subtle bright idea chime/pop",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:47.7",
+   "sound": "icy wind swell + shivering rattle",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:51.2",
+   "sound": "smoke poof pop + mouse squeak",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:55.8",
+   "sound": "ice-freeze crackle/snap (1st mouse)",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:58.2",
+   "sound": "smoke poof into 0:59.1 ice crackle (2nd mouse)",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "1:01.0",
+   "sound": "smoke poof into 1:02.6 ice crackle (3rd mouse)",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "1:11.4",
+   "sound": "deep ground-shake rumble (1:11.4-1:12.6)",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "1:12.7",
+   "sound": "booming giant smoke poof + heavy thud",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "loud"
+  },
+  {
+   "t": "1:16.7",
+   "sound": "cloth climb rustle",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "1:17.6",
+   "sound": "snow-spray whoosh + galloping crunches (to 1:20.0)",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "1:25.1",
+   "sound": "booming low breathy whisper-rumble",
+   "meme_name": null,
+   "purpose": "punchline",
+   "loudness": "medium"
+  },
+  {
+   "t": "1:28.3",
+   "sound": "faint shocked crowd gasp",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "subtle"
+  },
+  {
+   "t": "1:31.4",
+   "sound": "giant smoke poof whoosh/pop",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "1:33.8",
+   "sound": "heavy bounding snow footsteps",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "1:37.5",
+   "sound": "cat squeak + comic body-flop thud",
+   "meme_name": null,
+   "purpose": "punchline",
+   "loudness": "medium"
+  }
+ ],
+ "ambience": "Dry storybook backdrop (0:00.0-0:38.1, brief cafeteria commotion 0:13.4-0:15.6), continuous howling blizzard wind from 0:38.2 to 1:34.5 (+25 dB <120 Hz energy), then quiet sunny air (1:34.5-1:39.8).",
+ "silences": [
+  {
+   "t": "0:08.1",
+   "length_s": 0.3,
+   "purpose": "breath"
+  },
+  {
+   "t": "0:11.0",
+   "length_s": 0.4,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:15.8",
+   "length_s": 0.2,
+   "purpose": "breath"
+  },
+  {
+   "t": "0:29.8",
+   "length_s": 0.3,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:37.5",
+   "length_s": 0.2,
+   "purpose": "tension"
+  }
+ ],
+ "sync_with_picture": "Smoke clouds and gray mice pop on puff/squeak SFX (0:02.2, 0:13.4, 0:51.2, 1:12.7, 1:31.4); cafeteria chaos lands on '300 mice' (0:13.4); meow hits ':3' cat cut (0:20.8); 0:38.2 flips town to snow with wind + minor piano; blue ice snaps onto mice on frost crackles (0:55.8, 0:59.1, 1:02.6); screen shake matches 1:11.4 rumble; snout steam matches 1:25.1 booming whisper; cat flops with 'X X' eyes on 1:37.5 thud.",
+ "faces_and_mouths": "No phoneme lip-sync; 2D decals stay static during narration and snap on beats: 'O' eyes on reveals (0:02.3, 0:07.0), scream mouth (0:13.9), smug grin (0:22.3), desperate shouting mouths (0:48.8, 0:56.9, 1:06.0), waterfall blue tears on 'not his!' (1:10.0), town gasps (1:27.8), Milo's gape to teary smile (1:29.0-1:30.1), and cat ':3' to 'X X' (1:37.5).",
+ "comedic_or_emotional_timing": "Act 1 fires three goofy Milo secrets in 7s (0:28.7 duck light, 0:30.3 shoes, 0:31.8 fence), then Act 2 reuses them as an accelerating survival countdown (shouts at 0:49.0, 0:57.0, 0:59.7; ice snaps at 0:55.8, 0:59.1, 1:02.6) before the raw emotional confession (1:07.5-1:11.3), undercut warmly by 'a mouse that big can't whisper' (1:26.3) and Milo's 'You idiot!' spawning a second giant mouse (1:30.4-1:31.4).",
+ "first_3_seconds": "Fast bright narration at 0:00.0 ('In this town, every secret you say out loud turns into a gray mouse') over 118 BPM pizzicato strings, punctuated at 0:02.2 by a smoke-poof pop + mouse squeak — instant high-concept fantasy hook.",
+ "ending": "After the cat's faint thud (1:37.5), 'It hasn't chased a mouse since' finishes at 1:39.6 with a 0.2s warm string decay to 1:39.8 — a resolved storybook button rather than a loop cut.",
+ "mix": "Clean voice-forward mix (-14.4 LUFS, LRA 3.7 LU, +0.1 dBTP) with 72.7% energy in 250 Hz-4 kHz; dry upfront voice stays clear even over the sub-heavy (<250 Hz) blizzard wind bed (0:38.2-1:34.5).",
+ "why_the_sound_works": [
+  "Zero-delay premise + diegetic 'poof + squeak' at 0:02.2 hooks scrollers immediately.",
+  "3-act musical/ambient score (118 BPM pizzicato -> 110 BPM minor piano + wind -> warm major strings) gives cinematic arc.",
+  "Scale contrast—tiny squeaks/ice-snaps (0:51.2-1:02.6) vs. sub-bass ground tremor + giant poof (1:11.4-1:12.7)—sells the climax.",
+  "Expressive voice crack (1:09.8) and raspy 'You idiot!' whisper (1:30.4) land genuine emotion."
+ ],
+ "unsure_about": "Whether the narrator is ElevenLabs Speech-to-Speech guided by a human take or expressive neural TTS (human-like crack at 1:09.8 and rasp at 1:30.4 inside synthetic studio timbre); library titles of the 3 underscore cues left null."
+}

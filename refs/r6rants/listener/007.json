@@ -1,0 +1,230 @@
+{
+ "file": "007 - If A Gold Digger OWNED Roblox - 4.0M.mp4",
+ "voices": [
+  {
+   "who": "narrator / Bacon Hair protagonist",
+   "first_words": "Bro, imagine if a gold digger owned Roblox.",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs/CapCut energetic young-male rant TTS (same as 005), ~90% sure",
+   "gender_age_impression": "young male, late teens to early 20s",
+   "accent": "General American",
+   "pitch_or_speed_effect": "other (sped up ~1.1x-1.15x with tight breath-trimmed splicing)",
+   "other_effects": "none",
+   "energy_1_to_10": 8,
+   "delivery": "hype, punchy, comedic, sarcastic-storyteller",
+   "timing_notes": "Dry 'Bro!' at 0:00.1 + 0.2s dead-air pause (0:00.5); brisk setup at 0:04.4 ('rich players only'); accelerates through the 3-beat escalation (0:14.0-0:18.3: following, asking if single, fighting) into the broke reversal at 0:18.6-0:21.4."
+  },
+  {
+   "who": "system-popup announcer ('Relationship Perks' modals at 0:12.3 & 0:21.7)",
+   "first_words": "Relationship perks unlocked.",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs 'Adam' deep baritone TTS (same as 001, 004, 005, 016), ~95% sure",
+   "gender_age_impression": "adult male, 30s, deep baritone",
+   "accent": "General American",
+   "pitch_or_speed_effect": "none",
+   "other_effects": "none",
+   "energy_1_to_10": 6,
+   "delivery": "deadpan, mock-official system announcer",
+   "timing_notes": "Drops in twice with calm baritone weight as dark UI modals appear: 'Relationship perks unlocked' (0:12.3-0:13.8) and 'Relationship perks have expired' (0:21.7-0:23.3)."
+  }
+ ],
+ "one_voice_plays_several_characters": "no — two male TTS voices: a fast teen/young-adult rant TTS narrates the scenario, while deep baritone ElevenLabs 'Adam' reads the system popups at 0:12.3 and 0:21.7.",
+ "music": [
+  {
+   "start": "0:00.7",
+   "end": "0:23.4",
+   "description": "quirky comedy-gaming loop with bouncy pizzicato strings, playful marimba plucks, light percussion",
+   "tempo_bpm": 104,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Silent during the dry 'Bro!' hook (0:00.0-0:00.6), enters at 0:00.7 on 'Imagine if a gold digger owned Roblox', and loops steadily underneath until the 0:23.4 hard cut while loud UI chimes and Vine booms mark plot turns."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:00.1",
+   "sound": "quick cartoon mouth/UI pop",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:00.9",
+   "sound": "crisp whoosh / paper-money rustle",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:02.5",
+   "sound": "cash register 'cha-ching' bell and drawer rattle",
+   "meme_name": "cash register cha-ching",
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:02.7",
+   "sound": "heavy sub-bass thud",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:03.3",
+   "sound": "sharp UI mouse click / pop",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:03.8",
+   "sound": "fast transition whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:05.6",
+   "sound": "bright cash register 'cha-ching'",
+   "meme_name": "cash register cha-ching",
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:05.8",
+   "sound": "deep sub-bass impact slam",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:07.6",
+   "sound": "ethereal ghostly phase shimmer whoosh",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:08.8",
+   "sound": "purchase pop / outfit equip whoosh",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:09.2",
+   "sound": "bright luxury sparkle / shimmer chime",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:10.8",
+   "sound": "quick transition pop and faint excited chatter swell",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:12.2",
+   "sound": "bright video-game achievement / level-up ding",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:12.5",
+   "sound": "warm sub-bass boom",
+   "meme_name": "vine boom",
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:14.5",
+   "sound": "rapid cartoon footsteps patter with excited girl giggles",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:15.9",
+   "sound": "cute UI pop / heart chime",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:17.3",
+   "sound": "cartoon brawl punches, slaps, and muffled scuffle yells",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:18.6",
+   "sound": "descending game power-down / empty-wallet chime",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:20.0",
+   "sound": "quick vanish poof pop",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:21.0",
+   "sound": "lonely desert wind gust whistle",
+   "meme_name": null,
+   "purpose": "punchline",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:21.4",
+   "sound": "heavy sub-bass impact",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:21.9",
+   "sound": "harsh downward error / rejection alert tone",
+   "meme_name": null,
+   "purpose": "punchline",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:23.0",
+   "sound": "loud final sub-bass slam",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  }
+ ],
+ "ambience": "none until 0:21.0 lonely desert wind on empty-plaza tumbleweed",
+ "silences": [
+  {
+   "t": "0:00.5",
+   "length_s": 0.2,
+   "purpose": "comedic pause"
+  }
+ ],
+ "sync_with_picture": "~1.0-1.5s cuts locked to gags and fake Roblox modals: BGM enters on 0:00.7 cut; cha-ching + Vine boom hit 'Rich Players Only!' modal (0:05.6-0:05.8); ghost shimmer hits rich avatar phasing through translucent Bacon Hair (0:07.6); sparkle chime hits gold tux equip (0:09.2); level-up ding hits 'UNLOCKED!' modal (0:12.2); footsteps (0:14.5), heart pop (0:15.9), and brawl slaps (0:17.3) match the chase/fight; wind + boom hit tumbleweed (0:21.0-0:21.4); error + boom hit 'LOL LOSER' modal (0:21.9, 0:23.0).",
+ "faces_and_mouths": "Swapped 2D decals on R6 heads (no lip-sync): Bacon Hair wears purple shades opposite green '$' eyes (0:00.0-0:02.6), then swaps shades-off decals on beats—shocked gasp (0:07.6), smug grin in gold tux (0:09.2), sweaty panic (0:14.5), and broke frown (0:19.2).",
+ "comedic_or_emotional_timing": "(1) Dry 'Bro!' at 0:00.1 + 0.2s silence (0:00.5) before 0:00.7 BGM; (2) cha-ching + Vine boom on 'Rich Players Only!' (0:05.6-0:05.8); (3) whip-fast reversal from chaotic girl-fight (0:17.3) to power-down chime (0:18.6), lonely wind (0:21.0), and deadpan baritone 'Relationship perks have expired' + Vine boom (0:21.7-0:23.0).",
+ "first_3_seconds": "Loud dry 'Bro!' at 0:00.1, 0.2s silence (0:00.5), bouncy comedy BGM entering at 0:00.7 under 'Imagine if a gold digger owned Roblox!', and cash-register 'cha-ching' + Vine boom at 0:02.5-0:02.7.",
+ "ending": "Hard-cuts hot at 0:23.4 (-8.0 dB sub-bass tail) over the 0:23.0 Vine boom on 'expired', contrasting sharply into the dry 'Bro!' at 0:00.1 on replay.",
+ "mix": "Loud, brickwall-limited meme mix (-12.0 LUFS, LRA 2.0 LU, +0.1 dBTP) with massive sub-bass (44.6% <80 Hz from Vine booms) and crisp mid-forward TTS well above the quiet BGM.",
+ "why_the_sound_works": [
+  "Dry 'Bro!' + 0.2s pause at 0:00.5 creates an instant pattern-interrupt before music starts.",
+  "Literal game/cartoon foley every ~1.2s (ghost phase, gold sparkle, footsteps, brawl, desert wind) sells each cut.",
+  "UI modals (0:05.6, 0:12.2, 0:21.9) get distinct audio grammar (cha-ching, achievement ding, error + deep 'Adam' voice).",
+  "Repeated -6.3 dB sub-bass Vine booms add physical punch without masking midrange speech."
+ ],
+ "unsure_about": "Stock title of the 0:00.7-0:23.4 pizzicato/marimba loop (same track in 001, 004, 010, 016; left null)."
+}

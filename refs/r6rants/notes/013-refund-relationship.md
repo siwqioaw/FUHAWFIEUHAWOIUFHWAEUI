@@ -227,6 +227,9 @@ under the captions. *seen*
 - **No** zoom punches, shakes, stickers, emoji or added images. The edit adds captions, three flashes and the sound.
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/013.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 - **Voice:** one narrator; the two "I want a refund!" lines (10.80, 24.02) are Jake's dialogue, voice unknown (listener pass).
   4.46 words/s. One real pause, 0.40 s after the fatal "I want a refund!" (24.62-25.02), filled by the hold and the
   flash. The other breaths are 0.16-0.32 s, and all 12 gaps of 0.15 s or more end in a cut or a flash on the next

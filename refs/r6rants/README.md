@@ -12,7 +12,7 @@ the same craft. Never reuse their footage, sound, characters, jokes or scripts, 
 | `transcripts/` | words with times, from `tools/verify/transcribe.py` (speech-to-text run on this PC) | yes |
 | `measurements/` | `analyze.py` numbers per video, and `summary.md` | yes |
 | `notes/` | one study note per video, written to `refs/NOTES_TEMPLATE.md` | yes |
-| `listener/` | what a listener hears, per video, from `docs/prompts/listener-pass.md` | yes, once run |
+| `listener/` | what a listener hears, per video, from `docs/prompts/listener-pass.md` (filed 2026-11-07; checked in `SYNTHESIS.md`) | yes |
 | `SYNTHESIS.md` | what the 16 have in common, and the targets that follow | yes |
 
 The sheets the notes cite (`build/analysis/r6rants/`, `build/study/r6rants/`) are generated and not committed.

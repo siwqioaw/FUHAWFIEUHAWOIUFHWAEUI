@@ -1,0 +1,167 @@
+{
+ "file": "006 - In This World, People Can't See Colors Until They Touch Their SOULMATE - 4.3M.mp4",
+ "voices": [
+  {
+   "who": "narrator (also reads best friend's line at 0:33.6)",
+   "first_words": "In this world, you can't see colors until you touch your soulmate.",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs 'Adam'-style adult male storytime TTS (same as 009), ~90% sure",
+   "gender_age_impression": "adult male, late 20s to mid 30s",
+   "accent": "General American",
+   "pitch_or_speed_effect": "sped up",
+   "other_effects": "none",
+   "energy_1_to_10": 7,
+   "delivery": "sincere, earnest-storyteller, brisk, deadpan on the romantic-twist punchline",
+   "timing_notes": "Continuous ~1.2x pace with all breaths removed (zero silences across 34.4s); stretches 'vibrant COLOR' (0:29.5-0:30.2) before snapping 'instantly!' on the 0:30.3 R&B drop, and reads 'your tie is red' deadpan at 0:33.6-0:34.3 into the hard cut."
+  }
+ ],
+ "one_voice_plays_several_characters": "yes — one male TTS narrator reads both the third-person romance story and the blond best friend's line ('your tie is red', 0:33.6-0:34.3) with no pitch, filter, or voice change.",
+ "music": [
+  {
+   "start": "0:00.0",
+   "end": "0:30.2",
+   "description": "wistful synthwave storytime loop with warm detuned synth pads and gentle high synth lead",
+   "tempo_bpm": 130,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Plays gently under the grayscale world-building, proposal, and gray wedding hug (0:00.0-0:30.2) to sell an earnest tearjerker before hard-cutting on the twist."
+  },
+  {
+   "start": "0:30.3",
+   "end": "0:34.4",
+   "description": "sensual R&B / neo-soul slow-jam (Cmaj7-Dbmaj7-Ebmaj7 Rhodes chords, deep bass, rimshot groove)",
+   "tempo_bpm": 70,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Drops in louder at 0:30.3 on 'instantly!' (+ Vine boom) as rainbow color erupts from touching his male best friend, flipping the wedding drama into a 'sus bromance' groove through 'your tie is red' (0:34.4)."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:00.1",
+   "sound": "crisp opening whoosh and low transient hit",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:00.7",
+   "sound": "soft airy color-drain filter whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:02.9",
+   "sound": "light arm-touch tap / cloth brush",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:03.8",
+   "sound": "bright magical rising shimmer and fairy sparkle chime",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:05.7",
+   "sound": "clean transition whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:08.5",
+   "sound": "subtle low desaturation thud / airy sweep",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:12.3",
+   "sound": "bright diamond-ring sparkle / glint chime",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:15.5",
+   "sound": "soft cloth embrace rustle",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:17.4",
+   "sound": "hopeful rising shimmer chime",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:18.7",
+   "sound": "dull downward deflating thud / sweep",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:24.4",
+   "sound": "quick stumble / shoe scuff foley",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:26.3",
+   "sound": "crisp hand-catch / grab foley",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:28.3",
+   "sound": "shimmering magical color-burst swell",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:30.3",
+   "sound": "heavy sub-bass boom (-6.8 dB peak) on R&B drop",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:34.1",
+   "sound": "punchy final sub-bass boom impact",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  }
+ ],
+ "ambience": "none — studio music beds and spot foley only",
+ "silences": [],
+ "sync_with_picture": "Every color shift has foley: filter whoosh drains color (0:00.7); sparkle chime bursts into color (0:03.8); low thud turns street gray (0:08.5); glint chime hits engagement ring rays (0:12.3); hopeful chime (0:17.4) is crushed by dull gray thud (0:18.7); shimmer swell hits rainbow arch (0:28.3); R&B groove + Vine boom slam at 0:30.3 before horrified Liam / glaring Sarah (0:31.0); final boom hits the friend's smirk on 'RED' (0:34.1).",
+ "faces_and_mouths": "No lip-sync; R6 heads swap static 2D decals per shot: nervous sweat (0:02.0), blushing '^_^' hug (0:15.5), huge hopeful eyes (0:17.2), stumble panic (0:24.4), traumatized stare with squinting bride behind (0:31.0), and the best friend's static open-mouth seductive smirk (0:33.5).",
+ "comedic_or_emotional_timing": "Plays 0:00.0-0:28.2 straight as a sincere soulmate tearjerker (wistful synthwave, hopeful chime at 0:17.4 crushed by 0:18.7 thud), then hijacks the genre at 0:30.3 with a Vine boom + 70 BPM R&B slow-jam and cuts zero frames after 'your tie is red' (0:34.4).",
+ "first_3_seconds": "Punchy whoosh/hit at 0:00.1 (-8.1 dB peak), wistful synthwave pads, and brisk TTS ('In this world, you can't see colors until you touch your soulmate') as color drains to gray at 0:00.7 — instant high-concept hook.",
+ "ending": "Hard-cuts mid-R&B groove at 0:34.4 (-10.1 dB RMS) right after 'your tie is red' and the 0:34.1 Vine boom, snapping cleanly into the 0:00.1 opening hit.",
+ "mix": "Clean narrative mix (-14.1 LUFS, LRA 3.4 LU, -0.1 dBTP); midrange-focused (58.0% in 250 Hz-4 kHz) for 30s, then surges in sub-bass (-6.8 dB <110 Hz peak) at 0:30.3-0:34.4 on the R&B bassline and Vine booms.",
+ "why_the_sound_works": [
+  "Earnest synthwave from 0:00.0 to 0:30.2 sells the emotional fake-out so the comedic twist blindsides viewers.",
+  "Color-state foley (sparkle chimes at 0:03.8/0:28.3 vs. dull sweeps at 0:08.5/0:18.7) makes color grading audible.",
+  "Hard-switching to a 70 BPM sensual R&B groove + Vine boom at 0:30.3 lands the bromance joke instantly.",
+  "Zero-breath narration and an immediate cut on 'your tie is red' (0:34.4) leave zero dead air."
+ ],
+ "unsure_about": "Titles of the 0:00.0-0:30.2 synthwave loop (identical to 013) and 0:30.3-0:34.4 R&B groove (both left null)."
+}

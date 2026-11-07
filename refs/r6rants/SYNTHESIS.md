@@ -2,7 +2,7 @@
 
 The cross-video findings from the per-video notes (`notes/`), measurements (`measurements/`) and transcripts
 (`transcripts/`). Claims cite videos by number; *seen*, *measured* and *heard* as in `../NOTES_TEMPLATE.md`. What
-needs a listener is marked open until the listener pass is filed (`listener/`).
+needs a listener was answered by the listener pass (`listener/`, summarised and checked in "Sound, as heard").
 
 ## The set at a glance
 
@@ -246,14 +246,69 @@ Captions change on the cut or lead it by 1-2 frames.
   true-peak ceiling.
 - **Flashes over the WCAG limit** (007's strobe).
 
-## Open questions for the listener pass
+## Sound, as heard (the listener pass)
 
-- Is the comedy narrator one human voice, and is the stories' storyteller the same person? Human or TTS? Pitch or
-  speed changes for quoted lines and characters?
-- What is the boom after the punches, and is it the same sample in every comedy video?
-- What music runs under each, where does it start, drop out and switch, and is any of it a known track?
-- Which sound effects play on spawns, popups, flashes, swoops, the tumbleweed and the scares?
-- Any recognisable Roblox sounds (the "oof", the purchase chime, UI clicks)?
+A model that can hear answered each note's open questions (`listener/NNN.json`, one per video, filed 2026-11-07 from
+`docs/prompts/listener-pass.md`). Its answers about *what* a sound is are leads we can't get any other way; its exact
+times are approximate, and it is sometimes wrong. What could be measured was checked:
+
+| Claim | Check (pitch by YIN on the mid channel, 16 kHz; speech rates from `transcripts/`) | Result |
+|---|---|---|
+| Girls' lines are a different, higher voice (001, 004) | median pitch 320 Hz on the girls' lines against 196-208 Hz (001) and 195-291 Hz (004) for the narrator | confirmed |
+| A deep voice delivers one-word punches (016 "GONE", "You mad?") | 79 Hz and 123 Hz against the narrator's 174-211 Hz | confirmed for 016 |
+| The same deep voice says 001's "BRAD IS ASLEEP" | 198 Hz: the narrator's own pitch | not confirmed (001's other "deep" lines sit under booms and can't be measured) |
+| The stories slow the voice to normal speed for the twist (011, 013) | after the twist point 5.2 words/s against 4.2 before (011), 6.1 against 4.3 (013) | contradicted: the twist line is faster |
+| Songs: 002 is "Bang Bang Bang" (BBpanzu feat. Starxrayne & JamsDX); 014 and 015 are "Come On!" (Kyle Exum) | the lyrics in our transcripts; 139.5 and 105.3 BPM measured; 014 and 015 already looked like one track | consistent |
+| The punch boom sits at about 50 Hz | 48 Hz measured on 004 and 005 | consistent |
+| Comedy music enters about 0.7 s in and is muted for gags | the stereo side channel (L-R) | can't tell: stereo effects and reverb fill the side channel |
+
+**Voices.**
+- **Comedy** is voiced by a small cast of text-to-speech voices, not one narrator:
+  - an energetic young male narrator, sped up about 1.1-1.15x with the breaths cut;
+  - a higher teen girl's voice for girls' lines (about 320 Hz);
+  - at least in 016, a deep, slowed voice for one-word punches ("GONE", "You mad?").
+
+  The listener names them as stock voices of one TTS service (the deep one "Adam"): a plausible lead, not verified.
+  Voices switch mid-sentence for a punch; quoted characters often keep the narrator's voice.
+- **Stories:** one storyteller voice reads everything, characters' lines included, at about 1.2x with every breath
+  removed (006, 009, 011, 013 have no silence at all). 008's narrator sounds like an expressive performance (the voice
+  cracks on the confession); 012 uses one teen-boy voice for every character, told apart only by delivery.
+
+**Music.**
+- **Comedy:** one stock comedy loop (pizzicato strings, marimba, light percussion, about 104 BPM) under 001, 004, 007,
+  010 and 016 (005: a similar loop at about 100). It is silent under "BRO" and enters around 0.7-0.9 s. Then it's
+  switched on purpose:
+  - killed for the silent-class gag, leaving crickets (001, about 21.7 s);
+  - muted for the four-part name (005, about 6-13 s);
+  - swapped for a horror drone at the dark ending (004);
+  - interrupted by a boss-fight choir for the brother's entrance (016).
+- **Stories:** one bed per video under continuous narration:
+  - a wistful synthwave loop at about 130 BPM, shared by 006 and 013;
+  - dark synthwave at about 92 (011);
+  - a slowed, detuned A-minor horror pad at about 88, shared by 009 and 012;
+  - lo-fi guitar and pads at about 98 (003);
+  - in 008, a new score per act: pizzicato, then minor piano with wind, then warm major strings.
+
+  A genre switch can itself be the punchline: 006 drops into an R&B slow jam on "instantly" as the best friend
+  touches him.
+- **Music formats:** commercial songs, cut to their bars: 002 cuts on the "bang"s of the chorus drop; 014 and 015 cut
+  each type on the downbeat after "Now, come on!". (We won't use commercial songs: see the plan's music rules.)
+
+**Effects.**
+
+| Family | The palette |
+|---|---|
+| A. comedy | a sub-bass "vine boom" after nearly every punch (4-6 a video); a cash-register cha-ching for money; an achievement ding and an error tone for in-world notices; pops and whooshes on cuts; giggles, snores, crickets, a glass smash, a door creak, a crowd "oooh", meme voice clips, a scream cut off mid-peak |
+| B. stories | a sound for each state of the rule (sparkle chimes on colour bursts and dull thuds on drains, 006; shimmer whooshes on visions, 011); heartbreak "crack" stings on the emotional peaks (003); a doorbell, then unanswered knocks (003); footsteps, crying, a door slam, a roar (009); cha-chings as a reward that turns tragic (013); and 012 uses none at all |
+| C. music | none added: the song carries it (014 adds a school bell) |
+
+**Mix and endings.**
+- The voice sits 12-15 dB over the bed in every voiced video. Comedy carries 37-50% of its energy under 80 Hz (the
+  booms); stories carry 55-84% in the speech band.
+- Endings are hard by design: a cut mid-boom (001, 010), mid-scream (004), or mid-word ("emergency bu—", 011;
+  "taught—", 013), so the viewer finishes it on the replay.
+
+**Still open:** the stock loops' titles; which TTS service and voices, for certain; exact music on and off times.
 
 ## Targets for the skill
 
@@ -265,6 +320,7 @@ Captions change on the cut or lead it by 1-2 frames.
 | New framing | every 1.6-2.5 s | every 1.0-1.4 s | every 3-4 beats |
 | Faces | a change on nearly every line, mid-shot | one per shot, for its sentence | one or two per character |
 | Captions | low, a clause, CAPS, one emoji | high, 1-3 words, no emoji | header and coloured labels |
-| Sound | a bed at 75-90 BPM, one boom after each punch, dead stops before reveals | layered bed under continuous narration, hits on turns, flashes with shimmers | one or two tracks, cut on the beat |
+| Voices | a cast of 3 TTS voices: narrator, a girl, a deep punch voice; sped up 1.1-1.15x, breaths cut | one storyteller voice for everyone, about 1.2x, no silence | none |
+| Sound | a stock comedy loop at about 104 BPM, silent under the opener and switched off for gags; a sub-bass boom after each punch; literal effects for every action | one bed per video (synthwave, a horror pad, lo-fi), a new layer or score at turns; a sound for each state of the rule; stings on emotional peaks | one track, cut on its bars and drops |
 | Ending | the narrator escalates; loop into the opener | the rule's visual on the last word; stop within 0.3 s | a reaction or "Me:"; loop |
 | Loudness | -14 LUFS integrated, LRA under 5 LU, true peak under the repo's ceiling | same | same |

@@ -1,0 +1,35 @@
+{
+ "file": "015 - My School Friends - 1.1M.mp4",
+ "voices": [],
+ "one_voice_plays_several_characters": "no — no spoken voices (voices is empty); audio is solely 'Kyle Exum - Come On!'.",
+ "music": [
+  {
+   "start": "0:00.0",
+   "end": "0:10.8",
+   "description": "upbeat pop-rap anthem with brass/synth stabs, heavy 808s, claps, call-and-response chants",
+   "tempo_bpm": 105,
+   "has_vocals": true,
+   "identified_track": "Kyle Exum - Come On!",
+   "lyrics_heard": "...a dozen, hold the moment, it's our time (Get on, we get on) / Now come on! Clique in it, hop in, pop out / Now come on! Run incoming, I've been on route / Now come on! Second guessing? Not then, not now / Now come on! Representing, I...",
+   "level_against_voice": "no voice",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Pre-chorus (0:00.0-0:02.1) scores the anxious lunch-tray walk; built-in bass mute on 'Now come on!' (0:02.1-0:02.7) scores the push into the table; 0:02.8 808 drop and 'Now come on!' pickups (0:04.5, 0:06.8, 0:09.1) drive four 1-bar reveals (0:02.8 Quiet Kid, 0:05.0 Athlete, 0:07.3 Class Clown, 0:09.6 smiling protagonist)."
+  }
+ ],
+ "sound_effects": [],
+ "ambience": "none — studio music track only",
+ "silences": [],
+ "sync_with_picture": "Frame-locked to 105 BPM (2.29s/bar): 0:01.7 wide cut enters the 0:02.1-0:02.7 bass mute pushing onto 'The Quiet Kid' on the 0:02.8 drop; Quiet Kid's eyes flip to '^ ^' on the 0:04.0 hit; bar-line cuts hit 'Athlete' (0:05.0), table-dancing 'Class Clown' (0:07.3), and smiling protagonist (0:09.6).",
+ "faces_and_mouths": "No lip-sync; 2D decals snap on musical bars: protagonist shifts frown (0:00.0) to groan (0:01.0) to ':D' smile (0:09.6); Quiet Kid flips dot eyes (0:02.8) to '^ ^' (0:04.0); Athlete shifts manic grin (0:05.0) to background waterfall tears (0:07.3) behind Class Clown's trollface grin.",
+ "comedic_or_emotional_timing": "The 0:02.1-0:02.7 bass dropout acts as a drumroll after the 0:01.0 groan, contrasting swaggering hype rap (0:02.8) with his chaotic misfit squad (0:02.8, 0:05.0, 0:07.3) before the wholesome 0:09.6 smile reveal.",
+ "first_3_seconds": "Cold -6.3 LUFS start at 0:00.0 ('...a dozen, hold the moment, it's our time'), bass-muted 'Now come on!' (0:02.1-0:02.7), and heavy 808 drop at 0:02.8 on 'The Quiet Kid'.",
+ "ending": "Abrupt mid-lyric cut after 'Representing, I—' at 0:10.8 at full -15.2 dB energy, creating a punchy hard-restart loop into 0:00.0.",
+ "mix": "Brickwall-limited hip-hop master (-6.3 LUFS, LRA 0.7 LU, +1.8 dBTP) with 74.1% energy <250 Hz, saturated 808 punch, crisp rap vocals, and zero competing foley.",
+ "why_the_sound_works": [
+  "'Now come on!' pickups (0:02.2, 0:04.5, 0:06.8, 0:09.1) telegraph every bar-line camera cut.",
+  "Pre-drop bass mute (0:02.1-0:02.7) into 0:02.8 808 slam hooks viewers inside 3 seconds.",
+  "-6.3 LUFS anthem swagger ironically elevates goofy Roblox lunch-table archetypes.",
+  "Tight 10.8s 4-bar structure leaves zero filler and drives repeat views."
+ ],
+ "unsure_about": "Nothing significant — all hits and brass stabs are native to 'Kyle Exum - Come On!' with zero added SFX."
+}

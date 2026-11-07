@@ -326,6 +326,9 @@ Face log (*seen*, on 0.1 s strips and full frames):
   shirt.
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/009.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 - **Voice:** one narrator, in the third person; the father's line may be the same voice (listener pass). 4.09 words/s
   over the spoken span. By section: 4.43 words/s at 0-8.36 (setup), 3.79 at 8.36-19.98 (the walk), 4.04 at 19.98-24.44,
   4.24 at 24.44-30.34. There are ten pauses of 0.15 s or more, all at sentence ends. The longest is 0.42 s (14.02-14.44,

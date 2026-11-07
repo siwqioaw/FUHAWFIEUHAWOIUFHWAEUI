@@ -97,6 +97,9 @@ posed group picture with characters facing the camera; low angles make the cool 
 - No other graphics, no photo borders, no transitions: hard cuts and in-camera moves only.
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/002.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 - **Voice:** none.
 - **Music:** two tracks, switched at the turn (about 4.9-5.0 s). The first is lighter (the transcript caught "I'm a
   legendary..."; garbled); the second has heavy bass hits and a chant ("bang, bang, bang... till I take you down,

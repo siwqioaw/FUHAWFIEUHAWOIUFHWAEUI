@@ -339,6 +339,9 @@ Face log (each change, with the time it's first on screen):
 - Not seen: zoom punches, shakes, stickers, emoji graphics, freezes, speed ramps, a watermark or an end card.
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/006.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 - **Voice:** one narrator for everything, possibly also the friend's last line (listener pass). 4.66 words/s and
   continuous: the longest gap between words is 0.24 s (5.32-5.56, between the rule and the story); every other gap
   is 0.22 s or less, including the one before the twist. Human or TTS: listener pass. *measured*

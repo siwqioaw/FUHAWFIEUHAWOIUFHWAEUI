@@ -1,0 +1,162 @@
+{
+ "file": "009 - DON'T Go Outside at Night - 3.1M.mp4",
+ "voices": [
+  {
+   "who": "narrator (also voices father's warning at 0:22.4)",
+   "first_words": "In this town, nobody is allowed outside at night.",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs 'Adam'-style adult male horror TTS (same as 006), ~90% sure",
+   "gender_age_impression": "adult male, late 20s to mid 30s",
+   "accent": "General American",
+   "pitch_or_speed_effect": "sped up",
+   "other_effects": "none",
+   "energy_1_to_10": 7,
+   "delivery": "urgent, serious, ominous, deadpan-dramatic",
+   "timing_notes": "Wall-to-wall ~1.15x-1.2x delivery (0:00.1-0:30.4) with zero breath pauses; slips 'a goofy ahh lie' deadpan into serious horror tone at 0:04.8; clips 'Nothing happens.' (0:08.2) and 'Ethan freezes.' (0:24.3) into staccato beats before the twist line (0:26.4-0:30.4) into the roar."
+  }
+ ],
+ "one_voice_plays_several_characters": "yes — single male TTS voices both narration and the father's warning ('Don't you dare hurt my family, you monster!', 0:22.4-0:24.2) with no pitch/filter change, distinguished only by exclamation stress and the bat visual.",
+ "music": [
+  {
+   "start": "0:00.0",
+   "end": "0:30.5",
+   "description": "slowed dark ambient A-minor horror synth pad (-37 cents detuned) with low ominous drone",
+   "tempo_bpm": 88,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Starts at 0:00.0 under the blood-red monster chase hook and loops steadily to 0:30.5 without dropping out, letting crying, door slams, and horror risers drive escalation to the 0:29.3 roar."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:00.1",
+   "sound": "deep cinematic horror boom with eerie monster rasp",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:02.1",
+   "sound": "low ominous rumble / dark wind drone",
+   "meme_name": null,
+   "purpose": "ambience",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:03.4",
+   "sound": "subtle guttural monster growl / breath",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:06.2",
+   "sound": "wooden front door creak and latch click",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:08.5",
+   "sound": "subtle low beat-accent thud",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:09.1",
+   "sound": "steady footsteps on quiet pavement (intermittent to 0:15.9)",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:11.8",
+   "sound": "tense high horror string stinger / metallic swell",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:16.5",
+   "sound": "muffled woman crying / sobbing",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:18.2",
+   "sound": "slow porch footsteps",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:20.1",
+   "sound": "explosive front-door slam / bang",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:20.4",
+   "sound": "rapid charging footsteps",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:24.3",
+   "sound": "tense low bass freeze thud",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:25.6",
+   "sound": "rising dark horror drone / crackling static swell",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:27.3",
+   "sound": "sinister dark distortion / transformation swell",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:28.6",
+   "sound": "bat clatter and fleeing rush whoosh",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:29.3",
+   "sound": "terrifying guttural monster screech / roar (0:29.3-0:30.5)",
+   "meme_name": null,
+   "purpose": "punchline",
+   "loudness": "loud"
+  }
+ ],
+ "ambience": "faint dark night wind / low horror drone under synth pad",
+ "silences": [],
+ "sync_with_picture": "~19 cuts locked to horror foley: 0:00.1 boom hits blood-red chase hook; 0:06.2 creak matches opening door; 0:09.1-0:15.9 footsteps pace night walk; 0:11.8 string stinger hits terrified window faces; 0:16.5 sobbing hits weeping mother; file's loudest transient (0:20.1) slams as Dad bursts out with a bat; 0:27.3 distortion swell matches bleeding-eyed skull face; 0:29.3 roar erupts as shadow-beast Ethan towers over fleeing Dad.",
+ "faces_and_mouths": "Static R6 mouths with instant 2D decal swaps on cuts: skeptical side-eye (0:04.0), Trollface grin (0:08.4), sweat (0:10.3), wide-eyed confusion (0:14.0), shock (0:24.4), bleeding-eyed analog-horror grin (0:27.3), and glowing-eyed black shadow beast (0:29.0); Dad's mouth stays static on his 0:22.4 line.",
+ "comedic_or_emotional_timing": "Deadpan 'goofy ahh lie' (0:04.8) + Trollface grin (0:08.4) disarmingly lowers the viewer's guard before the explosive 0:20.1 door slam jolts into pure dread, holding the monster roar until the final words 'what he really is' (0:29.3-0:30.5).",
+ "first_3_seconds": "Dark horror boom at 0:00.1, slowed detuned A-minor horror synth pad, and urgent male TTS ('In this town, nobody is allowed outside at night. Parents say it's because...') over a blood-red chase shot.",
+ "ending": "Hard-cuts at 0:30.5 on 'what he really is' under a -13.1 dB monster screech; matching blood-red monster imagery, 0:00.1 horror boom, and identical synth pad create a seamless loop.",
+ "mix": "Consistent mid-focused mix (-13.8 LUFS, flat LRA 1.5 LU, -0.3 dBTP) with 72.4% energy in 250 Hz-4 kHz (only 3.1% <80 Hz) so fast TTS, footsteps, sobs, 0:20.1 door bang, and 0:29.3 screech cut clearly on phone speakers.",
+ "why_the_sound_works": [
+  "Zero-breath narration (1.5 LU LRA, zero silences) removes any natural swipe-away gap across 30.5s.",
+  "Deadpan 'goofy ahh lie' at 0:04.8 disarms viewers right before escalating into real horror foley.",
+  "Diegetic neighborhood cues (0:06.2 creak, 0:09.1 footsteps, 0:16.5 sobs, 0:20.1 door bang) ground the tension.",
+  "Withholding the monster screech until 0:29.3-0:30.5 pays off the twist right on the 0:00.0 loop seam."
+ ],
+ "unsure_about": "Title of slowed detuned A-minor horror pad (identical to 012; left null); TTS elides 's' in 'that's' at 0:28.3."
+}

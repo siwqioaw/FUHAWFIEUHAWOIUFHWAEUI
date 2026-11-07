@@ -87,6 +87,9 @@ first item; one type, one shot, four beats.
 - Hard cuts on the downbeat; no effects or transitions added.
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/014.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 - **Voice:** none (the transcript's words are lyrics).
 - **Music:** one track, about 105 BPM, brickwalled; the same tempo and level as 015, likely the same track.
   *measured*

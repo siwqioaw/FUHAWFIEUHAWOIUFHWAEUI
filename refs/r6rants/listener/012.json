@@ -1,0 +1,85 @@
+{
+ "file": "012 - The Lantern - 1.6M.mp4",
+ "voices": [
+  {
+   "who": "narrator Eli (purple-haired boy), also voicing all quoted characters",
+   "first_words": "In my town, when you turn 13, you spend one night alone in the woods",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs/CapCut teen-boy TTS (~174 Hz; ~40s chunk-boundary fry at 0:29.8, 1:09.8, 1:50.0, 2:29.8), ~90% sure",
+   "gender_age_impression": "young teenage boy (roughly 12-15 years old, median F0 ~174 Hz, slightly raspy and earnest)",
+   "accent": "General American",
+   "pitch_or_speed_effect": "other (sped up ~1.08x with gaps <=0.3s; synthesis vocal-fry warbles at 0:29.8, 1:09.8, 1:50.0, 2:29.8)",
+   "other_effects": "none",
+   "energy_1_to_10": 6,
+   "delivery": "hushed paranoid creepypasta tone with shrill party cheers and breathy whispers",
+   "timing_notes": "Wall-to-wall (0:00.1-2:36.9, no pause >0.3s): hushed murmur on 'swapped' (0:25.7, 0.2s beat at 0:26.1); rushes 'one second, two' (0:50.5); clusters 0.2-0.3s tension pauses (1:35.2-1:41.1) before true aspirated whisper 'Thunderbird' (1:43.6); whispers 'Run' (2:06.7); dips 0.2s at 2:25.2 into shrill 'Welcome back!' (2:26.0, ~383 Hz) crushed by flat 'Nobody noticed. Nobody ever notices.' (2:26.8-2:28.5)."
+  }
+ ],
+ "one_voice_plays_several_characters": "yes — one ~174 Hz mono teen-boy TTS voices Eli plus all characters (adult 0:10.7, crowds 0:22.7/2:26.0, kids 0:25.7, Maya 0:42.4/1:02.6/2:22.3, clone 1:43.6, trapped Maya 2:06.7) using prosody alone (shrill ~383 Hz cheer vs. breathy whisper).",
+ "music": [
+  {
+   "start": "0:00.0",
+   "end": "2:37.0",
+   "description": "slowed dark ambient A-minor synth pad (-37 cents detuned) with 64.6 Hz C2 sub-bass in Act 2",
+   "tempo_bpm": 88,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Uninterrupted 21.8s 8-bar A-minor pad cycle across 3 mix acts: (1) 0:00.0-0:42.8 high-passed stereo pads (sub-bass -45 dB) under town lore and treehouse pact; (2) 0:42.8-2:10.8 64.6 Hz C2 sub-bass swells +22 dB (pads +6 dB) on 'it's not you' (0:43.0), holding dread through blowing out the lantern (1:19.8), whispered 'Thunderbird' (1:43.6), and bark-trapped kids (2:00.0-2:07.2); (3) 2:10.8-2:37.0 sub-bass strips out (-40 dB) on 'so they could take me' as bark seals Eli, leaving hollow upper pads for fake Eli's return and final plea to Lily (2:34.1-2:36.9)."
+  }
+ ],
+ "sound_effects": [],
+ "ambience": "none — completely dry vocal over stereo synth pad; zero wind, crickets, footsteps, crowd noise, or fire crackle.",
+ "silences": [
+  {
+   "t": "0:26.1",
+   "length_s": 0.2,
+   "purpose": "tension"
+  },
+  {
+   "t": "1:02.4",
+   "length_s": 0.2,
+   "purpose": "tension"
+  },
+  {
+   "t": "1:21.5",
+   "length_s": 0.2,
+   "purpose": "tension"
+  },
+  {
+   "t": "1:39.2",
+   "length_s": 0.3,
+   "purpose": "tension"
+  },
+  {
+   "t": "1:41.1",
+   "length_s": 0.2,
+   "purpose": "tension"
+  },
+  {
+   "t": "2:14.7",
+   "length_s": 0.2,
+   "purpose": "breath"
+  },
+  {
+   "t": "2:25.2",
+   "length_s": 0.2,
+   "purpose": "tension"
+  }
+ ],
+ "sync_with_picture": "~110 clause-driven cuts with zero SFX whooshes/stingers: rapid hook cuts hit woods (0:00.0), '13' cake (0:00.7), and dusk lantern (0:01.6); +22 dB sub-bass enters on treehouse pact (0:42.8); 1:19.8 lantern blowout lands in eerie foley-free silence; close-ups sync to whispered 'Thunderbird' (1:43.6) and Maya mouthing 'Run' (2:06.7); sub-bass exits at 2:10.8 as bark seals Eli.",
+ "faces_and_mouths": "Static 2D decals during narration, toggling open/closed 2D mouths on in-scene lines (adult 0:08.8, pact 0:41.0 & 1:03.0, clone 'Thunderbird' 1:43.5, bark-trapped kids 1:57.5, Maya mouthing 'Run' 2:04.0-2:06.8); blank grey clone head (1:35.4) grows Eli's eyes/grin (1:41.3), and fake Eli flashes a sinister smirk hugging Mom (2:21.0).",
+ "comedic_or_emotional_timing": "Pure creepypasta contrast inside breathless pacing: hushed 'swapped' (0:25.7) undercuts 0:22.7 party cheer; clustered 0.2-0.3s pauses (1:37.0-1:41.1) set up aspirated whisper 'Thunderbird' (1:43.6); silent moving lips pay off on whispered 'Run' (2:06.7); 0.2s dip (2:25.2) sets up shrill 'Welcome back!' (2:26.0) crushed by deadpan 'Nobody ever notices' (2:26.8).",
+ "first_3_seconds": "Urgent teen TTS at 0:00.1 ('In my town, when you turn 13, you spend one night alone in the woods') over eerie detuned stereo pads (-29 dB Side) across three cuts: woods lantern (0:00.0), '13' birthday cake (0:00.7), and worried dusk close-up (0:01.6).",
+ "ending": "Hard-cuts at 2:37.0 0.1s after 'don't let it go out' (2:36.9) over hollow upper pads (-22.8 dB into -26.7 dB at 0:00.0); because sub-bass stripped out at 2:10.8 to match 0:00.0-0:42.8, the loop is seamless.",
+ "mix": "Dark creepypasta mix (-14.0 LUFS, LRA 2.4 LU, +0.1 dBTP): dry mono voice (-16.9 dB Mid, 55.7% in 250 Hz-4 kHz) sits 7-13 dB above wide stereo pad (-24.0 dB Side, 1.9% >4 kHz), with 64.6 Hz sub-bass in 0:42.8-2:10.8 and four ~40s TTS chunk-boundary fry warbles (0:29.8, 1:09.8, 1:50.0, 2:29.8).",
+ "why_the_sound_works": [
+  "Pause-trimmed narration (no gap >0.3s across 2:37.0) holds retention on a 157s creepypasta without meme SFX.",
+  "Zero foley or jump-scares makes whispered 'Thunderbird' (1:43.6) and 'Run' (2:06.7) unsettlingly intimate.",
+  "+22 dB 64.6 Hz sub-bass swell (0:42.8-2:10.8) and strip-out (2:10.8) subconsciously score the 3-act dread.",
+  "Single-voice prosody swings—uncanny ~383 Hz 'Welcome back!' vs. hushed dread—echo the doppelganger theme."
+ ],
+ "unsure_about": "Title of slowed -37c detuned A-minor horror pad (identical to 009; left null), and exact teen TTS preset."
+}

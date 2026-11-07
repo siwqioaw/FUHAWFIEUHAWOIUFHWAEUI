@@ -1,0 +1,78 @@
+{
+ "file": "002 - Mom VS Dad - 9.6M.mp4",
+ "voices": [],
+ "one_voice_plays_several_characters": "no — no spoken dialogue; the Mom-vs-Dad contrast comes from the song's female-to-male vocal shift.",
+ "music": [
+  {
+   "start": "0:00.0",
+   "end": "0:11.5",
+   "description": "electro-rock / hyperpop anime song with distorted guitars, heavy 808s, gunshot kicks, female/male vocals",
+   "tempo_bpm": 140,
+   "has_vocals": true,
+   "identified_track": "BBpanzu feat. Starxrayne & JamsDX - Bang Bang Bang",
+   "lyrics_heard": "battle legendary / Our fickle fraternizing / A war inside my heart / Until [death] do us part / Bang, bang, bang, bang, bang / 'Til I take you / Down, down, down, down",
+   "level_against_voice": "no voice",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Opens mid-pre-chorus (0:00.0-0:04.9) with Starxrayne's bright female vocal over Mom's photos; as 'Dad's old photos' appears (0:04.9), drums drop out (0:05.5-0:06.3) with a gun-cock click on 'Until [death] do us part', then slam into the bass-boosted 808/gunshot chorus at 0:06.4 ('Bang, bang, bang...') with JamsDX's lower male vocals joining over Dad's baby, warzone, and sportbike photos to 0:11.5."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:05.6",
+   "sound": "metallic gun cock / reload click in drum dropout",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:06.4",
+   "sound": "heavy gunshot-layered 808 bass impact (1st 'Bang!')",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:06.9",
+   "sound": "rhythmic gunshot-kick impact (2nd 'bang')",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:07.3",
+   "sound": "rhythmic gunshot-kick impact (3rd 'bang')",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:07.7",
+   "sound": "massive sub-bass gunshot impact (4th 'bang')",
+   "meme_name": null,
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:08.2",
+   "sound": "rhythmic gunshot-kick impact (5th 'bang')",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "loud"
+  }
+ ],
+ "ambience": "none — wall-to-wall music edit",
+ "silences": [],
+ "sync_with_picture": "Beat-locked to 140 BPM (~1.2-1.4s / 3 beats per shot): Mom's photos cut at 0:00.4, 0:01.2, 0:02.4, 0:03.7; Dad on the couch hits at 0:04.9 into the 0:05.5-0:06.3 drum mute; baby Dad hits the first chorus 'Bang!' (0:06.4); the warzone explosion cuts squarely onto the 4th 'bang' peak (0:07.7); sportbike shots land on beat at 0:09.2 and 0:10.6.",
+ "faces_and_mouths": "No speaking or lip-sync; posed R6 photo tableaux hold static 2D decals (Mom's grin, pacifier, tongue-out; Dad's stoic mustache/shades, scarred soldier scowl, cool biker) with post camera shake/zoom.",
+ "comedic_or_emotional_timing": "Musical structure is the joke: 0:00.0-0:04.9 pairs wholesome Mom photos with melodic female pre-chorus, 0:05.5-0:06.3 pulls the drums out for suspense as Dad holds up his phone, and 0:06.4 unleashes distorted 808s, gunshots, and male vocals as Dad's lore escalates from duck pajamas (0:06.4) to combat (0:07.7) to sportbikes (0:09.2).",
+ "first_3_seconds": "Full-scale -10.2 dB RMS cold start at 0:00.0 mid-phrase ('battle legendary / Our fickle fraternizing') at 140 BPM across rapid photo cuts (0:00.0, 0:01.2, 0:02.4) — immediate hyperpop energy with zero fade-in.",
+ "ending": "Hard-cuts at 0:11.5 on the 4th 'down' with no fade; matching 140 BPM energy between 0:11.5 (-20.9 dB) and 0:00.0 (-22.3 dB) drives a tight replay loop.",
+ "mix": "Ultra-loud, heavily compressed/bass-boosted master (-8.5 LUFS, LRA 1.2 LU, 0.3 dBTP) with 64.7% energy <80 Hz after the 0:06.4 808 drop; vocals stay bright above intentionally saturated kicks.",
+ "why_the_sound_works": [
+  "Female-to-male vocal shift + beat drop at 0:04.9-0:06.4 embodies 'Mom vs. Dad lore' with zero narration needed.",
+  "The 0:05.5-0:06.3 drum dropout + 0:05.6 gun-cock creates a 0.8s suspense pocket before the 0:06.4 chorus slam.",
+  "Cutting the warzone explosion photo directly onto the 4th 'Bang!' gunshot transient (0:07.7) rewards rewatches.",
+  "Short 11.5s runtime at -8.5 LUFS and 140 BPM maximizes loop completion."
+ ],
+ "unsure_about": "The 0:05.6 gun-cock and 0:06.4-0:08.2 gunshot kicks are baked into the bass-boosted edit of 'Bang Bang Bang' rather than separate foley, though the 0:07.7 warzone cut is explicitly timed to the 4th gunshot."
+}

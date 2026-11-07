@@ -1,0 +1,174 @@
+{
+ "file": "004 - Why are Teacher's Pets like this - 6.2M.mp4",
+ "voices": [
+  {
+   "who": "narrator (bacon-hair guy in purple sunglasses)",
+   "first_words": "BRO, why are teacher's pets so annoying?",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs energetic young male TTS (same rant voice as 001), ~85% sure",
+   "gender_age_impression": "teen or young adult male, ~17-22",
+   "accent": "General American",
+   "pitch_or_speed_effect": "sped up",
+   "other_effects": "none",
+   "energy_1_to_10": 9,
+   "delivery": "exasperated, rapid-fire outrage turning mock-sinister at 0:23.6",
+   "timing_notes": "Shouts 'BRO!' dry at 0:00.0 + 0.2s gap (0:00.6), races through setup (0:02.6-0:05.5), cuts off the girl mid-word with 'BRO' at 0:12.6, rushes prayer tension (0:14.9-0:19.8), yells 'whose side are you ON?' (0:21.6), pauses 0.4s (0:23.2), and drops to a sinister 'taking matters into my own hands' (0:23.6-0:25.5)."
+  },
+  {
+   "who": "narrator deadpan comeback voice-swap",
+   "first_words": "Relax, lil bro.",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs 'Adam' deep baritone TTS, ~95% sure",
+   "gender_age_impression": "adult male, ~28-38, deep baritone",
+   "accent": "General American",
+   "pitch_or_speed_effect": "slowed",
+   "other_effects": "reverb (subtle low-end room resonance)",
+   "energy_1_to_10": 5,
+   "delivery": "deadpan, unbothered, patronizingly cool",
+   "timing_notes": "Enters twice in slow deadpan contrast: 0:05.9-0:08.1 ('Relax, lil bro. The question isn't going anywhere.') with a 0.2s beat at 0:07.0, and 0:13.3-0:14.4 ('It's not that serious.') after a 0.2s gap at 0:13.1."
+  },
+  {
+   "who": "teacher's pet girl in glasses and bow tie",
+   "first_words": "Actually, it's—",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs/TikTok high nerdy female TTS, ~85% sure",
+   "gender_age_impression": "teenage girl, ~13-16",
+   "accent": "General American",
+   "pitch_or_speed_effect": "pitched up",
+   "other_effects": "none",
+   "energy_1_to_10": 7,
+   "delivery": "eager, nasally know-it-all, obnoxiously polite",
+   "timing_notes": "Starts 'Actually, it's—' at 0:11.9 and gets hard-chopped mid-word at 0:12.6; returns at 0:20.0-0:21.6 stretching 'Umm..' (0:20.0-0:20.4) before rushing 'didn't we have homework due today?'."
+  }
+ ],
+ "one_voice_plays_several_characters": "no — main narrator splits across a frantic ~220 Hz teen rant TTS and a slowed ~150 Hz 'Adam' baritone comeback TTS, alongside a pitched-up ~350 Hz nerdy female TTS for the teacher's pet and the '21' Vine kid clip at 0:09.8.",
+ "music": [
+  {
+   "start": "0:00.8",
+   "end": "0:23.5",
+   "description": "quirky comedy-gaming loop with bouncy pizzicato strings, playful marimba plucks, light percussion",
+   "tempo_bpm": 104,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": true,
+   "how_it_follows_the_story": "Silent during 'BRO!' and 0:00.6 pause, enters brightly at 0:00.8 on the hook, bounces under the classroom scenes, and cuts out at 0:23.5 right before the blackout horror drone (0:24.3)."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:00.8",
+   "sound": "crisp transition pop/whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:02.0",
+   "sound": "heavy 50 Hz sub-bass impact hit (tail to 0:02.5)",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:04.6",
+   "sound": "bright party-horn / confetti chime pop",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:08.1",
+   "sound": "low sub-bass boom",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:09.8",
+   "sound": "young boy's meme vocal clip saying 'twenty-one'",
+   "meme_name": "What's 9 + 10? 21",
+   "purpose": "punchline",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:10.2",
+   "sound": "bright confetti pop / chime",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:14.3",
+   "sound": "heavy double-hit sub-bass impact (0:14.3-0:14.9)",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:17.9",
+   "sound": "soft sparkle chime / confetti pop",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:21.7",
+   "sound": "loud sub-bass impact hit",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:24.3",
+   "sound": "ominous low horror synth drone / riser (0:24.3-0:25.5)",
+   "meme_name": null,
+   "purpose": "ambience",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:25.6",
+   "sound": "loud distorted horror jumpscare scream chopped at 0:25.9",
+   "meme_name": "perfectly cut scream",
+   "purpose": "punchline",
+   "loudness": "loud"
+  }
+ ],
+ "ambience": "none in bright classroom (0:00.0-0:24.1); dark horror room drone on blackout (0:24.3-0:25.5)",
+ "silences": [
+  {
+   "t": "0:00.6",
+   "length_s": 0.2,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:07.0",
+   "length_s": 0.2,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:13.1",
+   "length_s": 0.2,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:23.2",
+   "length_s": 0.4,
+   "purpose": "tension"
+  }
+ ],
+ "sync_with_picture": "0:00.6 gap matches cut to waving teacher's pet; chime pops (0:04.6, 0:10.2, 0:17.9) sync to blue pixel confetti; '21' clip (0:09.8) hits the red top-hat student; 0:12.6 'BRO' hard-cuts her close-up to narrator's glare; Vine booms (0:02.0, 0:08.1, 0:14.3, 0:21.7) hit punchline poses; music cuts for dark drone on 0:24.2 red-aura blackout; 0:25.6 scream explodes after 'own hands'.",
+ "faces_and_mouths": "Static 2D face decals swap on cuts (no lip-sync): narrator shifts from sunglasses grin (0:00.0) to half-lidded side-eye (0:05.9, 0:12.8), crying prayer (0:16.6), outrage (0:21.7), and glowing red maniacal grin (0:24.2); girl swaps between eager open grin (0:01.0, 0:11.8), pen-biting focus (0:04.5), ':3' cat mouth (0:20.0), and nervous side-eye in the dark (0:24.2).",
+ "comedic_or_emotional_timing": "Driven by vocal whiplash and hard chops: dropping from 9/10 rant to 5/10 slowed baritone (0:05.9, 0:13.3), cutting off 'Actually, it's—' mid-syllable at 0:12.6, pausing 0.4s at 0:23.2 before the blackout drone, and chopping the 0:25.6 jumpscare scream mid-peak at 0:25.9.",
+ "first_3_seconds": "Loud dry 'BRO!' at 0:00.0, crisp 0.2s silence at 0:00.6 on the cut, quirky pizzicato/marimba BGM entering at 0:00.8 under 'Why are teacher's pets so annoying?', and a 50 Hz Vine boom at 0:02.0-0:02.5.",
+ "ending": "Distorted jumpscare scream starts at 0:25.6 and hard-cuts mid-scream at 0:25.9 (-16.3 dB), snapping straight into 0:00.0 'BRO!' for an aggressive loop seam.",
+ "mix": "Loud rant mix (-12.1 LUFS, LRA 3.2 LU, 0.3 dBTP) balancing dry midrange speech (48.2% in 250 Hz-4 kHz) with heavy Vine-boom sub-bass (37.2% <80 Hz); the 0:25.6 scream is intentionally clipped.",
+ "why_the_sound_works": [
+  "Proven 'dry BRO! + 0.2s silence + BGM entry + 0:02.0 Vine boom' hook grabs scrollers in 2.5 seconds.",
+  "Four-way vocal contrast (frantic teen, slowed 'Adam' baritone, pitched-up nerd TTS, '21' Vine clip) keeps every 4s fresh.",
+  "Mid-word interruption at 0:12.6 and perfectly cut scream at 0:25.9 turn edit abruptness into punchlines.",
+  "Swapping cheerful classroom BGM for an eerie horror drone at 0:24.3 sells the dark-comedy twist."
+ ],
+ "unsure_about": "Stock title of the 0:00.8-0:23.5 pizzicato/marimba loop (same track in 001, 007, 010, 016; left null)."
+}

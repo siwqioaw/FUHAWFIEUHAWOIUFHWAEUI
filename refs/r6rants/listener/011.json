@@ -1,0 +1,190 @@
+{
+ "file": "011 - In This World When You Hold Hands For The First Time You See The Relationship's End - 2.1M.mp4",
+ "voices": [
+  {
+   "who": "narrator (also voices Sarah's reveal at 0:27.8-0:32.7)",
+   "first_words": "In this world, the first time you hold hands",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs crisp young-male storytime TTS (~193 Hz, same as 013), ~90% sure",
+   "gender_age_impression": "young adult male, late teens to early 20s",
+   "accent": "General American",
+   "pitch_or_speed_effect": "other (sped up ~1.2x from 0:00.0 to 0:29.8, then slowed to ~1.0x from 0:29.9 to 0:32.7)",
+   "other_effects": "none",
+   "energy_1_to_10": 8,
+   "delivery": "urgent earnest narration turning cold and measured at 0:29.9",
+   "timing_notes": "Breathless ~1.2x pace from 0:00.0 to 0:29.8 (only a 0.2s dip at 0:05.8); reads 'You weren't holding my hand to comfort me, David' fast (0:27.8-0:29.8), then drops to ~1.0x normal speed at 0:29.9 on 'You were pinning my arms down so I couldn't reach the emergency bu—' before cutting mid-word at 0:32.7."
+  }
+ ],
+ "one_voice_plays_several_characters": "yes — one male TTS voices both narration and Sarah's terrified reveal (0:27.8-0:32.7) with no female voice swap; only playback speed drops from ~1.2x to ~1.0x at 0:29.9.",
+ "music": [
+  {
+   "start": "0:00.0",
+   "end": "0:32.7",
+   "description": "dark melancholic synthwave loop with detuned pads, high synth lead, muted pulse",
+   "tempo_bpm": 92,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Loops steadily from 0:00.0 to the 0:32.7 mid-word cut; its ambiguous minor synthwave tone reads as bittersweet romance during the hospital/sofa visions (0:13.5-0:21.2) and sinister thriller underscore on the restraint reveal (0:27.8-0:32.7)."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:00.1",
+   "sound": "crisp opening transient pop",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:00.6",
+   "sound": "deep transition whoosh-thump",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:02.3",
+   "sound": "rising swell into bright magical vision flash chime (0:02.0-0:02.6)",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:04.5",
+   "sound": "flash whoosh and hollow soda-can impact",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:06.4",
+   "sound": "sharp transition pop / sting",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:06.9",
+   "sound": "soft airy transition whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:08.0",
+   "sound": "warm low transition thump and breezy whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:09.9",
+   "sound": "soft cut whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:11.7",
+   "sound": "subtle cloth / hand-reach rustle",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:13.5",
+   "sound": "low rumble (0:12.4) into bright golden flash-forward shimmer whoosh (0:13.5)",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:14.3",
+   "sound": "faint hospital monitor tone (repeats lightly ~0:17.5)",
+   "meme_name": null,
+   "purpose": "ambience",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:19.3",
+   "sound": "warm flash-cut thump",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:21.3",
+   "sound": "crisp snap-back shimmer whoosh (0:21.3-0:21.7)",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:22.4",
+   "sound": "dark low tension thud",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:23.7",
+   "sound": "sharp hand-yank slap and fast recoil whoosh",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:25.2",
+   "sound": "deep ominous bass pulse (0:25.1-0:25.5)",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:26.9",
+   "sound": "tense eerie horror whoosh / sting",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:30.0",
+   "sound": "dark flashback impact thump",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:31.1",
+   "sound": "camera whip-pan whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:32.5",
+   "sound": "sharp final tension click/hit",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  }
+ ],
+ "ambience": "none except faint hospital monitor tone in first vision (0:14.3-0:18.0)",
+ "silences": [],
+ "sync_with_picture": "Vision flashes sync to bright shimmer whooshes (0:02.3, 0:04.5, 0:13.5, and snap-back at 0:21.3); dark thud hits horrified Sarah (0:22.4); sharp slap-whoosh matches her arm yank (0:23.7); 0:30.0 dark thump reveals reframed hospital shot with old David's evil grin; 0:31.1 whip-pan whoosh hits the red wall button.",
+ "faces_and_mouths": "2D decals swap per beat (no phoneme lip-sync): old David wears a teary sad decal in the first hospital vision (0:13.5) and warm grin on the sofa (0:19.1), swapping to a hyper-detailed sinister grin in the reframed hospital flashback (0:30.0); Sarah shifts from blush (0:08.1) to shock (0:22.4), terror (0:26.8), and simple open/closed mouth frames (0:27.8).",
+ "comedic_or_emotional_timing": "Breathless TTS + warm shimmer chimes (0:13.5, 0:19.3) sell a wholesome 'grow old together' fake-out until 0:21.2; then the 0:22.4 dark thud, 0:23.7 hand-yank slap, and sudden vocal slowdown to ~1.0x at 0:29.9 pull the thriller rug out.",
+ "first_3_seconds": "Crisp pop at 0:00.1, urgent ~1.2x male TTS ('In this world, the first time you hold hands with someone, you instantly see—'), 0:00.6 whoosh on clasping hands, and 0:02.3 magical flash-chime over dark synthwave.",
+ "ending": "Hard-cuts mid-word at 0:32.7 on 'emergency bu—' while caption shows 'the EMERGENCY button' and synthwave stays hot (-20.8 dB into -25.9 dB at 0:00.0), forcing mental completion across the loop seam.",
+ "mix": "Vocal-centric storytime mix (-13.7 LUFS, tight LRA 1.9 LU, -0.1 dBTP) with 84.1% energy in 250 Hz-4 kHz and restrained sub-bass (3.7% <80 Hz; impacts at 90-130 Hz) for effortless mobile clarity.",
+ "why_the_sound_works": [
+  "Recurring shimmer-whooshes (0:02.3, 0:13.5, 0:21.3) create instant audio grammar for flash-forwards.",
+  "Minor-key synthwave supports both the fake wholesome vision (0:13.5) and the thriller twist (0:27.8).",
+  "Dropping TTS speed from ~1.2x to ~1.0x at 0:29.9 chills the delivery right as old David's evil grin appears.",
+  "Chopping 'button' mid-word ('emergency bu—' at 0:32.7) triggers an involuntary replay."
+ ],
+ "unsure_about": "Artist/title of the 92 BPM dark synthwave loop (left null; distinct from 006/013)."
+}

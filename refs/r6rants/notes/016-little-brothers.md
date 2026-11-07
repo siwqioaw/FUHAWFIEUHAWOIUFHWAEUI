@@ -234,6 +234,9 @@ Camera habits:
   see. The final 0.6 s of stillness (28.83-29.44) may be a held frame or simply a static camera on an empty window.
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/016.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 - **Voice:** one voice for all lines, as in 001 (to confirm).
   - Pace: 2.94 words/s, slower than 001 (3.26) and 010 (3.31).
   - Four pauses of 0.38-0.56 s, each with a job:

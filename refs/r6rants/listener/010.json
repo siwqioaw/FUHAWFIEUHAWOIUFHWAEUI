@@ -1,0 +1,173 @@
+{
+ "file": "010 - If Your Mom OWNED Roblox - 2.6M.mp4",
+ "voices": [
+  {
+   "who": "bacon-hair boy protagonist (hook & punchline reactions)",
+   "first_words": "Bro! What if your mom owned Roblox?",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs/STS high teen-boy voice (~264-351 Hz on 'Bro!', ~227 Hz at 0:18.9), ~85% sure",
+   "gender_age_impression": "teenage boy, ~13–16",
+   "accent": "General American",
+   "pitch_or_speed_effect": "other (pitched up on 'Bro!' outbursts; slowed/stretched on final clause at 0:18.9-0:20.4)",
+   "other_effects": "none",
+   "energy_1_to_10": 9,
+   "delivery": "whiny, panicked, incredulous Gen-Z rant energy",
+   "timing_notes": "Cold 'BRO!' (0:00.0-0:00.5) + 0.2s pause (0:00.5-0:00.7); jumps in for panicked reactions at 0:06.1 ('Bro, I just got here!'), 0:12.6 ('Bro, I'm getting jumped!'), and 0:18.4 ('BRO—'), stretching 'it's a virtual house!' (0:18.9-0:20.4) into the final boom."
+  },
+  {
+   "who": "narrator (second-person scenario setups)",
+   "first_words": "You log in. First thing you see:",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs crisp young-male narrator TTS (~180 Hz, same as 013), ~90% sure",
+   "gender_age_impression": "young adult male, late teens to early 20s",
+   "accent": "General American",
+   "pitch_or_speed_effect": "sped up",
+   "other_effects": "none",
+   "energy_1_to_10": 7,
+   "delivery": "matter-of-fact, fast setup storyteller setting up each absurd rule",
+   "timing_notes": "Delivers the three brisk scenario setups between outbursts: 0:02.4-0:05.7 ('Screen time limit: thirty minutes'), 0:07.4-0:10.8 (stretching 'freezes' at 0:10.3), and 0:14.0-0:17.1 ('walking around your house in game like:')."
+  },
+  {
+   "who": "red-haired mom",
+   "first_words": "Time's up! Dinner's ready!",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs/TikTok bright adult female 'mom' TTS (~225 Hz), ~90% sure",
+   "gender_age_impression": "adult woman / mom, 30s–40s",
+   "accent": "General American",
+   "pitch_or_speed_effect": "none",
+   "other_effects": "none",
+   "energy_1_to_10": 8,
+   "delivery": "cheerfully strict at 0:11.0; sternly nagging at 0:17.1",
+   "timing_notes": "Cuts in over the 'TIME'S UP!' modal at 0:11.0-0:12.4 and snaps in with zero gap at 0:17.1-0:18.3 ('What is this mess?') after 'in game like:'."
+  }
+ ],
+ "one_voice_plays_several_characters": "no — three stitched TTS voices: a calmer ~180 Hz young-male setup narrator, a pitched-up ~227-351 Hz panicked teen 'Bro!' protagonist voice, and a ~225 Hz female Mom TTS.",
+ "music": [
+  {
+   "start": "0:00.7",
+   "end": "0:20.5",
+   "description": "quirky comedy-gaming loop with bouncy pizzicato strings, playful marimba plucks, light percussion",
+   "tempo_bpm": 104,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Silent during cold-open 'BRO!' and 0.2s pause (0:00.0-0:00.7), enters at 0:00.7 as Mom slides in behind him, and loops steadily underneath until the 0:20.5 hard cut."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:00.7",
+   "sound": "crisp pop / slide whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:01.9",
+   "sound": "heavy distorted sub-bass boom (0:01.9-0:02.6)",
+   "meme_name": "vine boom",
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:02.4",
+   "sound": "fast transition whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:03.7",
+   "sound": "UI notification pop / warning chime",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:05.7",
+   "sound": "heavy distorted sub-bass boom",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:06.1",
+   "sound": "quick punch-in cut pop",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:07.5",
+   "sound": "light movement whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:09.1",
+   "sound": "rapid chase / combat foley hit",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:10.8",
+   "sound": "digital glitch / UI freeze chime (0:10.8-0:11.1)",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:13.4",
+   "sound": "rapid cartoon beatdown slaps into heavy sub-bass boom (0:13.4-0:13.8)",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:14.1",
+   "sound": "sharp spawn pop / transition whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:15.2",
+   "sound": "subtle hallway footsteps / cut pop",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:20.1",
+   "sound": "heavy final sub-bass boom",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  }
+ ],
+ "ambience": "none — dry TTS over low comedy BGM and meme SFX",
+ "silences": [
+  {
+   "t": "0:00.5",
+   "length_s": 0.2,
+   "purpose": "comedic pause"
+  }
+ ],
+ "sync_with_picture": "Solo 'BRO!' (0:00.0) precedes Mom sliding up on 0:00.7 whoosh + BGM entry; Vine booms slam on 'ROBLOX?' (0:01.9), '30 MINUTES' modal (0:05.7), frozen beatdown (0:13.4), and 'VIRTUAL house' shrug (0:20.1); UI chimes match black modals at 0:03.7 and 0:10.8.",
+ "faces_and_mouths": "2D decals on R6 heads swap per beat and toggle simple open/closed mouth states: protagonist shifts from purple-shades grin (0:00.0) to annoyed stare (0:06.1), running grin (0:07.4), crying panic when frozen (0:09.6), and half-lidded disbelief (0:18.4); Mom shifts from scheming grin (0:00.7) to frown (0:14.0) to yelling mouth on 'MESS?' (0:17.1).",
+ "comedic_or_emotional_timing": "0.2s gap after 'BRO!' (0:00.5) hooks attention; calm setup TTS vs. high-pitched 'Bro!' panic + Vine booms (0:05.7, 0:13.4) sharpens every escalation—especially Mom's cheery 'Dinner's ready!' (0:11.0) cutting straight to him getting jumped while frozen (0:12.6-0:13.8) and stretching 'virtual house!' (0:18.9-0:20.4) into the final boom.",
+ "first_3_seconds": "High-pitched 'BRO!' (0:00.0-0:00.5), 0.2s silence, pop + comedy BGM entering at 0:00.7 ('What if your mom owned Roblox?'), and a heavy Vine boom + whoosh (0:01.9-0:02.6) into 'You log in...'.",
+ "ending": "Hard-cuts in 50 ms at 0:20.5 (-8.7 dB to -26.9 dB) over the 0:20.1 Vine boom on 'virtual house!', snapping straight back into solo 'BRO!' at 0:00.0.",
+ "mix": "Punchy meme-rant mix (-12.0 LUFS, LRA 3.6 LU, +0.1 dBTP) splitting clear midrange TTS (49.4% in 250 Hz-4 kHz) and distorted Vine booms (36.6% <80 Hz) above tucked BGM.",
+ "why_the_sound_works": [
+  "Three-voice TTS relay (calm ~180 Hz setup, ~300 Hz panicked teen, ~225 Hz Mom) builds sketch-comedy rhythm.",
+  "Four distorted Vine booms (0:01.9, 0:05.7, 0:13.4, 0:20.1) physically punctuate every punchline.",
+  "Delaying music 0.7s lets the cold 'BRO!' + 0.2s pause slice through the feed.",
+  "Cutting mid-boom on 'virtual house!' at 0:20.5 feeds directly into 0:00.0 'BRO!' on loop."
+ ],
+ "unsure_about": "Stock title of 0:00.7-0:20.5 comedy loop (same in 001, 004, 007, 016; left null), and exact teen 'Bro!' TTS preset."
+}

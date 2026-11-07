@@ -269,6 +269,9 @@ Camera habits:
     and never use the disconnect/kick layout or its words.
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/010.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 - **Voice:** one narrator voice for everything. Mom's lines (11.22-12.32, 17.12-17.94) sound continuous with his on
   the transcript, so he probably voices her (to confirm in the listener pass). 3.31 words/s with no pause of 0.35 s or
   more; the longest gaps are about 0.3 s ("here!" to "So", 7.0-7.2; "mess?" to "Bro,", 17.94-18.24). 001's longest

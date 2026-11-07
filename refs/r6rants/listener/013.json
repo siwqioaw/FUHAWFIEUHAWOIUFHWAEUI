@@ -1,0 +1,190 @@
+{
+ "file": "013 - in This World, You Can Refund Any Relationship - 1.3M.mp4",
+ "voices": [
+  {
+   "who": "narrator (also voices Jake's 'I want a refund!' shouts)",
+   "first_words": "In this world, if you say I want a refund",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs crisp young-male storytime TTS (same as 011), ~90% sure",
+   "gender_age_impression": "young adult male, late teens to early 20s",
+   "accent": "General American",
+   "pitch_or_speed_effect": "other (sped up ~1.2x from 0:00.0 to 0:29.4, then slowed to ~1.0x from 0:29.5 to 0:31.9)",
+   "other_effects": "none",
+   "energy_1_to_10": 8,
+   "delivery": "urgent punchy storytime narration; sharper on 'refund!' shouts; slow/heavy on 0:29.5 twist",
+   "timing_notes": "Wall-to-wall ~1.2x speed with breaths removed (0:00.0-0:29.4); punches 'but the catch is' (0:04.1) and both 'I want a refund!' shouts (0:10.7, 0:23.9), then slows to ~1.0x at 0:29.5 on 'because his mom was the one who taught—' before cutting mid-phrase at 0:31.9."
+  }
+ ],
+ "one_voice_plays_several_characters": "yes — one male TTS reads narration and Jake's 'I want a refund!' lines (0:10.7, 0:23.9) with no voice swap, dropping from ~1.2x to ~1.0x speed at 0:29.5 for the twist.",
+ "music": [
+  {
+   "start": "0:00.0",
+   "end": "0:31.9",
+   "description": "wistful synthwave storytime loop with warm detuned synth pads and gentle high synth lead",
+   "tempo_bpm": 130,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Loops continuously at a steady low level from 0:00.0 to the 0:31.9 hard cut without drops or switches; SFX booms and cha-chings carry all dramatic hits."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:00.0",
+   "sound": "crisp opening transient pop",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:00.7",
+   "sound": "low transition whoosh / thump",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:02.1",
+   "sound": "quick UI pop / light whoosh",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:03.3",
+   "sound": "cash register cha-ching and coin jingle",
+   "meme_name": "cash register cha-ching",
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:04.3",
+   "sound": "dark low dramatic boom",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:05.5",
+   "sound": "airy disappearing whoosh",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:06.2",
+   "sound": "punchy transition whoosh-thump",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:08.8",
+   "sound": "quick hallway footsteps shuffle",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:09.4",
+   "sound": "heavy sub-bass boom",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:10.9",
+   "sound": "sharp vocal-accent impact pop",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:12.6",
+   "sound": "loud cash register cha-ching with golden sparkle chime",
+   "meme_name": "cash register cha-ching",
+   "purpose": "action",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:14.7",
+   "sound": "fast transition whoosh",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:15.6",
+   "sound": "coin clink / quick cash snatch",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:18.0",
+   "sound": "deep sub-bass boom",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:20.2",
+   "sound": "sharp paper snap / slap",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:22.0",
+   "sound": "rapid heavy stomping footsteps downstairs (0:22.0-0:22.5)",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:24.1",
+   "sound": "sharp impact hit",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:25.2",
+   "sound": "loud cash register cha-ching with cascading coins/bills",
+   "meme_name": "cash register cha-ching",
+   "purpose": "action",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:27.2",
+   "sound": "heavy body collapse thud",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:30.9",
+   "sound": "eerie hollow ghostly fade shimmer",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  }
+ ],
+ "ambience": "none — dry TTS and synthwave bed with spot SFX",
+ "silences": [],
+ "sync_with_picture": "Cha-chings hit green cash/gold flashes (0:03.3, 0:12.6, 0:25.2); Vine booms hit toxic ex (0:09.4) and golden-toilet flex (0:18.0); paper slap hits 'FAIL' test (0:20.2); stomps match stairs (0:22.0-0:22.5); thud hits Jake collapsing (0:27.2); ghostly shimmer matches Mom fading transparent (0:30.9-0:31.9).",
+ "faces_and_mouths": "2D decals snap per beat on R6 heads (no phoneme lip-sync): Jake cycles from scheming grin to Pog shock (0:12.5), greedy tongue-out craze (0:14.6), sunglasses flex (0:17.0), rage (0:21.0), yell mouth (0:24.0), and floor panic (0:27.1); Mom shifts from scowl (0:19.1) to crying eyes (0:30.1) as she fades.",
+ "comedic_or_emotional_timing": "Zero-breath escalation from ex-revenge (0:09.4 boom + 0:12.6 cha-ching) to golden-toilet greed (0:18.0 boom) sets up tonal whiplash at 0:27.2 (collapse thud) and 0:29.5 (TTS slowing to ~1.0x on 'his mom was the one who taught—').",
+ "first_3_seconds": "0:00.0 pop, urgent ~1.2x male TTS ('In this world, if you say I want a refund to someone's face, you get back—'), 0:00.7 whoosh, and wistful synthwave hook scrollers instantly.",
+ "ending": "Hard-cuts mid-phrase right after 'taught—' at 0:31.9 while caption reads 'TAUGHT him EVERYTHING' and synthwave stays hot (-22.4 dB into -25.9 dB at 0:00.0), looping cleanly.",
+ "mix": "Loud mid-forward master (-12.9 LUFS, LRA 1.7 LU, -0.4 dBTP) with 64.1% energy in 250 Hz-4 kHz, punchy <130 Hz Vine booms (0:09.4, 0:18.0), and bright >3.5 kHz cha-chings.",
+ "why_the_sound_works": [
+  "Repeated cha-chings (0:03.3, 0:12.6, 0:25.2) build a reward cue that turns tragic on the final payout.",
+  "Breathless editing (1.7 LU LRA, zero silences) leaves no exit point across 31.9s.",
+  "Slowing TTS from ~1.2x to ~1.0x at 0:29.5 adds instant tragic weight to the twist.",
+  "Cutting mid-phrase after 'taught—' at 0:31.9 against the full caption forces replay completion."
+ ],
+ "unsure_about": "Artist/title of the 130 BPM wistful synthwave loop (identical track in 006 0:00.0-0:30.2; left null)."
+}

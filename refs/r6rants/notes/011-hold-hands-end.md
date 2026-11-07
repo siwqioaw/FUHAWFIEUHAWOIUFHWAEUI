@@ -240,6 +240,9 @@ the captions; nothing important goes in the top 15-30%. *seen*
   Roblox; the edit adds captions, the flashes and the sound. *seen*
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/011.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 - **Voice:** one narrator for the story; Sarah's closing lines (28.14-32.50) are dialogue, voice unknown (listener pass).
   4.34 words/s with no pause of 0.35 s or more; the longest gaps are 0.24-0.26 s (7.88 before "David's", 18.32, 24.90
   after "away."). The breaths between sentences (0.16-0.26 s) hold the transitions: 8 of the 9 gaps of 0.15 s or

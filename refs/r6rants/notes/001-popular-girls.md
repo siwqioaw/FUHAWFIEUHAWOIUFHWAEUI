@@ -145,7 +145,11 @@ drifting slightly in holds. Subjects stay in the middle third, clear of the capt
   flashes, stickers or transitions: the energy comes from the camera and the animation inside Roblox.
 
 ## 8. Sound
-- **Voice:** one narrator voice for everything, including the girl's quoted lines. 3.26 words/s, almost no pauses: the
+
+> Answered by the listener pass: `../listener/001.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
+- **Voice:** the narrator, and a different, higher voice for the girl's two quoted lines (listener pass; measured
+  320 Hz on "Brad, stop making me laugh" against the narrator's 196-208 Hz). 3.26 words/s, almost no pauses: the
   longest gaps are 0.44 s (11.84 and 18.20) and 0.38 s (25.92), each right before or after a punch. Human or TTS:
   for the listener pass.
 - **Music:** a steady beat under the whole video, about 91 BPM by onset autocorrelation (confidence 5.1); harmonic

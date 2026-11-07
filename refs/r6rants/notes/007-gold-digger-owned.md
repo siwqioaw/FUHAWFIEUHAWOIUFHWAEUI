@@ -309,6 +309,9 @@ How close each element comes to official Roblox content:
 | Wide shots establish, close-ups for punches | Often reversed: ECU first, then a fast pull-back (3 times) |
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/007.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 - **Voice:** one narrator voice for everything, including the three popup lines read in quotes. Whether it changes
   for them is for the listener pass. 3.18 words/s. The transcript's pauses are 0.38 s (12.28-12.66, before "Relationship perks
   unlocked"), 0.44 s (13.72-14.16, after it) and 0.78 s (20.98-21.76, before "Relationship perks have expired"): the

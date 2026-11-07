@@ -37,6 +37,48 @@ animation, an in-engine camera that moves at the start of nearly every shot, eve
 lists of three, plants that pay off, endings that loop, gags and comment prompts in the set, one caption font, and a
 dense, loud mix.
 
+The listener pass adds the sound: comedy is voiced by a small TTS cast (an energetic narrator, a higher girl's voice,
+a deep voice for one-word punches), sped up 1.1-1.15x with the breaths cut, over one stock comedy loop that is switched
+off for gags, with a sub-bass boom after each punch. Stories use one storyteller voice at about 1.2x with no silence
+at all, over one bed per video, with a sound for each state of the rule (`refs/r6rants/SYNTHESIS.md`, "Sound, as
+heard").
+
+## What the research changes
+
+`docs/research/roblox-shorts-landscape.md` (the deep-research report, 2026-11-06) covers the whole channel and the
+rules around it. What it changes here:
+
+- **Which formats to make first.** Across all 51 of the channel's Shorts, the hit rate follows how universal the
+  subject is: "If X OWNED Roblox" 2 of 2 at 1M or more, "Why do X do this" rants 4 of 8, "In this world" stories 4 of
+  9, emotional stories 1 of 4, relationship drama 0 of 5. The rants were dropped after April despite that; the
+  narrated stories now run 30-157 s and still spread (157 s reached 2.1M in two days).
+- **Premise tests for stories.** Can the rule be shown on screen in 2 s? Does its benefit become its cost? Is there one
+  loophole for commenters to argue about? Rules that need explaining flop ("a photo of your wife appears in your
+  pocket", 83K).
+- **What viewers do in the comments,** and what to write for it: they quote a 2-4 word punchline ("BRO, WE KNOW",
+  2.1K likes), hunt background Easter eggs (the "67 kid"), rewrite the joke, ask for part 2, and argue about the
+  premise. They complained about an end tag. So: one quotable line and one hidden detail per Short; no end tags.
+- **How the channel itself is made:** the creator writes and supplies the voiceover, and freelancers animate 35-50 s
+  pieces in Moon Animator after an unpaid 15-20 s test. Our pipeline automates the freelancer's job; the script and
+  the voice stay the core.
+- **YouTube's money rules bite on music.** A Short over 60 s with any Content ID claim is blocked worldwide; one
+  licensed track halves a Short's share of the Shorts revenue pool; AI music that is the focus of a video must be
+  disclosed. So no commercial songs, and no AI music for the music-only formats.
+- **"Inauthentic content"** (YouTube Partner Program) names "templated storylines" and "characters put in the same
+  situation over and over again with the same outcome". Automating the mechanics is fine; the premise, cast, set and
+  outcome must vary, and the production records should be kept (each `videos/<slug>/` folder is that record).
+- **AI disclosure:** fully animated videos and stock AI narration are exempt; cloning a real person's voice is not.
+- **Faces:** Roblox moved all classic faces to Dynamic Heads in 2026 (R6 itself stays). Face packs carry their own,
+  often restrictive, licences. Our own drawn set is safer and becomes a brand asset.
+- **Roblox's name and look:** no logo anywhere; "Roblox" only as a descriptive word; a "not affiliated with Roblox"
+  line; no merchandise with R6 characters (Roblox's current terms need a licence for "commercial content" with its
+  classic avatars; its 2022 creator guidance allows ad-funded YouTube videos).
+- **Made for kids:** animated characters are one of the FTC's factors, and "made for kids" switches comments off,
+  which this niche lives on. The audience is mostly teens. Writing for teens and setting the channel deliberately is
+  the owner's legal call.
+- **Capture:** Roblox's own capture guide gives Editor Quality 21 and **Test > Device** for a custom viewport size,
+  which is spike S1's option (b); OBS at 60 fps and 20 Mbps or more is the fallback for real-time capture.
+
 ## The pipeline
 
 Every stage writes files the next one reads, so any stage can be rerun alone (the repo's existing rule).
@@ -104,7 +146,9 @@ Each spike has a test it must pass. None depends on the others except S7.
 | Poses | about 40 R6 poses, walk and run cycles, gestures | point, shrug, facepalm, hands on head, arms crossed, hands on hips, laugh lean, cry, sit variants, sleep on desk, cute pose ... |
 | Camera moves | about 12 parametric moves | push, pull, swoop, whip, orbit, tilt reveal, dutch, handheld drift |
 | Effects and props | particle bursts (laugh, hearts, tears, anger), tumbleweed, floating "z" | in the scene, captured with the shot |
-| Sound | effects tagged by job (punch hit, whoosh, pop, ding, scratch, sting), music beds by mood and tempo | every file licensed, in `ATTRIBUTION.md` |
+| Voices | a cast per family: comedy narrator, a teen girl, a deep punch voice; one storyteller for stories; delivered at 1.1-1.2x with the breaths cut | a paid plan with a commercial licence; never a clone of a real person |
+| Sound effects | tagged by job: a sub-bass boom for punches, a cha-ching, a notice ding and an error tone, pops and whooshes for cuts, a shimmer and a dull thud for a rule's two states, a heartbreak sting, footsteps, doors, crickets | made in Python where it's simple (the boom, whooshes, pops, dings), otherwise CC0 or a paid library; no ripped meme clips |
+| Music beds | comedy: a bouncy pizzicato and marimba loop around 100-104 BPM; stories: synthwave, lo-fi, a dark pad, one per mood; music formats: a track with clear bars and a drop | YouTube Audio Library or a library with channel safelisting; no commercial songs; every file in `ATTRIBUTION.md` |
 | Captions | three measured styles as `typeset.py` styles: comedy (low, a clause, CAPS, an emoji), story (high, 1-3 words), music (header and coloured labels) | an open-licence font close to Montserrat (Montserrat itself is SIL OFL); emoji from an open emoji set, not Apple's |
 | Edit effects | warm white flash with the cut at its peak, grade drain and burst, red word pulse, speed lines on swoops, blur swoop for time jumps | `tools/edit/fx.py` and `look.py`; every flash checked by `qc.py` |
 
@@ -116,7 +160,11 @@ Each spike has a test it must pass. None depends on the others except S7.
   punch rhythm, face-change density, framing rate, caption style, sound plan, an original example skeleton, and a
   scoring rubric.
 - **Concept to format:** the agent picks the format from the concept, or the owner names it.
+- **Every script carries** one quotable 2-4 word punchline, one hidden detail in the set, a loop or a hard cut at the
+  end, and no end tag; a story premise must pass the three premise tests (above).
 - **Originality check:** compare the script against every reference transcript; no shared jokes, premises or lines.
+- **Variety ledger:** every made video's premise, format, cast, sets and outcome go in one table; a new script that
+  repeats an earlier outcome with the same cast in the same situation is rewritten before anything is built.
 
 ## Phase 4: the skill
 
@@ -130,7 +178,7 @@ Each spike has a test it must pass. None depends on the others except S7.
 
 | | Milestone | Done when |
 |---|---|---|
-| M0 | Reference study | 16 notes, `SYNTHESIS.md`, the listener pass and the research report filed |
+| M0 | Reference study | done 2026-11-07: 16 notes, `SYNTHESIS.md`, the listener pass (checked) and the research report filed |
 | M1 | Spikes | S1-S7 pass; a 6-second test file |
 | M2 | First Short: a comparison montage | no voice, about 11 s: proves sets, cast, faces, poses, camera, capture, music, header text |
 | M3 | A rant | voice, captions and acting, 25-30 s |
@@ -140,22 +188,37 @@ Each spike has a test it must pass. None depends on the others except S7.
 
 ## Owner decisions
 
-1. **Voice:** your own recordings, a TTS service, or a voice-clone service? Which, and the budget.
+Recommendations from the research are in brackets; each is still the owner's call.
+
+1. **Voice:** your own recordings, a TTS service, or a voice-clone service? Which, and the budget. [A paid TTS plan
+   with a commercial licence, for a small stock-voice cast: ElevenLabs from $6 a month, or Fish Audio from about $11.
+   Free tiers and CapCut or TikTok voices have no clear commercial rights. You type any API key into your own
+   terminal.]
 2. **Audience and tone:** `CLAUDE.md` says kids' shorts and "nothing frightening, graphic or mean". The references
-   roast people ("Bro, we know") and run some spooky stories. Which rules hold for this channel?
+   roast people ("Bro, we know") and run some spooky stories, and their audience is mostly teens. Which rules hold
+   for this channel, and will you set it as not made for kids? [Write for teens: light roasts and spooky-but-safe
+   stories, nothing graphic, hateful or about real people. If you agree, `CLAUDE.md` and `docs/KIDS_SHORTS.md` change
+   to match.]
 3. **Faces:** draw an original face set and upload it to your Roblox account (you do the upload), or start with
-   Roblox's own catalog faces?
-4. **Assets:** may the sets and outfits use free Toolbox models and catalog items? Any budget for paid packs or music?
+   Roblox's own catalog faces? [Our own set: classic faces have moved to Dynamic Heads, and face packs restrict use.]
+4. **Assets and music:** may the sets and outfits use free Toolbox models and catalog items? Any budget for paid packs
+   or a music library? [Toolbox and catalog for sets and clothes, checked for scripts; music from YouTube's Audio
+   Library, plus a safelisting library subscription if you want more choice.]
 5. **Frame rate:** 60 fps like most of the set (double the shoot time) or 30 like 014 and 015?
 6. **Portrait capture:** if the camera-roll trick fails, are you willing to rotate a monitor or install a virtual
    display driver?
 7. **Where it lives:** keep building on the `roblox-shorts-skill` branch of `vid-editing` and merge, or split into a
    new repository later?
+8. **The channel's main model:** narrated comedy and stories in English, or wordless music gags that travel across
+   languages, or both? [Both families can come from one pipeline; the first milestones prove both.]
 
 ## Risks
 
 - **YouTube's "inauthentic content" rule** (formerly "repetitious content") demonetises mass-produced, templated
-  videos. Every video must be a genuinely new story with real craft, not a template with words swapped.
+  videos, naming "templated storylines" and the same situation with the same outcome. In January 2026 YouTube removed
+  16 such channels with 4.7B views between them. Every video must be a genuinely new story with real craft, not a
+  template with words swapped: the variety ledger enforces it.
+- **Music and Content ID:** any claim blocks a Short over 60 s worldwide, and licensed music cuts the revenue share.
 - **Copying:** never reuse the references' scripts, jokes, characters or music (`refs/r6rants/README.md`).
 - **Roblox's brand:** nothing that looks like official Roblox content or interface, which matters most for the
   "If X owned Roblox" format.

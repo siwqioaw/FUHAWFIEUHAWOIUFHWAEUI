@@ -1,0 +1,136 @@
+{
+ "file": "003 - He Ordered 2 Dinners Every Night - 6.4M.mp4",
+ "voices": [
+  {
+   "who": "narrator (also reads old man's quote and letter)",
+   "first_words": "A delivery driver noticed an old man ordering",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs warm male storyteller TTS ('Brian'/'Chris'), ~90% sure",
+   "gender_age_impression": "adult male, ~28-38, warm low-mid baritone",
+   "accent": "General American",
+   "pitch_or_speed_effect": "sped up",
+   "other_effects": "none",
+   "energy_1_to_10": 6,
+   "delivery": "sincere, brisk, empathetic storytelling cadence",
+   "timing_notes": "Starts at 0:00.0 with zero pre-roll, ticks off 'two soups' (0:03.7), 'two drinks' (0:04.3), and 'two slices of pie' (0:04.9) in 0.6s beats, softens on the old man's quote (0:13.9-0:18.0), pauses 0.3s after 'feels colder' (0:18.2) and 0.4s after 'passed away in his sleep' (0:28.8), and finishes 'instead of waiting to die' (0:35.4-0:36.5) right at the end cut."
+  }
+ ],
+ "one_voice_plays_several_characters": "yes — one warm baritone TTS voices all narration plus the old man's spoken quote (0:13.9-0:18.0) and farewell letter (0:32.7-0:36.5) with no pitch/accent shift, distinguished only by gentler cadence and visual cutaways.",
+ "music": [
+  {
+   "start": "0:00.0",
+   "end": "0:36.6",
+   "description": "nostalgic lo-fi ambient clean electric guitar arpeggios and warm synth pads, bittersweet",
+   "tempo_bpm": 98,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Plays continuously (0:00.0-0:36.6) ~12-15 dB under the voice with no drops or track switches, holding a wistful bed beneath both the shared-dinner montage (0:18.6-0:24.5) and the passing/letter reveal (0:26.6-0:36.6)."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:03.7",
+   "sound": "soft cartoon pop / plop",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:04.3",
+   "sound": "soft cup-placement pop",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:04.9",
+   "sound": "soft plate pop",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:18.0",
+   "sound": "crisp heartbreak snap / glass-crack sting",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:18.6",
+   "sound": "two-tone ding-dong doorbell chime (G5 at 0:18.6 to Eb5 at 0:19.2)",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:24.7",
+   "sound": "three firm wooden door knocks (0:24.7, 0:24.9, 0:25.1)",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:28.3",
+   "sound": "sharp high-frequency heartbreak crack sting",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:29.4",
+   "sound": "subtle metallic mailbox latch / envelope pull",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:31.0",
+   "sound": "crisp paper unfold and sheet rustle (0:31.0-0:31.4)",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:36.2",
+   "sound": "sharp heartbreak crack sting",
+   "meme_name": null,
+   "purpose": "punchline",
+   "loudness": "medium"
+  }
+ ],
+ "ambience": "none beyond warm ambient guitar/pad bed",
+ "silences": [
+  {
+   "t": "0:10.4",
+   "length_s": 0.2,
+   "purpose": "breath"
+  },
+  {
+   "t": "0:18.2",
+   "length_s": 0.3,
+   "purpose": "tension"
+  },
+  {
+   "t": "0:28.8",
+   "length_s": 0.4,
+   "purpose": "tension"
+  }
+ ],
+ "sync_with_picture": "32 rapid cuts locked to foley/stings: food pops at 0:03.7, 0:04.3, 0:04.9 match soups, drinks, and pies appearing; heartbreak snap at 0:18.0 hits the '💔' close-up; 0:18.6 doorbell marks the daytime porch cut; three knocks (0:24.7-0:25.1) match the unanswered door; 0:28.3 sting hits teary anime eyes; rustles at 0:29.4 and 0:31.0 match pulling/unfolding the letter; 0:36.2 sting punctuates the final tearful shot.",
+ "faces_and_mouths": "Swapped static 2D decals per shot (no lip-sync): driver shifts from smile (0:00.0) to side-eye (0:02.2), 'O' mouth (0:08.7), grin (0:21.0), squiggly worry (0:25.4), and giant crying anime eyes (0:28.3, 0:35.4); old man shifts between warm crinkled smile (0:01.1, 0:10.6) and grieving frown (0:15.3).",
+ "comedic_or_emotional_timing": "Brisk ~175 WPM pacing prevents early swipes, opening brief 0.3-0.4s pauses only after the three emotional punches—'feels colder' (0:18.0), 'passed away in his sleep' (0:28.3), and 'waiting to die' (0:36.2)—each accented by a crisp heartbreak snap.",
+ "first_3_seconds": "Zero-gap narration at 0:00.0 ('A delivery driver noticed an old man ordering the exact same meal every night') over soft nostalgic guitar/pad across three quick cuts (0:00.9, 0:01.1, 0:02.2), hooking scrollers with an immediate mystery.",
+ "ending": "Hard-cuts at 0:36.6 (-22.4 dB) 0.1s after uncensored spoken 'die' (0:36.4, visually censored as '💀' on the letter) and the 0:36.2 sting; matching pad levels (-22.4 dB into -24.8 dB at 0:00.0) loop smoothly.",
+ "mix": "Voice-forward storytelling mix (-14.3 LUFS, LRA 2.2 LU, 0.8 dBTP) centered in 250 Hz-4 kHz (66.6% energy, only 7.2% <80 Hz); crystal-clear TTS with only the 0:24.7 knocks and heartbreak stings poking above the envelope.",
+ "why_the_sound_works": [
+  "Zero intro delay at 0:00.0 launches the 'two dinners' mystery before a viewer can swipe.",
+  "Rhythmic 0.6s foley pops on soups, drinks, and pie (0:03.7-0:04.9) lock in early audio-visual satisfaction.",
+  "Contrasting the bright 0:18.6 doorbell against the unanswered 0:24.7 wooden knocks tells the turning point through foley.",
+  "Recurring heartbreak crack stings (0:18.0, 0:28.3, 0:36.2) anchor the three emotional peaks."
+ ],
+ "unsure_about": "Exact artist/title of the 0:00.0-0:36.6 ambient guitar/pad loop (left null)."
+}

@@ -468,6 +468,9 @@ unbothered 32.9; smiling 34.0; shocked 37.6; worried, then gritting his teeth 38
   - two mid-shot environment swaps (the sky at 35.5, the lawn to snow at 36.55).
 
 ## 8. Sound
+
+> Answered by the listener pass: `../listener/008.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
 **Voice:**
 - One narrator, the hero. The chief's and Milo's lines are narrated as reported speech. Whether the voice changes for
   them, and whether it's TTS or human, is for the listener pass.

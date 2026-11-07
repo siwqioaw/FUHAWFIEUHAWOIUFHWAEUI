@@ -197,7 +197,11 @@ upper middle, clear of the caption at about 80% down. *seen*
   transitions. The energy is camera and animation in Roblox, plus the lighting change at 23.52. *seen*
 
 ## 8. Sound
-- **Voice:** one narrator voice (unless the pet's two lines are another voice: listener pass). 3.6 words/s, faster than 001
+
+> Answered by the listener pass: `../listener/004.json`. Checked against measurement, and set beside the other videos, in `../SYNTHESIS.md` ("Sound, as heard"). It is a good lead on what each sound is and approximate on times.
+
+- **Voice:** the narrator, and a different, higher voice for the pet's two lines (listener pass; measured 320 Hz on
+  "Actually, it's" against the narrator's 195-291 Hz). 3.6 words/s, faster than 001
   (3.26) and 005 (3.06). Only one pause of 0.35 s or more: 14.28-14.80 (0.52 s) after "It's not that serious", filled
   by a sub-bass note. The pet's "it's..." is cut off by "Bro!" at 12.70, 0.32 s after "it's" starts. *heard + measured*
 - **Music:** a steady beat measured at 80 BPM with confidence 9.43 (001: 91 BPM, 5.1), and harmonic lines under the

@@ -1,0 +1,43 @@
+{
+ "file": "014 - When The Bell Rings - 1.1M.mp4",
+ "voices": [],
+ "one_voice_plays_several_characters": "no — no spoken voices; only vocals in 'Kyle Exum - Come On!' while 'Nerd: \"You forgot homework\"' (0:07.3) is text-only.",
+ "music": [
+  {
+   "start": "0:00.0",
+   "end": "0:11.6",
+   "description": "upbeat pop-rap anthem with brass/synth stabs, heavy 808s, claps, call-and-response chants",
+   "tempo_bpm": 105,
+   "has_vocals": true,
+   "identified_track": "Kyle Exum - Come On!",
+   "lyrics_heard": "Two cents, a dime, a dozen / Hold the moment, it's our time / Now, come on! Clique in it, hop in, pop out / Now, come on! Run incoming, I've been on route / Now, come on! Second guessing? Not then, not now / Now, come on! Representing, I can't pipe down",
+   "level_against_voice": "no voice",
+   "dips_under_voice": false,
+   "how_it_follows_the_story": "Pre-chorus ('...a dime, a dozen / Hold the moment, it's our time', 0:00.0-0:02.0) builds under the teacher's watch check, dips in the 0:02.0-0:02.2 pre-drop pocket, then uses four 'Now, come on!' pickups (0:02.2, 0:04.5, 0:06.8, 0:09.1) to launch 1-bar student cuts on downbeats (0:02.7 Door Runner, 0:05.0 Was Sleeping, 0:07.3 Nerd, 0:09.6 Me)."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:00.3",
+   "sound": "metallic 4.6 kHz electric school bell (to 0:02.0)",
+   "meme_name": "school bell",
+   "purpose": "action",
+   "loudness": "medium"
+  }
+ ],
+ "ambience": "none — full-scale studio music track",
+ "silences": [],
+ "sync_with_picture": "Beat-locked to 105 BPM (2.29s/bar): 4.6 kHz school bell rings across teacher glare (0:00.0) and student standing (0:01.2); every archetype cut lands on Beat 1 after 'Now, come on!'—0:02.7 Sonic leaping out door, 0:05.0 sleeper jolting at 0:05.7, 0:07.3 Nerd raising hand, and 0:09.6 mascot swag-walking on the kick.",
+ "faces_and_mouths": "2D decals swap on beat: mascot snaps frown to grin (0:01.2-0:01.9), sleeper snaps eyes-shut to grin (0:05.7), Sonic holds unhinged grin (0:02.7), and buck-toothed Nerd toggles open/closed angry mouth (0:07.3-0:09.6) miming silent nagging.",
+ "comedic_or_emotional_timing": "Pre-chorus + bell (0:00.0-0:02.2) builds clock-watching tension so the 0:02.7 808 drop explodes on Sonic; strict 2.29s 1-bar pacing keeps gags tight, ending on the unbothered 'Me:' swag-walk (0:09.6-0:11.6) right after the frantic Nerd.",
+ "first_3_seconds": "Full -6.2 LUFS pre-chorus layered with a metallic 4.6 kHz school bell (0:00.3-0:02.0), a 0:02.0-0:02.2 pre-drop dip, and 'Now, come on!' slamming into the 0:02.7 808 chorus drop.",
+ "ending": "Cuts cleanly on the bar line at 0:11.6 after 'I can't pipe down' (-24.0 dB into -23.5 dB at 0:00.0) at 105 BPM for rhythmic replay continuity.",
+ "mix": "Brickwall-limited music master (-6.2 LUFS, LRA 0.7 LU, +1.5 dBTP clipped peaks) with 72.9% energy <250 Hz (33.3% <80 Hz) from saturated 808s and clear upfront rap vocals.",
+ "why_the_sound_works": [
+  "'Now, come on!' pickups every 2.29s act as built-in drumrolls priming each archetype cut.",
+  "Wordless visual comedy + hype rap works globally and rewards rewatches.",
+  "Layering a 4.6 kHz school bell (0:00.3-0:02.0) establishes the classroom premise in under 2s.",
+  "-6.2 LUFS 808 punch makes the 0:02.7 Sonic leap and 0:09.6 swag-walk hit physically hard."
+ ],
+ "unsure_about": "Nothing major — track verified as 'Kyle Exum - Come On!' with 4.6 kHz bell layered at 0:00.3-0:02.0."
+}

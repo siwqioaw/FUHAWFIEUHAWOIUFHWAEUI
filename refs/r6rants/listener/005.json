@@ -1,0 +1,194 @@
+{
+ "file": "005 - Why do MOMS do this bro - 5.6M.mp4",
+ "voices": [
+  {
+   "who": "narrator / Bacon Hair son (main rant voice)",
+   "first_words": "Bro, once your mom says your full name,",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs/CapCut energetic young-male rant TTS (same as 007), ~90% sure",
+   "gender_age_impression": "young male, late teens to early 20s",
+   "accent": "General American",
+   "pitch_or_speed_effect": "other (sped up ~1.1x-1.15x with tight breath cuts)",
+   "other_effects": "none",
+   "energy_1_to_10": 8,
+   "delivery": "exasperated, hype, comedic, relatable-rant",
+   "timing_notes": "Dry 'Bro!' at 0:00.1 + 0.3s gap (0:00.6); 0.3s silent cliffhanger at 0:02.4 before 'just know it's over'; baffled drop at 0:11.2 ('what did I even do?'); rapid paranoia list (0:16.5-0:19.2); peak yell on 'FALLEN WARRIOR' (0:24.1-0:26.3); races through 'I'm vanishing' (0:28.6-0:31.3)."
+  },
+  {
+   "who": "deep punchline voice (Mom's full-name callout at 0:06.2 & son's reaction at 0:26.7)",
+   "first_words": "Bartholomew Jamalathan Quadravius Thompson the Third!",
+   "kind": "text-to-speech",
+   "sounds_like": "ElevenLabs 'Adam' deep baritone TTS, ~95% sure",
+   "gender_age_impression": "adult male, 30s, deep baritone",
+   "accent": "General American",
+   "pitch_or_speed_effect": "none",
+   "other_effects": "reverb and hall echo tail on 'the Third!' (0:09.6-0:10.6); none at 0:26.7",
+   "energy_1_to_10": 7,
+   "delivery": "booming mock-epic at 0:06.2; deadpan disbelief at 0:26.7",
+   "timing_notes": "Enunciates 'Bartholomew Jamalathan Quadravius Thompson the THIIIIRD!' over total music silence (0:06.2-0:10.6); hijacks the narrator's sentence after a 0.3s pause at 0:26.4 for deadpan 'to pass the remote?!' (0:26.7-0:27.9)."
+  }
+ ],
+ "one_voice_plays_several_characters": "yes — two male TTS voices cross character lines for comedy: the teen narrator quotes Mom's casual 'pass me the remote' (0:22.1), while deep baritone ElevenLabs 'Adam' voices both Mom's reverberant full-name summons (0:06.2) and the son's deadpan inner reaction 'to pass the remote?!' (0:26.7).",
+ "music": [
+  {
+   "start": "0:00.9",
+   "end": "0:31.3",
+   "description": "mischievous comedy loop with sneaky pizzicato strings, marimba plucks, light percussion",
+   "tempo_bpm": 100,
+   "has_vocals": false,
+   "identified_track": null,
+   "lyrics_heard": null,
+   "level_against_voice": "much quieter",
+   "dips_under_voice": true,
+   "how_it_follows_the_story": "Edited as an on/off comedy switch: silent on 'Bro!' (0:00.1), enters at 0:00.9, hard-mutes at 0:02.4, resumes at 0:03.9, mutes completely from 0:06.1 to 0:12.9 for the full-name summons, returns at 0:13.0 for the interrogation montage, ducks/mutes for the warrior aura and 'remote' punchline (0:24.0-0:28.4), and resumes at 0:28.5 to the end."
+  }
+ ],
+ "sound_effects": [
+  {
+   "t": "0:00.1",
+   "sound": "crisp cartoon pop",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:03.2",
+   "sound": "heavy sub-bass boom impact",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:04.0",
+   "sound": "rapid PC keyboard clacks with goofy high cartoon giggle",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:09.6",
+   "sound": "dramatic hall reverb swell tail",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:10.6",
+   "sound": "panicked high-pitched cartoon yelp scream",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:10.8",
+   "sound": "heavy sub-bass boom stacked on scream",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:11.9",
+   "sound": "sharp comedic pop / head-grab foley",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:13.0",
+   "sound": "camera shutter / interrogation-light click",
+   "meme_name": null,
+   "purpose": "transition",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:14.6",
+   "sound": "subtle paper rustle and tense tick",
+   "meme_name": null,
+   "purpose": "action",
+   "loudness": "subtle"
+  },
+  {
+   "t": "0:16.9",
+   "sound": "loud glass/ceramic shattering crash",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:18.4",
+   "sound": "evil high-pitched gremlin snicker",
+   "meme_name": null,
+   "purpose": "reaction",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:23.4",
+   "sound": "loud sub-bass slam",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:24.1",
+   "sound": "crackling anime energy aura / power-up whoosh",
+   "meme_name": null,
+   "purpose": "emphasis",
+   "loudness": "medium"
+  },
+  {
+   "t": "0:27.8",
+   "sound": "massive sub-bass impact (-6.2 dB peak)",
+   "meme_name": "vine boom",
+   "purpose": "punchline",
+   "loudness": "loud"
+  },
+  {
+   "t": "0:30.7",
+   "sound": "quick teleport pop / vanish whoosh",
+   "meme_name": null,
+   "purpose": "punchline",
+   "loudness": "medium"
+  }
+ ],
+ "ambience": "none — clean dry mix with hard music mutes",
+ "silences": [
+  {
+   "t": "0:00.6",
+   "length_s": 0.3,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:02.4",
+   "length_s": 0.3,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:12.8",
+   "length_s": 0.2,
+   "purpose": "comedic pause"
+  },
+  {
+   "t": "0:20.3",
+   "length_s": 0.4,
+   "purpose": "tension"
+  },
+  {
+   "t": "0:26.4",
+   "length_s": 0.3,
+   "purpose": "comedic pause"
+  }
+ ],
+ "sync_with_picture": "0:03.2 Vine boom hits Mom's hand on shoulder; 0:04.0 keyboard clacks + giggle match gaming; 0:06.2 music cut + deep voice match sunglasses vanishing into wide-eyed terror; 0:13.0 shutter click hits interrogation room; 0:16.9 glass smash hits empty mantel; 0:18.4 snicker matches grinning sibling; 0:24.1 aura whoosh matches cyan flames; 0:27.8 -6.2 dB Vine boom hits remote side-eye; 0:30.7 pop matches avatar vanishing.",
+ "faces_and_mouths": "Swapped 2D decals on R6 heads (no lip-sync): purple sunglasses + smile in hallway bookends (0:00.0-0:03.8, 0:19.3, 0:28.5), swapping without glasses to open-mouth gaming joy (0:04.0), sweating terror (0:07.0-0:10.6), exhausted eye-bags (0:13.0), skull rage in cyan aura (0:24.1), and deadpan side-eye (0:26.7).",
+ "comedic_or_emotional_timing": "(1) 0.3s music mute at 0:02.4 before 'just know it's over' + 0:03.2 Vine boom; (2) 6.8s music mute (0:06.1-0:12.9) letting the reverberant adult baritone stretch the absurd 4-part name; (3) 0.3s pause at 0:26.4 after 'FALLEN WARRIOR' dropping to dry deadpan baritone 'to pass the remote?!' (0:26.7) + -6.2 dB Vine boom (0:27.8).",
+ "first_3_seconds": "Loud dry 'Bro!' at 0:00.1, 0.3s gap (0:00.6), sneaky pizzicato BGM entering at 0:00.9 under 'once your mom says your full name', and a sudden 0.3s dead-silence stop at 0:02.4 — hooking scrollers with childhood dread and abrupt silence.",
+ "ending": "Built as a seamless visual-audio loop: avatar returns to the opening hallway (0:28.5), vanishes on a teleport pop at 0:30.7 leaving a -24.9 dB BGM tail (0:31.2), and pops back into the same hallway shouting 'Bro!' at 0:00.1.",
+ "mix": "High-contrast comedy mix (-13.3 LUFS, LRA 4.9 LU from hard music mutes, +0.3 dBTP) with 46.6% sub-bass (<80 Hz, Vine booms peaking at -6.2 dB RMS) and crisp upfront TTS voices.",
+ "why_the_sound_works": [
+  "Hard-muting the BGM on key beats (0:02.4, 0:06.1-0:12.9, 0:26.4-0:28.4) doubles punchline impact.",
+  "Using deep 'Adam' baritone both with hall echo for Mom (0:06.2) and bone-dry for the son (0:26.7) makes vocal timbre the joke.",
+  "Spot foley every ~1.5s (keyboard + giggle 0:04.0, glass crash 0:16.9, snicker 0:18.4, aura 0:24.1) locks attention.",
+  "Teleport-pop vanish at 0:30.7 in the opening hallway loops seamlessly back into 0:00.1 'Bro!'."
+ ],
+ "unsure_about": "Stock title of the 0:00.9-0:31.3 pizzicato/marimba loop (distinct from 001/007; left null)."
+}
