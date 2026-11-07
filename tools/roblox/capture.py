@@ -128,17 +128,23 @@ def preload(urls: list[str], timeout: float = 60) -> str:
 
 
 def release() -> str:
-    return studio.luau(f"local h = {_H} if h then h:SetAttribute('Release', true) end return 'released'", dm="Client")
+    """The game's camera, HUD, lights and particles back, and Studio's rendering quality as install() found it."""
+    code = (f"local h = {_H}\n"
+            "if not h then return 'no harness' end\n"
+            "h:SetAttribute('Release', true)\n"
+            "local was = h:GetAttribute('WasQuality')\n"
+            "if was then settings().Rendering.QualityLevel = Enum.QualityLevel[was] end\n"
+            "return 'released, quality ' .. tostring(settings().Rendering.QualityLevel)")
+    return studio.luau(code, dm="Client")
 
 
 def settle(out_dir: str, quiet: float = 15.0, timeout: float = 120.0, log=print) -> float:
     """Capture the held first frame about once a second until no pixel has changed by more than 8 grey levels for
-    `quiet` seconds. For up to about 45 s after a scene is set up, Studio keeps refining it in steps 2 to 11 s apart
-    (the floor's lighting and texture detail, a shadow appearing, anti-aliasing coming on), with only small changes
-    between the steps, so two captures that nearly agree don't mean it's done (spike S3: the steps landed in the first
-    10 frames of a take as pops). It looks like Studio's automatic quality level climbing, which can also drop while the
-    PC is busy: a fixed level would settle at once and stay put (docs/ROBLOX_CAPTURE.md, "Studio's gotchas"). Returns
-    the seconds it took."""
+    `quiet` seconds. At Studio's Automatic quality level a new scene keeps refining for up to about 45 s, in steps 2 to
+    11 s apart with only small changes between them, so two captures that nearly agree don't mean it's done (spike S3:
+    the steps landed in a take's first 10 frames as pops). The harness now fixes the level at the highest (install()),
+    which stops the steps, and this stays as the check: it then ends after its `quiet` seconds. Returns the seconds it
+    took."""
     from PIL import Image, ImageChops
 
     path = os.path.join(out_dir, "_settle.png")

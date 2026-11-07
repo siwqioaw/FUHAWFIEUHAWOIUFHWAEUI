@@ -201,12 +201,16 @@ Each spike has a test it must pass. None depends on the others except S7.
 4. **Assets: free Toolbox models and catalog items**, each checked for scripts before use and logged in
    `ATTRIBUTION.md`; music from YouTube's Audio Library.
 
+**Decided later that day: capture at Studio's highest rendering quality.** At Automatic a new scene kept refining for up
+to about 45 s and could drop quality mid-take; the harness now sets the highest level for each playtest and puts the
+setting back afterwards. Frames look the same and take about 13% longer (`docs/ROBLOX_CAPTURE.md`, "Studio's gotchas").
+
 **Still open** (none blocks the spikes):
 
-5. **Frame rate:** 60 fps like most of the set, or 30 like 014 and 015? Measured: 0.94 s a captured frame, so a
-   35 s story takes about 16 minutes to shoot at 30 fps and 33 at 60; with two posed actors (S3, about 1.3 s a
-   frame) about 23 and 46. The 14 files at 60 fps really move at 60 (48-57 different pictures a second while something
-   moves), and a snap lasts about 5 frames at 60, 2-3 at 30.
+5. **Frame rate:** 60 fps like most of the set, or 30 like 014 and 015? Measured: 0.94 s a captured frame, so a 35 s
+   story takes about 16 minutes to shoot at 30 fps and 33 at 60; with two posed actors at the highest quality (about
+   1.5 s a frame) about 26 and 51. The 14 files at 60 fps really move at 60 (48-57 different pictures a second while
+   something moves), and a snap lasts about 5 frames at 60, 2-3 at 30.
 6. ~~**Portrait capture:** if the camera-roll trick fails, a rotated monitor or a virtual display?~~ Not needed: the
    roll works (S1). Studio needs the left monitor to itself while it shoots.
 7. **Where it lives:** keep building on the `roblox-shorts-skill` branch of `vid-editing` and merge, or split into a

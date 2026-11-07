@@ -34,15 +34,24 @@
 --   attrs    {{path, name, value}}: attributes set, for the game's own code to read
 --   t        the shot's time in seconds, left in the attribute T for your own code
 -- Setting the attribute Release to true puts everything back: camera, HUD, lights, particles; then the harness ends.
+--
+-- This installer also sets Studio's rendering quality to its highest level for the playtest, and keeps the level it
+-- found in the attribute WasQuality for capture.release() to put back. Each playtest starts at the in-game graphics
+-- setting (Automatic here), which keeps refining a new scene for up to about 45 s and can drop while the PC is busy.
+-- A LocalScript can't change it, so this part runs as the installer.
 local pg = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
 local old = pg:FindFirstChild("_CaptureHarness")
+local was = settings().Rendering.QualityLevel.Name
 if old then
+	was = old:GetAttribute("WasQuality") or was
 	old:SetAttribute("Release", true)
 	task.wait(0.1)
 	old:Destroy()
 end
+settings().Rendering.QualityLevel = Enum.QualityLevel.Level21
 local ls = Instance.new("LocalScript")
 ls.Name = "_CaptureHarness"
+ls:SetAttribute("WasQuality", was)
 ls.Source = [==[
 local HttpService = game:GetService("HttpService")
 local Lighting = game:GetService("Lighting")

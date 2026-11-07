@@ -81,15 +81,17 @@ python tools/roblox/studio_mcp.py call execute_luau '{"code": "return game.Name"
   (`SetWindowPos` without activation), and close any extra instance.
 - **The bridge's link to Studio can drop for a few seconds** ("WebSocket ... Connection reset" in
   `build/studio_mcp.log`); `list_roblox_studios` then returns nothing. Retry after a few seconds.
-- **A new scene keeps changing for up to about 45 s.** After two actors were staged and the camera put on the shot, a
-  held frame changed by itself in steps 2 to 11 s apart: the floor's lighting and texture detail, a shadow appearing,
-  then anti-aliasing coming on. The steps shrank (on average 3.8 grey levels, then 1.3, 1.2, 0.7, 0.4, 0.2, 0.1 and
-  0.2), the last about 40 s in, and between them only small changes (under 8 grey levels, some captures identical). The
-  last two came just after that experiment set the wind to zero, so may not be Studio's own. `capture.take` waits until
-  no pixel has changed by more than 8 grey levels for 15 s (`capture.settle`). Studio's rendering Quality Level is
-  Automatic on this PC, and the steps look like it climbing; it can drop again while the PC is busy, which a check
-  before the take can't see. A fixed level (Studio Settings, Rendering, Quality Level) should settle at once and stay
-  put: the owner's setting to change. (2026-11-07)
+- **A new scene keeps changing for up to about 45 s, unless the quality level is fixed.** After two actors were staged
+  and the camera put on the shot, a held frame changed by itself in steps 2 to 11 s apart: the floor's lighting and
+  texture detail, a shadow appearing, then anti-aliasing coming on. The steps shrank (on average 3.8 grey levels, then
+  1.3, 1.2, 0.7, 0.4, 0.2, 0.1 and 0.2), the last about 40 s in, and between them only small changes (under 8 grey
+  levels, some captures identical). It was Studio's rendering Quality Level climbing: each playtest starts at the
+  in-game graphics setting, Automatic here, whatever Studio Settings say, and Automatic can also drop while the PC is
+  busy. Since the owner's decision of 2026-11-07, the harness's installer sets the highest level (Level 21) for the
+  playtest and `capture.release()` puts back what it found. A held frame then stopped changing within 4 s and stayed
+  still for the 71 s measured; `capture.settle` still checks, and ends at its 15 quiet seconds. The frames look the same
+  as at the level Automatic reaches (0.05 grey levels apart, no pixel over 8) but each takes about 13% longer (median
+  1.47 s against 1.30). (2026-11-07)
 
 ## The harness
 
@@ -109,6 +111,9 @@ holds:
 
 **Particles.** On the first frame it freezes every particle emitter and beam. A frame takes about a second, and live
 particles would jump between frames.
+
+**Quality.** The installer sets Studio's rendering Quality Level to the highest for the playtest, and
+`capture.release()` puts back what it found ("Studio's gotchas").
 
 **A frame** is a JSON object written to the harness's `Frame` attribute. `capture.frame(state)` writes it, waits for
 `Applied`, then waits 3 rendered frames.
@@ -368,9 +373,10 @@ collapsed; Full Screen on; Command Bar off. `take` prints the frame size it will
 
 **Speed, measured:** 0.47 s a capture in edit mode at 928 x 841; 0.52 s a frame applied and captured in a playtest at
 1280 x 841; **0.94 s a frame at 1914 x 960 with the portrait turn and crop**, on an empty baseplate. So about 28 minutes
-of capture for a minute of video at 30 fps, 56 at 60. With two posed, dressed actors on set (S3): about 1.3 s a frame
-(median 1.27-1.37 over five takes, slowest 1.8), so about 39 and 78 minutes. Heavy work on the same PC slows it: frames
-took 4-6 s while a video decode ran.
+of capture for a minute of video at 30 fps, 56 at 60. With two posed, dressed actors on set (S3): about 1.3 s a frame at
+the Automatic quality level (median 1.27-1.37 over five takes, slowest 1.8), and about 1.5 s at the highest level the
+harness now sets (median 1.47 over a 60-frame take, slowest 2.8): about 44 and 88 minutes. Heavy work on the same PC
+slows it: frames took 4-6 s while a video decode ran.
 
 **Not needed, but possible, for true 1080 x 1920:** capture each frame as two tiles (the camera turned up and down
 about the same point, so no parallax) and stitch them with a homography. It doubles the capture time.
