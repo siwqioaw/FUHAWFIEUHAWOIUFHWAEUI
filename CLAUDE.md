@@ -1,7 +1,8 @@
 # Notes for agent sessions
 
-The owner is starting a series of Roblox shorts for kids, and wants an agent to design and run the whole workflow,
-from idea to finished file, by itself. This repository is the starting point: tools and lessons from an earlier
+The owner is starting a series of Roblox shorts for a teen audience (decided 2026-11-07: teens, not made for kids),
+and wants an agent to design and run the whole workflow, from idea to finished file, by itself. The plan is
+`docs/ROBLOX_SHORTS_PLAN.md`; the reference study is `refs/r6rants/`. This repository is the starting point: tools and lessons from an earlier
 project (a horror trailer for a Roblox game, made by an agent; `docs/LESSONS.md`). Use what fits, measure, and
 replace what doesn't. The trailer's style doesn't carry over; its methods and checks do.
 
@@ -10,7 +11,8 @@ replace what doesn't. The trailer's style doesn't carry over; its methods and ch
 1. `docs/LESSONS.md`: what the owner rejected and why, and the check that catches each failure.
 2. `docs/PIPELINE.md`: the steps, and what each costs in time.
 3. `docs/VERIFY.md`: the timeline file and every check.
-4. `docs/KIDS_SHORTS.md`: what changes for kids' shorts. It's untested advice: check each point.
+4. `docs/KIDS_SHORTS.md`: what changes for vertical shorts. Written for kids before the audience was decided; where
+   it's stricter than the audience rules below, these rules win.
 5. `docs/ROBLOX_CAPTURE.md` before any work in Studio.
 
 ## How to work
@@ -34,10 +36,14 @@ replace what doesn't. The trailer's style doesn't carry over; its methods and ch
   it into their own terminal.
 - **Publishing is the owner's decision, every time.** Never upload, post or schedule a video, or change a channel's
   settings. That includes the "made for kids" setting.
-- **Kids' safety and privacy:**
+- **Audience, safety and privacy** (the owner's decision of 2026-11-07: write for teens; the channel is set as not
+  made for kids by the owner):
   - no child's personal information in a video or a file;
-  - a real person's name or avatar only with their permission, and a parent's for a child;
-  - nothing frightening, graphic or mean;
+  - a real person's name, avatar, photo or voice only with their permission, and a parent's for a child;
+  - teen-appropriate: roasts of types (popular girls, little brothers), never of real people; spooky but safe (harm
+    implied, never shown; no gore; each scary image under about 2 s); nothing graphic, sexual or hateful, and nothing
+    that encourages unsafe behaviour;
+  - titles, descriptions and tags written for teens, without kid-coded words;
   - no flashes over the WCAG limit (`qc.py` checks).
 - **Everything used needs a license.** Every sound, music track, font and image needs a license that allows its use.
   Record each in `ATTRIBUTION.md`. Reference videos are for study and measurement only: never reuse their footage,

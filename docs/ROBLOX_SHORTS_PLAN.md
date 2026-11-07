@@ -188,22 +188,20 @@ Each spike has a test it must pass. None depends on the others except S7.
 
 ## Owner decisions
 
-Recommendations from the research are in brackets; each is still the owner's call.
+**Decided on 2026-11-07,** each as the research recommended:
 
-1. **Voice:** your own recordings, a TTS service, or a voice-clone service? Which, and the budget. [A paid TTS plan
-   with a commercial licence, for a small stock-voice cast: ElevenLabs from $6 a month, or Fish Audio from about $11.
-   Free tiers and CapCut or TikTok voices have no clear commercial rights. You type any API key into your own
-   terminal.]
-2. **Audience and tone:** `CLAUDE.md` says kids' shorts and "nothing frightening, graphic or mean". The references
-   roast people ("Bro, we know") and run some spooky stories, and their audience is mostly teens. Which rules hold
-   for this channel, and will you set it as not made for kids? [Write for teens: light roasts and spooky-but-safe
-   stories, nothing graphic, hateful or about real people. If you agree, `CLAUDE.md` and `docs/KIDS_SHORTS.md` change
-   to match.]
-3. **Faces:** draw an original face set and upload it to your Roblox account (you do the upload), or start with
-   Roblox's own catalog faces? [Our own set: classic faces have moved to Dynamic Heads, and face packs restrict use.]
-4. **Assets and music:** may the sets and outfits use free Toolbox models and catalog items? Any budget for paid packs
-   or a music library? [Toolbox and catalog for sets and clothes, checked for scripts; music from YouTube's Audio
-   Library, plus a safelisting library subscription if you want more choice.]
+1. **Voice: ElevenLabs, on a paid plan** (paid plans carry a commercial licence; free-tier audio never does), for a
+   small cast of stock voices. The owner subscribes and keeps the API key in an environment variable set in their own
+   terminal; the agent never sees it. Never a clone of a real person's voice.
+2. **Audience: teens, not made for kids.** The content rules are in `CLAUDE.md` ("Audience, safety and privacy");
+   `docs/KIDS_SHORTS.md` defers to them. The owner sets the channel's "made for kids" setting.
+3. **Faces: our own drawn set** (classic faces have moved to Dynamic Heads, and face packs restrict use). The owner
+   uploads the finished set to their Roblox account.
+4. **Assets: free Toolbox models and catalog items**, each checked for scripts before use and logged in
+   `ATTRIBUTION.md`; music from YouTube's Audio Library.
+
+**Still open** (none blocks the spikes):
+
 5. **Frame rate:** 60 fps like most of the set (double the shoot time) or 30 like 014 and 015?
 6. **Portrait capture:** if the camera-roll trick fails, are you willing to rotate a monitor or install a virtual
    display driver?

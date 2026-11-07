@@ -1,5 +1,9 @@
 # Kids' Roblox shorts: what changes
 
+**The audience was decided on 2026-11-07: teens, not made for kids** (`CLAUDE.md`, "Audience, safety and privacy";
+`docs/ROBLOX_SHORTS_PLAN.md`). This page was written before that. Its measuring advice stands; where its content
+rules are stricter than `CLAUDE.md`'s (scares, roasts), `CLAUDE.md` wins.
+
 **This page is untested advice.** None of it was tried in the project this kit comes from, which was a horror trailer
 for teenagers and up. Treat each point as something to check:
 
@@ -46,7 +50,8 @@ Replace it with what you learn.
   - -14 LUFS still, but no sudden very loud hits: children watch on tablets at whatever volume was left on.
   - Keep the loudness range modest: `qc.py` prints it, and the references' is in `analyze.py`'s report.
 - **Content.**
-  - Nothing frightening, graphic or mean: no jump scares.
+  - Nothing graphic or hateful; roasts of types, never of real people; scares implied and brief, no jump scares
+    (for teens, `CLAUDE.md`; the original kids' rule was "nothing frightening, graphic or mean").
   - Nothing that teaches unsafe behaviour or encourages buying things.
 - **Pace.** Shorts cut fast, but a cut a child can't follow is as bad as a slow one. Match the references' median
   shot length (`analyze.py`), and give every story beat time to land.
