@@ -78,3 +78,9 @@ the run that found the tools' faults, so the fixes' time (hours) isn't a stage o
 
 So a 30-second story is about two and a half hours from the prompt to a reviewed file: an hour of it the shoot, half
 an hour looking at stills and restaging, half an hour of review; the writing is the shortest part.
+
+After its first review the whole video was planned and shot again (3219 s, 1.79 s a frame), then three rounds of
+targeted reshoots as the stills, the cut sheets and the plan's new checks found staging faults: four shots (448 s),
+two (389 s), three (504 s); each cut, mix and delivery about five minutes (174 + 8 + 132 s). The plan's checks now
+catch most of what those reshoots fixed before a frame is shot (a slumped face off the frame's bottom, a cut-off
+wave, jump cuts, a speaker hidden behind its owner), so a new video's restaging should mostly happen at the plan.
