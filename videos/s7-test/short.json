@@ -1,0 +1,40 @@
+{
+ "slug": "s7-test",
+ "title": "Spike S7: two shots, two lines, face changes, captions, a hit",
+ "family": "comedy",
+ "fps": 60,
+ "set": "baseplate",
+ "cast": {
+  "kid": {"skin": [255, 204, 153], "hair": [63690008], "face_acc": [130858694386007], "shirt": 4047884046, "pants": 382538503},
+  "girl": {"skin": [240, 196, 160], "hair": [376526888], "shirt": 398634295, "pants": 398634487}
+ },
+ "lines": [
+  {"id": "l1", "role": "narrator", "text": "[excited] Why does every group project have that ONE person?", "emoji": "😭"},
+  {"id": "l2", "role": "girl", "text": "[bubbly] Oh my gosh, you guys, I'll do the title page!", "emoji": "✨"}
+ ],
+ "shots": [
+  {"name": "kid", "seconds": "auto", "pad": 0.3,
+   "actors": {
+    "kid": {"at": [0, 3, 0], "facing": [0, 0, 1], "poses": [[0, "idle"], ["l1:one", "arms_out"]], "faces": [[0, "smile"], ["l1:one", "angry"]]},
+    "girl": {"at": [4, 3, 0], "facing": [0, 0, 1], "poses": [[0, "idle"]], "faces": [[0, "smile"]]}
+   },
+   "camera": [
+    {"t": 0, "aim": "kid.head", "distance": 9, "height": -0.3, "fov": 45},
+    {"t": 0.05, "aim": "kid.head", "distance": 5.5, "height": -0.3, "fov": 45, "move": 0.3, "ease": "out"}
+   ],
+   "say": [{"line": "l1", "at": 0.0}],
+   "sfx": [{"sound": "boom", "at": "l1:end+0.05"}]
+  },
+  {"name": "girl", "seconds": "auto", "pad": 0.35,
+   "actors": {
+    "kid": {"at": [0, 3, 0], "facing": [0, 0, 1], "poses": [[0, "arms_out"]], "faces": [[0, "angry"]]},
+    "girl": {"at": [4, 3, 0], "facing": [0, 0, 1], "poses": [[0, "idle"], ["l2:title", "point"]], "faces": [[0, "shock"], ["l2:gosh", "smile"]]}
+   },
+   "camera": [
+    {"t": 0, "aim": "girl.head", "distance": 7.5, "height": -0.3, "fov": 45},
+    {"t": 0.02, "aim": "girl.head", "distance": 5.0, "height": -0.3, "fov": 45, "move": 0.25, "ease": "out"}
+   ],
+   "say": [{"line": "l2", "at": 0.12}]
+  }
+ ]
+}

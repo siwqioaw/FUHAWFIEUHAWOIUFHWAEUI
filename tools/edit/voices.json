@@ -19,7 +19,7 @@
     135,
     300
    ],
-   "measured": "audition 221 Hz median, 3.6 words a second after 1.12x; the references' narrators 191-247 Hz; a sarcastic retort read 149 Hz, so the range is wide: it catches a wrong voice, not a mood"
+   "measured": "audition 214 Hz median, 3.5 words a second after 1.12x; the references' narrators 191-247 Hz; a sarcastic retort read 149 Hz, so the range is wide: it catches a wrong voice, not a mood"
   },
   "girl": {
    "name": "Yuria",
@@ -32,7 +32,7 @@
     230,
     450
    ],
-   "measured": "audition 327 Hz; the references' girls about 320 Hz"
+   "measured": "audition 339 Hz; the references' girls about 320 Hz"
   },
   "girl_bratty": {
    "name": "Kathie",
@@ -45,7 +45,7 @@
     230,
     460
    ],
-   "measured": "audition 383 Hz"
+   "measured": "audition 364 Hz"
   },
   "deep": {
    "name": "Adam",
@@ -60,7 +60,7 @@
     60,
     165
    ],
-   "measured": "audition 81 Hz; the references' deep punches 79-123 Hz"
+   "measured": "audition 82 Hz; the references' deep punches 79-123 Hz"
   },
   "story": {
    "name": "Liam",
@@ -79,7 +79,7 @@
     4.0,
     5.4
    ],
-   "measured": "audition 187 Hz, 5.0 words a second in one sentence at 1.2x; the references' storytellers 173-233 Hz, 4.1-4.7 words a second over whole stories"
+   "measured": "audition 183 Hz, 4.8 words a second in one sentence at 1.2x; the references' storytellers 173-233 Hz, 4.1-4.7 words a second over whole stories"
   },
   "mom": {
    "name": "Lyra",
@@ -92,7 +92,7 @@
     180,
     460
    ],
-   "measured": "audition 432 Hz when bubbly; untested as a mom"
+   "measured": "audition 419 Hz when bubbly; untested as a mom"
   }
  }
 }

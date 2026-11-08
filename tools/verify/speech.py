@@ -82,16 +82,18 @@ def yin(x: np.ndarray, sr: int = SR, fmin: float = 60.0, fmax: float = 600.0, wi
     f0 = sr / (k + tmin + np.clip(shift, -1, 1))
     rms = np.sqrt(sq[:, w] / w)
     loud = 20 * np.log10(np.maximum(rms, 1e-12))
-    ok = has & (loud > np.percentile(loud, 95) + gate_db)
+    ok = has & (loud > np.percentile(loud, 95) + gate_db) & (loud > -60.0)  # digital silence isn't 615 Hz
     f0 = np.where(ok, f0, np.nan)
     times = (rows * h + w / 2) / sr
     return times, f0, b
 
 
-def pitch(x: np.ndarray, sr: int, spans=None) -> dict:
+def pitch(x: np.ndarray, sr: int, spans=None, thresh: float = 0.25, least: float = 0.12) -> dict:
     """Median pitch, its 10th and 90th percentiles and the spread between them in semitones, over the voiced frames
-    (inside `spans`, a list of (start, end) seconds, when given)."""
-    t, f0, _ = yin(mono16k(x, sr))
+    (inside `spans`, a list of (start, end) seconds, when given). The voicing threshold is looser than YIN's usual
+    0.15, which voiced only 8 frames of a deep, creaky punch line (S5 review); under `least` seconds voiced, the
+    median is None: too little to say."""
+    t, f0, _ = yin(mono16k(x, sr), thresh=thresh)
     keep = ~np.isnan(f0)
     if spans:
         inside = np.zeros(len(t), bool)
@@ -99,7 +101,7 @@ def pitch(x: np.ndarray, sr: int, spans=None) -> dict:
             inside |= (t >= s) & (t <= e)
         keep &= inside
     v = f0[keep]
-    if len(v) < 5:
+    if len(v) * 0.01 < least:
         return {"median": None, "p10": None, "p90": None, "spread_st": None, "voiced_s": round(len(v) * 0.01, 2)}
     p10, med, p90 = np.percentile(v, [10, 50, 90])
     return {"median": round(float(med), 1), "p10": round(float(p10), 1), "p90": round(float(p90), 1),
@@ -107,11 +109,12 @@ def pitch(x: np.ndarray, sr: int, spans=None) -> dict:
 
 
 def frames_db(x: np.ndarray, sr: int, frame: float = 0.01) -> np.ndarray:
-    """Each 10 ms frame's level in dBFS (mono, high-passed at 80 Hz so rumble doesn't count as speech)."""
+    """Each 10 ms frame's level in dBFS (mono, high-passed at 40 Hz so rumble doesn't count as speech, while a deep
+    voice's fundamental and a creaky tail still do)."""
     x = np.asarray(x, dtype=float)
     if x.ndim == 2:
         x = x.mean(axis=1)
-    x = sps.sosfilt(sps.butter(2, 80, "highpass", fs=sr, output="sos"), x)
+    x = sps.sosfilt(sps.butter(2, 40, "highpass", fs=sr, output="sos"), x)
     f = max(1, int(frame * sr))
     n = len(x) // f
     if n == 0:
@@ -171,8 +174,9 @@ def edges(x: np.ndarray, sr: int, below_db: float = 40.0) -> tuple[float, float]
 
 
 def spoken(text: str) -> list[str]:
-    """The words a line says: audio tags like [excited] dropped, hyphenated words split ('forty-slide' is two)."""
-    return [w for w in TAG.sub(" ", text).replace("-", " ").split() if norm(w)]
+    """The words a line says, as written: audio tags like [excited] dropped, split at spaces, hyphens, dashes and
+    ellipses ('forty-slide' is two words, 'Wait, WHAT?' two)."""
+    return [w for w in _SPLIT.split(TAG.sub(" ", text)) if norm(w)]
 
 
 _ONES = "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen "     "seventeen eighteen nineteen".split()
@@ -180,14 +184,14 @@ _TENS = "twenty thirty forty fifty sixty seventy eighty ninety".split()
 
 
 def number_words(n: int) -> str:
-    """An integer under a million as one run-together word, as `norm` spells it ('forty', 'twentyone')."""
+    """An integer under a million in words, space-separated ('forty', 'twenty one', 'one hundred five')."""
     if n < 20:
         return _ONES[n]
     if n < 100:
-        return _TENS[n // 10 - 2] + (_ONES[n % 10] if n % 10 else "")
+        return _TENS[n // 10 - 2] + (" " + _ONES[n % 10] if n % 10 else "")
     if n < 1000:
-        return _ONES[n // 100] + "hundred" + (number_words(n % 100) if n % 100 else "")
-    return number_words(n // 1000) + "thousand" + (number_words(n % 1000) if n % 1000 else "")
+        return _ONES[n // 100] + " hundred" + (" " + number_words(n % 100) if n % 100 else "")
+    return number_words(n // 1000) + " thousand" + (" " + number_words(n % 1000) if n % 1000 else "")
 
 
 def norm(word: str) -> str:
@@ -195,15 +199,32 @@ def norm(word: str) -> str:
     transcriber's '40' matches the script's 'forty'."""
     w = re.sub(r"[^a-z0-9']", "", word.lower().replace("’", "'")).strip("'")
     if w.isdigit() and len(w) < 7:
-        return number_words(int(w))
+        return number_words(int(w)).replace(" ", "")
     return w
+
+
+_SPLIT = re.compile(r"[\s\-–—]+|\.{2,}|…")
+
+
+def tokens(text: str) -> list[str]:
+    """A line's words for matching: split at spaces, hyphens, dashes and ellipses; a number becomes its words, one
+    token each ('21' -> 'twenty', 'one'), as a script that spells it out reads."""
+    out = []
+    for w in _SPLIT.split(text):
+        n = re.sub(r"[^a-z0-9']", "", w.lower().replace("’", "'")).strip("'")
+        if not n:
+            continue
+        if n.isdigit() and len(n) < 7:
+            out += number_words(int(n)).split()
+        else:
+            out.append(n)
+    return out
 
 
 def match(text: str, heard: list[dict]) -> dict:
     """How many of the script's words the transcript heard, in order: {"ratio", "missing", "extra"}."""
-    a = [norm(w) for w in spoken(text)]
-    b = [norm(p) for w in heard for p in w["word"].replace("-", " ").split() if norm(p)]
-    a = [x.replace(" ", "") for x in a]
+    a = tokens(TAG.sub(" ", text))
+    b = [t for w in heard for t in tokens(w["word"])]
     sm = difflib.SequenceMatcher(a=a, b=b, autojunk=False)
     got = set()
     hit = set()

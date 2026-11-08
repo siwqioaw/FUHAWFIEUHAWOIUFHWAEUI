@@ -3,3 +3,5 @@ scipy>=1.11
 opencv-python>=4.9
 Pillow>=10.1
 soundfile>=0.12
+faster-whisper>=1.1      # speech to text with word times (tools/verify/transcribe.py)
+requests>=2.31           # downloading voice takes (tools/edit/voice.py)

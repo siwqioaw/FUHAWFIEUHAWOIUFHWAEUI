@@ -490,13 +490,41 @@ def voice_checks(expect) -> None:
     expect(f"speech: match takes '40' for 'forty' and drops tags ({ok['ratio']}); a missing word fails "
            f"({miss['missing']})", ok["ratio"] == 1.0 and miss["missing"] == ["page"])
     role = {"pitch": [175, 265], "max_pause": 0.2, "level_db": -18.0}
-    m_good = {"match": {"ratio": 1.0, "missing": []}, "lead": 0.01, "tail": 0.05, "longest_pause": 0.08,
-              "pitch": {"median": 210.0}, "words_per_s": 3.5, "level_db": -18.0, "true_peak_db": -2.0}
-    m_bad = dict(m_good, longest_pause=0.4, pitch={"median": 330.0})
+    m_good = {"match": {"ratio": 1.0, "missing": [], "extra": []}, "lead": 0.01, "tail": 0.05, "longest_pause": 0.08,
+              "pitch": {"median": 210.0, "voiced_s": 1.0}, "words_per_s": 3.5, "level_db": -18.0,
+              "true_peak_db": -2.0}
+    planted = {"a long pause": dict(m_good, longest_pause=0.4),
+               "the wrong voice's pitch": dict(m_good, pitch={"median": 330.0, "voiced_s": 1.0}),
+               "a missing word": dict(m_good, match={"ratio": 0.9, "missing": ["page"], "extra": []}),
+               "a tag read aloud": dict(m_good, match={"ratio": 1.0, "missing": [], "extra": ["excited"]}),
+               "the wrong level": dict(m_good, level_db=-21.0),
+               "a peak over -1 dBTP": dict(m_good, true_peak_db=-0.5),
+               "silence before the line": dict(m_good, lead=0.3)}
     good = [ok_ for ok_, _ in voice.check(m_good, role, {})]
-    bad = [what for ok_, what in voice.check(m_bad, role, {}) if not ok_]
-    expect(f"voice: check passes a good line and fails a long pause and the wrong voice's pitch ({len(bad)} fails)",
-           all(good) and len(bad) == 2 and any("pause" in b for b in bad) and any("pitch" in b for b in bad))
+    caught = {k: sum(1 for ok_, _ in voice.check(m, role, {}) if not ok_) == 1 for k, m in planted.items()}
+    unmeasured = voice.check(dict(m_good, pitch={"median": None, "voiced_s": 0.05}), role, {})
+    expect(f"voice: check passes a good line and fails each planted fault alone ({caught}); a pitch too short to "
+           f"measure is noted, not failed", all(good) and all(caught.values()) and all(ok_ for ok_, _ in unmeasured))
+    # the S5 review's cases: a soft 'h' onset after a pause, and a creaky tail before one, are sound, not silence
+    t = np.arange(int(0.12 * sr)) / sr
+    h_onset = np.convolve(rng.standard_normal(len(t)), np.ones(6) / 6, mode="same") * 0.03  # about 20 dB under
+    creak = sum(np.sin(2 * np.pi * 45 * k * t) / k for k in range(1, 6)) * 0.012 * np.exp(-t / 0.08)
+    line2 = np.concatenate([word(200, 0.4), creak, np.zeros(int(0.35 * sr)), h_onset, word(220, 0.4)])
+    y3, cuts3 = voice.tighten(line2, sr, keep=0.07)
+    removed = sum(b - a for a, b in cuts3)
+    expect(f"voice: tighten keeps a creaky tail and an 'h' onset, cutting only the silence between them "
+           f"({removed:.3f} s cut of the 0.35 s silence)", len(cuts3) == 1 and 0.2 < removed <= 0.29)
+    crest = np.concatenate([np.zeros(int(0.1 * sr)), word(80, 0.6) * np.where(np.arange(int(0.6 * sr)) % 600 < 12,
+                                                                            4.0, 1.0), np.zeros(int(0.1 * sr))])
+    y4, _ = voice.normalize(crest, sr, -18.0)
+    expect(f"voice: a deep, peaky line is limited to -1 dBTP ({master.true_peak_db(y4[:, None]):.2f}) and still "
+           f"reaches its level ({speech.level(y4, sr):.2f} dB)",
+           master.true_peak_db(y4[:, None]) <= -0.95 and abs(speech.level(y4, sr) + 18) < 0.3)
+    expect(f"speech: digital silence has no pitch ({speech.pitch(np.zeros(sr), sr)['median']}); a tag read aloud "
+           f"is an extra word ({speech.match('[excited] Hi there.', [{'word': 'Excited.'}, {'word': 'Hi'}, {'word': 'there.'}])['extra']})",
+           speech.pitch(np.zeros(sr), sr)["median"] is None and
+           speech.match("[excited] Hi there.", [{"word": "Excited."}, {"word": "Hi"}, {"word": "there."}])["extra"]
+           == ["excited"])
 
 
 def caption_checks(expect) -> None:

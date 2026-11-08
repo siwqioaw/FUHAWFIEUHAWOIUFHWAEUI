@@ -24,13 +24,15 @@ from timeline import Timeline  # noqa: E402
 
 def text_times(tl: Timeline, cps: float) -> list[tuple[str, str]]:
     """Each on-screen text's time up against the time to read it: 0.5 s plus its characters at `cps` a second, and at
-    least 1.2 s. Texts marked "accent": true (a number slammed on a beat, read at a glance) are left out."""
+    least 1.2 s. Texts marked "accent": true (a number slammed on a beat, read at a glance) are left out; texts marked
+    "speech": true (a caption of what the voice is saying) need only their characters at 25 a second, at least 0.3 s."""
     rows = []
     for t in tl.texts:
         if t.get("accent"):
             continue
         chars = len(t["text"]) + len(t.get("sub", ""))
-        need = max(1.2, 0.5 + chars / cps)
+        # A caption of the voice is heard as it's read: it needs only the time to say it, at 25 characters a second.
+        need = max(0.3, chars / 25.0) if t.get("speech") else max(1.2, 0.5 + chars / cps)
         have = tl.sec(t["frames"])
         ok = have >= need - 1e-6
         rows.append(("PASS" if ok else "FAIL", f"{t['text']!r}: {have:.2f} s on screen, needs {need:.2f} s"))

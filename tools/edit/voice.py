@@ -21,7 +21,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 import os
 import subprocess
 import sys
@@ -29,7 +28,6 @@ import tempfile
 
 import numpy as np
 import soundfile as sf
-from scipy import signal as sps
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "verify"))
@@ -42,9 +40,14 @@ CAST = os.path.join(HERE, "voices.json")
 def fetch(url: str, dest: str, timeout: float = 120.0) -> str:
     """Download a take to `dest`. The URL is a signed link from the connector; nothing else is sent."""
     import requests
+    from urllib.parse import urlsplit
     os.makedirs(os.path.dirname(os.path.abspath(dest)), exist_ok=True)
-    r = requests.get(url, timeout=timeout)
-    r.raise_for_status()
+    try:
+        r = requests.get(url, timeout=timeout)
+    except requests.RequestException as e:
+        raise RuntimeError(f"download from {urlsplit(url).netloc} failed: {type(e).__name__}") from None
+    if r.status_code != 200:  # the signed URL's signature is a credential: never print it
+        raise RuntimeError(f"download from {urlsplit(url).netloc} failed: HTTP {r.status_code}")
     with open(dest, "wb") as f:
         f.write(r.content)
     return dest
@@ -63,38 +66,48 @@ def decode(path: str, sr: int = SR) -> np.ndarray:
     return np.asarray(x, dtype=float)
 
 
-def frames(x: np.ndarray, sr: int) -> dict:
-    """Per 10 ms frame: level (dBFS), voiced (YIN), and spectral centroid (Hz), all the same length."""
+def _islands(mask: np.ndarray) -> list[tuple[int, int]]:
+    """Runs of True in a boolean array, as (start, end) indices, end exclusive."""
+    out, start = [], None
+    for i, v in enumerate(list(mask) + [False]):
+        if v and start is None:
+            start = i
+        elif not v and start is not None:
+            out.append((start, i))
+            start = None
+    return out
+
+
+def quiet_spans(x: np.ndarray, sr: int, silence_db: float = 40.0, breath_db: float = 18.0,
+                breath_min: float = 0.12) -> list[tuple[int, int]]:
+    """Runs of 10 ms frames of silence between the first and the last sound: frame indices, end exclusive.
+
+    Silence is more than `silence_db` under the loudest frames. A breath counts too, but only as an island: at least
+    `breath_min` seconds of unvoiced sound more than `breath_db` under the loudest frames with silence on both sides.
+    A creaky tail is joined to the word before it and an 'h' to the word after, so neither is an island and neither
+    is cut: the S5 review found a looser rule cutting the ends off words, and 32 dB taking a creaky decay for
+    silence."""
     db = speech.frames_db(x, sr)
-    t, f0, _ = speech.yin(speech.mono16k(x, sr))
+    if not len(db):
+        return []
+    top = np.percentile(db, 95)
+    silent = db < top - silence_db
+    t, f0, _ = speech.yin(speech.mono16k(x, sr), thresh=0.3)
     voiced = np.zeros(len(db), bool)
     if len(t):
         idx = np.clip(np.round(t / 0.01 - 0.5).astype(int), 0, len(db) - 1)
         voiced[idx[~np.isnan(f0)]] = True
-    f = int(0.01 * sr)
-    n = len(db)
-    spec = np.abs(np.fft.rfft(x[: n * f].reshape(n, f) * np.hanning(f), axis=1)) if n else np.zeros((0, f // 2 + 1))
-    freqs = np.fft.rfftfreq(f, 1 / sr)
-    cent = (spec * freqs).sum(axis=1) / np.maximum(spec.sum(axis=1), 1e-12)
-    return {"db": db, "voiced": voiced, "centroid": cent}
-
-
-def quiet_spans(x: np.ndarray, sr: int, silence_db: float = 32.0, breath_db: float = 14.0,
-                breath_hz: float = 3500.0) -> list[tuple[int, int]]:
-    """Runs of 10 ms frames that are silence (more than `silence_db` under the loudest frames) or breath (unvoiced,
-    more than `breath_db` under them, and dark: centroid under `breath_hz`, where an 's' is bright). Frame indices,
-    end exclusive; only runs between the first and last loud frames."""
-    fr = frames(x, sr)
-    db, top = fr["db"], np.percentile(fr["db"], 95) if len(fr["db"]) else 0.0
-    silent = db < top - silence_db
-    breath = (~fr["voiced"]) & (db < top - breath_db) & (fr["centroid"] < breath_hz)
-    soft = silent | breath
+    for a, b in _islands(~silent):
+        bounded = a >= 3 and b <= len(db) - 3 and silent[a - 3:a].all() and silent[b:b + 3].all()
+        if bounded and (b - a) * 0.01 >= breath_min and db[a:b].max() < top - breath_db \
+                and voiced[a:b].mean() < 0.2:
+            silent[a:b] = True  # an island of breath between two silences
     loud = np.flatnonzero(~silent)
     out, start = [], None
     if not len(loud):
         return out
     for i in range(loud[0], loud[-1] + 2):
-        q = i <= loud[-1] and soft[i]
+        q = i <= loud[-1] and silent[i]
         if q and start is None:
             start = i
         elif not q and start is not None:
@@ -103,24 +116,20 @@ def quiet_spans(x: np.ndarray, sr: int, silence_db: float = 32.0, breath_db: flo
     return out
 
 
-def _sentence_ends(text: str) -> int:
-    return sum(text.count(c) for c in ".!?")
-
-
 def tighten(x: np.ndarray, sr: int, keep: float = 0.07, xfade: float = 0.01, tail: float = 0.6) -> tuple:
-    """Cut every pause and breath between words down to `keep` seconds, keeping `tail` of what's kept on the side of
-    the word before (its decay) and the rest before the next word (its onset), with `xfade`-second crossfades.
-    Returns (audio, [(start, end) seconds removed, in the input's time])."""
+    """Cut every silence between words down to `keep` seconds: `tail` of it kept after the word before (its decay),
+    the rest before the next word (its onset), joined with an `xfade`-second crossfade inside the silence. Returns
+    (audio, [(start, end) seconds removed, in the input's time]). A deliberate pause is the edit's job: split the
+    line in two and leave the gap in the shot's timing."""
     f = int(0.01 * sr)
     xf = max(1, int(xfade * sr))
     k = int(keep * sr)
+    head_n = int(k * tail)
+    tail_n = k - head_n
     cuts = []
     for a, b in quiet_spans(x, sr):
         s0, s1 = a * f, b * f
-        if s1 - s0 <= k + 2 * xf:
-            continue
-        c0 = s0 + int(k * tail)
-        c1 = s1 - (k - int(k * tail))
+        c0, c1 = s0 + head_n, s1 - tail_n + xf
         if c1 - c0 > 2 * xf:
             cuts.append((c0, c1))
     if not cuts:
@@ -136,7 +145,7 @@ def tighten(x: np.ndarray, sr: int, keep: float = 0.07, xfade: float = 0.01, tai
         seg = x[p0:p1]
         out[-xf:] = out[-xf:] * (1 - ramp) + seg[:xf] * ramp
         out = np.concatenate([out, seg[xf:]])
-    return out, [(c0 / sr, c1 / sr) for c0, c1 in cuts]
+    return out, [(c0 / sr, (c1 - xf) / sr) for c0, c1 in cuts]
 
 
 def trim(x: np.ndarray, sr: int, lead: float = 0.012, tail: float = 0.06, below_db: float = 40.0) -> np.ndarray:
@@ -180,18 +189,30 @@ def tempo(x: np.ndarray, sr: int, factor: float, method: str = "atempo") -> np.n
 
 
 def normalize(x: np.ndarray, sr: int, target_db: float = -18.0, ceiling_db: float = -1.0,
-              max_limit_db: float = 4.0) -> tuple[np.ndarray, float]:
+              max_limit_db: float = 4.0, max_gain_db: float = 36.0) -> tuple[np.ndarray, float]:
     """Gain to an active speech level of `target_db`; peaks over `ceiling_db` (true peak) go through the look-ahead
-    limiter, up to `max_limit_db` of it, past which the gain backs off. Deep voices need the limiter: K-weighting
-    hears little of their low end, so their peaks sit higher over their level."""
+    limiter, up to `max_limit_db` of it, past which the gain backs off. The level is measured again after the limiter
+    and put right once more. Deep voices need the limiter: K-weighting hears little of their low end, so their peaks
+    sit high over their level. A take with no speech in it raises."""
     import master
-    g = target_db - speech.level(x, sr)
+    lv = speech.level(x, sr)
+    if lv < -70:
+        raise ValueError(f"no speech to level (active level {lv:.0f} dB)")
+    g = min(max_gain_db, target_db - lv)
     y = x * 10 ** (g / 20)
-    over = master.true_peak_db(y[:, None]) - ceiling_db
-    if over > max_limit_db:
-        y = y * 10 ** (-(over - max_limit_db) / 20)
-        g -= over - max_limit_db
-    if over > 0:
+    for _ in range(2):
+        over = master.true_peak_db(y[:, None]) - ceiling_db
+        if over > max_limit_db:
+            y = y * 10 ** (-(over - max_limit_db) / 20)
+            g -= over - max_limit_db
+        if over > 0:
+            y = master.limiter(y[:, None], sr, ceiling_db - 0.05)[:, 0]
+        fix = min(max_gain_db - g, target_db - speech.level(y, sr))
+        if abs(fix) < 0.05:
+            break
+        y = y * 10 ** (fix / 20)
+        g += fix
+    if master.true_peak_db(y[:, None]) > ceiling_db:
         y = master.limiter(y[:, None], sr, ceiling_db - 0.05)[:, 0]
     return y, g
 
@@ -230,20 +251,33 @@ def check(m: dict, role: dict, line: dict) -> list[tuple[bool, str]]:
     """(ok, what) for every check on one processed line."""
     out = [(m["match"]["ratio"] == 1.0, "every scripted word heard" + (
         "" if m["match"]["ratio"] == 1.0 else f": missing {m['match']['missing']}"))]
+    extra = m["match"].get("extra", [])
+    out.append((not extra, "no words that aren't in the script (a tag read aloud, a repeat)" + (
+        f": heard {extra}" if extra else "")))
     out.append((m["lead"] <= 0.05 and m["tail"] <= 0.15, f"starts within 50 ms and ends within 150 ms of its sound "
                 f"({m['lead']:.3f}, {m['tail']:.3f} s)"))
     most = line.get("max_pause", role.get("max_pause", 0.2))
     out.append((m["longest_pause"] <= most, f"no pause over {most:.2f} s ({m['longest_pause']:.2f})"))
     lo, hi = role.get("pitch", [0, 10000])
     med = m["pitch"]["median"]
-    out.append((med is not None and lo <= med <= hi, f"median pitch in {lo}-{hi} Hz ({med})"))
+    if med is None:  # too few voiced frames to say (a whisper, a short deep punch): noted, not failed
+        out.append((True, f"median pitch: too little voicing to measure ({m['pitch']['voiced_s']} s)"))
+    else:
+        out.append((lo <= med <= hi, f"median pitch in {lo}-{hi} Hz ({med})"))
     if role.get("rate") and m["words_per_s"] is not None:
         rlo, rhi = role["rate"]
         out.append((rlo <= m["words_per_s"] <= rhi, f"{rlo}-{rhi} words a second ({m['words_per_s']})"))
     target = role.get("level_db", -18.0)
-    out.append((abs(m["level_db"] - target) <= 0.6 and m["true_peak_db"] <= -0.9,
-                f"speech level {target} dB ({m['level_db']}), true peak under -1 dBTP ({m['true_peak_db']})"))
+    out.append((abs(m["level_db"] - target) <= 0.6 and m["true_peak_db"] <= -1.0 + 0.05,
+                f"speech level {target} dB ({m['level_db']}), true peak at most -1 dBTP ({m['true_peak_db']})"))
     return [(bool(ok), what) for ok, what in out]
+
+
+def _cast_path(cast: str | None, base: str) -> str | None:
+    if not cast or os.path.isabs(cast):
+        return cast
+    here = os.path.join(os.getcwd(), cast)
+    return here if os.path.exists(here) else os.path.join(base, cast)
 
 
 def _take_paths(line: dict, base: str) -> list[str]:
@@ -260,7 +294,7 @@ def make(lines_path: str, out_dir: str, model: str = "large-v3", device: str = "
     mean confidence), then the widest pitch (the liveliest read). Returns the number of failed checks."""
     spec = json.load(open(lines_path, encoding="utf-8"))
     base = os.path.dirname(os.path.abspath(lines_path))
-    cast = load_cast(spec.get("cast") and os.path.join(os.getcwd(), spec["cast"]))
+    cast = load_cast(_cast_path(spec.get("cast"), base))
     os.makedirs(out_dir, exist_ok=True)
     import transcribe
     asr, dev = transcribe.load(model, device)
@@ -278,7 +312,7 @@ def make(lines_path: str, out_dir: str, model: str = "large-v3", device: str = "
 
     entries, fails, rows = [], 0, []
     for line in spec["lines"]:
-        role = dict(cast.get("defaults", {}), **cast["roles"][line["role"]], **line.get("process", {}))
+        role = {**cast.get("defaults", {}), **cast["roles"][line["role"]], **line.get("process", {})}
         tried = []
         for i, take in enumerate(_take_paths(line, base)):
             y, info = process(decode(take), SR, role)
