@@ -15,4 +15,9 @@ Milestone M2, a comparison montage (family C, no voice), made 2026-11-08 by foll
   and 8.78). The video is 10.0 s, five bars: the loop comes round on the beat, though not on the phrase (the chords
   run in four-bar groups; the second review measured it).
 - **30 fps,** as the references' music formats.
-- **The board** says "Welcome, class!" on the last day, the first day's hand-up shot from the board's end.
+- **The board** says "Have a great summer!" on the last day (it said "Welcome, class!", a first-day board on the
+  last day, until the third review), the first day's hand-up shot from the board's end.
+- **The closer marks the first day:** with the last day's dead eyes and a white "Me:" over him, the fourth review
+  read it as "me: wrecked too", a repeat of the last side. Now "Me:" is in the first day's yellow, the narrator is
+  sleepy, and behind him the first day's Leo waves as he did in the first shot, beside the friend he high-fived.
+  ("Me on day 1:" needs 1.5 s to read; the last bar is 1.23 s.)

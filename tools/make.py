@@ -658,7 +658,7 @@ def _framing(plan: dict, size=(1080, 1920)) -> list[str]:
             # the face against the caption block: stories caption high (centre 24.8% down), comedy low (77.9%)
             face = _plan_face(a, s["seconds"] / 2)
             xy = camera.project(views[1], face, size=size)
-            if not xy or not 0 <= xy[0] <= w:
+            if not xy:
                 continue
             look = a["cf"].get("look")
             fwd = ([a["walk"]["to"][0] - a["walk"]["from"][0], a["walk"]["to"][2] - a["walk"]["from"][2]] if a.get("walk")
@@ -666,6 +666,25 @@ def _framing(plan: dict, size=(1080, 1920)) -> list[str]:
             cam = views[1]["pos"]
             if fwd and fwd[0] * (cam[0] - face[0]) + fwd[1] * (cam[2] - face[2]) < 0:
                 continue   # its back to the camera (an over-the-shoulder's near actor): no face to cut or cover
+            cut_at = None   # at the middle, start and end: a push can carry a face off an edge (M2's fourth review:
+            for tq, vq in zip((s["seconds"] / 2, 0.0, max(0.0, s["seconds"] - 1e-3)), (views[1], views[0], views[2])):
+                if a.get("walk") and vq is not views[2]:
+                    continue   # a walker is placed at its walk's end here: judge it there only
+                fq = face if vq is views[1] else _plan_face(a, tq)   # a classmate half in at the start, out after)
+                q = camera.project(vq, fq, size=size)
+                tp = camera.project(vq, [fq[0], fq[1] + 0.6, fq[2]], size=size)
+                if not q or not tp or not -2 * w <= q[0] <= 3 * w or not 0 <= q[1] <= h:
+                    continue
+                rq = abs(q[1] - tp[1])   # the head's radius on screen, in pixels
+                edge = min((q[0], "left"), (w - q[0], "right"), (q[1], "top"), key=lambda e: e[0])
+                if edge[0] < 0.6 * rq:   # past an eye, or out
+                    cut_at = (tq, edge[1])
+                    break
+            if cut_at:
+                out.append(f"{s['name']}: {name}'s face is cut by the frame's {cut_at[1]} edge"
+                           + (f" at {cut_at[0]:.1f} s" if cut_at[0] != s["seconds"] / 2 else ""))
+            if not 0 <= xy[0] <= w:
+                continue
             if not a.get("walk") and 0 <= xy[1] <= h:
                 said = set()   # at a quarter, half, three quarters and the end: a gesture can come late (M3's cheer)
                 for tq in (0.25, 0.5, 0.75, 0.98):
@@ -683,17 +702,26 @@ def _framing(plan: dict, size=(1080, 1920)) -> list[str]:
                                        f"frame at {s['seconds'] * tq:.1f} s (a gesture cut off: frame wider, or turn "
                                        f"the camera toward it)")
             frac = xy[1] / h
-            top = camera.project(views[1], [face[0], face[1] + 0.6, face[2]], size=size)
-            r = abs(xy[1] - top[1]) if top else 0.0   # the head's radius on screen, in pixels
-            edge = min((xy[0], "left"), (w - xy[0], "right"), (xy[1], "top"), key=lambda e: e[0])
-            if 0 <= frac <= 1.0 and edge[0] < 0.6 * r:   # past an eye
-                out.append(f"{s['name']}: {name}'s face is cut by the frame's {edge[1]} edge")
+            if cut_at:
+                pass
             elif 0.85 < frac <= 1.0:
                 out.append(f"{s['name']}: {name}'s face is {frac:.0%} down, on the frame's bottom edge where the "
                            f"Shorts UI covers it (frame it above 85%)")
             if plan.get("family") == "story" and 0.0 <= frac < 0.36:
                 out.append(f"{s['name']}: {name}'s face is {frac:.0%} down, under the story captions (frame it "
                            f"below 36%)")
+            elif plan.get("family") == "story" and not a.get("walk"):
+                # the top of the head, hair and all, at the start, middle and end: a story's 1-3 words sit at
+                # 22-27% down (a second line to 30%), and a face below 36% still had its hair under them in
+                # close-ups and a pull's first frames (M5's second review: "pets brag" over eyes 33% down)
+                for tq, vq in zip((0.0, s["seconds"] / 2, max(0.0, s["seconds"] - 1e-3)), views):
+                    fq = _plan_face(a, tq)
+                    top = camera.project(vq, [fq[0], fq[1] + 0.85, fq[2]], size=size)
+                    fxy = camera.project(vq, fq, size=size)
+                    if top and fxy and 0 <= fxy[0] <= w and 0 <= fxy[1] <= h and 0.0 <= top[1] / h < 0.28:
+                        out.append(f"{s['name']}: {name}'s hair is {top[1] / h:.0%} down at {tq:.1f} s, under the "
+                                   f"story captions (frame the top of the head below 28%)")
+                        break
             elif plan.get("family") == "comedy" and 0.66 < frac <= 1.0:
                 out.append(f"{s['name']}: {name}'s face is {frac:.0%} down, under the comedy captions (frame it "
                            f"above 66%)")

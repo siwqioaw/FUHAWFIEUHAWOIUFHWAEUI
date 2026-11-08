@@ -51,7 +51,8 @@ s.add(
          push("leo.head+[-0.9,0.3,0]", 10.0, 8.5, fov=48), seconds=length(0)),   # framed toward the waving hand
     shot("hand_up", {"leo": actor([6, 3, -1.9], facing=TO_BOARD, poses=[(0, "idle"), (0.05, "hand_up")],
                                   faces=[(0, "starstruck")]),   # at his desk (it hides his legs), front row
-                     "ex3": actor([5.2, 3, 5.1], facing=TO_BOARD, faces=[(0, "bored")])},   # the row behind
+                     "ex3": actor([7.2, 3, 5.1], facing=TO_BOARD, faces=[(0, "bored")])},   # the row behind,
+         # toward screen-left: this camera looks along +x/+z, so at 5.2 he left by the right edge
          [{"t": 0, "pos": [0.4, 6.6, -11.0], "look": [6.0, 5.4, -1.9], "fov": 50},   # from the board's end, at his
           {"t": 0.04, "pos": [0.9, 6.5, -9.8], "look": [6.0, 5.4, -1.9], "fov": 50, "move": 0.3, "ease": "out"}],
          set="class", seconds=length(1)),   # eye height: the hand clears his head
@@ -69,7 +70,7 @@ s.add(
     shot("yelled", {"teacher": actor([-2.8, 3, 0.8], facing=[0.2, 0, 1], poses=[(0, POINT_AT_L)], faces=[(0, "yell")]),
                     "leo": actor([2.3, 3, 0.2], facing=[-0.3, 0, 1], poses=[(0, TIRED)], faces=[(0, "dead")])},
          [{"t": 0, "pos": [-0.25, 4.9, 13.2], "look": [-0.25, 4.3, 0.5], "fov": 52},
-          {"t": 0.04, "pos": [-0.25, 4.8, 12.0], "look": [-0.25, 4.3, 0.5], "fov": 52, "move": 1.15, "ease": "out"}],
+          {"t": 0.04, "pos": [-0.25, 4.8, 12.5], "look": [-0.25, 4.3, 0.5], "fov": 52, "move": 1.15, "ease": "out"}],
          set="class",
          seconds=length(4)),   # the point across the frame at him
     shot("freedom", {"leo": actor([0, 3, -12], facing=US, poses=[(0, "cheer")], faces=[(0, "evil")],
@@ -78,15 +79,19 @@ s.add(
                                   faces=[(0, "shock")])},   # a run the whole shot long, past her with room
          wide([0, 5.2, -3.5], [0, 4.2, -18], fov=55, push_in=1.5), seconds=length(5)),
     # Me: the channel's own narrator, wrecked on the first day while everyone else cheers
-    shot("me", {"nar": actor([0, 3, 0], facing=US, poses=[(0, TIRED)], faces=[(0, "dead")]),
-                "ex1": actor([-2.3, 3, -9.0], facing=US, poses=[(0, ARMS_UP)], faces=[(0, "grin")]),
+    shot("me", {"nar": actor([0, 3, 0], facing=US, poses=[(0, TIRED)], faces=[(0, "sleepy")]),   # not the last
+     # day's dead eyes: a repeat of it read as "me: wrecked too", not "wrecked on day one"
+                "leo": actor([-2.3, 3, -9.0], facing=US, poses=[(0, "wave"), (0.28, WAVE_B, 0.12), (0.56, "wave", 0.12),
+                                                                  (0.84, WAVE_B, 0.12)],
+                             faces=[(0, "grin")]),   # the first day's Leo, waving as he did: everyone eager but me
                 "friend": actor([2.3, 3, -9.6], facing=US, poses=[(0, ARMS_UP)], faces=[(0, "laugh")])},
          push("nar.face", 7.0, 6.2, fov=60, height=2.5, move=0.3), seconds=length(6)),   # from above: the
     # cheerers stand clear above his head, arms and all (level, their fists poked out of his hair)
 )
 s.text("{yellow:First} day of school..", 0.0, CUTS[3] / FPS, style="header")
 s.text("{red:Last} day of school..", CUTS[3] / FPS, CUTS[6] / FPS, style="header")
-s.text("Me:", CUTS[6] / FPS, CUTS[7] / FPS, style="header")
+s.text("{yellow:Me:}", CUTS[6] / FPS, CUTS[7] / FPS, style="header")   # the first day's colour: "Me:" in white,
+# over dead eyes, read as the last day again (the fourth review); "Me on day 1:" is too long to read in 1.2 s
 s.music("build/library/music/the_plans_working.mp3", start=0.0, gain_db=-1.0, offset=22.74, duck=False)
 
 if __name__ == "__main__":

@@ -397,12 +397,19 @@ def sofa(s: Set, pos, face=(0, 0, 1), color=(110, 120, 200), w=8.0):
         s.box((w / 2 - 1.1, 0.5, 2.4), (x + dx, 2.25, z + f * 0.2), tuple(min(255, c + 25) for c in color), "Fabric")
 
 
-def tv(s: Set, pos, face=(0, 0, -1), w=7.0):
+def tv(s: Set, pos, face=(0, 0, -1), w=7.0, screen: str | None = None):
+    """A TV on its cabinet, its screen toward `face` (+-z). `screen`: what's on it, a title card drawn in a cartoon
+    face on a sky-blue picture (M5's "he cried at a cartoon": the TV was off, behind the camera)."""
     x, _, z = pos
     f = 1 if face[2] >= 0 else -1
     s.box((w + 1.5, 2.2, 2.2), (x, 1.1, z), DARK_WOOD, "Wood")
     s.box((w, w * 0.56, 0.3), (x, 2.2 + w * 0.28 + 0.4, z), BLACK)
-    s.box((w - 0.4, w * 0.56 - 0.4, 0.1), (x, 2.2 + w * 0.28 + 0.4, z + f * 0.17), (40, 60, 110), "Glass")
+    if screen:
+        s.sign((w - 0.4, w * 0.56 - 0.4, 0.1), (x, 2.2 + w * 0.28 + 0.4, z + f * 0.17), screen,
+               face="Back" if f > 0 else "Front", bg=(120, 190, 250), fg=(255, 255, 255), font="Cartoon",
+               scale=0.8)
+    else:
+        s.box((w - 0.4, w * 0.56 - 0.4, 0.1), (x, 2.2 + w * 0.28 + 0.4, z + f * 0.17), (40, 60, 110), "Glass")
 
 
 def table(s: Set, pos, w=5.0, d=3.0, h=2.6, color=WOOD):
@@ -658,6 +665,34 @@ def locker_bank(s: Set, pos, facing=(0, 0, 1), n: int = 3, color=(205, 60, 60), 
     s.box(top, (x, h + 0.15, z), tuple(int(c * 0.72) for c in color), "Metal")
 
 
+def mirror(s: Set, pos, facing=(0, 0, 1), w: float = 3.4, h: float = 6.4, frame=(250, 250, 250), open_: bool = False):
+    """A full-length mirror standing on its own feet on the floor at pos, its glass toward `facing` (where its user
+    stands). Roblox doesn't reflect actors, only the room's light: the glass shines and reads as a mirror (shoot its
+    user 40-60 degrees off its face, the mirror beside them). `open_`: a frame round a faint pane instead, for the
+    stage trick: a second actor dressed the same behind it, facing back, doing the user's moves mirrored, shot over
+    the user's shoulder (M5's "nine times, in the mirror": he waved at the lens, and no set had a mirror)."""
+    x, _, z = pos
+    yaw = _yaw(facing)
+
+    def at(dx, dy, dz):
+        rx, rz = _rot(dx, dz, yaw)
+        return (x + rx, dy, z + rz)
+
+    cy = 0.5 + h / 2
+    if open_:
+        for dx in (-w / 2 + 0.15, w / 2 - 0.15):
+            s.box((0.3, h, 0.3), at(dx, cy, 0), frame, rot=(0, yaw, 0))
+        for dy in (0.5 + 0.15, 0.5 + h - 0.15):
+            s.box((w, 0.3, 0.3), at(0, dy, 0), frame, rot=(0, yaw, 0))
+        s.box((w - 0.6, h - 0.6, 0.04), at(0, cy, 0.1), (210, 228, 245), "Glass", rot=(0, yaw, 0), transparency=0.88,
+              reflect=0.2)
+    else:
+        s.box((w, h, 0.3), at(0, cy, 0), frame, rot=(0, yaw, 0))
+        s.box((w - 0.5, h - 0.5, 0.06), at(0, cy, 0.17), (196, 214, 232), "Glass", rot=(0, yaw, 0), reflect=0.55)
+    for dx in (-w / 2 + 0.3, w / 2 - 0.3):   # its feet
+        s.box((0.4, 0.5, 1.8), at(dx, 0.25, 0), frame, rot=(0, yaw, 0))
+
+
 def _euler_xyz(yaw_deg: float, pitch_deg: float) -> tuple:
     """The part rotation (Roblox's CFrame.Angles x, y, z in degrees: Rx Ry Rz) of a turn `yaw_deg` about the vertical
     after a tilt `pitch_deg` about the part's own x axis (Ry(yaw) Rx(pitch)): a lid leaning back on a prop that faces
@@ -696,7 +731,7 @@ def laptop(s: Set, pos, facing=(0, 0, 1), text="Slide 40 / 40", color=(70, 72, 8
 PROPS = {"dog": dog, "cat": cat, "plant": plant, "lamp": lamp, "table": table, "rug": rug, "car": car, "tree": tree,
          "pine": pine, "bookshelf": bookshelf, "sofa": sofa, "tv": tv,
          "balloons": balloons, "cake": cake, "smoothie": smoothie, "ice_pack": ice_pack, "wall_phone": wall_phone,
-         "lockers": locker_bank, "laptop": laptop}
+         "lockers": locker_bank, "laptop": laptop, "mirror": mirror}
 
 
 def props(s: Set, items: list) -> None:
@@ -832,7 +867,7 @@ def living_room(opt: dict) -> Set:
         window(s, (x, 7.75, D / 2 + 0.5), 8.0, 6.5, axis="z")
     door(s, (W / 2 + 0.3, 0, -D / 2 + 6.25), axis="x", color=(170, 40, 40))
     sofa(s, (-2, 0, 8), face=(0, 0, -1), color=opt.get("sofa", (95, 120, 190)))
-    tv(s, (-2, 0, -2.5), face=(0, 0, 1))
+    tv(s, (-2, 0, -2.5), face=(0, 0, 1), screen=opt.get("tv"))
     rug(s, (-2, 0, 3), 14, 9, (190, 70, 80))
     table(s, (-2, 0, 3.5), w=5, d=2.6, h=1.6, color=DARK_WOOD)
     lamp(s, (6.5, 0, 9.5))

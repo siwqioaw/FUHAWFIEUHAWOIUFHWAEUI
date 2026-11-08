@@ -741,6 +741,14 @@ def pipeline_checks(expect) -> None:
            f"({low_}); a face mid-frame passes ({level})",
            len(high) == 1 and "story captions" in high[0] and len(low_) == 1 and "comedy captions" in low_[0]
            and not level)
+    def close_up(look_y):
+        cam = [[0.0, {"pos": [0, 4.5, -4], "look": [0, look_y, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]]
+        return make._framing({"family": "story", "shots": [{"name": "s", "seconds": 1.0, "camera": cam,
+                              "actors": {"a": {"cf": {"pos": [0, 3, 0], "look": [0, 3, -10]}}}}]})
+    centred, lower = close_up(4.5), close_up(5.1)
+    expect(f"make: a story close-up with the face centred has its hair under the captions ({centred}); framed with "
+           f"the head lower it passes ({lower}; M5's second review: captions over the hair in every close-up)",
+           len(centred) == 1 and "hair" in centred[0] and not lower)
     framed = json.load(open(sh.path("plan.json"), encoding="utf-8"))
     clean = [w for w in make._framing(framed) if "never in frame" in w]
     framed["shots"][0]["actors"]["far"] = {"cf": {"pos": [30.0, 3.0, 0.0], "look": [30.0, 3.0, 10.0]}}
@@ -752,6 +760,12 @@ def pipeline_checks(expect) -> None:
         return make._framing({"family": "music", "shots": [{"name": "s", "seconds": 1.0, "camera": cam,
                                                            "actors": {"a": {"cf": {"pos": [x, 3, 0]}}}}]})
     side, bottom, middle = edged(-2.5, 4.5), edged(0.0, 8.5), edged(0.0, 4.5)
+    pushed_cam = [[0.0, {"pos": [0, 4.5, -10], "look": [0, 4.5, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"],
+                  [0.05, {"pos": [0, 4.5, -5.5], "look": [0, 4.5, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.4, "out"]]
+    pushed = [w_ for w_ in make._framing({"family": "music", "shots": [{"name": "p", "seconds": 1.0, "camera": pushed_cam,
+              "actors": {"a": {"cf": {"pos": [2.3, 3, 0], "look": [2.3, 3, -10]}}}}]}) if "edge" in w_]
+    expect(f"make: a push that carries a face off the frame's edge is flagged, though it starts inside ({pushed}; "
+           f"M2's fourth review: the classmate in hand_up)", len(pushed) == 1)
     expect(f"make: the plan flags a face cut by the frame's edge ({side}) and one down on the bottom edge under the "
            f"Shorts UI ({bottom}); a centred face passes ({middle})",
            len(side) == 1 and "right edge" in side[0] and len(bottom) == 1 and "Shorts UI" in bottom[0] and not middle)
@@ -1019,6 +1033,26 @@ def pipeline_checks(expect) -> None:
         st = kit.SETS["stage_void"]({"props": [{"kind": name, "at": [0, 0, 0]}]})
         prop_parts[name] = len(st.parts) + len(st.signs) - len(kit.SETS["stage_void"]({}).parts)
     expect(f"kit: every prop builds in a set's options ({prop_parts})", all(n > 0 for n in prop_parts.values()))
+    import math as _m
+
+    def _rot_xyz(e):
+        a_, b_, c_ = (_m.radians(v) for v in e)
+        rx = np.array([[1, 0, 0], [0, _m.cos(a_), -_m.sin(a_)], [0, _m.sin(a_), _m.cos(a_)]])
+        ry = np.array([[_m.cos(b_), 0, _m.sin(b_)], [0, 1, 0], [-_m.sin(b_), 0, _m.cos(b_)]])
+        rz = np.array([[_m.cos(c_), -_m.sin(c_), 0], [_m.sin(c_), _m.cos(c_), 0], [0, 0, 1]])
+        return rx @ ry @ rz
+    lids = []
+    for f in ((0, 0, 1), (1, 0, 0), (-0.6, 0, -0.8)):
+        n = _rot_xyz(kit._euler_xyz(kit._yaw(f), -18)) @ np.array([0.0, 0.0, 1.0])   # the screen's face (+z)
+        lids.append(round(float(n[0] * f[0] + n[2] * f[2]), 2))
+    tv_room = kit.SETS["living_room"]({"tv": "bye bye"})
+    glass = [p_ for p_ in kit.SETS["stage_void"]({"props": [{"kind": "mirror", "at": [0, 0, 0], "open_": True}]}).parts
+             if p_[13] == kit.MATERIALS.index("Glass")]
+    expect(f"kit: a laptop's screen faces its user whichever way it's set ({lids}: the lid's tilt turned with it); "
+           f"a TV can show a picture ({[g['text'] for g in tv_room.signs]}); an open mirror's pane can be seen through "
+           f"(transparency {[p_[14] for p_ in glass]}), for a reflection played by a second actor",
+           all(v > 0.9 for v in lids) and tv_room.signs and tv_room.signs[0]["text"] == "bye bye"
+           and glass and all(p_[14] >= 0.8 for p_ in glass))
     worded = {name: [g["text"] for g in kit.SETS[name]({}).signs if g["text"]] for name in kit.SETS}
     plain = {name: [g["text"] for g in kit.SETS[name]({"signs": False}).signs if g["text"]] for name in kit.SETS}
     gym_dance = kit.SETS["gym"]({"dance": True})

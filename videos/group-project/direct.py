@@ -73,8 +73,9 @@ s.add(
          say=[("l6", 0.0)], until="l6:every"),
     shot("slides", {"me": actor(DESK, facing=TO_BOARD, poses=[(0, TYPE), ("l6:slide", "slump", 0.3)],
                                 faces=[(0, "cry")])},
-         [{"t": 0, "pos": [16.0, 7.0, 15.0], "look": [15.0, 3.55, 9.3], "fov": 50},   # over his shoulder: the count
-          {"t": 0.04, "pos": [15.8, 6.6, 14.2], "look": [15.0, 3.55, 9.3], "fov": 50, "move": 1.2, "ease": "out"}],
+         [{"t": 0, "pos": [15.6, 8.3, 14.0], "look": [15.0, 3.53, 9.26], "fov": 50},   # high over his head onto the
+          {"t": 0.04, "pos": [15.6, 8.0, 13.4], "look": [15.0, 3.53, 9.26], "fov": 50, "move": 1.2, "ease": "out"}],
+         # count (lower, over his shoulder, his head hid all but "de 0")
          until="l6:end+0.12"),
     shot("pres_day", {"girl": actor(BOARD_GIRL, facing=TOWARD_US, poses=[(0, "idle")], faces=[(0, "smug")]),
                       "me": actor(BOARD_ME, facing=TOWARD_US, poses=[(0, "idle")], faces=[(0, "side_eye_left")])},

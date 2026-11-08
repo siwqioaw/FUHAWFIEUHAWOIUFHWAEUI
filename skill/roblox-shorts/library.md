@@ -30,7 +30,8 @@ All of it is code in the repository; a video's `direct.py` names it.
   (blocky pets: colour, spot, collar, size), `balloons`, `cake` and `smoothie` (on a surface: `at` y is its top),
   `ice_pack`, `wall_phone` (`at` is its centre on the wall), `lockers` (a free-standing bank to hide behind),
   `tray` (lunch on a table), `laptop` (open on a surface, facing its user, `text` on its screen: M3's "Slide 40 /
-  40"), and the furniture builders (`plant`, `lamp`, `table`, `rug`, `car`, `tree`, `pine`,
+  40"), `mirror` (full length; `open_: True` with a second actor as the reflection, M5's mirror), the living room's
+  `{"tv": "..."}` (a cartoon on the TV), and the furniture builders (`plant`, `lamp`, `table`, `rug`, `car`, `tree`, `pine`,
   `bookshelf`, `sofa`, `tv`). Props stay put for the whole video: an actor can't carry one.
 
 ## Cast (`tools/roblox/cast.json`)

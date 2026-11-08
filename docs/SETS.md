@@ -9,7 +9,7 @@ preset and any extra sets at offsets; `make.py` calls it for every shoot.
 | `classroom` | 44 x 36 x 15 | 12 desks with chairs in 3 rows, the teacher's desk, a whiteboard (text by option), 3 windows, a door, posters, a clock, a bookshelf, a plant, 6 ceiling lights | interior |
 | `hallway` | 18 x 80 x 15 | red lockers in banks on both sides (colour by option), 6 doors, a window at the end, a marble floor, blue trim, 6 ceiling lights, 2 posters | interior |
 | `bedroom` | 28 x 24 x 13 | bed, desk with a computer, chair, rug, lamp, bookshelf, posters, window, door | interior |
-| `living_room` | 40 x 30 x 14 | sofa, TV, coffee table, rug, lamp, plant, kitchen counter, fridge, 2 windows, front door | interior |
+| `living_room` | 40 x 30 x 14 | sofa (its cushions 2.5 up: a sitter's mark is 1.5 higher than a bench's), TV (`{"tv": "..."}` puts a cartoon's title card on it), coffee table, rug, lamp, plant, kitchen counter, fridge, 2 windows, front door | interior |
 | `street` | 140 x 200 | road with lines, sidewalks, 8 houses with roofs, fences, trees, 4 streetlamps, a parked car; `{"night": True}` lights lamps and windows under a black sky | day / night |
 | `gym` | 64 x 44 x 26 | a honey wood court with its lines and blue paint, a hoop at each end (the rims 10 studs up), wooden bleachers along +z, banners, high windows, a scoreboard over the doors (`{"scoreboard": False}` for none), stacked mats, a ball rack; `{"dance": True}` dresses it for a school dance: balloons along the walls, streamers under the ceiling, a mirror ball, coloured lights, a DJ table with speakers | interior |
 | `cafeteria` | 52 x 40 x 15 | six long tables with benches (sized for the `sit` pose: benches 1 stud up, tops 2.6), the serving line with food behind a glass guard, a menu drawn in pictures, two vending machines, trash cans, a bulletin board, windows, double doors | interior |
@@ -30,6 +30,7 @@ Any set takes props in its options, placed for the whole video: `{"props": [{"ki
 | `wall_phone` | an old wall phone with a handset and a coiled cord | facing; `at` is its centre on the wall |
 | `lockers` | a free-standing bank of lockers, a plain steel back: something to hide behind (M4's "he hid behind the lockers") | facing (its doors), n, color, h |
 | `tray` | a lunch tray with a slice of pizza, a carton of milk and an apple | color; `at` y is the table top (2.6 in the cafeteria) |
+| `mirror` | a full-length mirror on its feet: a white frame round glass that shines (Roblox reflects no actors). `open_: True` leaves a faint pane in an open frame, for the stage trick M5 uses: a second actor dressed the same behind it, facing back, doing the moves mirrored, shot over the first one's shoulder | facing (toward its user), w, h, open_ |
 | `laptop` | an open laptop, no logo: the deck, keys, a pad, the lid leaning back 18 degrees with `text` on its screen (M3's "Slide 40 / 40": the work shown, not just said). Its screen faces its user: shoot it over the user's shoulder to read it | facing (toward its user), text, color; `at` y is the surface (a school desk's top is 2.675) |
 | `plant`, `lamp`, `table`, `rug`, `car`, `tree`, `pine`, `bookshelf`, `sofa`, `tv` | the furniture builders | their own |
 

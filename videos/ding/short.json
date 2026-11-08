@@ -319,14 +319,14 @@
    "camera": [
     {
      "t": 0,
-     "aim": "ex1.head",
+     "aim": "ex1.head+[0,0.35,0]",
      "distance": 7.0,
      "fov": 45,
      "height": -0.3
     },
     {
      "t": 0.04,
-     "aim": "ex1.head",
+     "aim": "ex1.head+[0,0.35,0]",
      "distance": 4.8,
      "fov": 45,
      "height": -0.3,
@@ -549,14 +549,14 @@
    "camera": [
     {
      "t": 0,
-     "aim": "leo.head",
+     "aim": "leo.head+[0,0.35,0]",
      "distance": 8.5,
      "fov": 45,
      "height": -0.3
     },
     {
      "t": 0.04,
-     "aim": "leo.head",
+     "aim": "leo.head+[0,0.35,0]",
      "distance": 5.0,
      "fov": 45,
      "height": -0.3,
@@ -784,14 +784,14 @@
    "camera": [
     {
      "t": 0,
-     "aim": "leo.head",
+     "aim": "leo.head+[0,0.35,0]",
      "distance": 7.0,
      "fov": 45,
      "height": -0.3
     },
     {
      "t": 0.04,
-     "aim": "leo.head",
+     "aim": "leo.head+[0,0.35,0]",
      "distance": 4.6,
      "fov": 45,
      "height": -0.3,
@@ -1906,7 +1906,7 @@
    "camera": [
     {
      "t": 0,
-     "aim": "leo.face",
+     "aim": "leo.face+[0,0.6,0]",
      "distance": 2.8,
      "fov": 45,
      "toward": [
@@ -1917,7 +1917,7 @@
     },
     {
      "t": 0.04,
-     "aim": "leo.face",
+     "aim": "leo.face+[0,0.6,0]",
      "distance": 5.5,
      "fov": 45,
      "toward": [

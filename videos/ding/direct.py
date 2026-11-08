@@ -71,7 +71,8 @@ s.add(
          [{"t": 0, "pos": [3.8, 5.0, 3.25], "look": [1.1, 4.45, 9.7], "fov": 45}],
          until="a:you#2"),   # over his shoulder onto her face: in profile, neither drawn face showed
     shot("ding", {"ex1": actor(EX1, facing=[0.25, 0, -1], faces=[(0, "smile"), ("a:ding", "shock")])},
-         push("ex1.head", 7.0, 4.8), sfx=[("ding", "a:ding")], overlays=[bell("ex1.head", "a:ding")], until="a:most"),
+         push("ex1.head+[0,0.35,0]", 7.0, 4.8), sfx=[("ding", "a:ding")], overlays=[bell("ex1.head", "a:ding")],
+         until="a:most"),   # aimed over the head: its hair stays below the captions
     shot("few", {"ex2": actor([2.6, 3, -5.5], facing=[-0.4, 0, 1], faces=[(0, "nervous")]),
                  "jock": actor([-2.8, 3, -8.5], facing=[0.4, 0, 1], faces=[(0, "side_eye")]),
                  "ex3": actor([0.6, 3, -13], facing=US, faces=[(0, "confused")])},
@@ -80,7 +81,7 @@ s.add(
          overlays=[bell("ex2.head", "a:people", 110), bell("jock.head", "a:few", 110), bell("ex3.head", "a:day", 100)],
          until="a:leo"),
     shot("leo", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "idle")], faces=[(0, "grin")])},
-         push("leo.head", 8.5, 5.0), until="a:not"),   # arms at his sides: hands on hips put his elbows off both
+         push("leo.head+[0,0.35,0]", 8.5, 5.0), until="a:not"),   # arms at his sides: hands on hips put his elbows off both
     # edges, and crossed they read as two boxes in a close-up
     shot("liked", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "laugh")], faces=[(0, "laugh")]),
                    "ex3": actor([-1.5, 3, -2.8], facing=[0.4, 0, 1], poses=[(0, "laugh")], faces=[(0, "laugh")]),
@@ -93,7 +94,7 @@ s.add(
          wide([2.0, 5.0, -16.5], [-4.2, 4.0, -29.0], fov=55), set="new_school", say=[("b", "a:end+0.04")],
          until="b:and"),   # walking in along the new school's blue lockers
     shot("first", {"leo": actor([0, 3, -24], facing=US, faces=[(0, "nervous"), ("b:ding", "shock")])},
-         push("leo.head", 7.0, 4.6), set="new_school", sfx=[("ding", "b:ding")],
+         push("leo.head+[0,0.35,0]", 7.0, 4.6), set="new_school", sfx=[("ding", "b:ding")],
          overlays=[bell("leo.head", "b:ding")], until="b:then#2"),
     shot("twenty", {"leo": actor([0, 3, -24], facing=US, poses=[(0, "idle"), ("b:twenty", "hands_on_head")],
                                  faces=[(0, "shock"), ("b:twenty", "scared")])},
@@ -155,8 +156,8 @@ s.add(
          until="c:the#4"),   # from where he hides, his eyes: down the hall far enough that her laughing arms fit
     shot("rule", {"leo": actor([-1.2, 3, 4.6], facing=[0.35, 0, 1], poses=[(0, "idle")],
                                faces=[(0, "teary"), ("c:bad", "wide_happy")])},
-         [{"t": 0, "aim": "leo.face", "distance": 2.8, "fov": 45, "toward": [0.85, 0, 0.5]},
-          {"t": 0.04, "aim": "leo.face", "distance": 5.5, "fov": 45, "toward": [0.85, 0, 0.5], "move": 0.5,
+         [{"t": 0, "aim": "leo.face+[0,0.6,0]", "distance": 2.8, "fov": 45, "toward": [0.85, 0, 0.5]},
+          {"t": 0.04, "aim": "leo.face+[0,0.6,0]", "distance": 5.5, "fov": 45, "toward": [0.85, 0, 0.5], "move": 0.5,
            "ease": "out"}], set="new_school",
          sfx=[("shimmer", "c:bad", -9)], until="c:the#5"),   # the shimmer after the quotable line, not over it
     shot("sat", {"leo": actor([-7.6, 3, SEAT_B], facing=[0, 0, 1], poses=[(0, "idle"), (0.95, SIT, 0.35)],

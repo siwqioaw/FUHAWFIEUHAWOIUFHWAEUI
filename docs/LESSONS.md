@@ -99,6 +99,10 @@ check, mostly in the plan (`make.py plan` warns before a frame is shot), with a 
 | A caption under the Shorts buttons. | A trailing emoji was hung on a full row, past the style's width. | An emoji takes its word to the next row; selftest. |
 | Crossed arms in a close-up as two boxes; hands on hips as elbows off both edges. | Poses picked for a body the close-up doesn't show. | In a close-up, arms at the sides; the plan's gesture check (folded arms don't count). |
 | One shot put in made five more stale. | A shot's drift seed was its place in the list. | Seeds follow shot names across plans; selftest. |
+| A classmate carried out of frame by a push; a fix that moved him the wrong way. | The edge check looked mid-shot only, and skipped a face already out; screen-right is -x for a camera looking along +x/+z. | The edge check samples the start, middle and end; selftest. |
+| Story captions over the hair in close-ups and a pull's first frames. | The check looked at the face's height only. | The plan warns when a head's top reaches above 28% at a shot's start, middle or end. |
+| A background kid dressed like the references' recurring character (black jacket, motorcycle tee). | A free catalog outfit chosen for being free. | Compare each cast look against the references' recurring characters; extra_c wears an orange sweater now. |
+| "In the mirror" with no mirror; "cried at a cartoon" with the TV behind the camera; a dance in a daylit classroom. | The props didn't exist. | A mirror (its reflection a second actor), a picture on the TV, the gym dressed for the dance. |
 
 The later rounds still found real problems, fewer of them staging and more of them story and sound (a point that
 didn't read for three rounds, lines said but not shown, a boom no phone could play), and one regression from a tool

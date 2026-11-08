@@ -116,3 +116,10 @@ failure found to this list and to `docs/VERIFY.md`.
   master won't limit more than 6 dB; measure the file, not the mix.
 - Lines said but not shown in a rant (M3: "every single slide" over him crying, "we all get the same grade"
   over the teacher): show the thing (the laptop's "Slide 40 / 40", an A over each of the three).
+- A face pushed out of frame by a camera move (M2's classmate, in at the first frame, a sliver after): the plan
+  checks faces at a shot's start, middle and end now; check which way is screen-right before moving anyone.
+- A cast look like a reference channel's recurring character (M2's ex3 in a black jacket and motorcycle tee):
+  compare every look against `refs/r6rants/SYNTHESIS.md`'s recurring characters.
+- Story captions over hair (M5: every close-up): the plan warns when the top of a head reaches above 28%.
+- A punchline that repeats the last side (M2's "Me:" with the last day's dead eyes): the closer has to say
+  which side it's on, in the picture or the header.
