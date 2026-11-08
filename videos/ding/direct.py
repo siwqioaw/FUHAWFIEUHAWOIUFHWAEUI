@@ -65,7 +65,8 @@ s.add(
                    "pg": actor(PG, facing=PG_TO, poses=[(0, "lean_in")], faces=[(0, "scheming")]),
                    "ex2": actor(EX2, facing=EX2_TO, poses=[(0, "lean_in")], faces=[(0, "side_eye_left")])},
          wide([0.0, 6.0, -5], [0, 4.2, 8], fov=58, push_in=2.0), say=[("a", 0.0)], until="a:talks",
-         sfx=[("ding", "a:every", -3)], overlays=[bell("ex1.head", "a:every", 130)]),   # shown before it's told
+         sfx=[("ding", "a:every", 3)], overlays=[bell("ex1.head", "a:every", 130)]),   # shown before it's told;
+    # at -3 under "every time" it rose only 4.3 dB to -14.0: the voice hid it from the sync check
     shot("whisper", {"pg": actor(PG, facing=PG_TO, poses=[(0, "lean_in")], faces=[(0, "scheming")]),
                      "ex2": actor(EX2, facing=EX2_TO, poses=[(0, "lean_in")], faces=[(0, "side_eye_left")])},
          [{"t": 0, "pos": [3.8, 5.0, 3.25], "look": [1.1, 4.45, 9.7], "fov": 45}],
@@ -121,7 +122,8 @@ s.add(
                    bell("leo.head+[0,0.6,0]", "b:ding#4", 130)],
          until="b:so"),
     shot("stopped", {"leo": actor([-6.0, 3, 2], facing=L, poses=[(0, "slump")], faces=[(0, "sad")])},
-         push("leo.head", 6.5, 4.8, move=0.5), set="new_school", until="b:he#3"),
+         push("leo.head+[0,0.5,0]", 6.5, 4.8, move=0.5), set="new_school", until="b:he#3"),   # over his head:
+    # pushed in on his slumped head, a two-line caption sat on his hair
     shot("lunch", {"leo": actor([-12.0, 3, SEAT], facing=[0, 0, 1], poses=[(0, SIT_SLUMP)], faces=[(0, "sad")]),
                    "sa": actor([-9.0, 3, -9.5], facing=[1, 0, 0.25], poses=[(0, "idle")], faces=[(0, "laugh")]),
                    "sb": actor([-7.0, 3, -9.5], facing=[-1, 0, 0.25], poses=[(0, "idle")], faces=[(0, "grin")])},
@@ -131,7 +133,8 @@ s.add(
          until="b:he#4"),
     shot("home", {"leo": actor([2.5, 3, 18], facing=[0, 0, 1], faces=[(0, "sad")],
                                 walk={"from": [2.5, 3, 10], "to": [2.5, 3, 18], "start": 0.0})},
-         wide([2.5, 5.0, 2.5], [2.5, 3.5, 18], fov=50), set="new_school", until="b:end+0.04"),
+         wide([2.5, 5.0, 2.5], [2.5, 5.0, 18], fov=50), set="new_school", until="b:end+0.04"),   # level: looking
+    # down the hall put his hair under the captions as he set off
     # -- C: the twist
     shot("month", {"leo": actor([1.5, 3, 3], facing=[0, 0, -1], poses=[(0, "slump")], faces=[(0, "sad")])},
          push("leo.head", 9.0, 7.0, height=1.0, move=0.9), set="class", say=[("c", "b:end+0.04")],
