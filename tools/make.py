@@ -605,6 +605,12 @@ def _framing(plan: dict, size=(1080, 1920)) -> list[str]:
             xy = camera.project(views[1], face, size=size)
             if not xy or not 0 <= xy[0] <= w:
                 continue
+            look = a["cf"].get("look")
+            fwd = ([a["walk"]["to"][0] - a["walk"]["from"][0], a["walk"]["to"][2] - a["walk"]["from"][2]] if a.get("walk")
+                   else [look[0] - a["cf"]["pos"][0], look[2] - a["cf"]["pos"][2]] if look else None)
+            cam = views[1]["pos"]
+            if fwd and fwd[0] * (cam[0] - face[0]) + fwd[1] * (cam[2] - face[2]) < 0:
+                continue   # its back to the camera (an over-the-shoulder's near actor): no face to cut or cover
             frac = xy[1] / h
             top = camera.project(views[1], [face[0], face[1] + 0.6, face[2]], size=size)
             r = abs(xy[1] - top[1]) if top else 0.0   # the head's radius on screen, in pixels

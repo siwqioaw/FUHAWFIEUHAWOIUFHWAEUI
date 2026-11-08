@@ -909,7 +909,7 @@ def gym(opt: dict) -> Set:
     s = Set("gym", opt.get("lighting", "interior"))
     W, D, H = 64.0, 44.0, 26.0
     BLUE, GOLD = (40, 85, 200), (250, 190, 50)
-    room(s, W, D, H, wall=(228, 230, 236), trim=BLUE, floor=(214, 160, 98), floor_mat="WoodPlanks",
+    room(s, W, D, H, wall=(206, 212, 224), trim=BLUE, floor=(196, 140, 82), floor_mat="WoodPlanks",
          gaps={"n": [(10, 20, 17, 23), (27, 37, 17, 23), (44, 54, 17, 23)], "s": [(4, 14, 0, 9)]})
     for xc in (-17, 0, 17):
         window(s, (xc, 20.0, D / 2 + 0.5), 10.0, 6.0, axis="z")
@@ -955,10 +955,9 @@ def gym(opt: dict) -> Set:
     for row, y in ((0, 2.1), (1, 3.6)):
         for k in range(4):
             s.ball(1.1, (25.35 + k * 1.1, y, -18.5), (225, 110, 40))
-    for x in (-20, 0, 20):
+    for x in (-20, 0, 20):   # the first preview, at 0.9 and 40 studs with a light over the whole room, burned out
         for z in (-10, 10):
-            ceiling_light(s, (x, H - 0.4, z), length=10, axis="x", brightness=0.9, rng=40)
-    s.light((0, 16, 0), (255, 246, 232), 1.0, 60)
+            ceiling_light(s, (x, H - 0.4, z), length=10, axis="x", brightness=0.45, rng=30)
     if opt.get("dance"):
         party = ((255, 90, 190), (60, 210, 255), (170, 100, 255), (255, 200, 70))
         for k, (x, z) in enumerate(((-30.5, -19.5), (-14, -19.5), (14, -19.5), (28, -19.5), (-28, 6), (28, 6),
@@ -971,7 +970,7 @@ def gym(opt: dict) -> Set:
         s.part("ball", (3.2, 3.2, 3.2), (0, 18.0, 0), (225, 228, 240), "Foil", reflect=0.6)
         s.box((0.1, H - 19.6, 0.1), (0, (19.6 + H) / 2, 0), BLACK)
         for k, (x, z) in enumerate(((-16, -8), (16, -8), (-16, 8), (16, 8), (0, -14), (0, 12))):
-            s.light((x, 7.0, z), party[k % 4], 2.2, 26)
+            s.light((x, 7.0, z), party[k % 4], 1.1, 18)
         table(s, (0, 0, -16.5), w=8.0, d=3.0, h=3.0, color=(36, 36, 42))   # the DJ's table
         s.box((2.0, 0.25, 1.4), (0, 3.3, -16.5), (60, 60, 66))
         s.box((1.8, 1.2, 0.08), (0, 3.95, -17.1), (90, 200, 255), "Neon")
@@ -1026,7 +1025,8 @@ PROPS["tray"] = tray
 def cafeteria(opt: dict) -> Set:
     """A school cafeteria, 52 x 40 x 15: six long tables with benches in two columns, the lunch counter along the
     -z wall with the food in steel pans behind a glass guard, a chalkboard menu drawn in pictures, two vending
-    machines on the +x wall, trash cans, a bulletin board, windows in the +z wall, double doors in the -x wall."""
+    machines on the +x wall, trash cans, a bulletin board, windows in the +z wall, double doors in the -x wall. Six
+    lunch trays on the tables, or none with {"trays": False} (M4's lunch alone: only his)."""
     s = Set("cafeteria", opt.get("lighting", "interior"))
     W, D, H = 52.0, 40.0, 15.0
     room(s, W, D, H, wall=(198, 232, 212), trim=(235, 125, 55), floor=(238, 232, 220), floor_mat="CeramicTiles",
@@ -1039,7 +1039,8 @@ def cafeteria(opt: dict) -> Set:
     for r, z in enumerate((-5, 3.5, 12)):
         for c, x in enumerate((-12, 10)):
             lunch_table(s, (x, 0, z), 14.0, tops[(r + c) % 3])
-    for k, (x, z) in enumerate(((-15, -6.2), (-9, -3.8), (13, -6.2), (-12, 4.7), (7, 2.3), (12, 13.2))):
+    for k, (x, z) in enumerate(((-15, -6.2), (-9, -3.8), (13, -6.2), (-12, 4.7), (7, 2.3), (12, 13.2))
+                               if opt.get("trays", True) else ()):   # {"trays": False}: set your own (prop "tray")
         tray(s, (x, 2.6, z), ((240, 140, 60), (70, 190, 180))[k % 2])
     # the serving line along the -z wall
     cz = -14.5
