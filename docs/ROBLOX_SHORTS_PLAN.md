@@ -248,8 +248,11 @@ default the owner can change in one place):
 
 ## Backlog (from the first videos' reviews)
 
-- **Sitting.** R6 has no sit pose yet (`pose.py` drives the hips, so it's buildable): M4's "Leo sat down" shows him
-  walking up instead. Needs the leg angle checked in Studio against the classroom's chairs (seat top 1.71 studs).
+- ~~Sitting~~ **Built:** pose `sit` (legs ahead, the body half a stud down) on a seat 1 stud up, the cafeteria's
+  benches; M4's "Leo sat down" now walks in, turns and sits. The classroom's chairs (seat top 1.71) are too high
+  for it (the body would rise as it sits): lower them, with their desks, if a classroom scene needs sitting.
+- **M5's dance in the gym.** The gym's `{"dance": True}` dressing came after M5's dance was shot in a classroom
+  with a blank board; moving the scene means shooting its eight shots again.
 - **Word times.** `voice.refine_words` corrects the transcriber at phrase breaks; a forced aligner (a CTC model) would
   time every word. torchaudio's aligner is being deprecated; look for a maintained one before adding 1-2 GB of model.
 - **M4's script** has a hole a reviewer found: if kind talk dings, why did Leo hear none when everyone liked him?
