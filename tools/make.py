@@ -1130,8 +1130,8 @@ def shot_fn(plan: dict, shot: dict, cast: list[str]):
                     turn = (a1 - a0 + math.pi) % (2 * math.pi) - math.pi
                     d = [math.cos(a0 + turn * k), 0.0, math.sin(a0 + turn * k)]
                 cf = {"pos": pos, "look": [pos[0] + d[0], pos[1], pos[2] + d[2]]}
-                if 0.0 < trav < dist:
-                    joints, rootpos = pose.walking(tw, freq=w["freq"])
+                if t >= w["start"] and trav < dist:   # walking from its first frame (a walk from 0 held its pose
+                    joints, rootpos = pose.walking(tw, freq=w["freq"])   # on frame 0: M2's run flicked a cheer)
                 else:
                     joints, rootpos = pose.at(a["poses"], t, drift_amount=a.get("drift", 1.0), seed=i + 1,
                                               planted=a.get("planted", True))
@@ -1223,7 +1223,10 @@ def _stale_frames(d: str, key: str) -> bool:
         return True
 
 
-def stage_shoot(sh: Short, only: list[str] | None = None, stills: bool = False) -> bool:
+def stage_shoot(sh: Short, only: list[str] | None = None, stills: bool = False, frames: list[int] | None = None) -> bool:
+    """Shoot every shot's frames (or `only` some), resuming each from its last frame; a shot whose plan has changed
+    since it was shot is shot again. `stills`: one frame from the middle of each, to look at first. `frames`: take
+    just these frames of each shot again, over the ones there (a fix to a frame or two)."""
     import capture
     plan = _load(sh.path("plan.json"))
     todo = [s for s in plan["shots"] if not only or s["name"] in only]
@@ -1231,6 +1234,12 @@ def stage_shoot(sh: Short, only: list[str] | None = None, stills: bool = False) 
     def body(cast):
         for s in todo:
             d = sh.path("stills" if stills else "shots", s["name"])
+            if frames:
+                want = [k for k in frames if 0 <= k < s["frames"]]
+                capture.take(d, shot_fn(plan, s, cast), seconds=s["seconds"], fps=plan["fps"], only=want,
+                             warmup=3.0, portrait=True)
+                print(f"{s['name']}: frames {want} again")
+                continue
             if stills:
                 mid = s["frames"] // 2
                 capture.take(d, shot_fn(plan, s, cast), seconds=s["seconds"], fps=plan["fps"], only=[mid],
@@ -1618,6 +1627,7 @@ def main() -> int:
     ap.add_argument("stage", choices=list(STAGES) + ["stills", "all"])
     ap.add_argument("video", help="videos/<slug>")
     ap.add_argument("--only", nargs="*", help="shoot only these shots")
+    ap.add_argument("--frames", type=int, nargs="*", help="shoot: take only these frames of each shot again")
     ap.add_argument("--keep-shots", action="store_true",
                     help="plan: keep every shot's timing, camera and actors as shot; time overlays, effects and "
                          "captions again")
@@ -1629,7 +1639,7 @@ def main() -> int:
     if args.stage == "stills":
         ok = stage_shoot(sh, args.only, stills=True)
     elif args.stage == "shoot":
-        ok = stage_shoot(sh, args.only)
+        ok = stage_shoot(sh, args.only, frames=args.frames)
     elif args.stage == "plan" and args.keep_shots:
         ok = stage_plan(sh, keep_shots=True, replan=args.replan)
     elif args.stage == "all":

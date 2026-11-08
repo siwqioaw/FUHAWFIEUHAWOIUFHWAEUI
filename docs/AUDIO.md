@@ -70,6 +70,15 @@ Each hit in the timeline (a cut, a slam, a pop) should have a sound landing on i
 over 6 dB, or a level over -14 dB, within 2 frames of each, and marks CHECK where there's none. A sound placed with
 `frames=True` at the hit's frame lands exactly on it.
 
+## On a phone
+
+Most Shorts are heard on a phone's speaker, which plays little below 200-300 Hz. Measure the punches there too: the
+level from 300 Hz to 8 kHz in the 0.3 s after a hit against the 0.3 s before. M2's turn rose under 3 dB there with
+a pure sub-bass boom (-46 dB of its energy above 300 Hz: silent on a phone, and its sub pumped the limiter, pulling
+the music's mids down under it); the other cuts rose 9-10. The boom now carries a low-mid body (a glide from 180 to
+110 Hz driven into harmonics) and a knock at 0.8-4 kHz over a lower sub (`sfx.boom`, `sub=0.45`), and the turn rises
++6.8 dB with its cue up 3 dB. A sound that must read on a phone needs its own energy above 300 Hz.
+
 ## What a measurement can't tell you
 
 Whether a sound reads as what it is. In cut 1 a generator sound measured fine and sounded like an alarm, and only the

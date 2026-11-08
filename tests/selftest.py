@@ -758,6 +758,13 @@ def pipeline_checks(expect) -> None:
     expect(f"make: an actor waits at its walk's start ({before['pos']}), and on arriving turns to its mark's facing "
            f"({turned}, not the walk's way; M4's 'Leo sat down' stayed in profile)",
            before["pos"] == [-4, 3, 0] and abs(turned[0]) < 1e-6 and turned[1] > 0.99)
+    import pose as _pose
+    runner = json.loads(json.dumps(walker))
+    runner["actors"]["a"]["poses"] = [[0.0, "cheer"]]
+    runner["actors"]["a"]["walk"]["start"] = 0.0
+    first = make.shot_fn({}, runner, ["a"])(0.0)["actors"][0]["joints"]["rs"]
+    expect(f"make: a walk from the shot's start is walking on its first frame ({first}), not holding the actor's pose "
+           f"(M2's run flicked a cheer on frame 0)", first == _pose.walking(0.0)[0]["rs"])
     def gesture(dist, pose_name):
         cam = [[0.0, {"pos": [0, 4.6, -dist], "look": [0, 4.6, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]]
         return [w for w in make._framing({"family": "music", "shots": [{"name": "g", "seconds": 1.0, "camera": cam,
@@ -927,6 +934,13 @@ def pipeline_checks(expect) -> None:
     f0 = np.fft.rfftfreq(len(boom), 1 / sfx.SR)[spec_b.argmax()]
     expect(f"sfx: every effect stays under full scale; the boom peaks at {f0:.0f} Hz (the references' 48)",
            all(np.abs(x).max() <= 1.0 for x in effects.values()) and 42 <= f0 <= 52)
+    fb = np.fft.rfftfreq(len(boom), 1 / sfx.SR)
+    phone = 10 * np.log10((spec_b[(fb >= 300) & (fb <= 8000)] ** 2).sum() / (spec_b ** 2).sum())
+    flat = sfx.boom(sub=1.0)
+    spec_f = np.abs(np.fft.rfft(flat))
+    old_like = 10 * np.log10((spec_f[(fb >= 300) & (fb <= 8000)] ** 2).sum() / (spec_f ** 2).sum())
+    expect(f"sfx: the boom carries what a phone can play ({phone:.1f} dB of its energy at 300 Hz-8 kHz; with the sub "
+           f"at full, {old_like:.1f}; the pure sub-bass boom had -46, silent on a phone)", phone > -20 and phone > old_like)
     import kit
     import facekit
     sizes = {}

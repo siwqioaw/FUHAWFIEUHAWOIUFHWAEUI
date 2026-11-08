@@ -39,15 +39,23 @@ def _noise(dur: float, seed: int) -> np.ndarray:
     return np.random.default_rng(seed).standard_normal(int(dur * SR))
 
 
-def boom(dur: float = 1.1, f0: float = 58.0, f1: float = 47.0) -> np.ndarray:
-    """The sub-bass punch: a sine gliding f0 -> f1 Hz under a fast attack and a long decay, a little saturated so a
-    phone speaker hears its harmonics, with a soft thump on the front."""
+def boom(dur: float = 1.1, f0: float = 58.0, f1: float = 47.0, sub: float = 0.45) -> np.ndarray:
+    """The punch on a hit, for the phone it will be heard on as much as for headphones: a sub-bass sine gliding f0 ->
+    f1 Hz under a fast attack and a long decay with a soft thump on the front (`sub` of it), a low-mid body (a glide
+    from 180 to 110 Hz driven into harmonics up to a few kHz, gone in a third of a second) and a short knock at
+    0.8-4 kHz. As pure sub it put -46 dB of its energy above 300 Hz, and M2's turn rose under 3 dB there: on a phone,
+    nothing (M2's third review). Now its 300 Hz-8 kHz level is 7 dB higher, the sub 6 dB lower, its peak still 47
+    Hz."""
     t = _t(dur)
     f = f1 + (f0 - f1) * np.exp(-t / 0.12)
-    body = np.sin(2 * np.pi * np.cumsum(f) / SR) * _env(dur, 0.004, 0.32)
-    body = np.tanh(2.2 * body) / np.tanh(2.2)
+    low = np.sin(2 * np.pi * np.cumsum(f) / SR) * _env(dur, 0.004, 0.32)
+    low = np.tanh(2.2 * low) / np.tanh(2.2)
     thump = sps.sosfilt(sps.butter(2, 180, "lowpass", fs=SR, output="sos"), _noise(dur, 1)) * _env(dur, 0.001, 0.025)
-    return _norm(body + 0.6 * _norm(thump, 0), -1.0)
+    fm = 110.0 + 70.0 * np.exp(-t / 0.06)
+    body = np.tanh(4.0 * np.sin(2 * np.pi * np.cumsum(fm) / SR)) * _env(dur, 0.002, 0.11)
+    body = sps.sosfilt(sps.butter(2, 140, "highpass", fs=SR, output="sos"), body)
+    knock = sps.sosfilt(sps.butter(2, [800, 4000], "bandpass", fs=SR, output="sos"), _noise(dur, 3)) * _env(dur, 0.001, 0.04)
+    return _norm(sub * (low + 0.6 * _norm(thump, 0)) + _norm(body, 0) + 0.8 * _norm(knock, 0), -1.0)
 
 
 def whoosh(dur: float = 0.45, lo: float = 400.0, hi: float = 3200.0, seed: int = 2) -> np.ndarray:

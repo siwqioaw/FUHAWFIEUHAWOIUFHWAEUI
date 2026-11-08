@@ -268,7 +268,8 @@ def door(s: Set, pos, axis="z", color=(150, 95, 60), frame=WHITE, w=4.0, h=7.5, 
 
 
 def school_desk(s: Set, pos, face=(0, 0, -1), top=(196, 150, 100), legs=(80, 80, 90), chair=(60, 110, 200)):
-    """A student desk with its chair behind it (the chair on the side away from `face`, the way the student faces)."""
+    """A student desk with its chair behind it (the chair on the side away from `face`, the way the student faces);
+    `chair=None` for none (an actor standing at the desk, which hides its legs)."""
     x, _, z = pos
     fz = 1 if face[2] >= 0 else -1
     s.box((3.4, 0.25, 2.2), (x, 2.55, z), top, "Wood")
@@ -276,6 +277,8 @@ def school_desk(s: Set, pos, face=(0, 0, -1), top=(196, 150, 100), legs=(80, 80,
         for dz in (-0.9, 0.9):
             s.cyl(2.45, 0.09, (x + dx, 1.22, z + dz), legs, "Metal")
     s.box((3.0, 0.9, 1.6), (x, 2.0, z + 0.1 * fz), (170, 125, 85), "Wood")  # the book box under the top
+    if chair is None:
+        return
     cz = z - 2.1 * fz
     s.box((2.2, 0.22, 2.0), (x, 1.6, cz), chair)
     s.box((2.2, 2.0, 0.22), (x, 2.7, cz - 0.95 * fz), chair)
@@ -684,9 +687,11 @@ def classroom(opt: dict) -> Set:
     whiteboard(s, (0, 8.5, -D / 2 + 0.2), w=18, h=6.5, text=opt.get("board", "Group project due FRIDAY"),
                axis="z", toward=1)
     teacher_desk(s, (-9, 0, -D / 2 + 6))
-    for r, z in enumerate((-4, 3, 10)):
+    free = {(float(a), float(b)) for a, b in opt.get("no_chair", [])}   # desks an actor stands at: the chair would
+    for r, z in enumerate((-4, 3, 10)):                                  # run through its legs (M2's third review)
         for c, x in enumerate((-12, -3, 6, 15)):
-            school_desk(s, (x, 0, z), face=(0, 0, -1), chair=[(60, 110, 200), (220, 90, 70), (70, 170, 110)][(r + c) % 3])
+            school_desk(s, (x, 0, z), face=(0, 0, -1), chair=None if (float(x), float(z)) in free else
+                        [(60, 110, 200), (220, 90, 70), (70, 170, 110)][(r + c) % 3])
     for i, (x, col, txt) in enumerate(((-17, (240, 180, 60), "READ!"), (14, (90, 190, 120), "Be kind"))):
         poster(s, (x, 9.5, -D / 2 + 0.6), (5, 4), col, txt, axis="z", face="Back")
     poster(s, (-W / 2 + 0.6, 9.0, -6), (6, 4.5), (230, 90, 120), "MATH IS FUN?", axis="x", face="Right")

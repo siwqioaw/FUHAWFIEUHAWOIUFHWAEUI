@@ -85,7 +85,7 @@ for a medium shot at about 3.6 studs up from 9.5 away); `make.py plan` warns abo
 
 ## Sound
 
-- Effects from code (`tools/edit/sfx.py`): boom (the punch, 47 Hz), whoosh, pop, ding, error, shimmer, thud, riser,
+- Effects from code (`tools/edit/sfx.py`): boom (the punch: a 47 Hz sub with a low-mid body and a knock, so a phone hears it too), whoosh, pop, ding, error, shimmer, thud, riser,
   tick, siren (a lie detector), whistle (a coach's). More from the ElevenLabs connector's sound effects (`assets.md`).
 - Voices (`tools/edit/voices.json`): narrator (Liam), girl (Yuria), girl_bratty (Kathie), deep (Adam), story (Liam at
   1.2x), mom (Lyra).

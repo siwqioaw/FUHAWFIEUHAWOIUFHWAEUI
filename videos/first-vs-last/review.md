@@ -55,3 +55,24 @@ Before the round-2 shoot, the stills and the plan's new checks caught more: in `
 his face (an R6 arm straight up reaches only the top of the head: `hand_up` now leans the body away so the hand
 clears it by 0.6), the extra in `hello` half hidden behind Leo (dropped), `yelled` too tight for both, the friends'
 outer hands cut (wider), and a near jump cut from `hello` into `hand_up` (the hand-up camera further round).
+
+## Round 3 (2026-11-08, on `out/first-vs-last.mp4` of 10:35)
+
+A third fresh reviewer, with the earlier rounds. Evidence in `build/review3/first-vs-last/`. Every measured check
+passed (the cuts -16 to +8 ms from the accents, the headers on their cuts, the hand clearing his head by 95 px, the
+cheerers clear above the narrator); the point still didn't read, for the third round.
+
+| # | Finding | Severity | Cause | Fix |
+|---|---|---|---|---|
+| 1 | `yelled`: the point doesn't read: her pointing arm runs across her own navy sweater, from off the left edge; the shot frozen | must | the far arm, swung across her body | she points with the near arm, into the gap toward him, 0.4 studs further off; a slow push |
+| 2 | The board says "WELCOME, CLASS!" under "Last day of school.." | should | the first day's board on the last day | "Have a great summer!" |
+| 3 | A one-frame cheer on `freedom`'s first frame | should | a walk's first frame held the actor's pose (today's change to walks) | walking from frame 0 (selftest); the first frame of every walk shot taken since, taken again |
+| 4 | The boom on the turn barely reaches a phone: +2.9 dB at 300 Hz-8 kHz, the softest cut | should | a pure sub-bass boom, its sub pumping the limiter | the boom carries a low-mid body and a knock over a lower sub (selftest); its cue 3 dB up: +6.8 dB |
+| 5 | `friends`: the outer hands touch the edges; it reads as cheering, not a high five | nit | a cheer pose | a real high five: the inner hands meet between their heads, the outer arms down |
+| 6 | The classmate's head cut at the right edge in `hand_up` | nit | | moved in |
+| 7 | Leo stands inside his chair at his desk | nit | the actor's mark is the chair's | the classroom leaves those chairs out (`no_chair`) |
+| 8 | The wave is a held reach | nit | one pose | the arm rocks in and out |
+| 9 | "NO RUNNING" cut to "N / RUN" at the edge | nit | | the hallway's writing off |
+| kept | the loop on the beat, not the phrase | nit | five bars | noted |
+
+Six shots restaged and shot again.

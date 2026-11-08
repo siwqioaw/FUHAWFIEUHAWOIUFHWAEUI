@@ -31,34 +31,46 @@ s = Spec("first-vs-last", family="music", set="hallway", fps=FPS,
          title="First day of school VS Last day of school",
          cast={"leo": "me", "friend": "jock", "teacher": "teacher", "ex1": "extra_a", "ex3": "extra_c",
                "nar": "narrator"},
-         extra_sets=[("class", "classroom", CLASS, {"board": "Welcome, class!"})])
+         set_options={"signs": False},   # the hallway's NO RUNNING sat cut at the friends' edge
+         extra_sets=[("class", "classroom", CLASS, {"board": "Have a great summer!",   # the last day's board
+                                                    "no_chair": [[6, -4], [-3, 3], [6, 3]]})])   # where they stand
 US, TO_BOARD = [0, 0, 1], [0, 0, -1]
 POINT_AT = {"rs": (90, 52, 0), "ls": (0, 0, -4), "neck": (0, 28, 0)}   # facing the camera, pointing off to its left
 TIRED = {"root": (-6, 0, 0), "neck": (-10, 0, 0), "ls": (4, 0, -2), "rs": (4, 0, 2)}   # the face still seen
 ARMS_UP = {"ls": (176, 0, -8), "rs": (176, 0, 8), "neck": (14, 0, 0)}   # a cheer narrow enough for two in a frame
+POINT_AT_L = {"ls": (90, 50, 0), "rs": (0, 0, 4), "neck": (0, 28, 0)}   # facing us, her near arm across at him
+WAVE_B = {"rs": (140, 0, 10), "ls": (0, 0, -4), "neck": (0, 0, -6)}   # the wave rocked in: a wave, not a held reach
+HIGH5_L = {"ls": (168, 0, -8), "rs": (0, 0, 4), "neck": (8, 0, -6)}   # 4.4 apart, their inner hands meet between
+HIGH5_R = {"rs": (168, 0, 8), "ls": (0, 0, -4), "neck": (8, 0, 6)}    # their heads, the outer arms down
 
 s.add(
     # first day: bright, eager
-    shot("hello", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "idle"), (0.1, "wave")], faces=[(0, "grin")])},
+    shot("hello", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "idle"), (0.1, "wave"), (0.38, WAVE_B, 0.12),
+                                                         (0.66, "wave", 0.12), (0.94, WAVE_B, 0.12)],
+                               faces=[(0, "grin")])},
          push("leo.head+[-0.9,0.3,0]", 10.0, 8.5, fov=48), seconds=length(0)),   # framed toward the waving hand
     shot("hand_up", {"leo": actor([6, 3, -1.9], facing=TO_BOARD, poses=[(0, "idle"), (0.05, "hand_up")],
                                   faces=[(0, "starstruck")]),   # at his desk (it hides his legs), front row
-                     "ex3": actor([6, 3, 5.1], facing=TO_BOARD, faces=[(0, "bored")])},   # the row behind
+                     "ex3": actor([5.2, 3, 5.1], facing=TO_BOARD, faces=[(0, "bored")])},   # the row behind
          [{"t": 0, "pos": [0.4, 6.6, -11.0], "look": [6.0, 5.4, -1.9], "fov": 50},   # from the board's end, at his
           {"t": 0.04, "pos": [0.9, 6.5, -9.8], "look": [6.0, 5.4, -1.9], "fov": 50, "move": 0.3, "ease": "out"}],
          set="class", seconds=length(1)),   # eye height: the hand clears his head
-    shot("friends", {"leo": actor([-2.2, 3, 0], facing=[0.2, 0, 1], poses=[(0, "cheer")], faces=[(0, "grin")]),
-                     "friend": actor([2.2, 3, 0], facing=[-0.2, 0, 1], poses=[(0, "cheer")], faces=[(0, "laugh")])},
+    shot("friends", {"leo": actor([-2.2, 3, 0], facing=[0.2, 0, 1], poses=[(0, "idle"), (0.3, HIGH5_L, 0.12)],
+                                  faces=[(0, "grin")]),
+                     "friend": actor([2.2, 3, 0], facing=[-0.2, 0, 1], poses=[(0, "idle"), (0.3, HIGH5_R, 0.12)],
+                                     faces=[(0, "laugh")])},
          two_shot("leo", "friend", distance=15.0, fov=56), seconds=length(2)),   # their high five meets, outer arms in
     # last day: everything worse, then absurd
     shot("asleep", {"leo": actor([-3, 3, 5.1], facing=TO_BOARD, poses=[(0, "slump")], faces=[(0, "sleepy")])},
          [{"t": 0, "aim": "leo.head+[0,0.1,0]", "distance": 7.5, "fov": 48, "orbit": 30},   # down the aisle:
           {"t": 0.04, "aim": "leo.head+[0,0.1,0]", "distance": 6.0, "fov": 48, "orbit": 30, "move": 0.4,
-           "ease": "out"}], set="class", sfx=[("boom", 0.0)],   # straight on, a front-row chair filled the bottom
+           "ease": "out"}], set="class", sfx=[("boom", 0.0, 3)],   # straight on, a front-row chair filled the bottom
          overlays=[("\U0001F4A4", "leo.head", 0.2, {"size": 130, "lift": 1.2, "dur": 1.0})], seconds=length(3)),
-    shot("yelled", {"teacher": actor([-2.4, 3, 0.8], facing=[0.2, 0, 1], poses=[(0, POINT_AT)], faces=[(0, "yell")]),
+    shot("yelled", {"teacher": actor([-2.8, 3, 0.8], facing=[0.2, 0, 1], poses=[(0, POINT_AT_L)], faces=[(0, "yell")]),
                     "leo": actor([2.3, 3, 0.2], facing=[-0.3, 0, 1], poses=[(0, TIRED)], faces=[(0, "dead")])},
-         [{"t": 0, "pos": [-0.25, 4.9, 13.0], "look": [-0.25, 4.3, 0.5], "fov": 52}], set="class",
+         [{"t": 0, "pos": [-0.25, 4.9, 13.2], "look": [-0.25, 4.3, 0.5], "fov": 52},
+          {"t": 0.04, "pos": [-0.25, 4.8, 12.0], "look": [-0.25, 4.3, 0.5], "fov": 52, "move": 1.15, "ease": "out"}],
+         set="class",
          seconds=length(4)),   # the point across the frame at him
     shot("freedom", {"leo": actor([0, 3, -12], facing=US, poses=[(0, "cheer")], faces=[(0, "evil")],
                                   walk={"from": [0, 3, -30], "to": [0, 3, -12], "start": 0.0, "freq": 3.4}),
