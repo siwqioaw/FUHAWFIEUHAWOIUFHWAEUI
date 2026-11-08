@@ -241,16 +241,16 @@
     {
      "t": 0,
      "aim": "leo.head",
-     "distance": 14.0,
-     "fov": 50,
+     "distance": 16.5,
+     "fov": 56,
      "height": -0.2,
      "between": "friend"
     },
     {
      "t": 0.04,
      "aim": "leo.head",
-     "distance": 12.5,
-     "fov": 50,
+     "distance": 15.0,
+     "fov": 56,
      "height": -0.2,
      "between": "friend",
      "move": 0.3,

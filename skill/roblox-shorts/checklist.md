@@ -32,7 +32,8 @@ failure found to this list and to `docs/VERIFY.md`.
   explained.
 - **Gestures read:** a raised hand clears the head (an R6 arm straight up reaches only the top of the head, its
   shoulder pivot is that low: `hand_up` leans the body 20 degrees away so the hand clears it by 0.6); a point
-  crosses the frame toward its target, not at the camera; background gestures not behind a
+  crosses the frame toward its target, not at the camera; a gesture's hand inside the frame (the plan warns, at
+  mid-shot); background gestures not behind a
   foreground head (two fists poked out of a narrator's hair like ears).
 - **Icons:** over the right head (the one the rule is about), never on a face.
 - **Set writing:** none under the captions (posters, boards, scoreboards: `{"signs": False}`).

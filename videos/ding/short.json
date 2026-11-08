@@ -626,9 +626,9 @@
     },
     "jock": {
      "at": [
-      2.2,
+      1.8,
       3,
-      -4.6
+      -5.2
      ],
      "poses": [
       [
@@ -655,7 +655,7 @@
      "t": 0,
      "aim": "ex3.head",
      "distance": 14.5,
-     "fov": 52,
+     "fov": 58,
      "height": -0.2,
      "between": "jock"
     },
@@ -663,7 +663,7 @@
      "t": 0.04,
      "aim": "ex3.head",
      "distance": 13.0,
-     "fov": 52,
+     "fov": 58,
      "height": -0.2,
      "between": "jock",
      "move": 0.3,
@@ -1142,14 +1142,14 @@
     {
      "t": 0,
      "aim": "leo.face",
-     "distance": 4.5,
+     "distance": 6.2,
      "fov": 45,
      "height": -0.3
     },
     {
      "t": 0.04,
      "aim": "leo.face",
-     "distance": 3.0,
+     "distance": 5.0,
      "fov": 45,
      "height": -0.3,
      "move": 0.4,

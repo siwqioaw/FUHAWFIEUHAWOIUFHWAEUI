@@ -86,9 +86,11 @@ s.add(
          push([44.9, 3.6, 18.3], 12.0, 9.2, fov=50, toward=[0, 0, -1]), sfx=[("pop", "b:truth", -10)],
          overlays=[bubble(DOG_MAX, "b:truth")],
          until="b:like"),
-    shot("mirror", {"max": actor([-6.5, 3, 1.5], facing=[0, 0, -1], poses=[(0, "idle"), ("b:hi", "wave")],
+    shot("mirror", {"max": actor([-6.5, 3, 1.5], facing=[0, 0, -1], poses=[(0, "idle"), ("b:hi", "wave"), ("b:nine", "idle")],
                                  faces=[(0, "grin"), ("b:nine", "cringe")])},
-         push("max.head", 5.2, 4.2, move=0.4), set="home", until="b:or"),
+         [{"t": 0, "aim": "max.head+[1.1,0.2,0]", "distance": 6.8, "fov": 52},   # wide enough for the wave on "hi",
+          {"t": "b:nine", "aim": "max.head", "distance": 4.2, "fov": 45, "move": 0.3, "ease": "out"}],   # then in
+         set="home", until="b:or"),   # on the cringe
     shot("cartoon", {"max": actor([-2, 3, 3], facing=[0, 0, -1], poses=[(0, "idle")], faces=[(0, "cry")])},
          [{"t": 0, "aim": "max.head+[0,0.2,0]", "distance": 7.5, "fov": 48, "height": -0.3, "orbit": 40},
           {"t": 0.04, "aim": "max.head+[0,0.2,0]", "distance": 6.6, "fov": 48, "height": -0.3, "orbit": 40,
@@ -103,10 +105,10 @@ s.add(
          sfx=[("pop", "b:didn't", -10)], overlays=[bubble(LIVING_DOG, "b:didn't", 220)], until="b:end+0.04"),
     # -- C: the dance, the dog speaks up, the reveal
     shot("dance", {"lily": actor([0, 3, -8], facing=[0, 0, 1], poses=[(0, "laugh")], faces=[(0, "laugh")]),
-                   "ex1": actor([-5, 3, -6], facing=[0.3, 0, 1], poses=[(0, "cheer")], faces=[(0, "grin")]),
+                   "ex1": actor([-5, 3, -7], facing=[0.3, 0, 1], poses=[(0, "cheer")], faces=[(0, "grin")]),
                    "ex2": actor([2.2, 3, -11], facing=[-0.3, 0, 1], poses=[(0, "laugh")], faces=[(0, "laugh")]),
                    "ex3": actor([-3, 3, -11], facing=[0, 0, 1], poses=[(0, "cheer")], faces=[(0, "starstruck")]),
-                   "girl1": actor([-7, 3, -9], facing=[0.3, 0, 1], poses=[(0, "laugh")], faces=[(0, "grin")])},
+                   "girl1": actor([-7.6, 3, -9], facing=[0.3, 0, 1], poses=[(0, "laugh")], faces=[(0, "grin")])},
          wide([7.5, 7.0, 6.0], [-1.5, 3.8, -8], fov=58, push_in=3.0), set="dance", say=[("c", "b:end+0.04")],
          until="c:max"),
     shot("walk", {"max": actor([2.4, 3, -6.6], facing=[-1, 0, -0.6], faces=[(0, "nervous")],

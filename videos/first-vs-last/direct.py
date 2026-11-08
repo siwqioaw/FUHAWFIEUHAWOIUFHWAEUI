@@ -49,7 +49,7 @@ s.add(
          set="class", seconds=length(1)),   # eye height: the hand clears his head
     shot("friends", {"leo": actor([-2.2, 3, 0], facing=[0.2, 0, 1], poses=[(0, "cheer")], faces=[(0, "grin")]),
                      "friend": actor([2.2, 3, 0], facing=[-0.2, 0, 1], poses=[(0, "cheer")], faces=[(0, "laugh")])},
-         two_shot("leo", "friend", distance=12.5, fov=50), seconds=length(2)),   # their high five meets
+         two_shot("leo", "friend", distance=15.0, fov=56), seconds=length(2)),   # their high five meets, outer arms in
     # last day: everything worse, then absurd
     shot("asleep", {"leo": actor([-3, 3, 5.1], facing=TO_BOARD, poses=[(0, "slump")], faces=[(0, "sleepy")])},
          [{"t": 0, "aim": "leo.head+[0,0.1,0]", "distance": 7.5, "fov": 48, "orbit": 30},   # down the aisle:

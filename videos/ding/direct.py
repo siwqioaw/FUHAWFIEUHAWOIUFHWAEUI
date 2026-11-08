@@ -82,8 +82,8 @@ s.add(
          push("leo.head", 8.5, 5.0), until="a:not"),
     shot("liked", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "laugh")], faces=[(0, "laugh")]),
                    "ex3": actor([-1.9, 3, -2.6], facing=[0.4, 0, 1], poses=[(0, "laugh")], faces=[(0, "laugh")]),
-                   "jock": actor([2.2, 3, -4.6], facing=[-0.4, 0, 1], poses=[(0, "cheer")], faces=[(0, "grin")])},
-         two_shot("ex3", "jock", distance=13.0, fov=52), until="a:end+0.04"),   # staggered (side by side they
+                   "jock": actor([1.8, 3, -5.2], facing=[-0.4, 0, 1], poses=[(0, "cheer")], faces=[(0, "grin")])},
+         two_shot("ex3", "jock", distance=13.0, fov=58), until="a:end+0.04"),   # staggered (side by side they
     # met); wide enough for Leo's laughing arms
     # -- B: a new school, and the dings start
     shot("switch", {"leo": actor([-4.6, 3, -26], facing=[0.3, 0, 1], faces=[(0, "nervous")],
@@ -110,7 +110,7 @@ s.add(
     # he went through them
          wide([0, 6.5, 4.5], [0, 3.8, -12], fov=62), set="new_school", until="b:ding#2"),   # in front of the bank
     shot("dingding", {"leo": actor([0, 3, -5], facing=US, poses=[(0, "hands_on_head")], faces=[(0, "scared")])},
-         push("leo.face", 4.5, 3.0, move=0.4), set="new_school",
+         push("leo.face", 6.2, 5.0, move=0.4), set="new_school",   # his hands on his head inside the frame
          sfx=[("ding", "b:ding#2", 1), ("ding", "b:ding#3", 1), ("ding", "b:ding#4", 1)],
          overlays=[bell("leo.head+[1.0,0.2,0]", "b:ding#2", 120), bell("leo.head+[-1.0,0.4,0]", "b:ding#3", 120),
                    bell("leo.head+[0,0.6,0]", "b:ding#4", 130)],

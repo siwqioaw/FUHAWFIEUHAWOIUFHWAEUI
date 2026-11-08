@@ -379,6 +379,19 @@ _ARM = _grid()
 _ARM_CORNERS = np.array([(x, y, z) for x in (-0.5, 0.5) for y in (-1.0, 1.0) for z in (-0.5, 0.5)])
 
 
+def hands(joints: dict, rootpos) -> dict:
+    """Each hand (the far end of its arm's block) as the harness poses an R6 body from at() output, in studs in the
+    actor's own space (x right, y up, z behind it, facing -Z) from its torso's rest centre: {"rs": (x, y, z), "ls":
+    ...}. At rest about (+-1.5, -1.5, 0); raised straight up about (+-1.5, 2.0, 0)."""
+    r = np.array(angles(*joints["root"]))
+    out = {}
+    for arm, shoulder, side in (("rs", (1.0, 0.5, 0.0), 0.5), ("ls", (-1.0, 0.5, 0.0), -0.5)):
+        m = np.array(angles(*joints[arm]))
+        p = m @ np.array((side, -1.5, 0.0)) + np.array(shoulder)
+        out[arm] = tuple(float(v) for v in r @ p + np.array(rootpos))
+    return out
+
+
 def reach(joints: dict) -> tuple[float, float, float, float]:
     """The floor box an R6 body covers as the harness poses it from at() output: (x0, x1, z0, z1) in studs in its
     own space (x to its right, z behind it, facing -Z) from its torso's centre: the torso (2 x 1) and each arm's and

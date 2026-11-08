@@ -564,6 +564,25 @@ def _snap_to_cuts(caps: list, cuts: list, fps: float, most: int = 4, early: int 
         c["show"], c["hide"] = t, hide
 
 
+def _plan_hands(a: dict, t: float) -> dict:
+    """A planned standing actor's hands at time t in world studs, as its pose puts them, with whether each is a
+    gesture (raised above the shoulder, flung out past 2.2 studs from the body's centre line, or held out ahead)."""
+    import pose
+    pos = a["cf"]["pos"]
+    look = a["cf"].get("look") or [pos[0], pos[1], pos[2] + 1.0]
+    d = [look[0] - pos[0], 0.0, look[2] - pos[2]]
+    n = math.hypot(d[0], d[2]) or 1.0
+    d = [d[0] / n, 0.0, d[2] / n]
+    right = (-d[2], 0.0, d[0])
+    joints, rootpos = pose.at(a.get("poses") or [[0.0, "idle"]], float(t), drift_amount=0.0,
+                              planted=a.get("planted", True))
+    out = {}
+    for arm, (x, y, z) in pose.hands(joints, rootpos).items():
+        world = [pos[i] + x * right[i] + (y if i == 1 else 0.0) - z * d[i] for i in range(3)]
+        out[arm] = (world, y > 0.5 or abs(x) > 2.2 or z < -1.4)
+    return out
+
+
 def _plan_face(a: dict, t: float) -> list:
     """A planned actor's face at time t in its shot, as its pose puts it (_posed_points); a walker's rest face at
     the walk's end."""
@@ -611,6 +630,12 @@ def _framing(plan: dict, size=(1080, 1920)) -> list[str]:
             cam = views[1]["pos"]
             if fwd and fwd[0] * (cam[0] - face[0]) + fwd[1] * (cam[2] - face[2]) < 0:
                 continue   # its back to the camera (an over-the-shoulder's near actor): no face to cut or cover
+            if not a.get("walk") and 0 <= xy[1] <= h:
+                for arm, (hand, gesture) in _plan_hands(a, s["seconds"] / 2).items():
+                    hp = camera.project(views[1], hand, size=size)
+                    if gesture and (not hp or not (0 <= hp[0] <= w and 0 <= hp[1] <= h)):
+                        out.append(f"{s['name']}: {name}'s {'right' if arm == 'rs' else 'left'} hand leaves the "
+                                   f"frame (a gesture cut off: frame wider, or turn the camera toward it)")
             frac = xy[1] / h
             top = camera.project(views[1], [face[0], face[1] + 0.6, face[2]], size=size)
             r = abs(xy[1] - top[1]) if top else 0.0   # the head's radius on screen, in pixels

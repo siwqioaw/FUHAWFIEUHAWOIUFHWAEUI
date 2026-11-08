@@ -758,6 +758,15 @@ def pipeline_checks(expect) -> None:
     expect(f"make: an actor waits at its walk's start ({before['pos']}), and on arriving turns to its mark's facing "
            f"({turned}, not the walk's way; M4's 'Leo sat down' stayed in profile)",
            before["pos"] == [-4, 3, 0] and abs(turned[0]) < 1e-6 and turned[1] > 0.99)
+    def gesture(dist, pose_name):
+        cam = [[0.0, {"pos": [0, 4.6, -dist], "look": [0, 4.6, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]]
+        return [w for w in make._framing({"family": "music", "shots": [{"name": "g", "seconds": 1.0, "camera": cam,
+                "actors": {"a": {"cf": {"pos": [0, 3, 0], "look": [0, 3, -10]}, "poses": [[0.0, pose_name]]}}}]})
+                if "hand" in w]
+    cut_cheer, wide_cheer, close_idle = gesture(4.0, "cheer"), gesture(11.0, "cheer"), gesture(4.0, "idle")
+    expect(f"make: the plan flags a gesture cut off by the frame (a cheer at 4 studs: {cut_cheer}) and passes it "
+           f"framed wider ({wide_cheer}) and arms at rest in the close-up ({close_idle})",
+           len(cut_cheer) == 2 and not wide_cheer and not close_idle)
     def cam_at(pos):
         return {"name": "c", "set": None, "seconds": 0.5,
                 "camera": [[0.0, {"pos": pos, "look": [0, 4, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]]}
