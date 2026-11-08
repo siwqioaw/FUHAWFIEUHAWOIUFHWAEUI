@@ -406,8 +406,8 @@ def tv(s: Set, pos, face=(0, 0, -1), w=7.0, screen: str | None = None):
     s.box((w, w * 0.56, 0.3), (x, 2.2 + w * 0.28 + 0.4, z), BLACK)
     if screen:
         s.sign((w - 0.4, w * 0.56 - 0.4, 0.1), (x, 2.2 + w * 0.28 + 0.4, z + f * 0.17), screen,
-               face="Back" if f > 0 else "Front", bg=(120, 190, 250), fg=(255, 255, 255), font="Cartoon",
-               scale=0.8)
+               face="Back" if f > 0 else "Front", bg=(40, 105, 205), fg=(255, 255, 255), font="Cartoon",
+               scale=0.8)   # white on a deep blue: on sky blue it barely read (M5's still)
     else:
         s.box((w - 0.4, w * 0.56 - 0.4, 0.1), (x, 2.2 + w * 0.28 + 0.4, z + f * 0.17), (40, 60, 110), "Glass")
 

@@ -121,19 +121,22 @@ s.add(
                     "refl": actor(REFL, facing=[0, 0, 1],
                                   poses=[(0, "idle"), ("b:hi", WAVE_L), ("b:nine", "idle")],
                                   faces=[(0, "grin"), ("b:nine", "cringe")])},
-         [{"t": 0, "pos": [-1.7, 5.3, 4.6], "look": [-3.2, 4.4, -3.9], "fov": 45},
-          {"t": "b:nine", "pos": [-2.2, 5.0, 2.9], "look": [-3.2, 4.4, -3.9], "fov": 45, "move": 0.3, "ease": "out"}],
+         [{"t": 0, "pos": [0.6, 5.4, 7.0], "look": [-3.1, 4.4, -3.9], "fov": 45},   # far enough behind him that
+          {"t": "b:nine", "pos": [-0.16, 5.2, 3.19], "look": [-3.1, 4.4, -3.9], "fov": 45, "move": 0.3,   # his head
+           "ease": "out"}],   # stays off the reflection's face
          set="home", until="b:or"),
     # the cartoon: over the sofa onto the TV, then his face
     shot("cartoon", {"max": actor(SOFA, facing=[0, 0, -1], poses=[(0, SIT)], faces=[(0, "cry")])},
-         [{"t": 0, "pos": [1.6, 7.4, 13.6], "look": [-2.0, 4.4, -2.3], "fov": 50},
-          {"t": 0.04, "pos": [1.4, 7.2, 12.8], "look": [-2.0, 4.4, -2.3], "fov": 50, "move": 0.9, "ease": "out"}],
+         [{"t": 0, "pos": [1.6, 8.8, 12.0], "look": [-2.0, 4.0, -2.3], "fov": 50},   # high: his head under the TV,
+          {"t": 0.04, "pos": [1.4, 8.6, 11.2], "look": [-2.0, 4.0, -2.3], "fov": 50, "move": 0.9, "ease": "out"}],
+         # not in front of it
          set="living", until="b:twice"),
     shot("twice", {"max": actor(SOFA, facing=[0, 0, -1], poses=[(0, SIT)], faces=[(0, "sob")])},
-         [{"t": 0, "aim": "max.face+[0,0.6,0]", "distance": 3.6, "fov": 45, "orbit": -30}],
+         [{"t": 0, "aim": "max.face+[0,0.8,0]", "distance": 3.6, "fov": 45, "orbit": -30}],
          set="living", until="b:max#2"),
     shot("begged", {"max": actor(BEG, facing=BEG_FACING, poses=[(0, PLEAD)], faces=[(0, "pout")])},
-         wide([8.6, 5.0, 0.4], [3.15, 3.8, 4.85], fov=52), set="living", until="b:he#2"),
+         wide([7.2, 4.4, 10.4], [2.6, 3.8, 4.4], fov=50), set="living", until="b:he#2"),   # past his dog at his
+    # pleading face (from the side he was seen from behind)
     shot("didnt", {},
          push([LDOG[0], 2.5, LDOG[2]], 5.6, 4.7, fov=50, height=0.0, toward=[-0.7, 0, -0.7]), set="living",
          sfx=[("pop", "b:didn't", -10)], overlays=[bubble(LDOG, "b:didn't", 220)], until="b:end+0.04"),
@@ -161,20 +164,24 @@ s.add(
            "ease": "out"}], set="dance", sfx=[("pop", "c:dog", -10)],
          overlays=[bubble(GDOG, "c:dog", 210)], until="c:he#1"),
     shot("likes_you", {"lily": actor(LILY, facing=[0.75, 0, 0.66], faces=[(0, "shock"), ("c:september", "love")])},
-         [{"t": 0, "pos": [6.4, 3.8, -3.5], "look": [-1.0, 4.3, -6.0], "fov": 45},   # over the dog's head at her
-          {"t": 0.04, "pos": [6.0, 3.8, -3.65], "look": [-1.0, 4.3, -6.0], "fov": 45, "move": 1.2, "ease": "out"}],
+         [{"t": 0, "pos": [7.6, 2.4, -2.43], "look": [-1.0, 4.3, -6.0], "fov": 52},   # low behind the dog: its
+          {"t": 0.04, "pos": [7.22, 2.4, -2.56], "look": [-1.0, 4.3, -6.0], "fov": 52, "move": 1.2, "ease": "out"}],
+         # head in the frame's foot, her face above it (from over it, the dog was out of frame)
          set="dance", sfx=[("pop", "c:he#1", -10), ("pop", "c:he's", -12)],
          overlays=[bubble(GDOG, "c:he#1", 200, 0.7), bubble(GDOG, "c:he's", 200, 1.0)], until="c:lily#2"),
-    shot("smiled", {"lily": actor(LILY, facing=[0.75, 0, 0.66], faces=[(0, "love")]),
-                    "max": actor(MAXD, facing=TO_LILY, faces=[(0, "wide_happy")])},
-         [{"t": 0, "pos": [4.6, 5.0, -0.2], "look": [-1.0, 4.4, -6.0], "fov": 45}], set="dance",
-         until="c:and#2"),   # over his shoulder: she smiles at him
+    shot("smiled", {"lily": actor(LILY, facing=[0.75, 0, 0.66], faces=[(0, "love")])},
+         [{"t": 0, "aim": "lily.face+[0,0.5,0]", "distance": 4.4, "fov": 45, "toward": [0.75, 0, 0.66]},
+          {"t": 0.04, "aim": "lily.face+[0,0.5,0]", "distance": 3.4, "fov": 45, "toward": [0.75, 0, 0.66], "move": 0.5,
+           "ease": "out"}], set="dance", until="c:and#2"),   # her smile, close (over his shoulder his head hid it)
     shot("honestly", {"max": actor(MAXD, facing=TO_LILY, faces=[(0, "wide_happy")])},
          [{"t": 0, "aim": PAIR, "distance": 9.9, "fov": 50, "toward": [-0.6, 0, -0.8]},
           {"t": 0.04, "aim": PAIR, "distance": 9.0, "fov": 50, "toward": [-0.6, 0, -0.8], "move": 0.6,
            "ease": "out"}], set="dance", sfx=[("pop", "c:honestly", -10)],
          overlays=[bubble(GDOG, "c:honestly", 220, 1.2)], until="c:best"),
-    shot("me", {}, push(GDOG[:1] + [2.5] + GDOG[2:], 3.6, 2.9, fov=48, height=0.0, toward=[-0.6, 0, -1], move=0.6),
+    shot("me", {}, [{"t": 0, "aim": [4.5, 2.3, -4.1], "distance": 4.2, "fov": 54, "height": 0.0,
+                     "toward": [-0.944, 0, -0.33]},   # square to its face: from the side its nose went off the edge
+                    {"t": 0.04, "aim": [4.5, 2.3, -4.1], "distance": 3.4, "fov": 54, "height": 0.0,
+                     "toward": [-0.944, 0, -0.33], "move": 0.6, "ease": "out"}],
          set="dance", sfx=[("riser", "c:that's-1.15", -14), ("pop", "c:me", -8)],
          overlays=[("\U0001F4AC", GDOG, "c:me", {"size": 230, "lift": 0.2, "dur": 1.4})], until="c:end+0.35"),
 )
