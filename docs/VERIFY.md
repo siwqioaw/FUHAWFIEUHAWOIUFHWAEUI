@@ -163,7 +163,8 @@ The checks have to come back clean first. Then:
 - no face cut by an edge of the frame (a half-face at the edge of a group shot: M2's "Me:", M3's chat, M4's
   whisper) or down past 85% of the height, under the Shorts UI (M5's slumped close-up); the plan warns about both,
   with each face where its pose puts it;
-- no actor's arm or body inside another's, and no walk through someone (the plan's staging warnings);
+- no actor's arm or body inside another's or inside furniture or a prop, and no walk through someone (the plan's
+  staging warnings; M5's Max stood in the coffee table and its dog for four shots before the furniture check);
 - every line's action in the picture, and the rule's signature getting louder and bigger as the story says so;
 - no icon on a face (moved beside the head), no writing in the set under the captions, and no icon over a subject hidden behind someone (M5's dog stood behind Max and its bubble came out of his shirt: the plan warns now);
 - a raised hand above the head, a point that crosses the frame, background gestures clear of foreground heads;
@@ -190,7 +191,7 @@ The checks have to come back clean first. Then:
   in linear light; a projection turned the wrong way.
 
 It confirms that each check catches its failure and passes the clean parts. It also checks `master.py`'s loudness
-meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 120 of 120.
+meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 126 of 126.
 
 On the third trailer cut, the delivered file measured:
 

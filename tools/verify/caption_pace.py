@@ -79,7 +79,17 @@ def changes(masks: list, least: int = 150) -> list[tuple[int, bool]]:
 
 
 def words_of(transcript: str) -> list[tuple[str, float, float]]:
+    """Words with times in the video: a transcript's segments (transcribe.py), or the pipeline's own
+    `build/<slug>/voice/words.json`, each line placed where `build/<slug>/plan.json` starts it (its times are the
+    line's own: on its own it matched nothing, and the measure read 0 captions without saying why)."""
     d = json.load(open(transcript, encoding="utf-8"))
+    if "lines" in d:
+        plan_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(transcript))), "plan.json")
+        if not os.path.exists(plan_path):
+            raise SystemExit(f"{transcript}: a line-by-line words file needs its plan.json beside the voice folder")
+        starts = {v["line"]: v["start"] for v in json.load(open(plan_path, encoding="utf-8"))["voices"]}
+        return [(w["word"].strip(), starts[ln["id"]] + w["start"], starts[ln["id"]] + w["end"])
+                for ln in d["lines"] if ln["id"] in starts for w in ln["words"]]
     return [(w["word"].strip(), w["start"], w["end"]) for s in d.get("segments", []) for w in s.get("words", [])]
 
 
@@ -137,6 +147,10 @@ def main(argv=None) -> int:
     if a.out:
         os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
         json.dump(report, open(a.out, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+    empty = [k for k, v in report.items() if not v["summary"]["captions"]]
+    if empty:
+        print(f"no captions matched to words in {empty}: check --words (its times must be the video's) and --band")
+        return 1
     return 0
 
 

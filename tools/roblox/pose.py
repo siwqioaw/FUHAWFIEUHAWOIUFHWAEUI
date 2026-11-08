@@ -379,6 +379,26 @@ _ARM = _grid()
 _ARM_CORNERS = np.array([(x, y, z) for x in (-0.5, 0.5) for y in (-1.0, 1.0) for z in (-0.5, 0.5)])
 
 
+def limbs(joints: dict, rootpos) -> dict:
+    """Each R6 part's 8 corners as the harness poses the body from at() output, in studs in the actor's own space (x
+    right, y up, z behind it, facing -Z) from its torso's rest centre: {"torso", "head", "rs", "ls", "rh", "lh"}.
+    Finer than reach(): a seated body's legs sit under a table, not in it."""
+    r = np.array(angles(*joints["root"]))
+    rp = np.array(rootpos)
+    cube = np.array([(x, y, z) for x in (-1, 1) for y in (-1, 1) for z in (-1, 1)], dtype=float)
+    out = {"torso": cube * (1.0, 1.0, 0.5) @ r.T + rp}
+    n = np.array(angles(*joints["neck"]))
+    out["head"] = ((cube * 0.6 + (0.0, 0.5, 0.0)) @ n.T + (0.0, 1.0, 0.0)) @ r.T + rp
+    for arm, shoulder, side in (("rs", (1.0, 0.5, 0.0), 0.5), ("ls", (-1.0, 0.5, 0.0), -0.5)):
+        m = np.array(angles(*joints[arm]))
+        out[arm] = ((_ARM_CORNERS + (side, -0.5, 0.0)) @ m.T + shoulder) @ r.T + rp
+    for leg, hip, lx in (("rh", (1.0, -1.0, 0.0), (-1.0, 0.0)), ("lh", (-1.0, -1.0, 0.0), (0.0, 1.0))):
+        m = np.array(angles(*joints[leg]))
+        pts = np.array([(x, y, z) for x in lx for y in (-LEG, 0.0) for z in (-FOOT, FOOT)])
+        out[leg] = (pts @ m.T + hip) @ r.T + rp
+    return out
+
+
 def hands(joints: dict, rootpos) -> dict:
     """Each hand (the far end of its arm's block) as the harness poses an R6 body from at() output, in studs in the
     actor's own space (x right, y up, z behind it, facing -Z) from its torso's rest centre: {"rs": (x, y, z), "ls":

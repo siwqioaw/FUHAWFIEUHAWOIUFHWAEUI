@@ -175,8 +175,16 @@ def edges(x: np.ndarray, sr: int, below_db: float = 40.0) -> tuple[float, float]
 
 def spoken(text: str) -> list[str]:
     """The words a line says, as written: audio tags like [excited] dropped, split at spaces, hyphens, dashes and
-    ellipses ('forty-slide' is two words, 'Wait, WHAT?' two)."""
-    return [w for w in _SPLIT.split(TAG.sub(" ", text)) if norm(w)]
+    ellipses between words ('forty-slide' is two words, 'Wait, WHAT?' two). An ellipsis that ends a word stays on it
+    ('researched...': a line cut off, which its caption should show: M3's third review)."""
+    text = _TRAIL.sub(lambda m: m.group(1) + "…", TAG.sub(" ", text))
+    out = []
+    for w in _SPLIT.split(text):
+        if w and w[-1] == "…" and out and not norm(w):
+            out[-1] += "…"
+        elif norm(w):
+            out.append(w)
+    return out
 
 
 _ONES = "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen "     "seventeen eighteen nineteen".split()
@@ -203,7 +211,8 @@ def norm(word: str) -> str:
     return w
 
 
-_SPLIT = re.compile(r"[\s\-–—]+|\.{2,}|…")
+_SPLIT = re.compile(r"[\s\-–—]+|\.{2,}(?=\S)|…(?=\S)")
+_TRAIL = re.compile(r"(\w)(?:\.{2,}|…)(?=\s|$)")
 
 
 # Words a transcriber can't tell apart by sound: matched as one (S5's "Seen." came back as "Scene.").

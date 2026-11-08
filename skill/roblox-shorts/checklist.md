@@ -21,8 +21,8 @@ failure found to this list and to `docs/VERIFY.md`.
   cut by an edge of the frame (the plan warns: a back row at a push-in's edges shows only as half-faces) or down past
   85% under the Shorts UI; a close-up aimed at the face where the pose puts it (a slump drops it half a stud); the
   subject of the line in frame; no camera inside a wall or a prop.
-- **Staging:** no actor inside furniture or another actor (the plan's staging warnings: R6s side by side need 4
-  studs, cheering 5; a walk 4 studs' room past anyone); feet on the floor; no one floating; walks don't slide; a
+- **Staging:** no actor inside furniture, a prop or another actor (the plan's staging warnings, limb by limb: R6s
+  side by side need 4 studs, cheering 5; a walk 4 studs' room past anyone); feet on the floor; no one floating; walks don't slide; a
   walk ends facing where the shot needs the face.
 - **Every beat in the picture:** each line's action shown, not just said (M4: "switched schools" over a white wall,
   "hid behind the lockers" with no lockers to hide behind, "ate lunch alone" from above, "sat down" in profile).

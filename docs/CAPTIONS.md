@@ -17,7 +17,7 @@ frame or two before it).
 
 | Style | For | Cap height | Outline | Line to line | Where | Width | Emoji |
 |---|---|---|---|---|---|---|---|
-| `comedy` | family A: a clause per caption, CAPS on the stressed words | 43 px | 4 px | 1.465 cap heights | the block's centre 77.9% down | up to 800 px | one, at the end, outlined like the letters, 1.16 cap heights tall |
+| `comedy` | family A: a clause per caption (a sentence breaks at its commas), CAPS on the stressed words | 43 px | 4 px | 1.465 cap heights | the block's centre 77.9% down | up to 800 px | one, at the end, outlined like the letters, 1.16 cap heights tall |
 | `story` | family B: 1-3 words, a new one about every 0.6 s, lowercase with CAPS on the loud words | 66 px | 8 px | 1.47 | the block's centre 24.8% down | up to 760 px | none |
 | `header` | family C's header: a word in braces takes a colour, `{pink:Mom's} old photos..` | 65 px | 7 px | 1.48 | the first line's cap top 11.2% down | up to 900 px | rarely |
 | `label` | family C's label per type, under the header | 50 px | 6 px | 1.48 | as placed | up to 900 px | rarely |

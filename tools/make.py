@@ -473,6 +473,13 @@ def _clauses(words: list, style: str, emoji: str | None, story: bool,
         cur.append((w, s, e))
         last = i == len(words) - 1
         brk = w[-1:] in ".!?" and not last
+        if not brk and not last and w[-1:] in ",;:" and len(cur) >= 2:   # a clause each: its punch isn't up before
+            rest = 0                                                     # it's said (M3's third review: "I'll do
+            for x in words[i + 1:]:                                      # the title page!" up 1.3 s early)
+                rest += 1
+                if x[0][-1:] in ".!?,;:":
+                    break
+            brk = rest >= 2
         carry = []
         if not brk and not last:
             trial = " ".join(x[0] for x in cur + [words[i + 1]])
@@ -488,6 +495,26 @@ def _clauses(words: list, style: str, emoji: str | None, story: bool,
     if out and emoji:
         out[-1][0] += " " + emoji
     return [tuple(c) for c in out]
+
+
+def _audible_onset(path: str, below: float = 18.0) -> float:
+    """When a voice take is first heard: the first 10 ms whose level comes within `below` dB of the take's loudest.
+    A line can open on a soft glide the transcriber counts as its first word (M3's "WE?!": 0.17 s at -61 to -32 dB,
+    lost under the music, so the caption came up 13 frames before the shout)."""
+    import soundfile as _sf
+    try:
+        y, sr = _sf.read(path, dtype="float32")
+    except (OSError, RuntimeError):
+        return 0.0
+    if y.ndim > 1:
+        y = y.mean(axis=1)
+    hop = max(1, int(sr * 0.01))
+    n = len(y) // hop
+    if n == 0:
+        return 0.0
+    db = 10 * np.log10(np.mean(y[:n * hop].reshape(n, hop) ** 2, axis=1) + 1e-12)
+    hit = np.nonzero(db >= db.max() - below)[0]
+    return float(hit[0] * hop / sr) if len(hit) else 0.0
 
 
 def _cap_need(c: dict, fps: float) -> float:
@@ -543,8 +570,9 @@ def _snap_to_cuts(caps: list, cuts: list, fps: float, most: int = 4, early: int 
         if c.get("style") not in ("comedy", "story"):
             continue
         f = int(round(c["show"] * fps))
-        cut = max((x for x in cuts if 0 < f - x <= most), default=None)
-        if cut is None:
+        word = int(round(c.get("start", c["show"]) * fps))
+        cut = max((x for x in cuts if 0 < f - x <= most and word - x <= 3), default=None)   # back to a cut only
+        if cut is None:                       # while its word is 3 frames off (M3's third review: "seen." 6 early)
             cut = min((x for x in cuts if 0 < x - f <= early), default=None)
         if cut is None:
             continue
@@ -577,9 +605,13 @@ def _plan_hands(a: dict, t: float) -> dict:
     joints, rootpos = pose.at(a.get("poses") or [[0.0, "idle"]], float(t), drift_amount=0.0,
                               planted=a.get("planted", True))
     out = {}
+    limbs = pose.limbs(joints, rootpos)
     for arm, (x, y, z) in pose.hands(joints, rootpos).items():
         world = [pos[i] + x * right[i] + (y if i == 1 else 0.0) - z * d[i] for i in range(3)]
-        out[arm] = (world, y > 0.5 or abs(x) > 2.2 or z < -1.4)
+        outer = [[pos[i] + c[0] * right[i] + (c[1] if i == 1 else 0.0) - c[2] * d[i] for i in range(3)]
+                 for c in limbs[arm]]
+        span = max(abs(c[0]) for c in limbs[arm])   # elbows out (hands on hips) count, not only the hand
+        out[arm] = (world, y > 0.5 or abs(x) > 2.2 or span > 2.3 or z < -1.4, outer)
     return out
 
 
@@ -631,11 +663,21 @@ def _framing(plan: dict, size=(1080, 1920)) -> list[str]:
             if fwd and fwd[0] * (cam[0] - face[0]) + fwd[1] * (cam[2] - face[2]) < 0:
                 continue   # its back to the camera (an over-the-shoulder's near actor): no face to cut or cover
             if not a.get("walk") and 0 <= xy[1] <= h:
-                for arm, (hand, gesture) in _plan_hands(a, s["seconds"] / 2).items():
-                    hp = camera.project(views[1], hand, size=size)
-                    if gesture and (not hp or not (0 <= hp[0] <= w and 0 <= hp[1] <= h)):
-                        out.append(f"{s['name']}: {name}'s {'right' if arm == 'rs' else 'left'} hand leaves the "
-                                   f"frame (a gesture cut off: frame wider, or turn the camera toward it)")
+                said = set()   # at a quarter, half, three quarters and the end: a gesture can come late (M3's cheer)
+                for tq in (0.25, 0.5, 0.75, 0.98):
+                    vq = path(s["seconds"] * tq)
+                    for arm, (hand, gesture, block) in _plan_hands(a, s["seconds"] * tq).items():
+                        if not gesture or arm in said:
+                            continue
+                        pts = [camera.project(vq, q, size=size) for q in [hand] + block]
+                        # the hand outside, or half the arm's block: the gesture is lost (M3's hook: the hands in,
+                        cut = sum(1 for q in pts[1:] if not q or not (0 <= q[0] <= w and 0 <= q[1] <= h))   # the
+                        hp = pts[0]                                                          # arms off both edges)
+                        if not hp or not (0 <= hp[0] <= w and 0 <= hp[1] <= h) or cut >= 4:
+                            said.add(arm)
+                            out.append(f"{s['name']}: {name}'s {'right' if arm == 'rs' else 'left'} arm leaves the "
+                                       f"frame at {s['seconds'] * tq:.1f} s (a gesture cut off: frame wider, or turn "
+                                       f"the camera toward it)")
             frac = xy[1] / h
             top = camera.project(views[1], [face[0], face[1] + 0.6, face[2]], size=size)
             r = abs(xy[1] - top[1]) if top else 0.0   # the head's radius on screen, in pixels
@@ -721,8 +763,8 @@ def _hidden_subjects(plan: dict, size=(1080, 1920)) -> list[str]:
                 if any(q is None for q in pts) or math.dist(v["pos"], pos) >= dp - 1.0:
                     continue   # not a stud nearer the camera than the point: beside it, not in front
                 xs, ys = [q[0] for q in pts], [q[1] for q in pts]
-                # the silhouette's box, narrowed a little: the box is the body's outer bounds, arms and all
-                mx, my = 0.12 * (max(xs) - min(xs)), 0.05 * (max(ys) - min(ys))
+                # the silhouette's box, arms and all: an arm hangs at its sides, so no narrowing across (a 12% cut
+                mx, my = 0.0, 0.05 * (max(ys) - min(ys))   # let a bubble on Max's sleeve pass: M5's round 2)
                 if min(xs) + mx < xy[0] < max(xs) - mx and min(ys) + my < xy[1] < max(ys) - my:
                     out.append(f"{s['name']}: the {ov.get('icon') or 'text'} at {ov['start']:.2f} s pops over a point "
                                f"hidden behind {name} (it lands on {name}): move the subject or the camera")
@@ -871,6 +913,64 @@ def _cameras_in_sets(plan: dict, spec: dict, step: float = 0.25) -> list[str]:
                             said.add(b)
                         break
             t += step
+    return out
+
+
+def _in_furniture(plan: dict, spec: dict, least: float = 0.15) -> list[str]:
+    """Each standing actor's parts (torso, head, arms and legs, each where its poses put it: pose.limbs) against every
+    part of its set as built, props and pets included: overlapping one by more than `least` studs on all three axes,
+    it is inside it (M5's round 2: Max and his dog in the coffee table for four shots, the dog's head on the tabletop).
+    The room's shell and anything flat on the floor don't count."""
+    import kit
+    import pose
+    places = {None: (spec.get("set", "baseplate"), spec.get("set_options", {}), (0.0, 0.0, 0.0))}
+    for extra in spec.get("sets", []):
+        places[extra["id"]] = (extra["name"], extra.get("options", {}), tuple(extra["at"]))
+    built, out = {}, []
+    for s in plan["shots"]:
+        key = s.get("set")
+        if key not in places or places[key][0] not in kit.SETS:
+            continue
+        if key not in built:
+            name, opt, off = places[key]
+            st = kit.SETS[name](opt)
+            room = st.bounds and tuple(v + off[i // 2] for i, v in enumerate(st.bounds))
+            parts = []
+            for b in kit.boxes(st, off):
+                if b[3] - b[2] < 0.2 and b[3] < 0.3:
+                    continue   # flat on the floor: a rug, a court line, the floor
+                if room and (b[0] < room[0] - 0.5 or b[1] > room[1] + 0.5 or b[4] < room[4] - 0.5 or b[5] > room[5] + 0.5
+                             or b[2] > room[3] - 0.6):
+                    continue   # a wall, the ceiling, the floor slab: the room's shell
+                parts.append(b)
+            built[key] = parts
+        for name, a in s.get("actors", {}).items():
+            if a.get("walk"):
+                continue
+            pos = a["cf"]["pos"]
+            look = a["cf"].get("look") or [pos[0], pos[1], pos[2] + 1.0]
+            d = [look[0] - pos[0], 0.0, look[2] - pos[2]]
+            n = math.hypot(d[0], d[2]) or 1.0
+            d = [d[0] / n, 0.0, d[2] / n]
+            right = (-d[2], 0.0, d[0])
+            worst, what = 0.0, None
+            for p in (a.get("poses") or [[0.0, "idle"]]):
+                joints, rootpos = pose.at([[0.0, p[1]]], 0.0, drift_amount=0.0, planted=a.get("planted", True))
+                for corners in pose.limbs(joints, rootpos).values():
+                    w = [[pos[i] + c[0] * right[i] + (c[1] if i == 1 else 0.0) - c[2] * d[i] for i in range(3)]
+                         for c in corners]
+                    lo = [min(v[i] for v in w) for i in range(3)]
+                    hi = [max(v[i] for v in w) for i in range(3)]
+                    for b in built[key]:
+                        depth = min(min(hi[0], b[1]) - max(lo[0], b[0]), min(hi[1], b[3]) - max(lo[1], b[2]),
+                                    min(hi[2], b[5]) - max(lo[2], b[4]))
+                        if depth > worst:
+                            worst, what = depth, b
+            if worst > least:
+                size = [round(what[1] - what[0], 1), round(what[3] - what[2], 1), round(what[5] - what[4], 1)]
+                at = [round((what[0] + what[1]) / 2, 1), round((what[2] + what[3]) / 2, 1), round((what[4] + what[5]) / 2, 1)]
+                out.append(f"{s['name']}: {name} is inside a part of the set by {worst:.1f} studs (a box "
+                           f"{size[0]} x {size[1]} x {size[2]} at {at}): move one of them")
     return out
 
 
@@ -1031,7 +1131,10 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
             continue
         aligned = _aligned_words(ln, words[v["line"]], names)
         emoji = ln.get("emoji") if not ln.get("caption") and style == "comedy" else None  # stories: no emoji
-        for text, a, b in _clauses(aligned, style, emoji, story=(style == "story"), names=names):
+        heard = _audible_onset(sh.path("voice", words[v["line"]].get("file", v["line"] + ".wav")))
+        for k, (text, a, b) in enumerate(_clauses(aligned, style, emoji, story=(style == "story"), names=names)):
+            if k == 0:
+                a = min(max(a, heard), b - 0.05)   # not before the line is heard
             caps.append({"text": text, "start": v["start"] + a, "end": v["start"] + b, "style": style})
     lead = 2 / fps
     for i, c in enumerate(caps):
@@ -1071,6 +1174,8 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
         print(f"  overlay: {warn}")
     for warn in _cameras_in_sets(plan, sh.spec):
         print(f"  camera: {warn}")
+    for warn in _in_furniture(plan, sh.spec):
+        print(f"  staging: {warn}")
     import qc
     from timeline import Timeline
     short = [row for row in qc.text_times(Timeline(cut), 12.0) if row[0] == "FAIL"]

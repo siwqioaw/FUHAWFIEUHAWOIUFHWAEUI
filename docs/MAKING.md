@@ -24,7 +24,7 @@ video's record and are committed.
 |---|---|---|---|
 | voice | `short.json` lines, `build/<slug>/takes.json` (the agent writes it after generating each line with the ElevenLabs connector: {line id: [take URL or file, ...]}; each download is named by its take, so a regenerated line's new takes are fetched; a link expires after some
 hours, and then the copy fetched while it worked is used) | `voice/<id>.wav`, `voice/words.json`, `voice/report.md` | any voice check fails (`docs/VOICE.md`) |
-| plan | the spec, `words.json` | `plan.json` (every shot's camera path, actors' pose and face keys, voices, effects, captions), `cut.json` (the timeline every check reads) | a time can't be resolved, a shot has no camera, a caption is up too briefly to read (`qc.py`'s rule, found before the shoot); it warns about an actor a shot lists but never shows, a face under the captions (a story's face above 36% of the height, a comedy's below 66%), a face cut by an edge of the frame, and one below 85% where the Shorts UI covers it (each face where its pose puts it); a gesture whose hand leaves the frame; a jump cut (the same face both sides of a cut at under 1.4x the size and 25 degrees round); an icon whose subject is hidden behind a nearer actor (it lands on that actor); actors' bodies or arms inside each other; a camera outside its set's room or inside any part of the set |
+| plan | the spec, `words.json` | `plan.json` (every shot's camera path, actors' pose and face keys, voices, effects, captions), `cut.json` (the timeline every check reads) | a time can't be resolved, a shot has no camera, a caption is up too briefly to read (`qc.py`'s rule, found before the shoot); it warns about an actor a shot lists but never shows, a face under the captions (a story's face above 36% of the height, a comedy's below 66%), a face cut by an edge of the frame, and one below 85% where the Shorts UI covers it (each face where its pose puts it); a gesture whose hand or arm leaves the frame (sampled through the shot); a jump cut (the same face both sides of a cut at under 1.4x the size and 25 degrees round); an icon whose subject is hidden behind a nearer actor (it lands on that actor); actors' bodies or arms inside each other, or any limb inside the set's furniture or props; a camera outside its set's room or inside any part of the set |
 | shoot | `plan.json` | `shots/<shot>/f00000.png ...` (960 x 1707), and `_shot.json`: a stamp of the shot's plan | frames are missing after 4 attempts. A shot whose plan has changed since its stamp is shot again; a complete, current one is skipped; and the cut refuses frames shot from another plan |
 | cut | `plan.json`, the frames | `master.mov` (1080 x 1920, ProRes) | a frame is missing |
 | mix | `plan.json`, `cut.json`, the voice files | `mix_raw.wav`, `mix.wav`; the placements into `cut.json` | |
@@ -117,7 +117,8 @@ Made from the lines in the family's style (`docs/CAPTIONS.md`): the script's own
 transcriber's word times, each starting in lower case unless its first word is stressed, "I" or a name (a word the
 script capitalizes mid-sentence, so "so Leo stopped" keeps "Leo had never" capitalized); an emoji only in comedy.
 
-- **Comedy** captions are a clause each, up to three lines, cut a sentence at a time.
+- **Comedy** captions are a clause each, up to three lines: a sentence breaks at its commas when both sides have two
+  words or more, so a punch isn't up before it's said (M3's "I'll do the title page!" was up 1.3 s early).
 - **Story** captions are 1-3 words, each phrase (up to a punctuation mark) split the way that reads best
   (`_story_groups`): not ending on "a", "the", "to" and the like, no word left alone, none up too briefly to read.
   "you hear a | ding." becomes "you hear | a ding."; "most people hear | a few a | day." becomes "most people | hear
@@ -125,8 +126,11 @@ script capitalizes mid-sentence, so "so Leo stopped" keeps "Leo had never" capit
 - Each shows 2 frames before its first word and holds until the next. One said too fast to read takes up to 0.12 s
   from a neighbour with time to spare (`_balance`): first by hiding later, then by showing earlier, but never more
   than 2 frames before its words (M4's "then he" came up 7 frames early, over the shot before). One due up to 4
-  frames after a cut, or 2 before one, comes in on the cut and keeps its time on screen (`_snap_to_cuts`), and the
-  render and `cut.json` count a caption's frames by one rule (`_caption_frames`).
+  frames after a cut comes in on the cut only while its word is within 3 frames of it, one 2 before a cut waits for
+  it, and each keeps its time on screen (`_snap_to_cuts`). A line's first caption waits until the line is heard:
+  the first 10 ms within 18 dB of the take's loudest (`_audible_onset`; M3's "WE?!" opened on a soft glide and was
+  captioned 13 frames before the shout). The render and `cut.json` count a caption's frames by one rule
+  (`_caption_frames`).
 
 The read-time check treats them as speech: heard as they're read, they need only their characters at 35 a second, and
 0.25 s at the least, the references' own pace (`docs/VERIFY.md`, `caption_pace.py`).

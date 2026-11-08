@@ -734,9 +734,9 @@ def pipeline_checks(expect) -> None:
            len(high) == 1 and "story captions" in high[0] and len(low_) == 1 and "comedy captions" in low_[0]
            and not level)
     framed = json.load(open(sh.path("plan.json"), encoding="utf-8"))
-    clean = make._framing(framed)
+    clean = [w for w in make._framing(framed) if "never in frame" in w]
     framed["shots"][0]["actors"]["far"] = {"cf": {"pos": [30.0, 3.0, 0.0], "look": [30.0, 3.0, 10.0]}}
-    flagged = make._framing(framed)
+    flagged = [w for w in make._framing(framed) if "never in frame" in w]
     expect(f"make: the framing check passes actors in shot ({clean}) and flags one the camera never sees ({flagged})",
            not clean and len(flagged) == 1 and "far" in flagged[0])
     def edged(x, look_y):
@@ -769,7 +769,7 @@ def pipeline_checks(expect) -> None:
         cam = [[0.0, {"pos": [0, 4.6, -dist], "look": [0, 4.6, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]]
         return [w for w in make._framing({"family": "music", "shots": [{"name": "g", "seconds": 1.0, "camera": cam,
                 "actors": {"a": {"cf": {"pos": [0, 3, 0], "look": [0, 3, -10]}, "poses": [[0.0, pose_name]]}}}]})
-                if "hand" in w]
+                if "leaves the frame" in w]
     cut_cheer, wide_cheer, close_idle = gesture(4.0, "cheer"), gesture(11.0, "cheer"), gesture(4.0, "idle")
     expect(f"make: the plan flags a gesture cut off by the frame (a cheer at 4 studs: {cut_cheer}) and passes it "
            f"framed wider ({wide_cheer}) and arms at rest in the close-up ({close_idle})",
@@ -813,6 +813,23 @@ def pipeline_checks(expect) -> None:
     expect(f"make: a shot's frames know the plan they were shot from: the same plan is current ({same}), a moved camera "
            f"makes them stale, to be shot again ({changed}); frames from before stamps count as current ({unstamped})",
            not same and changed and not unstamped)
+    def furn(pos, look, poses):
+        return make._in_furniture({"shots": [{"name": "f", "set": None, "seconds": 1.0, "camera": [],
+                                              "actors": {"a": {"cf": {"pos": pos, "look": look}, "poses": poses}}}]},
+                                  {"set": "cafeteria", "set_options": {"trays": False}})
+    in_table = furn([-12, 3, -5.0], [-12, 3, 5], [[0.0, "idle"]])       # standing in table 1
+    seated = furn([-12, 3, -7.65], [-12, 3, 5], [[0.0, "sit"]])         # on its far bench, legs under it
+    clear = furn([0, 3, -9.5], [0, 3, 5], [[0.0, "idle"]])              # in the aisle
+    expect(f"make: the plan flags an actor inside furniture ({in_table}) and passes one seated at a table, legs under "
+           f"it ({seated}), and one in the aisle ({clear})", len(in_table) == 1 and not seated and not clear)
+    def hoh(dist):
+        cam = [[0.0, {"pos": [0, 4.9, -dist], "look": [0, 4.9, 0], "roll": 0.0, "fov": 45.0, "dof": None}, 0.0, "out"]]
+        return [w for w in make._framing({"family": "comedy", "shots": [{"name": "h", "seconds": 1.0, "camera": cam,
+                "actors": {"a": {"cf": {"pos": [0, 3, 0], "look": [0, 3, -10]}, "poses": [[0.0, "hands_on_head"]]}}}]})
+                if "leaves the frame" in w]
+    cut_arms, whole = hoh(5.0), hoh(9.0)
+    expect(f"make: hands on the head with the hands in frame but the arms off both edges is a gesture cut off "
+           f"(M3's hook: {len(cut_arms)} warnings at 5 studs, {len(whole)} at 9)", len(cut_arms) == 2 and not whole)
     def cam_at(pos):
         return {"name": "c", "set": None, "seconds": 0.5,
                 "camera": [[0.0, {"pos": pos, "look": [0, 4, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]]}
@@ -880,6 +897,28 @@ def pipeline_checks(expect) -> None:
            f"{early_cap[1]['hide']:.3f} s, the cut at 8.833; M4's 'then he' lost 2 frames and failed its read)",
            abs(early_cap[1]["show"] - 530 / 60) < 1e-9
            and early_cap[1]["hide"] - early_cap[1]["show"] >= 0.266 - 1e-9 and early_cap[2]["show"] == early_cap[1]["hide"])
+    title = [(w, k * 0.3, k * 0.3 + 0.25) for k, w in enumerate("Oh my gosh, you guys, I'll do the title page!".split())]
+    title_caps = [c[0] for c in make._clauses(title, "comedy", None, False)]
+    expect(f"make: a comedy line breaks at its commas, so its punch isn't up before it's said ({title_caps})",
+           title_caps == ["oh my gosh,", "you guys,", "I'll do the title page!"])
+    late = [{"text": "a", "style": "comedy", "show": 0.0, "hide": 1.05, "start": 0.0},
+            {"text": "seen.", "style": "comedy", "show": 1.1, "hide": 2.0, "start": 1.1667}]
+    make._snap_to_cuts(late, [0, 30], 30)
+    expect(f"make: a caption whose word comes 5 frames after a cut stays with its word ({late[1]['show']:.3f} s; "
+           f"snapped back it came up 6 frames early, M3's 'seen.')", abs(late[1]["show"] - 1.1) < 1e-9)
+    import soundfile as _sf
+    glide_sr = 22050
+    tt = np.arange(int(0.8 * glide_sr)) / glide_sr
+    take = np.where(tt < 0.2, 0.002 * np.sin(2 * np.pi * 220 * tt), 0.5 * np.sin(2 * np.pi * 220 * tt))
+    glide_path = os.path.join(OUT, "glide.wav")
+    _sf.write(glide_path, take.astype(np.float32), glide_sr)
+    heard = make._audible_onset(glide_path)
+    expect(f"make: a line that opens on a soft glide is heard when it comes up to its level ({heard:.2f} s, the shout "
+           f"at 0.20; M3's 'WE?!' captioned 13 frames early)", 0.18 <= heard <= 0.23)
+    import speech as _speech
+    cut_off = _speech.spoken("[confident] So, as WE researched...")
+    expect(f"speech: a line cut off keeps its ellipsis on its last word ({cut_off})",
+           cut_off[-1] == "researched…" and len(cut_off) == 4)
     tight = [{"text": "liked him.", "show": 0.0, "hide": 1.0}, {"text": "then he", "show": 1.0, "hide": 1.2},
              {"text": "switched schools forever.", "show": 1.2, "hide": 1.75}]
     make._balance(tight, 60)
