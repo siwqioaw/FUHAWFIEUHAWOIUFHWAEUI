@@ -19,10 +19,15 @@ shots. **Captions:** comedy style, a clause each, CAPS on stressed words, one em
 
 ## Shots that work
 
-- `push("me.head", 9, 5.5)` opening; `push(..., 5.6, 4.3, move=0.35)` for a retort's slow push;
-  `dutch_in(..., 14)` for the outburst; `low(target)` for the type looking big; `two_shot(a, b)` for the setup;
-  `top(target)` for the absurd; `pull("me.face", 2.8, 7)` for a sad reveal.
+- `push("me.head", 13, 6)` opening wide on what the rant is about (M3's board, whole, then him); `push(..., 5.6, 4.3,
+  move=0.35)` for a retort's slow push; `dutch_in(..., 14)` for the outburst, the body leaning into the lens
+  (`lean_in`: hands on the head show only as slivers at a close-up's edges); `low(target)` for the type looking big;
+  `two_shot(a, b)` for the setup, 4.4 studs apart or more; `pull("me.face", 3.4, 7, move=0.7)` for a sad reveal (a
+  fast pull reads as a whip).
 - Faces: smug or side-eye on setups, angry/furious on the stressed word, deadpan on retorts, dead at the end.
+- Comedy captions sit low (70-86% of the height): frame faces above 66%, and the "Seen."-type close-up higher still
+  so the caption clears the chin. A back row of extras at a push-in's edges shows only as half-faces: keep the class
+  either side of the subject's head, inside the frame.
 
 ## Sound plan
 
