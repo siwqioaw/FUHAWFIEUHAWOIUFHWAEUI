@@ -60,3 +60,13 @@ check); the gossips in profile, their drawn faces edge-on (`whisper` now over hi
 laughing arms and the jock's cheer cut at the frame's edges (the new gesture check); a jump cut from `dingding` into
 `stopped` and a near one from `sat` into `her` (the new jump-cut check); the cafeteria's other trays at Leo's lonely
 lunch (trays now placed per scene, the next day at the table behind). Fifteen shots restaged in all.
+
+## Round 3 (2026-11-08): restaged from the plan's new checks, checked on the delivered cuts
+
+No fresh reviewer this round: the plan's checks added since round 2 (furniture, whole-arm gestures, hair under the
+captions, a face carried off an edge) found the problems, and every cut of the delivered file was looked at. Fixed:
+the students by the counter standing in it, Leo's slumped face over his milk, her whisper turning her arm into the
+table, the quote's laughing arms off the frame (the girls further down the hall), Leo's hands on hips off both edges
+in the close-up (arms at his sides), six close-ups with the hair under the captions (aimed over the head), the first
+ding hidden under the voice (3 dB up: it rises 6.1 dB now). `extra_c` wears an orange sweater (the black jacket and
+motorcycle tee were the references' recurring kid's). Every check on the file passes: -14.1 LUFS, -2.4 dBTP.

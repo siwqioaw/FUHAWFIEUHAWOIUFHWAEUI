@@ -90,3 +90,6 @@ model, -14.3 LUFS. Evidence in `build/review4/first-vs-last/`.
 | 3 | `yelled`: the push carries the teacher's hair off the left edge | nit | | a softer push |
 | 4 | The blond extra in a black jacket and motorcycle tee resembles the references' recurring kid | nit | a free catalog outfit | `extra_c` wears an orange sweater (body colours); every shot with him in it, in every video, shot again |
 | 5 | `notes.md`'s board text out of date | nit | | fixed |
+
+The round-4 fixes checked on the delivered cuts: the classmate in frame in his orange sweater, the yellow "Me:" with
+the first day's Leo waving behind the sleepy narrator. -14.3 LUFS, -2.4 dBTP; every check passes.

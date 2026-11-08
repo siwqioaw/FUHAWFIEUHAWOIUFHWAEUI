@@ -55,3 +55,8 @@ line on its start, the bed 23.7 dB under the voice). Evidence in `build/review2/
 | nits | the dog's nose cut and collar under the UI in `me`; a poster on Lily's head; Max's head at the edge in `smiled`; "love it," 0.11 s late; the room empty after the dance and a dancer hidden; the storyteller's voice out of other pets; 118 words | nit | | `me` reframed; the dance in the gym with five dancers in depth; `smiled` over Max's shoulder; the caption rules re-timed "love it,"; the voices and the length kept (the script's) |
 
 Planned again in full: 18 of 20 shots shot again.
+
+Checked on the delivered cuts after the reshoot: the mirror reads (his reflection waving back, then cringing, in the
+frame), the cartoon is on the TV over his shoulder, the dance is in the gym. Three more were shot again after that
+look: `begged` (the floor lamp's pole filled the frame: a camera can be blocked by a prop no check sees), the dog's
+words from Lily's eyes (from behind, the dog read as a tan box), and `brag` aimed over his hair.

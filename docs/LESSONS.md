@@ -103,6 +103,7 @@ check, mostly in the plan (`make.py plan` warns before a frame is shot), with a 
 | Story captions over the hair in close-ups and a pull's first frames. | The check looked at the face's height only. | The plan warns when a head's top reaches above 28% at a shot's start, middle or end. |
 | A background kid dressed like the references' recurring character (black jacket, motorcycle tee). | A free catalog outfit chosen for being free. | Compare each cast look against the references' recurring characters; extra_c wears an orange sweater now. |
 | "In the mirror" with no mirror; "cried at a cartoon" with the TV behind the camera; a dance in a daylit classroom. | The props didn't exist. | A mirror (its reflection a second actor), a picture on the TV, the gym dressed for the dance. |
+| A floor lamp's pole down the middle of a shot; a dog seen from behind as a plain box. | Camera positions found by a search that checked faces and staging, shot without a still. | Every new camera position gets its still before the shoot. |
 
 The later rounds still found real problems, fewer of them staging and more of them story and sound (a point that
 didn't read for three rounds, lines said but not shown, a boom no phone could play), and one regression from a tool

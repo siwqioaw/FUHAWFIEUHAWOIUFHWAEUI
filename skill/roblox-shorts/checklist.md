@@ -121,5 +121,8 @@ failure found to this list and to `docs/VERIFY.md`.
 - A cast look like a reference channel's recurring character (M2's ex3 in a black jacket and motorcycle tee):
   compare every look against `refs/r6rants/SYNTHESIS.md`'s recurring characters.
 - Story captions over hair (M5: every close-up): the plan warns when the top of a head reaches above 28%.
+- A prop between the camera and its subject (M5's `begged`: a floor lamp's pole down the middle of the frame;
+  from behind, a blocky dog read as a tan box): no check sees these. Every new camera position gets its still
+  before the shoot, even one found by a search that passed every check.
 - A punchline that repeats the last side (M2's "Me:" with the last day's dead eyes): the closer has to say
   which side it's on, in the picture or the header.

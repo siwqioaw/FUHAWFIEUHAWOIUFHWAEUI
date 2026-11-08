@@ -71,3 +71,10 @@ A third fresh reviewer, with the earlier rounds. No must-fix problems; every mea
 Nine shots planned again and shot again: `slides` is new, and the shots after it kept their seeds (their drift), so
 `pres_day` and `we` kept their frames. `slides` was shot a second time: from over his shoulder his head hid all of
 the screen but "de 0"; it's shot from high over his head now.
+
+## After round 3 (2026-11-08): checked on the delivered cuts
+
+Every cut of the delivered file looked at: the whole board at the first frame, his hands on his head inside the
+frame, the cheer inside it, the jock's eyes open on "Seen.", "Slide 40 / 40" readable over his shoulder (shot again
+from high: from his shoulder his head hid it), "and on presentation / day? 👀" inside the width, the three A+ grades
+big over every head at once. -14.4 LUFS, -2.4 dBTP; every check passes.
