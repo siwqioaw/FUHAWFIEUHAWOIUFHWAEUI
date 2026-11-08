@@ -154,7 +154,7 @@ The checks have to come back clean first. Then:
 - every icon overlay: over the right head, on the right word, with its sound;
 - every caption, face and pose on its word, not before it (a caption up before its punch is said kills the joke);
 - every gesture inside the frame (a cheer in a close-up is a sliver of arm at the edge; the plan warns about a raised, flung or held-out hand outside the frame mid-shot, but a gesture that comes and goes needs the stills);
-- no jump cut: the same subject from the same side needs a big change of size or angle across a cut, and the same pose;
+- no jump cut: the same subject from the same side needs a big change of size or angle across a cut, and the same pose (the plan warns under 1.4x and 25 degrees: it found five in the restaged plans, across sets as well);
 - one voice per role: no line in another register (the voice report's register check);
 - the end: nothing cut off in the last frames (a note, a word), so the loop is clean;
 - everyone a shot is about in frame (the portrait frame sees about 4.7 studs either side at 15 studs; the plan
@@ -190,7 +190,7 @@ The checks have to come back clean first. Then:
   in linear light; a projection turned the wrong way.
 
 It confirms that each check catches its failure and passes the clean parts. It also checks `master.py`'s loudness
-meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 115 of 115.
+meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 116 of 116.
 
 On the third trailer cut, the delivered file measured:
 

@@ -44,8 +44,8 @@ s.add(
     shot("hand_up", {"leo": actor([6, 3, -1.9], facing=TO_BOARD, poses=[(0, "idle"), (0.05, "hand_up")],
                                   faces=[(0, "starstruck")]),   # at his desk (it hides his legs), front row
                      "ex3": actor([6, 3, 5.1], facing=TO_BOARD, faces=[(0, "bored")])},   # the row behind
-         [{"t": 0, "pos": [2.6, 6.2, -12.0], "look": [6.0, 5.4, -1.9], "fov": 50},   # from the board's end, at his
-          {"t": 0.04, "pos": [3.1, 6.1, -10.6], "look": [6.0, 5.4, -1.9], "fov": 50, "move": 0.3, "ease": "out"}],
+         [{"t": 0, "pos": [0.4, 6.6, -11.0], "look": [6.0, 5.4, -1.9], "fov": 50},   # from the board's end, at his
+          {"t": 0.04, "pos": [0.9, 6.5, -9.8], "look": [6.0, 5.4, -1.9], "fov": 50, "move": 0.3, "ease": "out"}],
          set="class", seconds=length(1)),   # eye height: the hand clears his head
     shot("friends", {"leo": actor([-2.2, 3, 0], facing=[0.2, 0, 1], poses=[(0, "cheer")], faces=[(0, "grin")]),
                      "friend": actor([2.2, 3, 0], facing=[-0.2, 0, 1], poses=[(0, "cheer")], faces=[(0, "laugh")])},

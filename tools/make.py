@@ -654,6 +654,61 @@ def _framing(plan: dict, size=(1080, 1920)) -> list[str]:
     return out
 
 
+def _head_on_screen(view: dict, a: dict, t: float, size) -> tuple | None:
+    """Where an actor's head lands and how big it is (radius in pixels), and the camera's angle round it (degrees
+    from its face, and above it), or None when the head is out of frame or behind the camera."""
+    import camera
+    if a.get("walk"):   # where the walk has it at t (shot_fn's walk)
+        import pose
+        w = a["walk"]
+        dist = math.dist(w["from"], w["to"])
+        u = min(1.0, pose.walk_travel(max(0.0, t - w.get("start", 0.0)), freq=w.get("freq", 1.5)) / dist) if dist else 1.0
+        p = [w["from"][k] + (w["to"][k] - w["from"][k]) * u for k in range(3)]
+        head = [p[0], p[1] + HEAD, p[2]]
+        d = [w["to"][0] - w["from"][0], 0.0, w["to"][2] - w["from"][2]]
+    else:
+        pos = a["cf"]["pos"]
+        look = a["cf"].get("look") or [pos[0], pos[1], pos[2] + 1.0]
+        d = [look[0] - pos[0], 0.0, look[2] - pos[2]]
+        n = math.hypot(d[0], d[2]) or 1.0
+        head = _posed_points(pos, [d[0] / n, 0.0, d[2] / n], a.get("poses") or [[0.0, "idle"]], t,
+                             a.get("planted", True))[0]
+    xy = camera.project(view, head, size=size)
+    top = camera.project(view, [head[0], head[1] + 0.6, head[2]], size=size)
+    if not xy or not top or not (0 <= xy[0] <= size[0] and 0 <= xy[1] <= size[1]):
+        return None
+    c = view["pos"]
+    v = [c[0] - head[0], c[1] - head[1], c[2] - head[2]]
+    yaw = math.degrees(math.atan2(v[0] * d[2] - v[2] * d[0], v[0] * d[0] + v[2] * d[2]))   # 0: in front of it
+    pitch = math.degrees(math.atan2(v[1], math.hypot(v[0], v[2])))
+    return abs(xy[1] - top[1]), yaw, pitch
+
+
+def _jump_cuts(plan: dict, size=(1080, 1920)) -> list[str]:
+    """Across each cut, anyone in frame on both sides at nearly the same size (under 1.4x) and from nearly the same
+    angle (under 25 degrees round, 15 up or down): a jump cut. Change the size 1.5x or more, or the angle 30
+    degrees or more, or cut to someone else."""
+    import camera
+    out = []
+    shots = plan["shots"]
+    for a, b in zip(shots, shots[1:]):
+        va = camera.moves([(k[0], k[1], k[2], k[3]) for k in a["camera"]])(max(0.0, a["seconds"] - 1e-3))
+        vb = camera.moves([(k[0], k[1], k[2], k[3]) for k in b["camera"]])(0.0)
+        for name in set(a.get("actors", {})) & set(b.get("actors", {})):
+            ha = _head_on_screen(va, a["actors"][name], a["seconds"], size)
+            hb = _head_on_screen(vb, b["actors"][name], 0.0, size)
+            if not ha or not hb or min(ha[0], hb[0]) < 1:
+                continue
+            ratio = max(ha[0], hb[0]) / min(ha[0], hb[0])
+            turn = abs((ha[1] - hb[1] + 180) % 360 - 180)
+            tilt = abs(ha[2] - hb[2])
+            if ratio < 1.4 and turn < 25 and tilt < 15:
+                out.append(f"{a['name']} -> {b['name']}: {name} at {ratio:.2f}x the size, {turn:.0f} degrees round, "
+                           f"{tilt:.0f} up or down across the cut: a jump cut (change the size 1.5x, or the angle "
+                           f"30 degrees)")
+    return out
+
+
 def _reach(poses: list) -> tuple:
     """The floor box an actor covers over every pose it takes, in its own axes (pose.reach())."""
     import pose
@@ -964,6 +1019,8 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
         print(f"  framing: {warn}")
     for warn in _staging(plan):
         print(f"  staging: {warn}")
+    for warn in _jump_cuts(plan):
+        print(f"  cut: {warn}")
     for warn in _cameras_in_sets(plan, sh.spec):
         print(f"  camera: {warn}")
     import qc

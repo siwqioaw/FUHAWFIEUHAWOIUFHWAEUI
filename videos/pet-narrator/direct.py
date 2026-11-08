@@ -88,9 +88,10 @@ s.add(
          until="b:like"),
     shot("mirror", {"max": actor([-6.5, 3, 1.5], facing=[0, 0, -1], poses=[(0, "idle"), ("b:hi", "wave"), ("b:nine", "idle")],
                                  faces=[(0, "grin"), ("b:nine", "cringe")])},
-         [{"t": 0, "aim": "max.head+[1.1,0.2,0]", "distance": 6.8, "fov": 52},   # wide enough for the wave on "hi",
-          {"t": "b:nine", "aim": "max.head", "distance": 4.2, "fov": 45, "move": 0.3, "ease": "out"}],   # then in
-         set="home", until="b:or"),   # on the cringe
+         [{"t": 0, "aim": "max.head+[1.1,0.2,0]", "distance": 6.8, "fov": 52, "orbit": 30},   # wide enough for the
+          {"t": "b:nine", "aim": "max.head", "distance": 4.2, "fov": 45, "move": 0.3, "ease": "out", "orbit": 30}],
+         # wave on "hi", then in on the cringe; 30 degrees round, or it cut from the street's Max like a jump
+         set="home", until="b:or"),
     shot("cartoon", {"max": actor([-2, 3, 3], facing=[0, 0, -1], poses=[(0, "idle")], faces=[(0, "cry")])},
          [{"t": 0, "aim": "max.head+[0,0.2,0]", "distance": 7.5, "fov": 48, "height": -0.3, "orbit": 40},
           {"t": 0.04, "aim": "max.head+[0,0.2,0]", "distance": 6.6, "fov": 48, "height": -0.3, "orbit": 40,
@@ -124,7 +125,8 @@ s.add(
          push("lily.head+[0,0.3,0]", 6.0, 4.6), set="dance", until="c:lily#2"),
     shot("smiled", {"lily": actor([0, 3, -8], facing=[0.5, 0, 1], poses=[(0, "idle")], faces=[(0, "love")]),
                     "max": actor([2.4, 3, -6.6], facing=[-0.5, 0, 1], faces=[(0, "wide_happy")])},   # clear of her arm
-         wide([1.2, 5.2, 1.0], [1.2, 5.4, -7.4], fov=50), set="dance", until="c:and#2"),
+         [{"t": 0, "pos": [3.6, 4.2, -0.5], "look": [0.6, 4.6, -7.6], "fov": 50}], set="dance",
+         until="c:and#2"),   # her smile square to the lens; from the front it cut into honestly's Max like a jump
     shot("honestly", {"max": actor([2.6, 3, -6.4], facing=[-1, 0, -0.3], faces=[(0, "wide_happy")])},
          push([3.4, 3.8, -6.2], 9.0, 7.5, fov=50, toward=[-1, 0, -0.1]), set="dance", sfx=[("pop", "c:honestly", -10)],
          overlays=[bubble(DANCE_DOG, "c:honestly", 220, 1.2)], until="c:best"),

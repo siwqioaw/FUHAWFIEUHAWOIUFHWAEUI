@@ -767,6 +767,19 @@ def pipeline_checks(expect) -> None:
     expect(f"make: the plan flags a gesture cut off by the frame (a cheer at 4 studs: {cut_cheer}) and passes it "
            f"framed wider ({wide_cheer}) and arms at rest in the close-up ({close_idle})",
            len(cut_cheer) == 2 and not wide_cheer and not close_idle)
+    def cut_pair(dist_b, orbit_b):
+        def shot_(name, dist, orb):
+            import math as _m
+            pos = [dist * _m.sin(_m.radians(orb)), 4.5, -dist * _m.cos(_m.radians(orb))]
+            return {"name": name, "seconds": 1.0, "actors": {"a": {"cf": {"pos": [0, 3, 0], "look": [0, 3, -10]},
+                                                                   "poses": [[0.0, "idle"]]}},
+                    "camera": [[0.0, {"pos": pos, "look": [0, 4.5, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0,
+                                "out"]]}
+        return make._jump_cuts({"shots": [shot_("one", 6.0, 0), shot_("two", dist_b, orbit_b)]})
+    same, bigger, round_ = cut_pair(6.6, 8), cut_pair(3.6, 0), cut_pair(6.0, 35)
+    expect(f"make: the plan flags a jump cut (the same face at 1.1x and 8 degrees round: {same}) and passes a cut "
+           f"to 1.67x the size ({bigger}) or 35 degrees round ({round_})",
+           len(same) == 1 and "jump cut" in same[0] and not bigger and not round_)
     def cam_at(pos):
         return {"name": "c", "set": None, "seconds": 0.5,
                 "camera": [[0.0, {"pos": pos, "look": [0, 4, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]]}

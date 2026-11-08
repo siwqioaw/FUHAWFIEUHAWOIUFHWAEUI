@@ -110,7 +110,9 @@ s.add(
     # he went through them
          wide([0, 6.5, 4.5], [0, 3.8, -12], fov=62), set="new_school", until="b:ding#2"),   # in front of the bank
     shot("dingding", {"leo": actor([0, 3, -5], facing=US, poses=[(0, "hands_on_head")], faces=[(0, "scared")])},
-         push("leo.face", 6.2, 5.0, move=0.4), set="new_school",   # his hands on his head inside the frame
+         [{"t": 0, "aim": "leo.face", "distance": 6.4, "fov": 45, "height": -1.4, "orbit": 30},   # his hands on his
+          {"t": 0.04, "aim": "leo.face", "distance": 5.2, "fov": 45, "height": -1.4, "orbit": 30, "move": 0.4,
+           "ease": "out"}], set="new_school",   # head inside; low and round, unlike the next shot's frontal push
          sfx=[("ding", "b:ding#2", 1), ("ding", "b:ding#3", 1), ("ding", "b:ding#4", 1)],
          overlays=[bell("leo.head+[1.0,0.2,0]", "b:ding#2", 120), bell("leo.head+[-1.0,0.4,0]", "b:ding#3", 120),
                    bell("leo.head+[0,0.6,0]", "b:ding#4", 130)],
@@ -157,7 +159,7 @@ s.add(
                               faces=[(0, "nervous"), ("c:down", "grin")],
                               walk={"from": [-3.8, 3, SEAT_B], "to": [-7.6, 3, SEAT_B], "start": 0.0}),
                  "her": actor([-12.0, 3, SEAT_B], facing=[0, 0, 1], poses=[(0, SIT)], faces=[(0, "cute")])},
-         [{"t": 0, "pos": [-5.6, 4.3, 10.5], "look": [-9.6, 3.6, SEAT_B], "fov": 56}], set="lunch",
+         [{"t": 0, "pos": [-3.4, 4.3, 9.5], "look": [-9.6, 3.6, SEAT_B], "fov": 56}], set="lunch",
          until="c:the#6"),
     shot("her", {"leo": actor([-7.6, 3, SEAT_B], facing=[0, 0, 1], poses=[(0, SIT)],
                               faces=[(0, "grin"), ("c:ding", "starstruck")]),
