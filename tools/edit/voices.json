@@ -1,0 +1,98 @@
+{
+ "about": "The voice cast: which ElevenLabs voice plays each role, and how voice.py processes its takes. Chosen in spike S5 (2026-11-08) by measuring auditions against the reference voices (docs/VOICE.md). Voice ids come from the connector's voice list; swap a role's voice here and every later line uses it.",
+ "model": "eleven_v4",
+ "defaults": {
+  "keep": 0.07,
+  "max_pause": 0.2,
+  "level_db": -18.0,
+  "tempo_method": "atempo"
+ },
+ "roles": {
+  "narrator": {
+   "name": "Liam",
+   "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+   "category": "premade",
+   "for": "family A's on-screen narrator: setups, rants, retorts",
+   "tags": "[excited] for setups, [sarcastic] or [deadpan] for retorts, [shouting] for outbursts",
+   "tempo": 1.12,
+   "pitch": [
+    135,
+    300
+   ],
+   "measured": "audition 221 Hz median, 3.6 words a second after 1.12x; the references' narrators 191-247 Hz; a sarcastic retort read 149 Hz, so the range is wide: it catches a wrong voice, not a mood"
+  },
+  "girl": {
+   "name": "Yuria",
+   "voice_id": "vGfq3y2g8QTWjuUhrNYc",
+   "category": "library",
+   "for": "teen girls' lines: the popular girl, the teacher's pet, a sister",
+   "tags": "[bubbly], [sweetly], [sarcastic], [whining]",
+   "tempo": 1.1,
+   "pitch": [
+    230,
+    450
+   ],
+   "measured": "audition 327 Hz; the references' girls about 320 Hz"
+  },
+  "girl_bratty": {
+   "name": "Kathie",
+   "voice_id": "o9B86nZP8mMLaT5FBEzP",
+   "category": "library",
+   "for": "a spoiled, sassier girl when two girls talk",
+   "tags": "[sassy], [spoiled], [bubbly]",
+   "tempo": 1.1,
+   "pitch": [
+    230,
+    460
+   ],
+   "measured": "audition 383 Hz"
+  },
+  "deep": {
+   "name": "Adam",
+   "voice_id": "pNInz6obpgDQGcFmaJgB",
+   "category": "premade",
+   "for": "one-word or short deadpan punches, in-world notices read aloud",
+   "tags": "[deadpan] [deep voice]",
+   "tempo": 1.0,
+   "keep": 0.08,
+   "max_pause": 0.25,
+   "pitch": [
+    60,
+    165
+   ],
+   "measured": "audition 81 Hz; the references' deep punches 79-123 Hz"
+  },
+  "story": {
+   "name": "Liam",
+   "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+   "category": "premade",
+   "for": "family B's storyteller, reading everything, characters' lines included",
+   "tags": "[urgent] to open, [softly] or [slowly] for the twist's last line",
+   "tempo": 1.2,
+   "keep": 0.05,
+   "max_pause": 0.15,
+   "pitch": [
+    140,
+    260
+   ],
+   "rate": [
+    4.0,
+    5.4
+   ],
+   "measured": "audition 187 Hz, 5.0 words a second in one sentence at 1.2x; the references' storytellers 173-233 Hz, 4.1-4.7 words a second over whole stories"
+  },
+  "mom": {
+   "name": "Lyra",
+   "voice_id": "ofWwoMxOYgLntvYlQLiB",
+   "category": "library",
+   "for": "a mom or another adult woman (the references mostly keep moms in the narrator's voice)",
+   "tags": "[warmly], [stern], [shouting]",
+   "tempo": 1.08,
+   "pitch": [
+    180,
+    460
+   ],
+   "measured": "audition 432 Hz when bubbly; untested as a mom"
+  }
+ }
+}

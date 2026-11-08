@@ -1,0 +1,26 @@
+{
+ "cast": "tools/edit/voices.json",
+ "lines": [
+  {
+   "id": "l1",
+   "role": "narrator",
+   "text": "[excited] Why does every group project have that ONE person?",
+   "take": "build/s5/raw/narrator_liam.mp3"
+  },
+  {
+   "id": "l2",
+   "role": "girl",
+   "text": "[bubbly] Oh my gosh, you guys, I'll do the title page!",
+   "take": "build/s5/raw/girl_yuria.mp3"
+  },
+  {
+   "id": "l3",
+   "role": "narrator",
+   "text": "[sarcastic] The title page. For a forty slide project.",
+   "takes": [
+    "build/s5/raw/l3_a.mp3",
+    "build/s5/raw/l3_b.mp3"
+   ]
+  }
+ ]
+}

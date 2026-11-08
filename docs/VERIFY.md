@@ -115,6 +115,8 @@ The checks have to come back clean first. Then:
 - every crossing in `audio_report.md`: meant?
 - every hit: a sound on it?
 - every key word of the voice: nothing louder on top of it;
+- every voice line: its `report.md` clean (every scripted word heard, pauses cut, the role's pitch and level), and
+  the line in the voice of the character who says it;
 - continuity: who, where and what, shot to shot;
 - every walk and lean: full-size crops of the feet at full stride and as they pass, from a camera at ankle height
   where you can: the planted foot stays put and no planted sole goes into the floor (`pose.walk_check` measures a
@@ -145,7 +147,7 @@ The checks have to come back clean first. Then:
   in linear light; a projection turned the wrong way.
 
 It confirms that each check catches its failure and passes the clean parts. It also checks `master.py`'s loudness
-meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 63 of 63.
+meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 68 of 68.
 
 On the third trailer cut, the delivered file measured:
 

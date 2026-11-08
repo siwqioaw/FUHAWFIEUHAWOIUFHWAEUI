@@ -327,6 +327,10 @@ times are approximate, and it is sometimes wrong. What could be measured was che
 - Endings are hard by design: a cut mid-boom (001, 010), mid-scream (004), or mid-word ("emergency bu—", 011;
   "taught—", 013), so the viewer finishes it on the replay.
 
+**Measured since** (`tools/verify/speech.py refs`, 2026-11-08): comedy videos' median pitch 191-247 Hz at 2.9-3.6
+words a second; stories' 173-233 Hz (003's baritone 86 Hz) at 4.1-4.7. Our cast was picked against these
+(`docs/VOICE.md`).
+
 **Still open:** the stock loops' titles; which TTS service and voices, for certain; exact music on and off times.
 
 ## Targets for the skill

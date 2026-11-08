@@ -442,9 +442,60 @@ def main() -> int:
            f"blur at full speed ({fast_peak:.0f} px); two seeds drift apart",
            camera.smear(small_cut, 0.1) == 0 and fast_peak > 500 and abs(drifts[0] - drifts[1]) > 1e-4)
 
+    voice_checks(expect)
+
     bad = [w for w, ok in results if not ok]
     print(f"\n{len(results) - len(bad)}/{len(results)} as expected. Files in {OUT}")
     return 1 if bad else 0
+
+
+def voice_checks(expect) -> None:
+    """The voice tools against synthetic speech: harmonic 'words', a silence and a breath between them."""
+    import master
+    import speech
+    import voice
+
+    sr = 48000
+
+    def word(f0: float, dur: float) -> np.ndarray:
+        t = np.arange(int(dur * sr)) / sr
+        x = sum(np.sin(2 * np.pi * f0 * k * t) / k for k in range(1, 15))
+        env = np.minimum(1, np.minimum(t / 0.02, (dur - t) / 0.02))
+        return 0.3 * x * env
+
+    tones = {f: speech.pitch(word(f, 1.0), sr)["median"] for f in (110.0, 220.0, 330.0)}
+    expect(f"speech: YIN finds 110, 220 and 330 Hz ({tones})",
+           all(abs(v - f) / f < 0.01 for f, v in tones.items()))
+    rng = np.random.default_rng(5)
+    breath = np.convolve(0.02 * rng.standard_normal(int(0.25 * sr)), np.ones(24) / 24, mode="same")  # a dark hiss
+    line = np.concatenate([np.zeros(int(0.2 * sr)), word(200, 0.5), np.zeros(int(0.3 * sr)), breath,
+                           np.zeros(int(0.1 * sr)), word(240, 0.5), np.zeros(int(0.3 * sr))])
+    y, cuts = voice.tighten(voice.trim(line, sr), sr, keep=0.07)
+    db = speech.frames_db(y, sr)
+    loud = db > np.percentile(db, 95) - 20
+    on = np.flatnonzero(loud)
+    holes = np.flatnonzero(np.diff(on) > 1)  # where the loud frames break: the gap between the two words
+    gap = round((on[holes[0] + 1] - on[holes[0]] - 1) * 0.01, 2) if len(holes) == 1 else None
+    kept = int(loud.sum()) * 0.01
+    expect(f"voice: tighten cuts a 0.65 s pause and breath to {gap} s and keeps both words ({kept:.2f} of 1.0 s "
+           f"loud)", gap is not None and gap <= 0.1 and abs(kept - 1.0) < 0.06 and len(cuts) == 1)
+    y2, _ = voice.normalize(line, sr, -18.0)
+    expect(f"voice: normalize sets the speech level ({speech.level(y2, sr):.2f} dB) under -1 dBTP "
+           f"({master.true_peak_db(y2[:, None]):.2f})",
+           abs(speech.level(y2, sr) + 18) < 0.3 and master.true_peak_db(y2[:, None]) <= -0.9)
+    heard = [{"word": w} for w in "the title page for a 40 -slide project".split()]
+    ok = speech.match("[sarcastic] The title page. For a forty-slide project.", heard)
+    miss = speech.match("The title page. For a forty-slide project.", heard[:2] + heard[3:])
+    expect(f"speech: match takes '40' for 'forty' and drops tags ({ok['ratio']}); a missing word fails "
+           f"({miss['missing']})", ok["ratio"] == 1.0 and miss["missing"] == ["page"])
+    role = {"pitch": [175, 265], "max_pause": 0.2, "level_db": -18.0}
+    m_good = {"match": {"ratio": 1.0, "missing": []}, "lead": 0.01, "tail": 0.05, "longest_pause": 0.08,
+              "pitch": {"median": 210.0}, "words_per_s": 3.5, "level_db": -18.0, "true_peak_db": -2.0}
+    m_bad = dict(m_good, longest_pause=0.4, pitch={"median": 330.0})
+    good = [ok_ for ok_, _ in voice.check(m_good, role, {})]
+    bad = [what for ok_, what in voice.check(m_bad, role, {}) if not ok_]
+    expect(f"voice: check passes a good line and fails a long pause and the wrong voice's pitch ({len(bad)} fails)",
+           all(good) and len(bad) == 2 and any("pause" in b for b in bad) and any("pitch" in b for b in bad))
 
 
 if __name__ == "__main__":
