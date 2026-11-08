@@ -190,7 +190,7 @@ The checks have to come back clean first. Then:
   in linear light; a projection turned the wrong way.
 
 It confirms that each check catches its failure and passes the clean parts. It also checks `master.py`'s loudness
-meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 117 of 117.
+meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 118 of 118.
 
 On the third trailer cut, the delivered file measured:
 

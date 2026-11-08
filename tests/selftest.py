@@ -791,6 +791,21 @@ def pipeline_checks(expect) -> None:
     expect(f"make: the plan flags an icon over a subject hidden behind an actor (M5's dog behind Max: {behind}) and "
            f"passes one beside him ({beside}) and one over his own head ({own})",
            len(behind) == 1 and "hidden behind max" in behind[0] and not beside and not own)
+    stamp_dir = os.path.join(OUT, "stamp_test")
+    os.makedirs(stamp_dir, exist_ok=True)
+    plan_s = {"fps": 60, "shots": [{"name": "s", "frames": 10, "camera": [[0.0, {"pos": [0, 4, -8], "look": [0, 4, 0],
+              "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]], "actors": {}, "seed": 0}]}
+    key = make._shot_key(plan_s, plan_s["shots"][0])
+    unstamped = make._stale_frames(stamp_dir, key)
+    with open(os.path.join(stamp_dir, "_shot.json"), "w", encoding="utf-8") as fh:
+        json.dump({"key": key}, fh)
+    same = make._stale_frames(stamp_dir, key)
+    moved = json.loads(json.dumps(plan_s))
+    moved["shots"][0]["camera"][0][1]["pos"][2] = -9
+    changed = make._stale_frames(stamp_dir, make._shot_key(moved, moved["shots"][0]))
+    expect(f"make: a shot's frames know the plan they were shot from: the same plan is current ({same}), a moved camera "
+           f"makes them stale, to be shot again ({changed}); frames from before stamps count as current ({unstamped})",
+           not same and changed and not unstamped)
     def cam_at(pos):
         return {"name": "c", "set": None, "seconds": 0.5,
                 "camera": [[0.0, {"pos": pos, "look": [0, 4, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]]}

@@ -1202,6 +1202,27 @@ def _done_frames(d: str, n: int) -> int:
     return k
 
 
+def _shot_key(plan: dict, shot: dict) -> str:
+    """What a shot's frames depend on in the plan (its camera, actors, length, frame rate), as a short hash. The shoot
+    stamps each shot's folder with it, and shoots a shot again when its plan has changed since."""
+    import hashlib
+    keep = {"fps": plan["fps"], "frames": shot["frames"], "camera": shot["camera"], "actors": shot["actors"],
+            "drift": shot.get("drift", 1.0), "seed": shot.get("seed", 0)}
+    return hashlib.sha1(json.dumps(keep, sort_keys=True).encode("utf-8")).hexdigest()[:16]
+
+
+def _stale_frames(d: str, key: str) -> bool:
+    """True when a shot's folder was shot from another plan (its stamp differs). A folder without a stamp (shot before
+    stamps) counts as current."""
+    stamp = os.path.join(d, "_shot.json")
+    if not os.path.exists(stamp):
+        return False
+    try:
+        return json.load(open(stamp, encoding="utf-8")).get("key") != key
+    except (OSError, ValueError):
+        return True
+
+
 def stage_shoot(sh: Short, only: list[str] | None = None, stills: bool = False) -> bool:
     import capture
     plan = _load(sh.path("plan.json"))
@@ -1215,11 +1236,20 @@ def stage_shoot(sh: Short, only: list[str] | None = None, stills: bool = False) 
                 capture.take(d, shot_fn(plan, s, cast), seconds=s["seconds"], fps=plan["fps"], only=[mid],
                              warmup=2.0, portrait=True)
                 continue
+            key = _shot_key(plan, s)
+            if _stale_frames(d, key):   # restaged since it was shot: its frames are from another plan
+                print(f"{s['name']}: its plan changed since it was shot: shooting it again")
+                for f in os.listdir(d):
+                    if f.startswith("f") and f.endswith(".png"):
+                        os.remove(os.path.join(d, f))
             have = _done_frames(d, s["frames"])
             if have >= s["frames"]:
                 print(f"{s['name']}: done")
                 continue
             t0 = time.time()
+            os.makedirs(d, exist_ok=True)
+            with open(os.path.join(d, "_shot.json"), "w", encoding="utf-8") as fh:
+                json.dump({"key": key, "frames": s["frames"]}, fh)
             capture.take(d, shot_fn(plan, s, cast), seconds=s["seconds"], fps=plan["fps"], start=have,
                          warmup=3.0, portrait=True)
             print(f"{s['name']}: {s['frames'] - have} frames in {time.time() - t0:.0f} s")
@@ -1443,6 +1473,10 @@ def stage_cut(sh: Short) -> bool:
     missing = [s["name"] for s in plan["shots"] if _done_frames(sh.path("shots", s["name"]), s["frames"]) < s["frames"]]
     if missing:
         print("cut: shots not shot yet:", missing)
+        return False
+    stale = [s["name"] for s in plan["shots"] if _stale_frames(sh.path("shots", s["name"]), _shot_key(plan, s))]
+    if stale:
+        print("cut: shots shot from another plan (restaged since): shoot them again:", stale)
         return False
     _plan_cached.cache_clear()
     render.master(functools.partial(frame_at, sh.build), plan["frames"], 1080, 1920, plan["fps"],

@@ -9,7 +9,7 @@ driven by an agent skill.
 
 ![Python](https://img.shields.io/badge/python-3.11-3776AB?logo=python&logoColor=white)
 ![Roblox Studio](https://img.shields.io/badge/Roblox%20Studio-MCP-00A2FF)
-![selftest](https://img.shields.io/badge/selftest-117%20%2F%20117-2ea44f)
+![selftest](https://img.shields.io/badge/selftest-118%20%2F%20118-2ea44f)
 ![output](https://img.shields.io/badge/output-1080%C3%971920%20%C2%B7%20-14%20LUFS-8A2BE2)
 
 </div>
@@ -71,7 +71,7 @@ connector (for voices).
 ```powershell
 git clone https://github.com/siwqioaw/vid-editing && cd vid-editing
 pip install -r requirements.txt
-python tests/selftest.py                      # 117 checks against planted failures
+python tests/selftest.py                      # 118 checks against planted failures
 python tools/roblox/facekit.py build build/faces/kit --install   # the 43 faces, into Studio
 python tools/install_skill.py                 # the skill, for every agent on this machine
 python tools/doctor.py                        # is everything ready?
@@ -117,7 +117,7 @@ checklist line (`videos/*/review.md`).
 
 | Part | Tested |
 |---|---|
-| The checks (`tools/verify/`) | `tests/selftest.py`: 117 of 117 |
+| The checks (`tools/verify/`) | `tests/selftest.py`: 118 of 118 |
 | Portrait capture, actors, faces, posing, camera | spikes S1-S4 in Studio (`docs/ROBLOX_CAPTURE.md`) |
 | Voice | spike S5: 14 auditions measured; an independent review's fixes in (`docs/VOICE.md`) |
 | Captions | spike S6: baselines within 2 px of the references; their pace measured from the picture (a new caption every 0.55-0.73 s, the fastest 5% at 30-45 characters a second) and the read-time check set from it (`docs/CAPTIONS.md`) |
