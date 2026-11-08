@@ -100,7 +100,7 @@ s.add(
          push([-42.6, 3.6, 18.3], 11.5, 10.0, fov=50, toward=[-0.4, 0, -1]), sfx=[("pop", "a:love", -10)],
          overlays=[bubble(DOG_A, "a:love", 210)], until="a:because"),
     shot("brag", {"ex2": actor([-26, 3, 18.5], facing=SOUTH, poses=[(0, "hands_on_hips")], faces=[(0, "proud")])},
-         push([-25.3, 4.0, 18.3], 7.0, 11.5, fov=50, toward=[0, 0, -1]),   # a pull back: its first frames had his
+         push([-25.3, 4.4, 18.3], 7.6, 11.5, fov=50, toward=[0, 0, -1]),   # a pull back: its first frames had his
          sfx=[("pop", "a:brag", -10)], overlays=[bubble(CAT_A, "a:brag", 210)], until="a:end+0.04"),   # hair under the captions
     # -- B: the brags, then Max's dog
     shot("aced", {"girl1": actor([8, 3, 18.5], facing=SOUTH, poses=[(0, "arms_crossed")], faces=[(0, "proud")])},
@@ -135,8 +135,8 @@ s.add(
          [{"t": 0, "aim": "max.face+[0,0.8,0]", "distance": 3.6, "fov": 45, "orbit": -30}],
          set="living", until="b:max#2"),
     shot("begged", {"max": actor(BEG, facing=BEG_FACING, poses=[(0, PLEAD)], faces=[(0, "pout")])},
-         wide([7.2, 4.4, 10.4], [2.6, 3.8, 4.4], fov=50), set="living", until="b:he#2"),   # past his dog at his
-    # pleading face (from the side he was seen from behind)
+         wide([8.0, 4.4, 8.4], [2.6, 3.8, 4.4], fov=56), set="living", until="b:he#2"),   # past his dog at his
+    # pleading face (from the side he was seen from behind; from 7.2, 10.4 the floor lamp's pole filled the frame)
     shot("didnt", {},
          push([LDOG[0], 2.5, LDOG[2]], 5.6, 4.7, fov=50, height=0.0, toward=[-0.7, 0, -0.7]), set="living",
          sfx=[("pop", "b:didn't", -10)], overlays=[bubble(LDOG, "b:didn't", 220)], until="b:end+0.04"),
@@ -163,10 +163,10 @@ s.add(
           {"t": 0.04, "aim": PAIR, "distance": 9.0, "fov": 50, "toward": [-0.3, 0, -1], "move": 0.6,
            "ease": "out"}], set="dance", sfx=[("pop", "c:dog", -10)],
          overlays=[bubble(GDOG, "c:dog", 210)], until="c:he#1"),
-    shot("likes_you", {"lily": actor(LILY, facing=[0.75, 0, 0.66], faces=[(0, "shock"), ("c:september", "love")])},
-         [{"t": 0, "pos": [7.6, 2.4, -2.43], "look": [-1.0, 4.3, -6.0], "fov": 52},   # low behind the dog: its
-          {"t": 0.04, "pos": [7.22, 2.4, -2.56], "look": [-1.0, 4.3, -6.0], "fov": 52, "move": 1.2, "ease": "out"}],
-         # head in the frame's foot, her face above it (from over it, the dog was out of frame)
+    shot("likes_you", {},
+         [{"t": 0, "pos": [-1.0, 4.4, -6.0], "look": [4.6, 2.3, -4.05], "fov": 40},   # her eyes: the dog looks up
+          {"t": 0.04, "pos": [-0.4, 4.2, -5.8], "look": [4.6, 2.3, -4.05], "fov": 40, "move": 1.2, "ease": "out"}],
+         # and tells her; her smile is the next shot (from behind it, the dog read as a tan box)
          set="dance", sfx=[("pop", "c:he#1", -10), ("pop", "c:he's", -12)],
          overlays=[bubble(GDOG, "c:he#1", 200, 0.7), bubble(GDOG, "c:he's", 200, 1.0)], until="c:lily#2"),
     shot("smiled", {"lily": actor(LILY, facing=[0.75, 0, 0.66], faces=[(0, "love")])},
