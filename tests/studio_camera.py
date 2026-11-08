@@ -88,9 +88,9 @@ def _end_view(name: str) -> dict:
     if name == "low":
         return camera.low((0.0, 3.6, 0.0), toward=(0, 0, 1), distance=5.0, eye=2.5, fov=55)
     if name == "ots":
-        return camera.ots((0.0, 4.2, 7.0), KID_FACE, side=1.3, behind=2.8, up=0.6, fov=50, blur=0.6, lift=1.0)
+        return camera.ots((0.0, 4.2, 7.0), KID_FACE, side=1.5, behind=2.8, up=0.4, fov=45, blur=0.6, lift=1.0)
     if name == "top":
-        return camera.top((0.0, 3.0, 0.8), height=8.0, up=(0, 0, 1), fov=50)
+        return camera.top((0.0, 3.0, 0.0), height=8.0, up=(0, 0, 1), fov=50)
     raise KeyError(name)
 
 
@@ -242,13 +242,13 @@ def measure() -> None:
         print(f"{name} ({what}): frames {a}-{b}: {' '.join(f'{v:.1f}' for v in move)}; before it "
               f"{m[:a].max() if a else 0:.2f}, after it at most {after.max():.2f}{where}")
     pull = _path("pull")
-    d = [math.dist(pull(k / FPS)["pos"], (0, 4.5, 0)) for k in range(6, 20)]
-    print("pull: the face's size frame to frame, as a share of the frame before: "
+    d = [math.dist(pull(k / FPS)["pos"], KID_FACE) for k in range(6, 20)]
+    print("pull: the face's size frame to frame (by its distance), as a share of the frame before: "
           + " ".join(f"{a / b:.2f}" for a, b in zip(d, d[1:])))
     first = camera.view((0.0, 4.5, 2.4), (0.0, 4.1, 0.0), fov=45)
-    eyes, mouth = camera.project(first, (0, 4.6, 0.6), SIZE), camera.project(first, (0, 4.25, 0.6), SIZE)
-    print(f"pull: in the extreme close-up the eyes sit {eyes[1] / SIZE[1]:.0%} down and the mouth "
-          f"{mouth[1] / SIZE[1]:.0%} (captions from about {CAPTIONS:.0%})")
+    mouth = camera.project(first, (0, 4.25, 0.6), SIZE)
+    print(f"pull: in the extreme close-up the mouth sits {mouth[1] / SIZE[1]:.0%} down (captions from about "
+          f"{CAPTIONS:.0%})")
     last = lambda n: os.path.join(OUT, n, f"f{int(MOVES[n][0] * FPS) - 1:05d}.png")  # noqa: E731
     if os.path.exists(last("dutch")):
         ang, n = _horizon(last("dutch"))
@@ -262,12 +262,23 @@ def measure() -> None:
     if os.path.exists(last("ots")) and os.path.exists(sharp):
         v = _end_view("ots")
         near = camera.project(v, GIRL_HEAD_FACING, SIZE)
-        near = (max(40.0, near[0]), near[1])  # the near head is cut by the frame's left edge
+        px_per_stud = (SIZE[0] / 2) / (math.tan(math.radians(v["fov"] / 2)) * SIZE[0] / SIZE[1])
+        edge = near[0] + 0.75 * px_per_stud / math.dist(v["pos"], GIRL_HEAD_FACING)  # its edge, hair and all
         far = camera.project(v, KID_FACE, SIZE)
-        for label, centre, r in (("the near head", near, 60), ("the far face", far, 50)):
-            print(f"ots, {label} at ({centre[0]:.0f}, {centre[1]:.0f}): sharpness "
-                  f"{_sharpness(last('ots'), centre, r):.1f} with depth of field, {_sharpness(sharp, centre, r):.1f} "
-                  f"without")
+        for label, centre, r in (("the near head's edge", (edge - 30, near[1]), 40),
+                                 ("the near shoulder", (SIZE[0] * 0.25, SIZE[1] * 0.85), 120),
+                                 ("the far face", far, 50)):
+            a, b = _sharpness(last("ots"), centre, r), _sharpness(sharp, centre, r)
+            print(f"ots, {label} at ({centre[0]:.0f}, {centre[1]:.0f}): sharpness {a:.1f} with depth of field, "
+                  f"{b:.1f} without ({100 * (1 - a / b):.0f}% softer)")
+    for name, (secs, start, length, _) in MOVES.items():  # a strip of every move, for the eye
+        video = os.path.join(OUT, name + ".mp4")
+        if os.path.exists(video):
+            subprocess.run([sys.executable, "-I", os.path.join(ROOT, "tools", "verify", "sheets.py"), "strip", video,
+                            "--from", f"{max(0.0, start - 2 / FPS):.3f}", "--to", f"{start + length + 4 / FPS:.3f}",
+                            "--step", "2", "--out", os.path.join(OUT, "strips"), "--name", name + ".jpg"],
+                           check=True, capture_output=True)
+    print("strips of every move in", os.path.join(OUT, "strips"))
 
 
 if __name__ == "__main__":

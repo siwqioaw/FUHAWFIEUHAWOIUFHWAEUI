@@ -38,7 +38,7 @@ the owner rejected the first two (`docs/LESSONS.md` says why). The horror style 
 
 | Part | State |
 |---|---|
-| The checks (`tools/verify/`) | `tests/selftest.py` passes 58 of 58. On the trailer's delivered file they agree with that project's own checks, except that the read-time check is stricter (`docs/VERIFY.md`, "Trusting the checks"). |
+| The checks (`tools/verify/`) | `tests/selftest.py` passes 63 of 63. On the trailer's delivered file they agree with that project's own checks, except that the read-time check is stricter (`docs/VERIFY.md`, "Trusting the checks"). |
 | Mastering, render, encode (`tools/edit/`) | Run by the self-test; the loudness meter agrees with ffmpeg's to 0.05 LU. |
 | Type and effects | Run by the self-test; captions looked at in its contact sheet. Mostly ported from the trailer, where they were used. |
 | The Studio bridge (`studio_mcp.py`) | Ported from the trailer, where it ran for hours; only the server lookup is new. |

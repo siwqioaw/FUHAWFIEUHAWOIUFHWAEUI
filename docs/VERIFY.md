@@ -140,11 +140,12 @@ The checks have to come back clean first. Then:
 - R6 poses that go wrong (`pose.py`): a lean that isn't planted; a walk 10% too fast, at standing height, or not
   planted; a swing that jumps speed; an overshoot that stalls; an arm through the head or chest, at rest or between
   poses;
-- camera moves that overshoot, jump when cut short, ease the wrong way or cut across an orbit; a smear that isn't 0
-  at rest or at a cut, or is too wide; a streak that doubles.
+- camera moves that overshoot, jump when cut short, ease the wrong way, cut across an orbit or move a pan; a smear
+  that isn't 0 at rest or across a cut, or is too wide or too narrow; a streak that doubles, doesn't spread or isn't
+  in linear light; a projection turned the wrong way.
 
 It confirms that each check catches its failure and passes the clean parts. It also checks `master.py`'s loudness
-meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 58 of 58.
+meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 63 of 63.
 
 On the third trailer cut, the delivered file measured:
 

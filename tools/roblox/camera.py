@@ -4,7 +4,7 @@
 The references (refs/r6rants/SYNTHESIS.md, "Camera grammar"), measured frame by frame in spike S4:
 
 - a shot opens with a push-in or pull-back of 0.1-0.3 s: 007's eases out (its first step shrinks the face to about
-  two thirds), 006's run near-steady and then stop;
+  0.71), 006's run steadily and then stop;
 - 007's whip-pan at 4.50 speeds up and slows down, fastest in its middle;
 - 002's swoop that rolls into a dutch angle speeds up and slows down over about 0.4 s;
 - swoops between framings: 001's and 004's are sharp (001's with speed lines), 003's time-jump swoop is blurred;
@@ -111,13 +111,15 @@ def orbit(v: dict, degrees: float) -> dict:
 
 def dutch(v: dict, degrees: float) -> dict:
     """The same view with its roll set to `degrees`, a dutch angle: + tilts the picture clockwise, the horizon falling
-    to the right (spike S4 measured 14.2 degrees for 14)."""
+    to the right (spike S4 measured 14.3 degrees for 14)."""
     return dict(v, roll=float(degrees))
 
 
 def low(target, toward=(0.0, 0.0, 1.0), distance: float = 6.0, eye: float = 2.4, fov: float = 55.0) -> dict:
     """A low angle: the camera `eye` studs above the floor (desk height: an R6 body is 5 tall), looking up at
     `target` from `distance` studs along `toward` (made level)."""
+    if math.hypot(toward[0], toward[2]) < 1e-6:
+        raise ValueError("low(): `toward` needs a level part, the side the camera stands on")
     d = _unit([toward[0], 0.0, toward[2]])
     return view([target[0] + d[0] * distance, eye, target[2] + d[2] * distance], target, 0.0, fov)
 
@@ -156,36 +158,53 @@ def ease_in_out(u: float) -> float:
 EASES = {"out": ease_out, "in": ease_in, "inout": ease_in_out, "linear": lambda u: u}
 
 
-def _turn(a, b, u):
-    """Direction a turned u of the way towards direction b (unit vectors), the short way round; half way round goes
-    about the vertical."""
-    d = max(-1.0, min(1.0, _dot(a, b)))
-    th = math.acos(d)
-    if th < 1e-6:
-        return a
-    if math.pi - th < 1e-3:  # opposite: swing round the vertical
-        c, s = math.cos(math.pi * u), math.sin(math.pi * u)
-        return [a[0] * c + a[2] * s, a[1], -a[0] * s + a[2] * c]
-    s = math.sin(th)
-    return _add(_mul(a, math.sin((1 - u) * th) / s), _mul(b, math.sin(u * th) / s))
+def _swing(a, b, u):
+    """Vector a carried u of the way to vector b round the vertical: its level angle the short way round, its level
+    length and its height each straight. An orbit at any height stays on its circle, and the move ends exactly on
+    b."""
+    ra, rb = math.hypot(a[0], a[2]), math.hypot(b[0], b[2])
+    ta, tb = math.atan2(a[0], a[2]), math.atan2(b[0], b[2])
+    if ra < 1e-9:
+        ta = tb
+    if rb < 1e-9:
+        tb = ta
+    th = ta + ((tb - ta + math.pi) % (2 * math.pi) - math.pi) * u
+    r, y = ra + (rb - ra) * u, a[1] + (b[1] - a[1]) * u
+    return [r * math.sin(th), y, r * math.cos(th)]
+
+
+def _up_for(forward, *ups):
+    """The first of `ups` the camera isn't looking straight along, else the world's up."""
+    for up in ups:
+        if up and _len(_cross(forward, up)) > 0.3:
+            return list(up)
+    return list(UP)
 
 
 def blend(a: dict, b: dict, u: float) -> dict:
-    """The view u of the way from a to b. The aim moves straight; the camera swings round it, its distance changing
-    straight, so a move between two orbit views goes round the circle instead of cutting across it. Roll, field of
-    view and depth of field change straight."""
+    """The view u of the way from a to b.
+
+    - The camera moving: its aim moves straight and the camera swings round it (`_swing`), so a move between two
+      orbit views, at any height, goes round the circle.
+    - The camera staying put (a pan or tilt in place): its line of sight swings, the camera doesn't move.
+    - Roll, field of view and depth of field change straight. An up vector (top-down) is blended, or swapped for
+      whichever key's up the camera isn't looking along."""
     dof = None
     if a["dof"] or b["dof"]:
         da, db = a["dof"] or [b["dof"][0], b["dof"][1], 0.0, 0.0], b["dof"] or [a["dof"][0], a["dof"][1], 0.0, 0.0]
         dof = [x + (y - x) * u for x, y in zip(da, db)]
-    look = [x + (y - x) * u for x, y in zip(a["look"], b["look"])]
-    ra, rb = _sub(a["pos"], a["look"]), _sub(b["pos"], b["look"])
-    la, lb = _len(ra), _len(rb)
-    rel = _mul(_turn(_unit(ra), _unit(rb), u), la + (lb - la) * u)
-    out = {"pos": _add(look, rel), "look": look, "roll": a["roll"] + (b["roll"] - a["roll"]) * u,
+    if _len(_sub(a["pos"], b["pos"])) < 1e-6:
+        pos = list(a["pos"])
+        look = _add(pos, _swing(_sub(a["look"], pos), _sub(b["look"], pos), u))
+    else:
+        look = [x + (y - x) * u for x, y in zip(a["look"], b["look"])]
+        pos = _add(look, _swing(_sub(a["pos"], a["look"]), _sub(b["pos"], b["look"]), u))
+    out = {"pos": pos, "look": look, "roll": a["roll"] + (b["roll"] - a["roll"]) * u,
            "fov": a["fov"] + (b["fov"] - a["fov"]) * u, "dof": dof}
     if a.get("up") or b.get("up"):
-        out["up"] = _unit(_add(_mul(a.get("up") or list(UP), 1 - u), _mul(b.get("up") or list(UP), u)))
+        mixed = _add(_mul(a.get("up") or list(UP), 1 - u), _mul(b.get("up") or list(UP), u))
+        mixed = _unit(mixed) if _len(mixed) > 1e-6 else None
+        out["up"] = _up_for(_unit(_sub(look, pos)), mixed, b.get("up"), a.get("up"))
     return out
 
 
@@ -193,9 +212,11 @@ def moves(keys: list):
     """A camera path from keys [(time, view) or (time, view, seconds, ease)]: from each key's time the camera moves
     from wherever it was to the key's view over `seconds` (default 0.25; 0 cuts) with the ease ("out", "in", "inout",
     "linear"; default "out"), then holds. A move cut short by the next carries on from where it was, but not at its
-    speed: cut it with an "out" move, which starts at speed, or the camera pauses. Returns a function of t."""
+    speed: an "inout" or "in" move cutting in makes the camera pause, an "out" one makes it lurch. Let a move finish
+    before the next. Returns a function of t."""
     keys = sorted(keys, key=lambda k: k[0])
     steps = [(k[0], k[1], k[2] if len(k) > 2 else 0.25, EASES[k[3] if len(k) > 3 else "out"]) for k in keys]
+    cuts = [st[0] for st in steps[1:] if st[2] <= 0]
 
     def during(i: int, start: dict, t: float) -> dict:
         t0, target, dur, ease = steps[i]
@@ -213,6 +234,7 @@ def moves(keys: list):
             cur = during(i, start, t)
         return cur
 
+    at.cuts = cuts  # smear() reads them: no blur across a cut
     return at
 
 
@@ -260,11 +282,14 @@ def shift_px(a: dict, b: dict, size: tuple[int, int] = (960, 1707)) -> tuple[flo
 
 def smear(path, t: float, fps: float = 60, shutter: float = 0.5, size: tuple[int, int] = (960, 1707)) -> float:
     """How many pixels wide fx.streak's smear should be on frame t of a camera path: how far the picture slides
-    sideways while a shutter is open for `shutter` of a frame (0.5, a film camera's 180 degrees). A slide over half
-    the frame's width is a cut, not a move: 0. Captured as three sub-frames instead, a fast swoop showed three
-    separate copies of each face (spike S4). Sideways only."""
-    dx = abs(shift_px(path(t - shutter / 2 / fps), path(t + shutter / 2 / fps), size)[0])
-    return 0.0 if dx > size[0] / 2 else dx
+    sideways while a shutter is open for `shutter` of a frame (0.5, a film camera's 180 degrees). No blur across a
+    cut: a path from moves() lists its cuts. Captured as three sub-frames instead, a fast swoop showed three separate
+    copies of each face (spike S4). Sideways only."""
+    lo, hi = t - shutter / 2 / fps, t + shutter / 2 / fps
+    if any(lo < c <= hi for c in getattr(path, "cuts", ())):
+        return 0.0
+    dx = abs(shift_px(path(lo), path(hi), size)[0])
+    return 0.0 if math.isinf(dx) else dx
 
 
 def project(v: dict, point, size: tuple[int, int] = (960, 1707)):

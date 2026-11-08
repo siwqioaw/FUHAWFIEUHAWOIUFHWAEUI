@@ -365,7 +365,7 @@ def main() -> int:
     side_drift = max(abs(camera.hold(side, k / 60)["pos"][2]) for k in range(240))
     expect(f"camera: drift grows with distance ({drift:.3f} studs at 9 back, {near_drift:.3f} at 5) and works for a "
            f"camera facing sideways ({side_drift:.3f} across its frame)",
-           1.5 < drift / near_drift < 2.0 and side_drift > 0.01)
+           near_drift > 0 and 1.5 < drift / near_drift < 2.0 and side_drift > 0.01)
     ring = camera.aim((0, 4.5, 0), toward=(0, 0, 1), distance=6)
     swing = camera.moves([(0.0, ring), (0.0, camera.orbit(ring, 90), 0.3, "inout")])
     radius = min(math.dist(swing(k / 60)["pos"], (0, 4.5, 0)) for k in range(19))
@@ -394,6 +394,53 @@ def main() -> int:
     tapered = st.argmax() == 15 and all(st[i] <= st[i + 1] + 1e-6 for i in range(15)) and st[1] < 0.5 * st[15]
     flat = wh.max() - wh[wh > 0].min() < 1e-6
     expect("fx: streak tapers to its ends (one streak per feature); whip's flat sweep doesn't", tapered and flat)
+
+    import look as _look
+
+    lin = _look.srgb_to_linear(bar)
+    out = fx.streak(bar, 31)
+    spread = int((out[4, :, 0] > 0.01).sum())
+    energy = float(_look.srgb_to_linear(out)[4, :, 0].sum() / lin[4, :, 0].sum())
+    expect(f"fx: streak spreads a line over its width ({spread} px of 31) and keeps its light ({energy:.3f} in linear "
+           f"light); left alone or blended in sRGB it wouldn't", 27 <= spread <= 33 and abs(energy - 1) < 0.02)
+    eye = camera.aim((0, 4.5, 0), toward=(0, 0, 1), distance=5, fov=45)
+    c0, c_up, c_right = (camera.project(eye, p) for p in ((0, 4.5, 0), (0, 5.5, 0), (1, 4.5, 0)))
+    expect(f"camera: project puts the aim at the centre ({c0[0]:.1f}, {c0[1]:.1f}), a point above it higher and one "
+           f"to the right further right", abs(c0[0] - 480) < 0.5 and abs(c0[1] - 853.5) < 0.5 and c_up[1] < c0[1]
+           and c_right[0] > c0[0])
+    hi = camera.aim((0, 4.5, 0), toward=(0, 0, 1), distance=6, height=2)
+    around = camera.moves([(0.0, hi), (0.0, camera.orbit(hi, 150), 0.3, "inout")])
+    span = [math.dist(around(k / 60)["pos"], (0, 4.5, 0)) for k in range(19)]
+    opp = camera.moves([(0.0, camera.view((0, 5.5, 6), (0, 4.5, 0))),
+                        (0.0, camera.view((0, 3.5, -6), (0, 4.5, 0)), 0.3)])
+    pan = camera.moves([(0.0, camera.view((0, 4, 5), (0, 4, 0))),
+                        (0.0, camera.view((0, 4, 5), (5, 4, 5)), 0.3, "inout")])
+    still = max(math.dist(pan(k / 60)["pos"], (0, 4, 5)) for k in range(19))
+    mid = camera.blend(camera.view((0, 4, 5), (0, 4, 0), fov=40), camera.view((1, 4, 5), (1, 4, 0), fov=60),
+                       0.5)
+    expect(f"camera: an orbit above its subject keeps its distance ({max(span) - min(span):.4f}), opposite views "
+           f"end on the key ({math.dist(opp(0.5)['pos'], (0, 3.5, -6)):.4f}), a pan keeps the camera still "
+           f"({still:.4f}), "
+           f"the field of view blends ({mid['fov']:.0f})",
+           max(span) - min(span) < 1e-6 and math.dist(opp(0.5)["pos"], (0, 3.5, -6)) < 1e-6 and still < 1e-9
+           and abs(mid["fov"] - 50) < 1e-9)
+    topv2 = camera.top((0, 3, 0), height=8, up=(0, 0, 1))
+    to_level = camera.moves([(0.0, topv2),
+                             (0.0, camera.aim((0, 4.5, 0), toward=(0, 0, -1), distance=6), 0.3, "inout")])
+    over2 = camera.ots((0, 4.2, 7), (0, 4.5, 0))
+    focus = camera.back(over2, 1.5)["dof"][0] - over2["dof"][0]
+    expect(f"camera: top-down keeps its up in the harness's keys, a move out of it stays valid, and back() moves the "
+           f"focus with the camera ({focus:.2f} studs for 1.5)",
+           camera.state(topv2)["cam"].get("up") == [0.0, 0.0, 1.0]
+           and all(camera.axes(to_level(k / 60)) for k in range(19))
+           and abs(focus - 1.5) < 1e-9)
+    small_cut = camera.moves([(0.0, left), (0.1, camera.aim((0.5, 4.5, 0), distance=5, fov=45), 0.0)])
+    far = camera.moves([(0.0, left), (0.1, camera.aim((20, 4.5, 0), distance=5, fov=45), 0.15, "inout")])
+    fast_peak = max(camera.smear(far, k / 60) for k in range(20))
+    drifts = {s_: camera.hold(a, 0.5, seed=s_)["pos"][0] for s_ in (0, 1)}
+    expect(f"camera: no smear across a half-stud cut ({camera.smear(small_cut, 0.1):.0f}); a 20-stud swoop keeps its "
+           f"blur at full speed ({fast_peak:.0f} px); two seeds drift apart",
+           camera.smear(small_cut, 0.1) == 0 and fast_peak > 500 and abs(drifts[0] - drifts[1]) > 1e-4)
 
     bad = [w for w, ok in results if not ok]
     print(f"\n{len(results) - len(bad)}/{len(results)} as expected. Files in {OUT}")

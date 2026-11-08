@@ -91,7 +91,7 @@ python tools/roblox/studio_mcp.py call execute_luau '{"code": "return game.Name"
   playtest and `capture.release()` puts back what it found. A held frame then stopped changing within 4 s and stayed
   still for the 71 s measured; `capture.settle` still checks, and ends at its 15 quiet seconds. The frames look the same
   as at the level Automatic reaches (0.05 grey levels apart, no pixel over 8). In the one take shot both ways each frame
-  took about 13% longer (median 1.47 s against 1.30), but S4's six takes at Level 21 ran 0.94-1.25 s a frame: the cost
+  took about 13% longer (median 1.47 s against 1.30), but S4's seven takes at Level 21 ran 0.88-1.80 s a frame: the cost
   depends on what's in view. (2026-11-07)
 
 ## The harness
@@ -365,13 +365,16 @@ def shot(t):
   - `project` says where a point lands in the frame: check that faces sit above about 70% of the frame's height,
     where captions go.
 - **Moves** (`camera.moves`) take keys as poses do: each moves from wherever the camera was over its seconds (0
-  cuts) with an ease, the camera swinging round its aim, so a move between two orbit views goes round the circle.
-  - "out": fastest first, about a fifth of the way on the first of 12 frames: 007's pull-back shrinks the face to
-    two thirds on its first step, ours to 0.61.
+  cuts) with an ease. The camera swings round its aim, its level angle, level distance and height each changing
+  straight, so a move between orbit views goes round the circle at any height; a pan or tilt in place keeps the
+  camera still.
+  - "out": fastest first, about a fifth of the way on the first of 12 frames. Our pull-back shrinks the face to
+    0.54 on its first frame, a harder snap than 007's (about 0.71, tracked in review); "linear" would come closer.
   - "inout": speeding up and slowing down, as 002's swoop into a dutch angle and 007's whip-pan.
-  - "in": speeding up all the way, to cut on the move. "linear": steady, as 006's pull-backs, which run and stop.
-  - A move cut short by the next carries on from where it was, but not at its speed: the camera pauses unless the
-    next move is "out".
+  - "in": speeding up all the way, to cut on the move. "linear": steady, as 006's pull-backs, the picture
+    shrinking 0.93-0.95 a frame, then stopping.
+  - A move cut short by the next carries on from where it was, but not at its speed: an "inout" or "in" move cutting
+    in makes the camera pause, an "out" one makes it lurch. Let a move finish before the next.
 - **Holds** drift slightly (`camera.hold`) across the frame: about 0.02 studs for every 5 studs back, the aim a
   little more, the roll a tenth of a degree. Give each shot its own seed.
 - **Swoops:** the references' are mostly sharp (001 with speed lines, 004); 003's time-jump swoop is blurred. To
@@ -379,26 +382,27 @@ def shot(t):
   wide as the picture slides sideways while a 180 degree shutter is open, with a tapered weight in linear light.
   - Three sub-frames a frame (`capture.take(blur=3)`) showed three separate copies of each face, at three times the
     capture; `fx.whip`'s flat weight doubled the pupils at its ends.
-  - `smear` is sideways only and gives 0 at a cut. A move that keeps its aim (an orbit) gives 0 too: the subject
-    stays put, though the background slides.
+  - `smear` is sideways only, and gives none across a cut in a path from `moves`. A move that keeps its aim (an
+    orbit) gives 0: the subject stays put, though the background slides.
 - **Portrait framing:** a 9:16 frame is narrow, about 2.3 studs wide 5 studs away at 45 degrees. Over the shoulder,
-  the near head sits cut by the frame's edge: 1.3 studs to the side, 2.8 behind and 0.6 up, at 50 degrees.
+  the near head sits cut by the frame's edge: 1.5 studs to the side, 2.8 behind and 0.4 up, at 45 degrees, aimed a
+  stud below the far face. The near head then ends 30% of the way across and the far face starts at 37%.
 
-**Spike S4** (2026-11-07): seven takes at 60 fps in portrait, at Quality Level 21, 0.88-1.81 s a frame (each take's
+**Spike S4** (2026-11-07): seven takes at 60 fps in portrait, at Quality Level 21, 0.88-1.80 s a frame (each take's
 median; top-down, full of floor, the slowest). What each move did:
 
 | Take | Measured | Against the references |
 |---|---|---|
 | Push-in, 0.25 s, "out" | fastest on its first frames, settled after 15 | openings move in 0.2-0.3 s (006) |
-| Pull-back from an extreme close-up, 0.2 s, "out" | the face's size frame to frame: 0.61, 0.76, 0.83, 0.88, 0.92 ... 1.00 | 007 at 3.73: about 0.66 on the first step (tracked in review) |
+| Pull-back from an extreme close-up, 0.2 s, "out" | the face's size frame to frame: 0.54, 0.72, 0.82, 0.87, 0.91 ... 1.00 | 007 at 3.73: about 0.71 on the first step (tracked in review) |
 | Swoop, speaker to listener, 0.15 s, "inout", streaked | a smear of up to 169 px; one streak per eye | 001's and 004's are sharp; 003's is blurred |
 | Swoop that rolls to a dutch angle, 0.35 s, "inout" | the floor's edge at -14.3 degrees at the end | 002 at 0.2: speeds up and slows down over about 0.4 s |
 | Low angle from just above the desk | the camera 2.5 up, looking up 12.4 degrees; the desk's front edge 83% down | 004 keeps the desk large in the foreground (seen in review) |
-| Over the shoulder | depth of field: the near head 94% softer, the near shoulder 91%, the far face 1% | 003 shoots every exchange this way |
-| Top-down | framed by its up vector | 005 and 009 use top-down shots |
+| Over the shoulder | depth of field takes 88% of the near actor's edge detail and leaves the far face (-1%) | 003 shoots every exchange this way |
+| Top-down | framed by its up vector: the head mid-frame, the desk above it | 005 and 009 use top-down shots |
 
-- **Faces clear of the captions:** every take ends with the kid's face 30-63% down the frame; in the extreme close-up
-  the eyes sit 23% down and the mouth 47%.
+- **Faces clear of the captions:** every take ends with the kid's face 30-50% down the frame; in the extreme close-up
+  the mouth sits 47% down. `measure` also strips every move (`build/s4/strips`).
 - **What the difference between frames can't do:** it rises and falls with what's in view as much as with the camera
   (the swoop's dip is the empty gap between the actors passing), and it can't separate the camera from the actors'
   animation. Track a feature instead: a face's size, the floor's tiles.
@@ -438,8 +442,9 @@ collapsed; Full Screen on; Command Bar off. `take` prints the frame size it will
 1280 x 841; **0.94 s a frame at 1914 x 960 with the portrait turn and crop**, on an empty baseplate. So about 28 minutes
 of capture for a minute of video at 30 fps, 56 at 60. With two posed, dressed actors on set (S3): about 1.3 s a frame at
 the Automatic quality level (median 1.27-1.37 over five takes, slowest 1.8). At the highest level the harness now sets:
-1.47 s for a take full of floor and feet, 0.94-1.25 s for S4's six (each take's median): so 30-45 minutes for a minute
-at 30 fps, 60-90 at 60. Heavy work on the same PC slows it: frames took 4-6 s while a video decode ran.
+0.88-1.80 s for S4's seven takes (each take's median) and 1.47 s for S3's feet take: so 26-54 minutes for a minute at 30
+fps, 53-108 at 60, depending on what's in view. Heavy work on the same PC slows it: frames took 4-6 s while a video
+decode ran.
 
 **Not needed, but possible, for true 1080 x 1920:** capture each frame as two tiles (the camera turned up and down
 about the same point, so no parallax) and stitch them with a homography. It doubles the capture time.
