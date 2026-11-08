@@ -1,0 +1,1950 @@
+{
+ "slug": "pet-narrator",
+ "title": "In this world, your pet narrates your life out loud",
+ "family": "story",
+ "fps": 60,
+ "set": "street",
+ "set_options": {
+  "props": [
+   {
+    "kind": "dog",
+    "at": [
+     -42,
+     0,
+     18
+    ],
+    "facing": [
+     0,
+     0,
+     -1
+    ],
+    "color": [
+     185,
+     185,
+     190
+    ],
+    "spot": [
+     250,
+     250,
+     250
+    ],
+    "collar": [
+     60,
+     120,
+     230
+    ]
+   },
+   {
+    "kind": "cat",
+    "at": [
+     -24.6,
+     0,
+     18
+    ],
+    "facing": [
+     0,
+     0,
+     -1
+    ],
+    "color": [
+     230,
+     150,
+     70
+    ]
+   },
+   {
+    "kind": "cat",
+    "at": [
+     9.4,
+     0,
+     18
+    ],
+    "facing": [
+     0,
+     0,
+     -1
+    ],
+    "color": [
+     90,
+     90,
+     100
+    ]
+   },
+   {
+    "kind": "dog",
+    "at": [
+     25.8,
+     0,
+     18
+    ],
+    "facing": [
+     0,
+     0,
+     -1
+    ],
+    "color": [
+     60,
+     55,
+     55
+    ],
+    "spot": [
+     240,
+     240,
+     240
+    ],
+    "collar": [
+     250,
+     200,
+     40
+    ]
+   },
+   {
+    "kind": "dog",
+    "at": [
+     45.8,
+     0,
+     18
+    ],
+    "facing": [
+     0,
+     0,
+     -1
+    ],
+    "color": [
+     205,
+     150,
+     90
+    ],
+    "spot": [
+     240,
+     230,
+     215
+    ],
+    "collar": [
+     220,
+     50,
+     60
+    ]
+   }
+  ]
+ },
+ "cast": {
+  "max": {
+   "look": "jock"
+  },
+  "lily": {
+   "look": "popular_girl"
+  },
+  "girl1": {
+   "look": "bestie"
+  },
+  "ex1": {
+   "look": "extra_a"
+  },
+  "ex2": {
+   "look": "extra_b"
+  },
+  "ex3": {
+   "look": "extra_c"
+  }
+ },
+ "lines": [
+  {
+   "id": "a",
+   "role": "story",
+   "text": "[urgent] In this world, every pet narrates its owner's life, out loud. Dogs, cats, even goldfish. And most people love it, because their pets brag about them all day."
+  },
+  {
+   "id": "b",
+   "role": "story",
+   "text": "[warmly] Mia aced her math test. Jake's the fastest kid in school. [urgent] But Max's dog only tells the truth. Like how Max practiced saying hi to Lily nine times, in the mirror. Or how he cried at a cartoon. Twice. Max begged him to stop. He didn't."
+  },
+  {
+   "id": "c",
+   "role": "story",
+   "text": "[curious] Then, at the school dance, Max finally walked up to Lily, and froze. [softly] So his dog said it for him. He likes you. He's liked you since September. [warmly] Lily smiled. And honestly? I'd do it again. Best dog ever. That's me, by the way."
+  }
+ ],
+ "shots": [
+  {
+   "name": "rule",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "ex1": {
+     "at": [
+      -44,
+      3,
+      18.5
+     ],
+     "poses": [
+      [
+       0,
+       "hands_on_hips"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "proud"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": [
+      -43,
+      3.2,
+      18.3
+     ],
+     "distance": 11.0,
+     "fov": 50,
+     "height": -0.3,
+     "toward": [
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "t": 0.04,
+     "aim": [
+      -43,
+      3.2,
+      18.3
+     ],
+     "distance": 7.5,
+     "fov": 50,
+     "height": -0.3,
+     "move": 0.28,
+     "ease": "out",
+     "toward": [
+      0,
+      0,
+      -1
+     ]
+    }
+   ],
+   "say": [
+    {
+     "line": "a",
+     "at": 0.0
+    }
+   ],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "a:dogs",
+   "overlays": [
+    {
+     "icon": "💬",
+     "over": [
+      -42.0,
+      2.7,
+      16.7
+     ],
+     "at": "a:pet",
+     "size": 130,
+     "lift": 0.35,
+     "dur": 0.9
+    }
+   ]
+  },
+  {
+   "name": "cats",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "ex2": {
+     "at": [
+      -26,
+      3,
+      18.5
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "smile"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": [
+      -25.3,
+      3.0,
+      18.3
+     ],
+     "distance": 8.5,
+     "fov": 48,
+     "height": -0.3,
+     "toward": [
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "t": 0.04,
+     "aim": [
+      -25.3,
+      3.0,
+      18.3
+     ],
+     "distance": 6.0,
+     "fov": 48,
+     "height": -0.3,
+     "move": 0.28,
+     "ease": "out",
+     "toward": [
+      0,
+      0,
+      -1
+     ]
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "a:and",
+   "overlays": [
+    {
+     "icon": "💬",
+     "over": [
+      -24.6,
+      2.1,
+      17.75
+     ],
+     "at": "a:cats",
+     "size": 130,
+     "lift": 0.35,
+     "dur": 0.9
+    }
+   ]
+  },
+  {
+   "name": "love",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "ex1": {
+     "at": [
+      -44,
+      3,
+      18.5
+     ],
+     "poses": [
+      [
+       0,
+       "cheer"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "grin"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "low": {
+      "aim": [
+       -43.2,
+       3.4,
+       18.3
+      ],
+      "distance": 8.5,
+      "eye": 1.8,
+      "fov": 55,
+      "toward": [
+       0,
+       0,
+       -1
+      ]
+     }
+    },
+    {
+     "t": 0.04,
+     "low": {
+      "aim": [
+       -43.2,
+       3.4,
+       18.3
+      ],
+      "distance": 7.0,
+      "eye": 1.8,
+      "fov": 55,
+      "toward": [
+       0,
+       0,
+       -1
+      ]
+     },
+     "move": 0.3,
+     "ease": "out"
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "a:because",
+   "overlays": [
+    {
+     "icon": "💬",
+     "over": [
+      -42.0,
+      2.7,
+      16.7
+     ],
+     "at": "a:love",
+     "size": 130,
+     "lift": 0.35,
+     "dur": 0.9
+    }
+   ]
+  },
+  {
+   "name": "brag",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "ex2": {
+     "at": [
+      -26,
+      3,
+      18.5
+     ],
+     "poses": [
+      [
+       0,
+       "hands_on_hips"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "proud"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": [
+      -25.3,
+      3.0,
+      18.3
+     ],
+     "distance": 6.0,
+     "fov": 50,
+     "height": -0.2,
+     "toward": [
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "t": 0.04,
+     "aim": [
+      -25.3,
+      3.0,
+      18.3
+     ],
+     "distance": 8.5,
+     "fov": 50,
+     "height": -0.2,
+     "move": 0.22,
+     "ease": "out",
+     "toward": [
+      0,
+      0,
+      -1
+     ]
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "a:end+0.04",
+   "overlays": [
+    {
+     "icon": "💬",
+     "over": [
+      -24.6,
+      2.1,
+      17.75
+     ],
+     "at": "a:brag",
+     "size": 130,
+     "lift": 0.35,
+     "dur": 0.9
+    }
+   ]
+  },
+  {
+   "name": "aced",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "girl1": {
+     "at": [
+      8,
+      3,
+      18.5
+     ],
+     "poses": [
+      [
+       0,
+       "hands_on_hips"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "proud"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": [
+      8.7,
+      3.2,
+      18.3
+     ],
+     "distance": 8.5,
+     "fov": 48,
+     "height": -0.3,
+     "toward": [
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "t": 0.04,
+     "aim": [
+      8.7,
+      3.2,
+      18.3
+     ],
+     "distance": 6.0,
+     "fov": 48,
+     "height": -0.3,
+     "move": 0.28,
+     "ease": "out",
+     "toward": [
+      0,
+      0,
+      -1
+     ]
+    }
+   ],
+   "say": [
+    {
+     "line": "b",
+     "at": "a:end+0.04"
+    }
+   ],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "b:jake's",
+   "overlays": [
+    {
+     "icon": "💬",
+     "over": [
+      9.4,
+      2.1,
+      17.75
+     ],
+     "at": "b:mia",
+     "size": 130,
+     "lift": 0.35,
+     "dur": 0.9
+    }
+   ]
+  },
+  {
+   "name": "fastest",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "ex3": {
+     "at": [
+      24,
+      3,
+      18.5
+     ],
+     "poses": [
+      [
+       0,
+       "cheer"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "starstruck"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "low": {
+      "aim": [
+       24.9,
+       3.6,
+       18.3
+      ],
+      "distance": 7.5,
+      "eye": 2.4,
+      "fov": 55,
+      "toward": [
+       0,
+       0,
+       -1
+      ]
+     }
+    },
+    {
+     "t": 0.04,
+     "low": {
+      "aim": [
+       24.9,
+       3.6,
+       18.3
+      ],
+      "distance": 6.0,
+      "eye": 2.4,
+      "fov": 55,
+      "toward": [
+       0,
+       0,
+       -1
+      ]
+     },
+     "move": 0.3,
+     "ease": "out"
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "b:but",
+   "overlays": [
+    {
+     "icon": "💬",
+     "over": [
+      25.8,
+      2.7,
+      16.7
+     ],
+     "at": "b:jake's",
+     "size": 130,
+     "lift": 0.35,
+     "dur": 0.9
+    }
+   ]
+  },
+  {
+   "name": "max",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "max": {
+     "at": [
+      44,
+      3,
+      18.5
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "nervous"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": [
+      44.9,
+      3.3,
+      18.3
+     ],
+     "distance": 9.0,
+     "fov": 48,
+     "height": -0.3,
+     "toward": [
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "t": 0.04,
+     "aim": [
+      44.9,
+      3.3,
+      18.3
+     ],
+     "distance": 6.0,
+     "fov": 48,
+     "height": -0.3,
+     "move": 0.28,
+     "ease": "out",
+     "toward": [
+      0,
+      0,
+      -1
+     ]
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "b:like",
+   "overlays": [
+    {
+     "icon": "💬",
+     "over": [
+      45.8,
+      2.7,
+      16.7
+     ],
+     "at": "b:truth",
+     "size": 130,
+     "lift": 0.35,
+     "dur": 0.9
+    }
+   ]
+  },
+  {
+   "name": "mirror",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "max": {
+     "at": [
+      -2,
+      3,
+      2
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ],
+      [
+       "b:hi",
+       "point"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "grin"
+      ],
+      [
+       "b:nine",
+       "cringe"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "max.head",
+     "distance": 5.2,
+     "fov": 45,
+     "height": -0.3
+    },
+    {
+     "t": 0.04,
+     "aim": "max.head",
+     "distance": 4.2,
+     "fov": 45,
+     "height": -0.3,
+     "move": 0.4,
+     "ease": "out"
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "b:or",
+   "set": "home"
+  },
+  {
+   "name": "cartoon",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "max": {
+     "at": [
+      -2,
+      3,
+      3
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "cry"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "max.head",
+     "distance": 5.0,
+     "fov": 45,
+     "height": -0.3
+    },
+    {
+     "t": 0.04,
+     "aim": "max.head",
+     "distance": 4.0,
+     "fov": 45,
+     "height": -0.3,
+     "move": 0.4,
+     "ease": "out"
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "b:twice",
+   "set": "living"
+  },
+  {
+   "name": "twice",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "max": {
+     "at": [
+      -2,
+      3,
+      3
+     ],
+     "poses": [
+      [
+       0,
+       "slump"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "sob"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "max.face",
+     "distance": 2.6,
+     "fov": 45,
+     "height": -0.2
+    },
+    {
+     "t": 0.04,
+     "aim": "max.face",
+     "distance": 4.8,
+     "fov": 45,
+     "height": -0.2,
+     "move": 0.3,
+     "ease": "out"
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "b:max#2",
+   "set": "living"
+  },
+  {
+   "name": "begged",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "max": {
+     "at": [
+      -2,
+      3,
+      3
+     ],
+     "poses": [
+      [
+       0,
+       "hands_on_head"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "pout"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      1,
+      0,
+      0.4
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "pos": [
+      2.4,
+      3.6,
+      6.8
+     ],
+     "look": [
+      -1.6,
+      4.0,
+      3.2
+     ],
+     "fov": 52
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "b:he#2",
+   "set": "living"
+  },
+  {
+   "name": "didnt",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "max": {
+     "at": [
+      -2,
+      3,
+      3
+     ],
+     "poses": [
+      [
+       0,
+       "facepalm"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "dead"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      1,
+      0,
+      0.4
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "low": {
+      "aim": [
+       -0.2,
+       2.4,
+       4.0
+      ],
+      "distance": 5.1,
+      "eye": 1.6,
+      "fov": 55,
+      "toward": [
+       -1,
+       0,
+       -0.4
+      ]
+     }
+    },
+    {
+     "t": 0.04,
+     "low": {
+      "aim": [
+       -0.2,
+       2.4,
+       4.0
+      ],
+      "distance": 3.6,
+      "eye": 1.6,
+      "fov": 55,
+      "toward": [
+       -1,
+       0,
+       -0.4
+      ]
+     },
+     "move": 0.3,
+     "ease": "out"
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "b:end+0.04",
+   "set": "living",
+   "overlays": [
+    {
+     "icon": "💬",
+     "over": [
+      -1.5,
+      2.7,
+      3.48
+     ],
+     "at": "b:didn't",
+     "size": 170,
+     "lift": 0.35,
+     "dur": 0.9
+    }
+   ]
+  },
+  {
+   "name": "dance",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "lily": {
+     "at": [
+      0,
+      3,
+      -8
+     ],
+     "poses": [
+      [
+       0,
+       "laugh"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "laugh"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    "ex1": {
+     "at": [
+      -5,
+      3,
+      -6
+     ],
+     "poses": [
+      [
+       0,
+       "cheer"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "grin"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0.3,
+      0,
+      1
+     ]
+    },
+    "ex2": {
+     "at": [
+      1.5,
+      3,
+      -11
+     ],
+     "poses": [
+      [
+       0,
+       "laugh"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "laugh"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      -0.3,
+      0,
+      1
+     ]
+    },
+    "ex3": {
+     "at": [
+      -3,
+      3,
+      -11
+     ],
+     "poses": [
+      [
+       0,
+       "cheer"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "starstruck"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    "girl1": {
+     "at": [
+      -7,
+      3,
+      -9
+     ],
+     "poses": [
+      [
+       0,
+       "laugh"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "grin"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0.3,
+      0,
+      1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "pos": [
+      7.5,
+      7.0,
+      6.0
+     ],
+     "look": [
+      -1.5,
+      3.8,
+      -8
+     ],
+     "fov": 58,
+     "back": 3.0
+    },
+    {
+     "t": 0.04,
+     "pos": [
+      7.5,
+      7.0,
+      6.0
+     ],
+     "look": [
+      -1.5,
+      3.8,
+      -8
+     ],
+     "fov": 58,
+     "move": 0.3,
+     "ease": "out"
+    }
+   ],
+   "say": [
+    {
+     "line": "c",
+     "at": "b:end+0.04"
+    }
+   ],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "c:max",
+   "set": "dance"
+  },
+  {
+   "name": "walk",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "max": {
+     "at": [
+      2.4,
+      3,
+      -6.6
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "nervous"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      -1,
+      0,
+      -0.6
+     ],
+     "walk": {
+      "from": [
+       7.5,
+       3,
+       -2.5
+      ],
+      "to": [
+       2.6,
+       3,
+       -6.4
+      ],
+      "start": 0.0
+     }
+    },
+    "lily": {
+     "at": [
+      0,
+      3,
+      -8
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "smile"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      1,
+      0,
+      0.6
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "pos": [
+      6.5,
+      5.0,
+      3.5
+     ],
+     "look": [
+      1.2,
+      3.8,
+      -7
+     ],
+     "fov": 50
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "c:and#1",
+   "set": "dance"
+  },
+  {
+   "name": "froze",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "max": {
+     "at": [
+      2.6,
+      3,
+      -6.4
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "blank"
+      ]
+     ],
+     "drift": 0.0,
+     "facing": [
+      -1,
+      0,
+      -0.6
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "max.head",
+     "distance": 4.6,
+     "fov": 45,
+     "height": -0.3
+    },
+    {
+     "t": 0.04,
+     "aim": "max.head",
+     "distance": 3.4,
+     "fov": 45,
+     "height": -0.3,
+     "move": 0.5,
+     "ease": "out"
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 0.0,
+   "until": "c:so",
+   "set": "dance"
+  },
+  {
+   "name": "said_it",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "max": {
+     "at": [
+      2.6,
+      3,
+      -6.4
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "shock"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      1,
+      0,
+      0.2
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "low": {
+      "aim": [
+       2.3,
+       2.4,
+       -6.2
+      ],
+      "distance": 5.7,
+      "eye": 1.8,
+      "fov": 55,
+      "toward": [
+       -1,
+       0,
+       0.3
+      ]
+     }
+    },
+    {
+     "t": 0.04,
+     "low": {
+      "aim": [
+       2.3,
+       2.4,
+       -6.2
+      ],
+      "distance": 4.2,
+      "eye": 1.8,
+      "fov": 55,
+      "toward": [
+       -1,
+       0,
+       0.3
+      ]
+     },
+     "move": 0.3,
+     "ease": "out"
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "c:he#1",
+   "set": "dance",
+   "overlays": [
+    {
+     "icon": "💬",
+     "over": [
+      2.3,
+      2.7,
+      -6.2
+     ],
+     "at": "c:dog",
+     "size": 160,
+     "lift": 0.35,
+     "dur": 0.9
+    }
+   ]
+  },
+  {
+   "name": "likes_you",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "max": {
+     "at": [
+      2.6,
+      3,
+      -6.4
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "shock"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      -1,
+      0,
+      -0.6
+     ]
+    },
+    "lily": {
+     "at": [
+      0,
+      3,
+      -8
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "shock"
+      ],
+      [
+       "c:september",
+       "love"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      1,
+      0,
+      0.6
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "ots": {
+      "near": "max",
+      "far": "lily",
+      "fov": 45
+     },
+     "back": 1.0
+    },
+    {
+     "t": 0.04,
+     "ots": {
+      "near": "max",
+      "far": "lily",
+      "fov": 45
+     },
+     "move": 0.25,
+     "ease": "out"
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "c:lily#2",
+   "set": "dance"
+  },
+  {
+   "name": "smiled",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "lily": {
+     "at": [
+      0,
+      3,
+      -8
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "love"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      1,
+      0,
+      0.6
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "lily.head",
+     "distance": 6.0,
+     "fov": 45,
+     "height": -0.3
+    },
+    {
+     "t": 0.04,
+     "aim": "lily.head",
+     "distance": 4.4,
+     "fov": 45,
+     "height": -0.3,
+     "move": 0.28,
+     "ease": "out"
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "c:and#2",
+   "set": "dance"
+  },
+  {
+   "name": "honestly",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {
+    "max": {
+     "at": [
+      2.6,
+      3,
+      -6.4
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "wide_happy"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      1,
+      0,
+      0.2
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": [
+      2.3,
+      2.2,
+      -6.2
+     ],
+     "distance": 6.0,
+     "fov": 50,
+     "height": 0.6,
+     "toward": [
+      -1,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.04,
+     "aim": [
+      2.3,
+      2.2,
+      -6.2
+     ],
+     "distance": 4.0,
+     "fov": 50,
+     "height": 0.6,
+     "move": 0.28,
+     "ease": "out",
+     "toward": [
+      -1,
+      0,
+      0
+     ]
+    }
+   ],
+   "say": [],
+   "sfx": [],
+   "drift": 1.0,
+   "until": "c:best",
+   "set": "dance",
+   "overlays": [
+    {
+     "icon": "💬",
+     "over": [
+      2.3,
+      2.7,
+      -6.2
+     ],
+     "at": "c:honestly",
+     "size": 150,
+     "lift": 0.35,
+     "dur": 1.2
+    }
+   ]
+  },
+  {
+   "name": "me",
+   "seconds": "auto",
+   "pad": 0.2,
+   "actors": {},
+   "camera": [
+    {
+     "t": 0,
+     "aim": [
+      2.3,
+      2.1,
+      -6.2
+     ],
+     "distance": 3.4,
+     "fov": 48,
+     "height": 0.3,
+     "toward": [
+      -1,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.04,
+     "aim": [
+      2.3,
+      2.1,
+      -6.2
+     ],
+     "distance": 2.4,
+     "fov": 48,
+     "height": 0.3,
+     "move": 0.6,
+     "ease": "out",
+     "toward": [
+      -1,
+      0,
+      0
+     ]
+    }
+   ],
+   "say": [],
+   "sfx": [
+    {
+     "sound": "pop",
+     "at": "c:me"
+    }
+   ],
+   "drift": 1.0,
+   "until": "c:end+0.35",
+   "set": "dance",
+   "overlays": [
+    {
+     "icon": "💬",
+     "over": [
+      2.3,
+      2.7,
+      -6.2
+     ],
+     "at": "c:that's",
+     "size": 190,
+     "lift": 0.35,
+     "dur": 1.6
+    }
+   ]
+  }
+ ],
+ "names": [
+  "Mia",
+  "Jake"
+ ],
+ "sets": [
+  {
+   "id": "home",
+   "name": "bedroom",
+   "at": [
+    300.0,
+    0.0,
+    0.0
+   ],
+   "options": {
+    "props": [
+     {
+      "kind": "dog",
+      "at": [
+       2.0,
+       0,
+       3.5
+      ],
+      "facing": [
+       -1,
+       0,
+       0
+      ],
+      "color": [
+       205,
+       150,
+       90
+      ],
+      "spot": [
+       240,
+       230,
+       215
+      ],
+      "collar": [
+       220,
+       50,
+       60
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "living",
+   "name": "living_room",
+   "at": [
+    600.0,
+    0.0,
+    0.0
+   ],
+   "options": {
+    "props": [
+     {
+      "kind": "dog",
+      "at": [
+       -0.2,
+       0,
+       4.0
+      ],
+      "facing": [
+       -1,
+       0,
+       -0.4
+      ],
+      "color": [
+       205,
+       150,
+       90
+      ],
+      "spot": [
+       240,
+       230,
+       215
+      ],
+      "collar": [
+       220,
+       50,
+       60
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "dance",
+   "name": "classroom",
+   "at": [
+    900.0,
+    0.0,
+    0.0
+   ],
+   "options": {
+    "board": "SCHOOL DANCE!",
+    "props": [
+     {
+      "kind": "dog",
+      "at": [
+       3.6,
+       0,
+       -6.2
+      ],
+      "facing": [
+       -1,
+       0,
+       0
+      ],
+      "color": [
+       205,
+       150,
+       90
+      ],
+      "spot": [
+       240,
+       230,
+       215
+      ],
+      "collar": [
+       220,
+       50,
+       60
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "music": {
+  "track": "build/library/music/lofi_bed.mp3",
+  "start": 0.0,
+  "gain_db": -15.0,
+  "duck_db": -4.0
+ }
+}

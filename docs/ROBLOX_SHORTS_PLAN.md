@@ -206,9 +206,20 @@ to about 45 s and could drop quality mid-take; the harness now sets the highest 
 setting back afterwards. Frames look the same, and the cost in time depends on the view (`docs/ROBLOX_CAPTURE.md`,
 "Studio's gotchas").
 
-**Still open** (none blocks the spikes):
+**Made overnight on 2026-11-08** (the owner asked for the rest to run to the end without questions; each is a
+default the owner can change in one place):
 
-5. **Frame rate:** 60 fps like most of the set, or 30 like 014 and 015? Measured: 0.94 s a captured frame, so a 35 s
+- **Frame rate: 60 fps for voiced videos (families A and B), 30 for music formats (family C)**, as the references do
+  (14 of 16 at 60; the two music lists at 30). Snaps stay 5 frames at 60; a 30 s story shoots in about 45-60
+  minutes. Set per video (`Spec(fps=...)`).
+- **Voices through the ElevenLabs connector** rather than an API key: the owner connected it that night.
+- **Music:** YouTube's Audio Library stays the source for music formats (M2 uses "The Plan's Working"). Its download
+  stalled on Chrome's save dialog overnight, so the voiced videos' beds were made with ElevenLabs music through the
+  connector (licensed on the paid plan, background only); swap either in a video's `direct.py`.
+
+**Still open:**
+
+5. ~~**Frame rate:**~~ decided above (60 voiced, 30 music). Was: 60 fps like most of the set, or 30 like 014 and 015? Measured: 0.94 s a captured frame, so a 35 s
    story takes about 16 minutes to shoot at 30 fps and 33 at 60; with two posed actors at the highest quality (about
    1.5 s a frame) about 26 and 51. The 14 files at 60 fps really move at 60 (48-57 different pictures a second while
    something moves), and a snap lasts about 5 frames at 60, 2-3 at 30.

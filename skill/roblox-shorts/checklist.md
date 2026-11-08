@@ -34,3 +34,15 @@ failure found to this list and to `docs/VERIFY.md`.
 - A sleeping actor's face hidden by a slumped head: pose the face toward the camera; look at stills.
 - A word the transcriber hears as its homophone ("Seen." as "Scene."): the voice check matches homophones.
 - Expressive reads outside a role's pitch or pace range: the ranges catch gross mistakes only (`docs/VOICE.md`).
+- A name lower-cased at a caption's start ("leo had never" beside "so Leo stopped", M4's plan): `make._names` keeps
+  any word the script capitalizes mid-sentence; selftest.
+- Story captions ending on "a" or "the", or leaving one word alone ("you hear a | ding.", "a few a | day."):
+  `make._story_groups`; selftest.
+- A read-time rule stricter than the references (25 characters a second failed 13 of M4's 57 captions with the voice
+  at the references' pace): measure theirs with `tools/verify/caption_pace.py` before changing a threshold.
+- A Roblox logo on a costume (the teacher's "ROBLOX Jacket" in M3's `grade` shot): read every cast item's name in
+  `ATTRIBUTION.md` for "Roblox" and look at each actor in the stills; the teacher now wears a plain sweater.
+- A gap hovering round the silence line left uncut (M5's line a, 0.22 s at 38-42 dB under): `voice.quiet_spans`
+  fills from the first 30 ms of silence to the last; selftest, with the measured profile.
+- A soft first consonant missed by the transcriber ("She aced" heard as "He aced", M5): it hears a copy with 0.5 s
+  of silence before the line.

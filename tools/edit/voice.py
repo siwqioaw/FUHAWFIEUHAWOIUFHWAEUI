@@ -34,6 +34,7 @@ sys.path.insert(0, os.path.join(HERE, "..", "verify"))
 import speech  # noqa: E402
 
 SR = 48000
+HEAR_PAD = 0.5   # seconds of silence put before a line for the transcriber, so it hears the first sound
 CAST = os.path.join(HERE, "voices.json")
 
 
@@ -79,29 +80,44 @@ def _islands(mask: np.ndarray) -> list[tuple[int, int]]:
 
 
 def quiet_spans(x: np.ndarray, sr: int, silence_db: float = 40.0, breath_db: float = 18.0,
-                breath_min: float = 0.12) -> list[tuple[int, int]]:
+                breath_min: float = 0.12, floor_db: float = 32.0) -> list[tuple[int, int]]:
     """Runs of 10 ms frames of silence between the first and the last sound: frame indices, end exclusive.
 
     Silence is more than `silence_db` under the loudest frames. A breath counts too, but only as an island: at least
     `breath_min` seconds of unvoiced sound more than `breath_db` under the loudest frames with silence on both sides.
     A creaky tail is joined to the word before it and an 'h' to the word after, so neither is an island and neither
     is cut: the S5 review found a looser rule cutting the ends off words, and 32 dB taking a creaky decay for
-    silence."""
+    silence.
+
+    And the floor wobbling round the silence line: in a stretch more than `floor_db` under the loudest frames (what
+    `speech.pauses` calls a pause), everything from its first 30 ms of silence to its last is silence. M5's gaps
+    between sentences sat at 38-42 dB under, broken into pieces too short to cut, and failed the pause check at 0.2 s.
+    A word's decay before that first silence and an onset after the last are kept as before."""
     db = speech.frames_db(x, sr)
     if not len(db):
         return []
     top = np.percentile(db, 95)
     silent = db < top - silence_db
+    quiet = db < top - floor_db
+
+    def fill() -> None:
+        for a, b in _islands(quiet):
+            runs = [(a + i, a + j) for i, j in _islands(silent[a:b]) if j - i >= 3]   # silence of 30 ms or more
+            if runs:   # a dip of a frame or two inside a creaky decay starts nothing (the S5 case)
+                silent[runs[0][0]:runs[-1][1]] = True
+
     t, f0, _ = speech.yin(speech.mono16k(x, sr), thresh=0.3)
     voiced = np.zeros(len(db), bool)
     if len(t):
         idx = np.clip(np.round(t / 0.01 - 0.5).astype(int), 0, len(db) - 1)
         voiced[idx[~np.isnan(f0)]] = True
+    fill()
     for a, b in _islands(~silent):
         bounded = a >= 3 and b <= len(db) - 3 and silent[a - 3:a].all() and silent[b:b + 3].all()
         if bounded and (b - a) * 0.01 >= breath_min and db[a:b].max() < top - breath_db \
                 and voiced[a:b].mean() < 0.2:
             silent[a:b] = True  # an island of breath between two silences
+    fill()
     loud = np.flatnonzero(~silent)
     out, start = [], None
     if not len(loud):
@@ -273,11 +289,15 @@ def check(m: dict, role: dict, line: dict) -> list[tuple[bool, str]]:
     return [(bool(ok), what) for ok, what in out]
 
 
+# Bump when processing or hearing changes, so takes processed the old way are done again.
+PROCESS_VERSION = 2   # 2: the floor-wobble rule in quiet_spans; the transcriber hears a padded copy
+
+
 def _cache_key(take: str, role: dict) -> str:
     import hashlib
     st = os.stat(take)
     keep = {k: role.get(k) for k in ("keep", "tempo", "tempo_method", "level_db")}
-    return hashlib.sha1(json.dumps([os.path.abspath(take), st.st_size, int(st.st_mtime), keep],
+    return hashlib.sha1(json.dumps([os.path.abspath(take), st.st_size, int(st.st_mtime), keep, PROCESS_VERSION],
                                    sort_keys=True).encode()).hexdigest()[:16]
 
 
@@ -324,16 +344,27 @@ def make(lines_path: str, out_dir: str, model: str = "large-v3", device: str = "
     import transcribe
     asr, dev = transcribe.load(model, device)
 
-    def hear(path: str) -> list[dict]:
+    def hear(path: str, pad: float = HEAR_PAD) -> list[dict]:
+        """The words in a processed line, heard from a copy with `pad` seconds of silence before it (a soft first
+        consonant at time 0 goes unheard: M5's "She aced" came back "He aced"), timed in the line's own time."""
         nonlocal asr, dev
+        y, rate = sf.read(path, dtype="float32")
+        fd, padded = tempfile.mkstemp(suffix=".wav")
+        os.close(fd)
         try:
-            res = transcribe.run(asr, path, "en")
-        except RuntimeError:  # the GPU libraries fail at the first inference, not at load
-            if dev != "cuda":
-                raise
-            asr, dev = transcribe.load(model, "cpu")
-            res = transcribe.run(asr, path, "en")
-        return [w for s in res["segments"] for w in s["words"]]
+            sf.write(padded, np.concatenate([np.zeros((int(pad * rate),) + y.shape[1:], np.float32), y]), rate,
+                     subtype="FLOAT")
+            try:
+                res = transcribe.run(asr, padded, "en")
+            except RuntimeError:  # the GPU libraries fail at the first inference, not at load
+                if dev != "cuda":
+                    raise
+                asr, dev = transcribe.load(model, "cpu")
+                res = transcribe.run(asr, padded, "en")
+        finally:
+            os.remove(padded)
+        return [{**w, "start": round(max(0.0, w["start"] - pad), 3), "end": round(max(0.0, w["end"] - pad), 3)}
+                for s in res["segments"] for w in s["words"]]
 
     entries, fails, rows = [], 0, []
     for line in spec["lines"]:

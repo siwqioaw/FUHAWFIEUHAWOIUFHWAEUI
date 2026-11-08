@@ -32,11 +32,13 @@ def _marks(set_name: str) -> dict:
 
 class Spec:
     def __init__(self, slug: str, family: str = "comedy", set: str = "baseplate", cast: dict | None = None,
-                 fps: int = 60, title: str = "", set_options: dict | None = None, extra_sets=None):
+                 fps: int = 60, title: str = "", set_options: dict | None = None, extra_sets=None, names=()):
         self.d = {"slug": slug, "title": title, "family": family, "fps": fps, "set": set,
                   "set_options": set_options or {}, "cast": {k: ({"look": v} if isinstance(v, str) else v)
                                                              for k, v in (cast or {}).items()},
                   "lines": [], "shots": []}
+        if names:  # names that only start sentences, kept capitalized in captions (mid-sentence ones are found)
+            self.d["names"] = list(names)
         if extra_sets:  # [(id, set name, (x, y, z), options), ...]: more places, built beside the first
             self.d["sets"] = [{"id": e[0], "name": e[1], "at": list(e[2]), "options": e[3] if len(e) > 3 else {}}
                               for e in extra_sets]
@@ -137,10 +139,14 @@ def push(target, start: float = 9.0, end: float = 5.5, fov: float = 45, height: 
 
 
 def pull(target, start: float = 2.6, end: float = 7.5, fov: float = 45, height: float = -0.2, at: float = 0.04,
-         move: float = 0.22) -> list:
-    """A pull-back from an extreme close-up, easing out: the reveal."""
-    return [{"t": 0, "aim": target, "distance": start, "fov": fov, "height": height},
-            {"t": at, "aim": target, "distance": end, "fov": fov, "height": height, "move": move, "ease": "out"}]
+         move: float = 0.22, toward=None) -> list:
+    """A pull-back from an extreme close-up, easing out: the reveal. `toward`: the side to film from, for a point
+    that isn't an actor."""
+    a = {"t": 0, "aim": target, "distance": start, "fov": fov, "height": height}
+    b = {"t": at, "aim": target, "distance": end, "fov": fov, "height": height, "move": move, "ease": "out"}
+    if toward:
+        a["toward"] = b["toward"] = list(toward)
+    return [a, b]
 
 
 def swoop(a, b, at: float = 0.15, move: float = 0.16, distance: float = 5.5, fov: float = 45,
@@ -162,11 +168,14 @@ def ots(near: str, far: str, push_in: float = 1.0, fov: float = 45) -> list:
             {"t": 0.04, "ots": {"near": near, "far": far, "fov": fov}, "move": 0.25, "ease": "out"}]
 
 
-def low(target, distance: float = 5.0, eye: float = 2.5, fov: float = 55) -> list:
-    """From just above the floor or a desk, looking up: power, or the desk huge in the foreground."""
-    return [{"t": 0, "low": {"aim": target, "distance": distance + 1.5, "eye": eye, "fov": fov}},
-            {"t": 0.04, "low": {"aim": target, "distance": distance, "eye": eye, "fov": fov}, "move": 0.3,
-             "ease": "out"}]
+def low(target, distance: float = 5.0, eye: float = 2.5, fov: float = 55, toward=None) -> list:
+    """From just above the floor or a desk, looking up: power, or the desk huge in the foreground. Aimed at an actor
+    it stands in front of them; aimed at a point, give `toward` (the side the camera stands on)."""
+    a = {"aim": target, "distance": distance + 1.5, "eye": eye, "fov": fov}
+    b = {"aim": target, "distance": distance, "eye": eye, "fov": fov}
+    if toward is not None:
+        a["toward"] = b["toward"] = list(toward)
+    return [{"t": 0, "low": a}, {"t": 0.04, "low": b, "move": 0.3, "ease": "out"}]
 
 
 def top(target, height: float = 8.0, fov: float = 50) -> list:

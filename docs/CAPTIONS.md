@@ -25,6 +25,13 @@ frame or two before it).
 Sizes are at 1080 x 1920; `over` scales them for a smaller frame. Colours for braces: pink, blue, yellow, green, red,
 purple, orange, white.
 
+## Pace
+
+Measured with `tools/verify/caption_pace.py` on the references' story captions (006, 008, 009, 011, 013): a new
+caption every 0.55-0.73 s (median), up for 0.23-0.30 s at the least; 20-24 characters a second at the median, the
+fastest 5% at 30-45. M4's captions, planned: median 0.53 s up, p10 0.39, least 0.27; 19.5 characters a second, p95
+30.3. How `make.py` breaks and times them is in `docs/MAKING.md`.
+
 ## How it was matched
 
 On four reference frames (001 at 1.2 s, 006 at 2.0 s, 002 at 1.0 s and 014 at 1.5 s, all full size), each glyph's

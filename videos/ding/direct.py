@@ -27,6 +27,8 @@ s = Spec("ding", family="story", set="hallway", title="In this world, you hear a
 for ln in json.load(open(os.path.join(HERE, "lines.json"), encoding="utf-8")):
     s.line(ln["id"], ln["role"], ln["text"])
 
+EX1, PG, EX2 = [-2.4, 3, 6.0], [2.2, 3, 9.6], [3.6, 3, 8.4]   # the rule's first instance: inside the frame,
+#                                                              the gossips side by side as the camera sees them
 US = [0, 0, 1]
 L, R = [1, 0, 0], [-1, 0, 0]      # facing +x (from the left lockers) and -x (from the right)
 BELL = {"size": 150}
@@ -38,18 +40,18 @@ def bell(over, at, size=150, lift=1.5, dur=0.7):
 
 s.add(
     # -- A: the rule, shown on strangers; Leo has never heard a ding
-    shot("world", {"ex1": actor([-6, 3, 6], facing=L, faces=[(0, "smile")]),
-                   "pg": actor([5.2, 3, 9], facing=R, poses=[(0, "lean_in")], faces=[(0, "scheming")]),
-                   "ex2": actor([5.6, 3, 11.2], facing=R, poses=[(0, "lean_in")], faces=[(0, "side_eye_left")])},
-         wide([0.5, 6.5, -6], [0, 4.5, 8], fov=58, push_in=3.0), say=[("a", 0.0)], until="a:talks"),
-    shot("whisper", {"pg": actor([5.2, 3, 9], facing=R, poses=[(0, "lean_in")], faces=[(0, "scheming")]),
-                     "ex2": actor([5.6, 3, 11.2], facing=R, poses=[(0, "lean_in")], faces=[(0, "side_eye_left")])},
+    shot("world", {"ex1": actor(EX1, facing=[0.25, 0, -1], faces=[(0, "smile")]),
+                   "pg": actor(PG, facing=[-0.55, 0, -0.85], poses=[(0, "lean_in")], faces=[(0, "scheming")]),
+                   "ex2": actor(EX2, facing=[-0.75, 0, -0.65], poses=[(0, "lean_in")], faces=[(0, "side_eye_left")])},
+         wide([0.0, 6.0, -5], [0, 4.2, 8], fov=58, push_in=2.0), say=[("a", 0.0)], until="a:talks"),
+    shot("whisper", {"pg": actor(PG, facing=[-0.55, 0, -0.85], poses=[(0, "lean_in")], faces=[(0, "scheming")]),
+                     "ex2": actor(EX2, facing=[-0.75, 0, -0.65], poses=[(0, "lean_in")], faces=[(0, "side_eye_left")])},
          two_shot("pg", "ex2", distance=7.5, fov=50), until="a:you#2"),
-    shot("ding", {"ex1": actor([-6, 3, 6], facing=L, faces=[(0, "smile"), ("a:ding", "shock")])},
+    shot("ding", {"ex1": actor(EX1, facing=[0.25, 0, -1], faces=[(0, "smile"), ("a:ding", "shock")])},
          push("ex1.head", 7.0, 4.8), sfx=[("ding", "a:ding")], overlays=[bell("ex1.head", "a:ding")], until="a:most"),
-    shot("few", {"ex2": actor([5.4, 3, -6], facing=R, faces=[(0, "nervous")]),
-                 "jock": actor([-5.4, 3, -9], facing=L, faces=[(0, "side_eye")]),
-                 "ex3": actor([1.0, 3, -14], facing=US, faces=[(0, "confused")])},
+    shot("few", {"ex2": actor([2.6, 3, -5.5], facing=[-0.4, 0, 1], faces=[(0, "nervous")]),
+                 "jock": actor([-2.8, 3, -8.5], facing=[0.4, 0, 1], faces=[(0, "side_eye")]),
+                 "ex3": actor([0.6, 3, -13], facing=US, faces=[(0, "confused")])},
          wide([0, 7.5, 6], [0, 4, -9], fov=55, push_in=2.0),
          sfx=[("ding", "a:people", -5), ("ding", "a:few", -5), ("ding", "a:day", -5)],
          overlays=[bell("ex2.head", "a:people", 110), bell("jock.head", "a:few", 110), bell("ex3.head", "a:day", 100)],
@@ -77,9 +79,9 @@ s.add(
          until="b:every#1"),
     shot("past", {"leo": actor([0, 3, -12], facing=US, faces=[(0, "nervous")],
                                walk={"from": [0, 3, -14], "to": [0, 3, -5], "start": 0.0}),
-                  "ex2": actor([-5.8, 3, -6], facing=L, faces=[(0, "side_eye")]),
-                  "jock": actor([5.8, 3, -9], facing=R, faces=[(0, "side_eye_left")]),
-                  "nerd": actor([-5.8, 3, -11], facing=L, faces=[(0, "sus")])},
+                  "ex2": actor([-2.6, 3, -7], facing=[0.7, 0, 0.7], faces=[(0, "side_eye")]),
+                  "jock": actor([2.8, 3, -9.5], facing=[-0.7, 0, 0.7], faces=[(0, "side_eye_left")]),
+                  "nerd": actor([-2.9, 3, -11.5], facing=[0.7, 0, 0.7], faces=[(0, "sus")])},
          wide([0, 6.0, 4], [0, 3.8, -10], fov=55), set="new_school", until="b:ding#2"),
     shot("dingding", {"leo": actor([0, 3, -5], facing=US, poses=[(0, "hands_on_head")], faces=[(0, "scared")])},
          push("leo.face", 4.5, 3.0, move=0.4), set="new_school",
@@ -113,7 +115,7 @@ s.add(
                    "her": actor([5.0, 3, 8.5], facing=[-1, 0, -0.3], poses=[(0, "idle"), ("c:funny", "laugh")],
                                 faces=[(0, "laugh"), ("c:why", "cute")]),
                    "pg": actor([5.6, 3, 10.6], facing=[-1, 0, -0.6], faces=[(0, "grin")])},
-         ots("leo", "her"), set="new_school", until="c:the#4"),
+         two_shot("her", "pg", distance=7.5, fov=50), set="new_school", until="c:the#4"),
     shot("rule", {"leo": actor([-6.0, 3, 4], facing=L, poses=[(0, "idle"), ("c:bad", "cheer")],
                                faces=[(0, "teary"), ("c:bad", "wide_happy")])},
          pull("leo.face", 2.6, 6.5, move=0.5), set="new_school", sfx=[("shimmer", "c:never", -2)], until="c:the#5"),

@@ -1,0 +1,5 @@
+[
+ {"id": "a", "role": "story", "text": "[urgent] In this world, every pet narrates its owner's life, out loud. Dogs, cats, even goldfish. And most people love it, because their pets brag about them all day."},
+ {"id": "b", "role": "story", "text": "[warmly] Mia aced her math test. Jake's the fastest kid in school. [urgent] But Max's dog only tells the truth. Like how Max practiced saying hi to Lily nine times, in the mirror. Or how he cried at a cartoon. Twice. Max begged him to stop. He didn't."},
+ {"id": "c", "role": "story", "text": "[curious] Then, at the school dance, Max finally walked up to Lily, and froze. [softly] So his dog said it for him. He likes you. He's liked you since September. [warmly] Lily smiled. And honestly? I'd do it again. Best dog ever. That's me, by the way."}
+]

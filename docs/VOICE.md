@@ -40,12 +40,21 @@ next, is sound and stays. The first version also cut quiet unvoiced frames as br
 it taking 50-150 ms off the ends of words in 12 of 35 cuts; on the same 16 takes the chain now makes 5 cuts, every one
 44 dB or more under the speech.
 
+A gap can also hover round the 40 dB line: M5's sentence breaks sat at 38-42 dB under, a faint breath or room tone
+that split the silence into pieces too short to cut, and line a kept a 0.22 s pause against the stories' 0.15. So in
+a stretch more than 32 dB under the loudest frames (what the pause check counts), everything from its first 30 ms of
+silence to its last is silence too. A creaky decay's one-frame dips start nothing, so the S5 cases still pass
+(`tests/selftest.py` has both, the gap built from M5's measured profile). Processed takes are cached by take and
+settings, with `PROCESS_VERSION` in the key: bump it when the chain changes.
+
 ## The checks (`report.md`)
 
 Each one fails a line that must be regenerated or reprocessed:
 
 - every scripted word heard by the transcriber, in order (tags dropped, "40" taken for "forty", "21" for
-  "twenty-one");
+  "twenty-one"). It hears a copy with 0.5 s of silence before the line, its times moved back: from time 0 it missed
+  a soft first consonant (M5's "She aced her math test" came back "He aced" on both takes, though the 70 ms "sh" is
+  there, at 4.8-5.3 kHz);
 - no word heard that isn't in the script (a tag read aloud, a repeated phrase);
 - the sound starts within 50 ms of the file's start and ends within 150 ms of its end;
 - no pause longer than the role's `max_pause` (0.2 s; 0.15 for stories);

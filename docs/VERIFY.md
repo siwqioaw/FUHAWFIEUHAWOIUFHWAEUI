@@ -27,7 +27,8 @@ it, so a beat is timed once.
 - **Units.** `clips` and `texts` are in frames; `silences` and `cues` in seconds. Clips play back to back; a
   clip's `start` is derived.
 - **Texts.** `accent` marks text read at a glance, such as a number slammed on a beat; it's exempt from the read-time
-  check. `sub` is a second line on the same card; it counts toward read time.
+  check. `sub` is a second line on the same card; it counts toward read time. `speech` marks a caption of what the
+  voice is saying; it needs only the time to say it.
 - **Cues.** `cues.py`'s `Mix.export` writes `cues` and `silences` for you. `bridge` is null, a clip's name, or
   `[clip, frame]`.
 
@@ -43,10 +44,32 @@ python tools/verify/qc.py OUT.mp4 --timeline cut.json [--lufs -14] [--tp -1.0] [
 |---|---|
 | Specs | the timeline's length and the file's differ by more than a frame and a half |
 | Loudness, on the MP4 | integrated loudness is more than 1 LU off target, or true peak is over `--tp` |
-| Text read time | a text is up for less than 0.5 s plus its characters at `--cps` a second (at least 1.2 s) |
+| Text read time | a text is up for less than 0.5 s plus its characters at `--cps` a second (at least 1.2 s); a caption of the voice (`"speech": true`), heard as it's read, for less than its characters at 35 a second (at least 0.25 s), measured on the references' own story captions (below) |
 | Flashes (WCAG 2.3.1) | more than 3 general or red flashes in any second, over the whole frame or any quarter of it (the 2 x 2 blocks of a 4 x 4 grid) |
 | Clicks at cuts | never: listed as CHECK. A jump at a cut with a declared hit within 2 frames counts as the hit's onset. Listen for each one that's left. |
 | Black and frozen frames | never: listed. Check that each was meant. |
+
+### caption_pace.py: captions against the references
+
+```
+python tools/verify/caption_pace.py VIDEO --words TRANSCRIPT.json --band 0.15 0.36 [--list]
+```
+
+Finds each caption change in the picture (white fill beside black outline, in a band of rows), pairs each caption
+with the words said while it's up, and gives its time on screen and characters a second. On the references' story
+captions (2026-11-08):
+
+| Video | Captions | On screen: median, p10, least | Characters a second: median, p90, p95 |
+|---|---|---|---|
+| 006 | 58 | 0.55, 0.34, (0.03: a detection slip) s | 22.9, 39.4, 45.1 |
+| 008 | 135 | 0.73, 0.42, 0.30 s | 20.0, 27.9, 30.0 |
+| 009 | 50 | 0.62, 0.37, 0.28 s | 21.3, 38.2, 39.5 |
+| 011 | 52 | 0.63, 0.38, 0.25 s | 23.6, 33.6, 34.5 |
+| 013 | 49 | 0.65, 0.40, 0.23 s | 22.5, 28.8, 35.0 |
+
+So `qc.py` fails a spoken caption faster than 35 characters a second (the middle of their p95s) or up under 0.25 s
+(about their shortest). The rule before this was 25 a second and 0.3 s: a quarter of the references' own captions
+would have failed it, and 13 of M4's 57 did, with the voice at the references' pace (ours: median 20.0, p90 29.5).
 
 ### audio.py: the sound against the cut
 
@@ -126,6 +149,9 @@ The checks have to come back clean first. Then:
 - every pose, and every snap between poses: no arm through the head or chest (`pose.clearance`,
   `pose.snap_clearance`), and a face the hands don't hide;
 - the first frames of every take: nothing in the scene still loading (textures, lights or shadows popping in);
+- every still before a shoot (`make.py stills`), at full size: no white wall burned out, no face hidden by a pose or
+  cut by the frame, a two-shot wide enough for both, no actor inside furniture;
+- every icon overlay: over the right head, on the right word, with its sound;
 - the first two seconds: what is this, and why keep watching?
 - and every failure in `docs/LESSONS.md`, and every one found since.
 
@@ -147,7 +173,7 @@ The checks have to come back clean first. Then:
   in linear light; a projection turned the wrong way.
 
 It confirms that each check catches its failure and passes the clean parts. It also checks `master.py`'s loudness
-meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 74 of 74.
+meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 90 of 90.
 
 On the third trailer cut, the delivered file measured:
 

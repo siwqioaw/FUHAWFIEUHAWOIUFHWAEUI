@@ -507,6 +507,81 @@ def fence(s: Set, x0, x1, z, color=(250, 250, 250)):
         s.box((x1 - x0, 0.35, 0.2), ((x0 + x1) / 2, y, z), color, "Wood")
 
 
+def _yaw(facing) -> float:
+    """The yaw in degrees that turns a prop's front (+z) toward `facing`."""
+    return math.degrees(math.atan2(facing[0], facing[2]))
+
+
+def _rot(dx, dz, yaw_deg):
+    a = math.radians(yaw_deg)
+    return dx * math.cos(a) + dz * math.sin(a), -dx * math.sin(a) + dz * math.cos(a)
+
+
+def dog(s: Set, pos, facing=(0, 0, 1), color=(205, 150, 90), spot=(240, 230, 215), collar=(220, 50, 60), size=1.0):
+    """A blocky dog standing on the floor at pos (x, _, z), facing `facing`: body, legs, head with a snout, floppy
+    ears, a tail, black bead eyes and a nose, a collar. About 3 studs long, its head 2.6 up at size 1."""
+    x, _, z = pos
+    yaw = _yaw(facing)
+    k = size
+
+    def at(dx, dy, dz):
+        rx, rz = _rot(dx * k, dz * k, yaw)
+        return (x + rx, dy * k, z + rz)
+
+    def box(size_, d, color_, mat="SmoothPlastic"):
+        s.box(tuple(v * k for v in size_), at(*d), color_, mat, rot=(0, yaw, 0))
+
+    box((1.3, 1.0, 2.2), (0, 1.25, 0), color, "Fabric")                     # body
+    box((1.0, 0.5, 1.2), (0, 0.85, 0.15), spot, "Fabric")                   # belly
+    for dx in (-0.45, 0.45):
+        for dz in (-0.75, 0.75):
+            box((0.38, 0.8, 0.38), (dx, 0.4, dz), color, "Fabric")         # legs
+            box((0.42, 0.18, 0.5), (dx, 0.09, dz + 0.06), spot, "Fabric")   # paws
+    box((1.15, 1.0, 1.0), (0, 2.05, 1.3), color, "Fabric")                  # head
+    box((0.7, 0.5, 0.55), (0, 1.8, 1.95), spot, "Fabric")                   # snout
+    box((0.28, 0.2, 0.12), (0, 1.97, 2.25), (25, 20, 20))                   # nose
+    for dx in (-0.3, 0.3):
+        box((0.16, 0.2, 0.08), (dx, 2.25, 1.82), (20, 20, 20))              # eyes
+        box((0.06, 0.07, 0.04), (dx - 0.03, 2.3, 1.87), (255, 255, 255))    # catchlights
+    for dx in (-0.62, 0.62):
+        box((0.2, 0.75, 0.55), (dx, 2.0, 1.2), tuple(int(c * 0.75) for c in color), "Fabric")   # ears
+    box((1.2, 0.18, 1.05), (0, 1.62, 1.25), collar)                          # collar
+    s.box((0.22 * k, 0.22 * k, 0.9 * k), at(0, 1.75, -1.35), color, "Fabric", rot=(-35, yaw, 0))   # tail
+
+
+def cat(s: Set, pos, facing=(0, 0, 1), color=(110, 110, 120), size=1.0):
+    """A blocky sitting cat: a slimmer body, pointed ears, a long tail, green eyes."""
+    x, _, z = pos
+    yaw = _yaw(facing)
+    k = size
+
+    def at(dx, dy, dz):
+        rx, rz = _rot(dx * k, dz * k, yaw)
+        return (x + rx, dy * k, z + rz)
+
+    def box(size_, d, color_, rot=(0, 0, 0)):
+        s.box(tuple(v * k for v in size_), at(*d), color_, "Fabric", rot=(rot[0], yaw + rot[1], rot[2]))
+
+    box((0.9, 1.2, 1.1), (0, 0.6, 0), color)                   # sitting body
+    box((0.85, 0.75, 0.75), (0, 1.55, 0.25), color)            # head
+    for dx in (-0.25, 0.25):
+        s.wedge((0.25 * k, 0.35 * k, 0.2 * k), at(dx, 2.08, 0.25), color, "Fabric", rot=(0, yaw, 0))   # ears
+        box((0.14, 0.16, 0.06), (dx, 1.62, 0.64), (60, 180, 80))                                      # eyes
+    box((0.12, 0.08, 0.06), (0, 1.48, 0.65), (240, 140, 150))  # nose
+    box((0.18, 0.18, 1.2), (0.35, 0.12, -0.5), color, rot=(0, 25, 0))   # tail
+
+
+PROPS = {"dog": dog, "cat": cat, "plant": plant, "lamp": lamp, "table": table, "rug": rug, "car": car, "tree": tree,
+         "pine": pine, "bookshelf": bookshelf, "sofa": sofa, "tv": tv}
+
+
+def props(s: Set, items: list) -> None:
+    """Props placed by a set's options: [{"kind": "dog", "at": [x, 0, z], "facing": [..], ...}, ...]."""
+    for it in items or []:
+        kw = {k: (tuple(v) if isinstance(v, list) else v) for k, v in it.items() if k not in ("kind", "at")}
+        PROPS[it["kind"]](s, tuple(it["at"]), **kw)
+
+
 # ---------------------------------------------------------------------------------------------------- the sets
 
 
@@ -705,5 +780,15 @@ def stage_void(opt: dict) -> Set:
     return s
 
 
-SETS = {"classroom": classroom, "hallway": hallway, "bedroom": bedroom, "living_room": living_room,
-        "street": street, "stage_void": stage_void}
+def _with_props(fn):
+    def build(opt: dict) -> Set:
+        st = fn(opt)
+        props(st, opt.get("props"))
+        return st
+    build.__doc__ = fn.__doc__
+    return build
+
+
+SETS = {name: _with_props(fn) for name, fn in {
+    "classroom": classroom, "hallway": hallway, "bedroom": bedroom, "living_room": living_room, "street": street,
+    "stage_void": stage_void}.items()}

@@ -22,17 +22,25 @@ import media  # noqa: E402
 from timeline import Timeline  # noqa: E402
 
 
+# A spoken caption, measured on the references' own (tools/verify/caption_pace.py, 2026-11-08): story captions stay
+# up 0.23-0.30 s at the least (006, 008, 009, 011, 013), and their fastest 5% run 30-45 characters a second (the
+# middle of those, 35). A caption faster than nearly all of theirs fails.
+SPEECH_CPS = 35.0
+SPEECH_MIN = 0.25
+
+
 def text_times(tl: Timeline, cps: float) -> list[tuple[str, str]]:
     """Each on-screen text's time up against the time to read it: 0.5 s plus its characters at `cps` a second, and at
     least 1.2 s. Texts marked "accent": true (a number slammed on a beat, read at a glance) are left out; texts marked
-    "speech": true (a caption of what the voice is saying) need only their characters at 25 a second, at least 0.3 s."""
+    "speech": true (a caption of what the voice is saying) need only their characters at SPEECH_CPS a second, at least
+    SPEECH_MIN s."""
     rows = []
     for t in tl.texts:
         if t.get("accent"):
             continue
         chars = len(t["text"]) + len(t.get("sub", ""))
-        # A caption of the voice is heard as it's read: it needs only the time to say it, at 25 characters a second.
-        need = max(0.3, chars / 25.0) if t.get("speech") else max(1.2, 0.5 + chars / cps)
+        # A caption of the voice is heard as it's read: it needs only the time to say it.
+        need = max(SPEECH_MIN, chars / SPEECH_CPS) if t.get("speech") else max(1.2, 0.5 + chars / cps)
         have = tl.sec(t["frames"])
         ok = have >= need - 1e-6
         rows.append(("PASS" if ok else "FAIL", f"{t['text']!r}: {have:.2f} s on screen, needs {need:.2f} s"))

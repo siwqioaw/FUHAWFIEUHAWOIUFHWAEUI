@@ -1,65 +1,154 @@
-# vid-editing
+<div align="center">
 
-Tools and lessons for making videos from Roblox footage entirely in code, and for checking them by measurement: an
-agent can't watch or listen, so every claim about a cut is measured on the delivered file.
+# 🎬 vid-editing · Roblox Shorts from one prompt
 
-They come from one project: a 66-second trailer for a Roblox horror game, made by an agent over three cuts, of which
-the owner rejected the first two (`docs/LESSONS.md` says why). The horror style stayed behind. What's here:
+**One concept in. A finished, checked, vertical Roblox Short out.**
 
-- the methods and checks that would have caught each rejection;
-- the Roblox Studio capture kit;
-- a starting point for the next project, vertical shorts for kids.
+Writing, sets, R6 animation, drawn faces, camera, voices, captions, sound, mastering and verification, all in code,
+driven by an agent skill.
 
-## Start here
+![Python](https://img.shields.io/badge/python-3.11-3776AB?logo=python&logoColor=white)
+![Roblox Studio](https://img.shields.io/badge/Roblox%20Studio-MCP-00A2FF)
+![selftest](https://img.shields.io/badge/selftest-90%20%2F%2090-2ea44f)
+![output](https://img.shields.io/badge/output-1080%C3%971920%20%C2%B7%20-14%20LUFS-8A2BE2)
+
+</div>
+
+```
+/roblox-shorts In this world, you hear a ding every time someone talks about you behind your back
+```
+
+…and the agent picks the format, writes the script, builds the set in Roblox Studio, poses and shoots R6 actors
+frame by frame, voices the lines through ElevenLabs, captions and mixes, and hands back `out/<slug>.mp4` with every
+check on the delivered file passing. Uploading stays with the owner, every time.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A[concept] --> B[format + script<br/><sub>skill/roblox-shorts</sub>]
+    B --> C[direct.py<br/><sub>shots, cast, faces, camera</sub>]
+    C --> D[voice<br/><sub>ElevenLabs → voice.py</sub>]
+    D --> E[plan<br/><sub>every key on its word</sub>]
+    E --> F[shoot<br/><sub>Roblox Studio, frame by frame</sub>]
+    F --> G[cut<br/><sub>captions, overlays</sub>]
+    G --> H[mix + master<br/><sub>-14 LUFS</sub>]
+    H --> I[deliver + verify<br/><sub>qc · audio · sheets</sub>]
+    I --> J[review<br/><sub>a fresh agent</sub>]
+```
+
+| Stage | What happens | Tool |
+|---|---|---|
+| **Concept** | 10 candidates, three premise tests, a score, the pick | `skill/roblox-shorts/writing/concepts.md` |
+| **Script** | the format's beat table and word budget; a quotable line, a hidden detail, a loop | `skill/roblox-shorts/formats/` |
+| **Direct** | sets and marks, cast looks, poses and faces keyed to words, a camera move per shot | `tools/shots.py` |
+| **Voice** | takes from ElevenLabs, silences cut, sped up 1.1-1.2x, levelled; every scripted word heard | `tools/edit/voice.py` |
+| **Plan** | shot lengths, word-anchored keys, captions, effects, the timeline every check reads | `tools/make.py plan` |
+| **Shoot** | sets built from code in a playtest; R6 actors posed per frame; 960 x 1707 portrait frames | `tools/make.py shoot` |
+| **Cut** | 1080 x 1920 master: captions in the references' house style, icons, swoop streaks | `tools/make.py cut` |
+| **Mix** | voices, effects, a ducked music bed, mastered to -14 LUFS, -2.4 dBTP | `tools/make.py mix` |
+| **Deliver** | H.264 + AAC, then loudness, flashes, read time, clicks, sync, sheets on the delivered file | `tools/make.py deliver` |
+
+## What it has made
+
+| Video | Format | Length | Notes |
+|---|---|---|---|
+| `videos/group-project` | rant | 27.3 s | "Nah, why does every group project have that ONE person?": three examples, three booms, "WE?!" |
+| `videos/ding` | "In this world" story | 33.6 s | 21 shots across two schools and a classroom; a bell and a ding for every ding |
+| `videos/first-vs-last` | music comparison | 10.5 s | cut on the beat of a YouTube Audio Library track |
+| `videos/s7-test` | pipeline test | 6.4 s | the first end-to-end file |
+
+Each folder holds the video's `direct.py` (its whole spec, in code), `short.json`, and `notes.md` (the concepts
+weighed, the pick, the decisions). The files themselves are built into `out/` and never committed.
+
+## Quick start
+
+**You need:** Windows with Roblox Studio, Python 3.11, FFmpeg on the PATH, and Claude Code with the ElevenLabs
+connector (for voices).
+
+```powershell
+git clone https://github.com/siwqioaw/vid-editing && cd vid-editing
+pip install -r requirements.txt
+python tests/selftest.py                      # 84 checks against planted failures
+python tools/roblox/facekit.py build build/faces/kit --install   # the 43 faces, into Studio
+python tools/install_skill.py                 # the skill, for every agent on this machine
+python tools/doctor.py                        # is everything ready?
+```
+
+Then open Studio on a Baseplate place (uncovered, on its own monitor: `docs/ROBLOX_CAPTURE.md`), start the bridge
+(`python tools/roblox/studio_mcp.py serve`), and ask Claude Code:
+
+```
+/roblox-shorts <your concept>
+```
+
+Or run the stages by hand on an existing video:
+
+```powershell
+python videos/group-project/direct.py         # writes short.json
+python tools/make.py all videos/group-project # plan, shoot, cut, mix, deliver (after the voice stage)
+```
+
+## The library
+
+| | |
+|---|---|
+| **Sets** | classroom · hallway · bedroom · living room · street (day / night) · cyclorama, built from code with marks and camera marks, several per video (`docs/SETS.md`) |
+| **Cast** | 14 looks from free Roblox catalog items checked on R6, including our own recurring narrator (`tools/roblox/cast.json`) |
+| **Faces** | 43 expressions in one hand-tuned line style, swapped on the word (`docs/FACES.md`) |
+| **Poses** | 13 snappy R6 poses that snap in 5 frames and drift, planted leans, a heel-to-toe walk (`tools/roblox/pose.py`) |
+| **Camera** | push, pull, swoop, dutch, low, top-down, over the shoulder with depth of field, two-shot (`tools/shots.py`) |
+| **Voices** | a cast picked by measuring 14 auditions against the references: narrator, girl, deep punch, storyteller (`docs/VOICE.md`) |
+| **Captions** | the references' three styles, matched to within 2 px on full-size frames (`docs/CAPTIONS.md`) |
+| **Sound** | effects from code (the 47 Hz boom, whooshes, dings), music beds, ducking, mastering (`docs/AUDIO.md`) |
+
+## Measured, not guessed
+
+An agent can't watch or listen, so every claim is measured on the delivered file and every check is itself tested:
+`tests/selftest.py` plants a failure for each check (flashes, short captions, clicks at cuts, undeclared sound across
+a cut, a missing word, a long pause, a peak over the ceiling, a face off the head...) and fails if any check misses it.
+Every round of work gets an independent reviewer, and every new kind of failure joins `docs/VERIFY.md`.
+
+| Part | Tested |
+|---|---|
+| The checks (`tools/verify/`) | `tests/selftest.py`: 90 of 90 |
+| Portrait capture, actors, faces, posing, camera | spikes S1-S4 in Studio (`docs/ROBLOX_CAPTURE.md`) |
+| Voice | spike S5: 14 auditions measured; an independent review's fixes in (`docs/VOICE.md`) |
+| Captions | spike S6: baselines within 2 px of the references (`docs/CAPTIONS.md`) |
+| The pipeline | spike S7: `videos/s7-test`, every check passing; then M2-M4 (`docs/MAKING.md`) |
+
+## Documents
 
 | Read | For |
 |---|---|
-| [`docs/LESSONS.md`](docs/LESSONS.md) | What went wrong in the trailer, and the check that catches each failure now |
-| [`docs/PIPELINE.md`](docs/PIPELINE.md) | The steps from an idea to a checked file |
+| [`skill/roblox-shorts/SKILL.md`](skill/roblox-shorts/SKILL.md) | The skill: the run, the rules, where everything is |
+| [`docs/MAKING.md`](docs/MAKING.md) | The pipeline and the spec format |
+| [`docs/ROBLOX_SHORTS_PLAN.md`](docs/ROBLOX_SHORTS_PLAN.md) | The plan, the spikes and milestones, the owner's decisions |
+| [`refs/r6rants/SYNTHESIS.md`](refs/r6rants/SYNTHESIS.md) | What 16 Shorts over 1M views have in common, measured |
 | [`docs/VERIFY.md`](docs/VERIFY.md) | The timeline file, every check, the reviewer's checklist |
-| [`docs/AUDIO.md`](docs/AUDIO.md), [`docs/PICTURE.md`](docs/PICTURE.md) | The rules for sound and picture, and why |
-| [`docs/ROBLOX_CAPTURE.md`](docs/ROBLOX_CAPTURE.md) | Capturing posed frames from Roblox Studio through its MCP server |
-| [`docs/KIDS_SHORTS.md`](docs/KIDS_SHORTS.md) | What changes for kids' shorts: untested advice, to check |
-| [`docs/ROBLOX_SHORTS_PLAN.md`](docs/ROBLOX_SHORTS_PLAN.md) | The plan for one-prompt Roblox Shorts, and the decisions it needs |
-| [`refs/r6rants/`](refs/r6rants/) | The first reference set: 16 Shorts over 1M views, studied one by one, and what they share |
+| [`docs/ROBLOX_CAPTURE.md`](docs/ROBLOX_CAPTURE.md) | Capturing posed frames from Studio through its MCP server |
+| [`docs/VOICE.md`](docs/VOICE.md), [`docs/CAPTIONS.md`](docs/CAPTIONS.md), [`docs/SETS.md`](docs/SETS.md), [`docs/FACES.md`](docs/FACES.md) | Voices, captions, sets, faces |
+| [`docs/AUDIO.md`](docs/AUDIO.md), [`docs/PICTURE.md`](docs/PICTURE.md), [`docs/LESSONS.md`](docs/LESSONS.md) | Sound and picture rules; what the first project (a horror trailer) taught |
 
 ## Layout
 
-| Folder | What |
-|---|---|
-| `tools/verify/` | `qc.py` (the file: loudness, flashes, read time, clicks, black), `audio.py` (sound across cuts, silences, sync, spectrogram), `sheets.py` (cut and contact sheets, frame strips), `analyze.py` (reference videos), `study.py` (reference study sheets: hook, contact sheets with the words, a map of the sound), `transcribe.py` (words with times, speech-to-text on this PC), `speech.py` (pitch, pace, pauses and level of speech; every scripted word heard), `timeline.py`, `media.py` |
-| `refs/` | reference sets: transcripts, measurements and study notes (the videos themselves are ignored); `NOTES_TEMPLATE.md` |
-| `tools/edit/` | `cues.py` (the cue sheet), `master.py` (loudness and true peak), `look.py`, `typeset.py`, `fx.py`, `render.py` (the parallel master render), `deliver.py` (the encode), `voice.py` (voice lines: breaths cut, sped up, levelled, words timed and checked) and `voices.json` (the voice cast), `captions.py` (captions in the references' house style), `sfx.py` (effects made from code: the boom, whooshes, pops, dings) |
-| `tools/roblox/` | `studio_mcp.py` (the MCP client and bridge), `studio.py`, `harness.luau`, `capture.py`, `stage.py`, `faces.py`, `pose.py` (R6 posing), `camera.py` (views and moves) |
-| `tools/make.py` | the pipeline: a Short's spec (`videos/<slug>/short.json`) to the delivered file, every stage checked (`docs/MAKING.md`) |
-| `videos/` | one folder per video: its spec and notes |
-| `tests/` | `selftest.py`: a test cut with planted failures that every check must catch; `studio_pose.py` and `studio_camera.py`: the posing and camera checks and takes in Studio (spikes S3, S4) |
-| `build/`, `out/` | generated, not committed |
-
-## What's been tested
-
-| Part | State |
-|---|---|
-| The checks (`tools/verify/`) | `tests/selftest.py` passes 74 of 74. On the trailer's delivered file they agree with that project's own checks, except that the read-time check is stricter (`docs/VERIFY.md`, "Trusting the checks"). |
-| Mastering, render, encode (`tools/edit/`) | Run by the self-test; the loudness meter agrees with ffmpeg's to 0.05 LU. |
-| Type and effects | Run by the self-test; captions looked at in its contact sheet. Mostly ported from the trailer, where they were used. |
-| The Studio bridge (`studio_mcp.py`) | Ported from the trailer, where it ran for hours; only the server lookup is new. |
-| The capture harness and capture loop | Run in Studio on 2026-11-07: smoke test clean, portrait takes of 15 and 30 frames at 960 x 1707 (`docs/ROBLOX_CAPTURE.md`, "Resolution"). |
-| Actors (`stage.py`) and faces (`faces.py`) | Run in Studio on 2026-11-07 (spike S2): dressed R6 actors from catalog items, faces drawn here and swapped per frame from Studio's content folder (`docs/ROBLOX_CAPTURE.md`, "Actors" and "Faces"). |
-| R6 posing (`pose.py`) | Run in Studio on 2026-11-07 (spike S3): snaps, drift, planted leans and a heel-to-toe walk at 60 fps; every predicted sole corner matched Roblox's within 0.00001 studs (`tests/studio_pose.py check`; `docs/ROBLOX_CAPTURE.md`, "Posing R6"). |
-| Camera (`camera.py`) | Run in Studio on 2026-11-07 (spike S4): push, pull, swoop, dutch, low angle, over the shoulder with depth of field and top-down, each strip measured (`docs/ROBLOX_CAPTURE.md`, "Camera"). |
-| Voice (`voice.py`, `speech.py`) | Run on 2026-11-08 (spike S5): 14 audition takes in 11 ElevenLabs voices through the connector, measured against the references; the cast in `voices.json`; three test lines with every check passing (`docs/VOICE.md`). |
-| Captions (`captions.py`) | Matched on 2026-11-08 (spike S6) to full-size reference frames: comedy and story baselines within 2 px, widths within 4% (`docs/CAPTIONS.md`). |
-| The pipeline (`make.py`) | Run end to end on 2026-11-08 (spike S7): `videos/s7-test` to a 6.4 s file in Studio, every check passing (`docs/MAKING.md`). |
-| Kids' shorts advice | Untested. |
-
-## Setup
-
-- Python 3.11 or later with `pip install -r requirements.txt`. Tested with Python 3.13.12, numpy 2.5.4, scipy
-  1.18.1, OpenCV 5.0.0, Pillow 13.0.0 and soundfile 0.14.0.
-- ffmpeg and ffprobe on the PATH. Tested with 8.1.1.
-- For capture: Windows with Roblox Studio (`StudioMCP.exe` ships with it).
-
 ```
-python tests/selftest.py
+skill/roblox-shorts/   the agent skill: SKILL.md, formats/, writing/, library, building, assets, checklist
+tools/make.py          the pipeline         tools/shots.py      shot helpers       tools/doctor.py   readiness
+tools/roblox/          Studio bridge, capture harness, sets (kit.py), cast, faces (facekit.py), poses, camera
+tools/edit/            voice, captions, effects, cue sheet, master, render, deliver, type, fx
+tools/verify/          qc, audio, speech, sheets, transcribe, analyze, study, timeline
+videos/<slug>/         one folder per video: direct.py, short.json, notes.md   videos/LEDGER.md: the variety ledger
+refs/r6rants/          the reference study: notes, transcripts, measurements, listener pass, synthesis
+assets/                fonts (Montserrat, OFL) and emoji (Noto), with their licences
+build/, out/           generated: never committed
 ```
+
+## House rules
+
+Teen audience, not made for kids; roast types, never people; spooky but safe. Everything original: never the
+references' footage, music, characters or jokes. Every asset licensed and listed in [`ATTRIBUTION.md`](ATTRIBUTION.md).
+No keys or tokens ever seen, typed, logged or committed. Publishing is always the owner's call. The full rules are in
+[`CLAUDE.md`](CLAUDE.md).
+
+<sub>Not affiliated with Roblox. Roblox is a trademark of Roblox Corporation.</sub>

@@ -24,7 +24,7 @@ US = [0, 0, 1]
 s.add(
     # first day: bright, eager
     shot("hello", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "idle"), (0.1, "cheer")], faces=[(0, "grin")]),
-                   "ex1": actor([-5.8, 3, -4], facing=[1, 0, 0], faces=[(0, "smile")])},
+                   "ex1": actor([-2.4, 3, -5], facing=[0.3, 0, 1], poses=[(0, "cheer")], faces=[(0, "smile")])},
          push("leo.head", 9.5, 6.0, fov=48), seconds=2 * BEAT),
     shot("hand_up", {"leo": actor([1.5, 3, 3], facing=[0, 0, -1], poses=[(0, "point")], faces=[(0, "starstruck")]),
                      "teacher": actor([-9, 3, -14.5], facing=US, faces=[(0, "smile")])},
@@ -40,7 +40,7 @@ s.add(
          two_shot("teacher", "leo", distance=8.0, fov=50), set="class", seconds=2 * BEAT),
     shot("freedom", {"leo": actor([0, 3, -20], facing=US, poses=[(0, "cheer")], faces=[(0, "evil")],
                                   walk={"from": [0, 3, -24], "to": [0, 3, -16], "start": 0.0, "freq": 2.4}),
-                     "ex2": actor([5.8, 3, -12], facing=[-1, 0, 0], faces=[(0, "shock")])},
+                     "ex2": actor([2.2, 3, -27], facing=[0, 0, 1], poses=[(0, "hands_on_head")], faces=[(0, "shock")])},
          dutch_in("leo.head", degrees=-14, start=10.0, end=6.5, move=0.4), seconds=2 * BEAT),
     shot("me", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "arms_crossed")], faces=[(0, "deadpan")])},
          push("leo.head", 6.0, 4.4, move=0.3), seconds=2 * BEAT),

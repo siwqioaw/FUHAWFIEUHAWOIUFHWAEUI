@@ -515,6 +515,21 @@ def voice_checks(expect) -> None:
     removed = sum(b - a for a, b in cuts3)
     expect(f"voice: tighten keeps a creaky tail and an 'h' onset, cutting only the silence between them "
            f"({removed:.3f} s cut of the 0.35 s silence)", len(cuts3) == 1 and 0.2 < removed <= 0.29)
+    # M5's case, its measured profile (line a, 4.86-5.08 s): silence 60 ms, the floor 38 dB under for 70 ms, silence
+    # 10, floor 10, silence 40, floor 35 dB under for 20, silence 10: a 0.22 s gap the old rule couldn't cut
+    w1 = word(200, 0.5)
+    top = np.percentile(speech.frames_db(w1, sr), 95)
+
+    def floor(ms, under):
+        return rng.standard_normal(int(ms / 1000 * sr)) * 10 ** ((top - under) / 20)
+
+    flick = np.concatenate([np.zeros(int(0.06 * sr)), floor(70, 38), np.zeros(int(0.01 * sr)), floor(10, 38),
+                            np.zeros(int(0.04 * sr)), floor(20, 35), np.zeros(int(0.01 * sr))])
+    line5 = np.concatenate([w1, flick, word(240, 0.5)])
+    y5, cuts5 = voice.tighten(line5, sr, keep=0.05)
+    left = max((b - a for a, b in speech.pauses(y5, sr)), default=0.0)
+    expect(f"voice: tighten cuts a 0.22 s gap whose floor wobbles round the silence line ({left:.2f} s left, "
+           f"{sum(b - a for a, b in cuts5):.2f} s cut)", left <= 0.12 and len(cuts5) >= 1)
     crest = np.concatenate([np.zeros(int(0.1 * sr)), word(80, 0.6) * np.where(np.arange(int(0.6 * sr)) % 600 < 12,
                                                                             4.0, 1.0), np.zeros(int(0.1 * sr))])
     y4, _ = voice.normalize(crest, sr, -18.0)
@@ -636,6 +651,37 @@ def pipeline_checks(expect) -> None:
            f"({story_caps})",
            caps[0].endswith("\U0001F62D") and caps[0].startswith("why does") and caps[-1] == "then he left."
            and all(1 <= len(c.split()) <= 3 for c in story_caps) and len(story_caps) >= 5)
+    framed = json.load(open(sh.path("plan.json"), encoding="utf-8"))
+    clean = make._framing(framed)
+    framed["shots"][0]["actors"]["far"] = {"cf": {"pos": [30.0, 3.0, 0.0], "look": [30.0, 3.0, 10.0]}}
+    flagged = make._framing(framed)
+    expect(f"make: the framing check passes actors in shot ({clean}) and flags one the camera never sees ({flagged})",
+           not clean and len(flagged) == 1 and "far" in flagged[0])
+    u1 = make._raw_name("b", 0, "https://cdn.example/gen/AAA/content.mp3?Expires=1&Signature=x")
+    u2 = make._raw_name("b", 0, "https://cdn.example/gen/AAA/content.mp3?Expires=2&Signature=y")
+    u3 = make._raw_name("b", 0, "https://cdn.example/gen/BBB/content.mp3?Expires=1&Signature=x")
+    expect(f"make: a downloaded take is named by the take, not its signature, so new takes aren't skipped "
+           f"({u1}, {u3})", u1 == u2 and u1 != u3 and "Signature" not in u1)
+    names = make._names({"x": {"text": "[sad] Leo had never heard one. So Leo stopped. Then Max's dog barked."}})
+    named = [c[0] for c in make._clauses([("Leo", 0, .2), ("had", .2, .4), ("never.", .4, .6), ("Max's", .6, .8),
+                                          ("dog", .8, 1.0), ("barked.", 1.0, 1.2), ("I'd", 1.2, 1.3),
+                                          ("go.", 1.3, 1.4), ("The", 1.4, 1.5), ("end.", 1.5, 1.7)],
+                                         "story", None, True, names)]
+    expect(f"make: a caption keeps a name's capital (one the script capitalizes mid-sentence) and 'I', and lowers "
+           f"the rest ({named}, names {sorted(names)})",
+           named == ["Leo had never.", "Max's dog barked.", "I'd go.", "the end."] and names == {"leo", "max"})
+    even = [(w, i * 0.3, i * 0.3 + 0.25) for i, w in enumerate("you hear a ding. most people hear a few a day.".split())]
+    broken = [c[0] for c in make._clauses(even, "story", None, True)]
+    expect(f"make: story captions don't end on 'a' or leave a word alone ({broken})",
+           broken[:2] == ["you hear", "a ding."]
+           and all(1 < len(c.split()) <= 4 and c.split()[-1] not in make.WEAK_END for c in broken))
+    caps_b = [{"text": "liked him.", "show": 0.0, "hide": 1.0}, {"text": "then he", "show": 1.0, "hide": 1.2},
+              {"text": "switched schools.", "show": 1.2, "hide": 2.0}]
+    make._balance(caps_b, 60)
+    up = [round(c["hide"] - c["show"], 3) for c in caps_b]
+    expect(f"make: a caption said too fast to read borrows time from a neighbour with some to spare ({up} s up)",
+           up[1] >= qc.SPEECH_MIN + 1 / 60 - 1e-9 and caps_b[1]["show"] >= 1.0 - 0.12 - 1e-9
+           and abs(caps_b[0]["hide"] - caps_b[1]["show"]) < 1e-9 and up[0] > 0.9)
     tl = Timeline.load(sh.path("cut.json"))
     expect(f"make: the boom after the line is a picture hit ({tl.hits})",
            len(tl.hits) == 1 and abs(tl.hits[0]["frame"] - round(2.65 * 30)) <= 1)

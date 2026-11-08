@@ -15,8 +15,9 @@
           "about": "mom: short brown hair, striped shirt with a denim jacket"},
   "dad": {"skin": [105, 64, 40], "hair": [1772336109], "shirt": 144076358, "pants": 144076760,
           "about": "dad: motorcycle shirt, green jeans"},
-  "teacher": {"skin": [255, 224, 189], "hair": [62234425], "face_acc": [130858694386007], "shirt": 607785314, "pants": 382537569,
-              "about": "the teacher: glasses, a jacket"},
+  "teacher": {"skin": [255, 224, 189], "hair": [62234425], "face_acc": [130858694386007], "torso": [52, 63, 99],
+              "arms": [52, 63, 99], "pants": 382537569,
+              "about": "the teacher: glasses, a plain slate sweater (body colours: no shirt template, so no logo)"},
   "rich_kid": {"skin": [255, 224, 189], "hair": [376524487], "shirt": 398633584, "pants": 398635338,
                "about": "the rich kid: spiky blonde hair, denim jacket over a white hoodie, ripped skater pants"},
   "jock": {"skin": [160, 110, 75], "hair": [63690008], "shirt": 382538059, "pants": 382537950,
@@ -24,7 +25,7 @@
   "nerd": {"skin": [255, 204, 153], "hair": [63690008], "face_acc": [130858694386007], "shirt": 144076436, "pants": 144076760,
            "about": "the teacher's pet: glasses, neat shirt"},
   "extra_a": {"skin": [234, 184, 146], "hair": [62234425], "shirt": 382537085, "pants": 382537806, "about": "a background kid"},
-  "extra_b": {"skin": [105, 64, 40], "hair": [376548738], "shirt": 3670737444, "pants": 398633812, "about": "a background kid"},
-  "extra_c": {"skin": [255, 224, 189], "hair": [451221329], "shirt": 398635081, "pants": 382537950, "about": "a background kid"}
+  "extra_b": {"skin": [105, 64, 40], "hair": [376548738], "shirt": 398633584, "pants": 398633812, "about": "a background kid"},
+  "extra_c": {"skin": [255, 224, 189], "hair": [376524487], "shirt": 144076358, "pants": 382537950, "about": "a background kid"}
  }
 }

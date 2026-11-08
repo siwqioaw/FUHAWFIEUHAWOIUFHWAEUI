@@ -21,8 +21,8 @@ video's record and are committed.
 
 | Stage | Reads | Writes | Fails when |
 |---|---|---|---|
-| voice | `short.json` lines, `build/<slug>/takes.json` (the agent writes it after generating each line with the ElevenLabs connector: {line id: [take URL or file, ...]}) | `voice/<id>.wav`, `voice/words.json`, `voice/report.md` | any voice check fails (`docs/VOICE.md`) |
-| plan | the spec, `words.json` | `plan.json` (every shot's camera path, actors' pose and face keys, voices, effects, captions), `cut.json` (the timeline every check reads) | a time can't be resolved, a shot has no camera |
+| voice | `short.json` lines, `build/<slug>/takes.json` (the agent writes it after generating each line with the ElevenLabs connector: {line id: [take URL or file, ...]}; each download is named by its take, so a regenerated line's new takes are fetched) | `voice/<id>.wav`, `voice/words.json`, `voice/report.md` | any voice check fails (`docs/VOICE.md`) |
+| plan | the spec, `words.json` | `plan.json` (every shot's camera path, actors' pose and face keys, voices, effects, captions), `cut.json` (the timeline every check reads) | a time can't be resolved, a shot has no camera, a caption is up too briefly to read (`qc.py`'s rule, found before the shoot) |
 | shoot | `plan.json` | `shots/<shot>/f00000.png ...` (960 x 1707) | frames are missing after 4 attempts |
 | cut | `plan.json`, the frames | `master.mov` (1080 x 1920, ProRes) | a frame is missing |
 | mix | `plan.json`, `cut.json`, the voice files | `mix_raw.wav`, `mix.wav`; the placements into `cut.json` | |
@@ -72,14 +72,26 @@ each, plus about a minute to start the playtest and stage the cast; cut 35 s; mi
     - `{"pos": [x, y, z], "look": "girl.face"}`;
     - `{"ots": {"near": "kid", "far": "girl"}}` (over the shoulder, with depth of field);
     - `{"low": {"aim": "kid.head"}}`, `{"top": {"aim": "kid.torso"}}`;
+    - a two-shot: `{"aim": "girl.head", "between": "me", "distance": 11}` (framed between two heads, from the side
+      both face);
     - with `"dutch": 14`, `"back": 2`, `"orbit": 30` applied after.
   - `say`: the lines said in the shot, each `at` seconds in (or at a time, below). A line can run on past the cut.
   - `sfx`: effects from `tools/edit/sfx.py` (`boom`, `whoosh`, `pop`, `ding`, `error`, `shimmer`, `thud`, `riser`,
     `tick`) or a file; booms and thuds are picture hits that `audio.py` checks a sound lands on.
   - `streak`: true for a swoop, smeared in the edit (`camera.smear`, `fx.streak`).
   - `drift`: how much a held camera drifts (1 by default, 0 for none).
-- **music:** a bed looped to length from `start`, ducked under the voice (6 dB by default).
+- **until:** a shot can end on a time instead of a length: `"until": "b:switched"` cuts on that word (stories cut on
+  the first word of each clause).
+- **set:** a shot staged in one of the video's other sets (`"sets": [{"id": "new_school", "name": "hallway", "at":
+  [400, 0, 0], "options": {...}}]`), its coordinates in that set's own frame.
+- **overlays:** icons popping over a point in the scene, projected through the shot's camera: `{"icon": "bell", "over":
+  "leo.head", "at": "b:ding", "size": 150}` (an emoji name or picture; the rule's signature in a story).
+- **planted:** false for an actor whose feet shouldn't be kept on the floor.
+- **music:** a bed looped to length from `start` (`offset` seconds into the track), ducked under the voice (6 dB by
+  default, `duck_db`), or not (`"duck": false`, for music formats).
 - **texts:** words on screen that aren't captions of a line (headers, labels), in seconds.
+- **names:** names that only ever start a sentence ("Mia aced her math test."), so captions keep their capitals; a
+  name the script also uses mid-sentence is found without this.
 
 ## Times
 
@@ -91,9 +103,19 @@ after the punch however the take came out.
 ## Captions
 
 Made from the lines in the family's style (`docs/CAPTIONS.md`): the script's own words and capitals, timed by the
-transcriber's word times. Comedy captions are a clause each, up to three lines, cut a sentence at a time; story
-captions 1-3 words, a new one at punctuation. Each shows 2 frames before its first word and holds until the next.
-The read-time check treats them as speech: heard as they're read, they need only their characters at 25 a second.
+transcriber's word times, each starting in lower case unless its first word is stressed, "I" or a name (a word the
+script capitalizes mid-sentence, so "so Leo stopped" keeps "Leo had never" capitalized); an emoji only in comedy.
+
+- **Comedy** captions are a clause each, up to three lines, cut a sentence at a time.
+- **Story** captions are 1-3 words, each phrase (up to a punctuation mark) split the way that reads best
+  (`_story_groups`): not ending on "a", "the", "to" and the like, no word left alone, none up too briefly to read.
+  "you hear a | ding." becomes "you hear | a ding."; "most people hear | a few a | day." becomes "most people | hear
+  a few | a day.". Four words only where a phrase is said too fast to split.
+- Each shows 2 frames before its first word and holds until the next. One said too fast to read takes up to 0.12 s
+  from a neighbour with time to spare (`_balance`).
+
+The read-time check treats them as speech: heard as they're read, they need only their characters at 35 a second, and
+0.25 s at the least, the references' own pace (`docs/VERIFY.md`, `caption_pace.py`).
 
 ## When a shoot fails
 
