@@ -239,9 +239,15 @@
      "at": 0.0
     }
    ],
-   "sfx": [],
+   "sfx": [
+    {
+     "sound": "pop",
+     "at": "a:pet",
+     "gain_db": -10
+    }
+   ],
    "drift": 1.0,
-   "until": "a:dogs",
+   "until": "a:cats",
    "overlays": [
     {
      "icon": "💬",
@@ -251,7 +257,7 @@
       16.7
      ],
      "at": "a:pet",
-     "size": 130,
+     "size": 210,
      "lift": 0.35,
      "dur": 0.9
     }
@@ -325,7 +331,13 @@
     }
    ],
    "say": [],
-   "sfx": [],
+   "sfx": [
+    {
+     "sound": "pop",
+     "at": "a:cats",
+     "gain_db": -10
+    }
+   ],
    "drift": 1.0,
    "until": "a:and",
    "overlays": [
@@ -337,7 +349,7 @@
       17.75
      ],
      "at": "a:cats",
-     "size": 130,
+     "size": 210,
      "lift": 0.35,
      "dur": 0.9
     }
@@ -378,7 +390,7 @@
     {
      "t": 0,
      "aim": [
-      -43.1,
+      -42.6,
       3.7,
       18.3
      ],
@@ -394,11 +406,11 @@
     {
      "t": 0.04,
      "aim": [
-      -43.1,
+      -42.6,
       3.7,
       18.3
      ],
-     "distance": 8.8,
+     "distance": 9.0,
      "fov": 50,
      "height": -0.3,
      "move": 0.28,
@@ -411,7 +423,13 @@
     }
    ],
    "say": [],
-   "sfx": [],
+   "sfx": [
+    {
+     "sound": "pop",
+     "at": "a:love",
+     "gain_db": -10
+    }
+   ],
    "drift": 1.0,
    "until": "a:because",
    "overlays": [
@@ -423,7 +441,7 @@
       16.7
      ],
      "at": "a:love",
-     "size": 130,
+     "size": 210,
      "lift": 0.35,
      "dur": 0.9
     }
@@ -497,7 +515,13 @@
     }
    ],
    "say": [],
-   "sfx": [],
+   "sfx": [
+    {
+     "sound": "pop",
+     "at": "a:brag",
+     "gain_db": -10
+    }
+   ],
    "drift": 1.0,
    "until": "a:end+0.04",
    "overlays": [
@@ -509,7 +533,7 @@
       17.75
      ],
      "at": "a:brag",
-     "size": 130,
+     "size": 210,
      "lift": 0.35,
      "dur": 0.9
     }
@@ -558,7 +582,7 @@
      "fov": 50,
      "height": -0.3,
      "toward": [
-      0,
+      -0.35,
       0,
       -1
      ]
@@ -576,7 +600,7 @@
      "move": 0.28,
      "ease": "out",
      "toward": [
-      0,
+      -0.35,
       0,
       -1
      ]
@@ -588,7 +612,13 @@
      "at": "a:end+0.04"
     }
    ],
-   "sfx": [],
+   "sfx": [
+    {
+     "sound": "pop",
+     "at": "b:mia",
+     "gain_db": -10
+    }
+   ],
    "drift": 1.0,
    "until": "b:jake's",
    "overlays": [
@@ -600,7 +630,7 @@
       17.75
      ],
      "at": "b:mia",
-     "size": 130,
+     "size": 210,
      "lift": 0.35,
      "dur": 0.9
     }
@@ -674,7 +704,13 @@
     }
    ],
    "say": [],
-   "sfx": [],
+   "sfx": [
+    {
+     "sound": "pop",
+     "at": "b:jake's",
+     "gain_db": -10
+    }
+   ],
    "drift": 1.0,
    "until": "b:but",
    "overlays": [
@@ -686,7 +722,7 @@
       16.7
      ],
      "at": "b:jake's",
-     "size": 130,
+     "size": 210,
      "lift": 0.35,
      "dur": 0.9
     }
@@ -760,7 +796,13 @@
     }
    ],
    "say": [],
-   "sfx": [],
+   "sfx": [
+    {
+     "sound": "pop",
+     "at": "b:truth",
+     "gain_db": -10
+    }
+   ],
    "drift": 1.0,
    "until": "b:like",
    "overlays": [
@@ -772,7 +814,7 @@
       16.7
      ],
      "at": "b:truth",
-     "size": 130,
+     "size": 210,
      "lift": 0.35,
      "dur": 0.9
     }
@@ -785,9 +827,9 @@
    "actors": {
     "max": {
      "at": [
-      -2,
+      -6.5,
       3,
-      2
+      1.5
      ],
      "poses": [
       [
@@ -796,7 +838,7 @@
       ],
       [
        "b:hi",
-       "point"
+       "wave"
       ]
      ],
      "faces": [
@@ -875,17 +917,19 @@
    "camera": [
     {
      "t": 0,
-     "aim": "max.head",
-     "distance": 5.0,
-     "fov": 45,
-     "height": -0.3
+     "aim": "max.head+[0,0.2,0]",
+     "distance": 7.5,
+     "fov": 48,
+     "height": -0.3,
+     "orbit": 40
     },
     {
      "t": 0.04,
-     "aim": "max.head",
-     "distance": 4.0,
-     "fov": 45,
+     "aim": "max.head+[0,0.2,0]",
+     "distance": 6.6,
+     "fov": 48,
      "height": -0.3,
+     "orbit": 40,
      "move": 0.4,
      "ease": "out"
     }
@@ -930,19 +974,11 @@
    "camera": [
     {
      "t": 0,
-     "aim": "max.face",
-     "distance": 2.6,
-     "fov": 45,
-     "height": -0.2
-    },
-    {
-     "t": 0.04,
-     "aim": "max.face",
-     "distance": 4.8,
+     "aim": "max.face+[0,0.25,0]",
+     "distance": 2.8,
      "fov": 45,
      "height": -0.2,
-     "move": 0.3,
-     "ease": "out"
+     "orbit": -35
     }
    ],
    "say": [],
@@ -1046,7 +1082,13 @@
     }
    ],
    "say": [],
-   "sfx": [],
+   "sfx": [
+    {
+     "sound": "pop",
+     "at": "b:didn't",
+     "gain_db": -10
+    }
+   ],
    "drift": 1.0,
    "until": "b:end+0.04",
    "set": "living",
@@ -1059,7 +1101,7 @@
       3.48
      ],
      "at": "b:didn't",
-     "size": 170,
+     "size": 220,
      "lift": 0.35,
      "dur": 0.9
     }
@@ -1271,9 +1313,9 @@
      ],
      "walk": {
       "from": [
-       7.5,
+       6.8,
        3,
-       -2.5
+       -1.2
       ],
       "to": [
        2.6,
@@ -1421,9 +1463,9 @@
     {
      "t": 0,
      "aim": [
-      3.0,
+      3.4,
       3.75,
-      -6.3
+      -6.2
      ],
      "distance": 9.5,
      "fov": 50,
@@ -1431,15 +1473,15 @@
      "toward": [
       -1,
       0,
-      0.3
+      -0.1
      ]
     },
     {
      "t": 0.04,
      "aim": [
-      3.0,
+      3.4,
       3.75,
-      -6.3
+      -6.2
      ],
      "distance": 8.0,
      "fov": 50,
@@ -1449,12 +1491,18 @@
      "toward": [
       -1,
       0,
-      0.3
+      -0.1
      ]
     }
    ],
    "say": [],
-   "sfx": [],
+   "sfx": [
+    {
+     "sound": "pop",
+     "at": "c:dog",
+     "gain_db": -10
+    }
+   ],
    "drift": 1.0,
    "until": "c:he#1",
    "set": "dance",
@@ -1462,12 +1510,12 @@
     {
      "icon": "💬",
      "over": [
-      2.3,
+      4.1000000000000005,
       2.7,
-      -6.2
+      -5.855
      ],
      "at": "c:dog",
-     "size": 160,
+     "size": 210,
      "lift": 0.35,
      "dur": 0.9
     }
@@ -1635,9 +1683,9 @@
      ],
      "drift": 1.0,
      "facing": [
-      1,
+      -1,
       0,
-      0.2
+      -0.3
      ]
     }
    },
@@ -1645,40 +1693,46 @@
     {
      "t": 0,
      "aim": [
-      2.3,
-      2.2,
+      3.4,
+      3.8,
       -6.2
      ],
-     "distance": 6.0,
+     "distance": 9.0,
      "fov": 50,
-     "height": 0.6,
+     "height": -0.3,
      "toward": [
       -1,
       0,
-      0
+      -0.1
      ]
     },
     {
      "t": 0.04,
      "aim": [
-      2.3,
-      2.2,
+      3.4,
+      3.8,
       -6.2
      ],
-     "distance": 4.0,
+     "distance": 7.5,
      "fov": 50,
-     "height": 0.6,
+     "height": -0.3,
      "move": 0.28,
      "ease": "out",
      "toward": [
       -1,
       0,
-      0
+      -0.1
      ]
     }
    ],
    "say": [],
-   "sfx": [],
+   "sfx": [
+    {
+     "sound": "pop",
+     "at": "c:honestly",
+     "gain_db": -10
+    }
+   ],
    "drift": 1.0,
    "until": "c:best",
    "set": "dance",
@@ -1686,12 +1740,12 @@
     {
      "icon": "💬",
      "over": [
-      2.3,
+      4.1000000000000005,
       2.7,
-      -6.2
+      -5.855
      ],
      "at": "c:honestly",
-     "size": 150,
+     "size": 220,
      "lift": 0.35,
      "dur": 1.2
     }
@@ -1706,35 +1760,35 @@
     {
      "t": 0,
      "aim": [
-      2.3,
+      4.1000000000000005,
       2.5,
-      -6.2
+      -5.855
      ],
-     "distance": 3.8,
+     "distance": 3.6,
      "fov": 48,
      "height": 0.0,
      "toward": [
-      -1,
+      -0.6,
       0,
-      0
+      -1
      ]
     },
     {
      "t": 0.04,
      "aim": [
-      2.3,
+      4.1000000000000005,
       2.5,
-      -6.2
+      -5.855
      ],
-     "distance": 2.9,
+     "distance": 2.7,
      "fov": 48,
      "height": 0.0,
      "move": 0.6,
      "ease": "out",
      "toward": [
-      -1,
+      -0.6,
       0,
-      0
+      -1
      ]
     }
    ],
@@ -1752,14 +1806,14 @@
     {
      "icon": "💬",
      "over": [
-      2.3,
+      4.1000000000000005,
       2.7,
-      -6.2
+      -5.855
      ],
-     "at": "c:that's",
-     "size": 160,
+     "at": "c:me",
+     "size": 230,
      "lift": 0.2,
-     "dur": 1.6
+     "dur": 1.4
     }
    ]
   }
@@ -1865,14 +1919,14 @@
      {
       "kind": "dog",
       "at": [
-       3.6,
+       5.4,
        0,
-       -6.2
+       -5.4
       ],
       "facing": [
        -1,
        0,
-       0
+       -0.35
       ],
       "color": [
        205,
@@ -1897,7 +1951,7 @@
  "music": {
   "track": "build/library/music/lofi_bed.mp3",
   "start": 0.0,
-  "gain_db": -15.0,
-  "duck_db": -4.0
+  "gain_db": -16.0,
+  "duck_db": -9.0
  }
 }

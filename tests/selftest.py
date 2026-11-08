@@ -530,16 +530,17 @@ def voice_checks(expect) -> None:
            f"({removed:.3f} s cut of the 0.35 s silence)", len(cuts3) == 1 and 0.2 < removed <= 0.29)
     # M3's review: the transcriber starts a sentence's first word straight after the last one, over a scoff and a
     # pause; the word is said 0.47 s later
-    said = 0.4 + 0.05 + 0.12 + 0.35
+    said = 0.4 + 0.05 + 0.12 + 0.35   # where its "f" starts: 60 ms of hiss before the voice
+    fric = np.convolve(rng.standard_normal(int(0.06 * sr)), [1, -1], mode="same") * 0.05
     line_r = np.concatenate([word(200, 0.4), np.zeros(int(0.05 * sr)), word(150, 0.12), np.zeros(int(0.35 * sr)),
-                             word(220, 0.4)])
-    heard_r = [{"word": "page", "start": 0.0, "end": 0.42}, {"word": "for", "start": 0.42, "end": 1.0}]
+                             fric, word(220, 0.4)])
+    heard_r = [{"word": "page", "start": 0.0, "end": 0.42}, {"word": "for", "start": 0.42, "end": 1.3}]
     after_stop = voice.refine_words(heard_r, line_r, sr, "Page. For")
     mid_phrase = voice.refine_words(heard_r, line_r, sr, "Page for")
-    expect(f"voice: a sentence's first word timed over the scoff and pause before it starts where it's said "
-           f"({after_stop[1]['start']:.2f} s; said at {said:.2f}, less 0.05 for its 'f'); mid-phrase it's left "
-           f"alone ({mid_phrase[1]['start']:.2f})",
-           abs(after_stop[1]["start"] - (said - 0.05)) < 0.03 and mid_phrase[1]["start"] == 0.42)
+    expect(f"voice: a sentence's first word timed over the scoff and pause before it starts where its sound does "
+           f"({after_stop[1]['start']:.2f} s; its 'f' starts at {said:.2f}); mid-phrase it's left alone "
+           f"({mid_phrase[1]['start']:.2f})",
+           abs(after_stop[1]["start"] - said) <= 0.02 and mid_phrase[1]["start"] == 0.42)
     narrator = {"pitch": [90, 340], "max_pause": 0.2, "level_db": -18.0, "center": 214, "register_st": [-7, 9]}
     low = voice.check(dict(m_good, pitch={"median": 99.0, "voiced_s": 1.0}), narrator, {})
     shout = voice.check(dict(m_good, pitch={"median": 329.0, "voiced_s": 1.0}), narrator, {})

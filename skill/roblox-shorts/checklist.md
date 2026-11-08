@@ -85,3 +85,10 @@ failure found to this list and to `docs/VERIFY.md`.
   raise an arm through the front, not out to the side past about 60 degrees.
 - A prop in the camera's path (M5's `aced` opened inside the street's parked car, at (12, 0, 7)): look at the
   first frames of every shot, not only the middle still.
+- A pet inside its owner (M5: the dance dog's head on Max's mark): place a pet beside its owner's mark, its head
+  a stud clear, and look at the shot from behind too.
+- Actors waiting for later shots visible in the sky (M5's opening: they waited at z = 400, in front of a camera
+  looking north on the open street): they wait under the floor now.
+- A rule's signature without its sound (M5's bubbles): every instance gets both, as M4's bells and dings do.
+- Captions over set text (a poster's "GAME ON" right above them): keep text on walls out of the captions' band.
+- Word starts late after the refinement (M5: 0.09-0.24 s): `refine_words` walks back to the sound's onset.

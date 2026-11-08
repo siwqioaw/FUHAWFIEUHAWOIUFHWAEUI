@@ -299,6 +299,21 @@ def _phrase_openers(words: list[dict], text: str | None) -> list[bool]:
     return out
 
 
+def _sound_onset(db: np.ndarray, top: float, t: float, most: float = 0.3, quiet_db: float = 30.0):
+    """Where the sound before a voiced stretch starting at t begins: back from t over 10 ms frames, the first
+    frame after the last quiet one (more than `quiet_db` under the loudest), within `most` seconds; None when the
+    sound runs on further back. A phrase's first word follows a pause, so its consonant starts right after the quiet:
+    on M5 this found "cats", "because" and "Like" within 0.01 s of the reviewer's measured onsets."""
+    i = int(round(t / 0.01))
+    for k in range(1, int(most / 0.01) + 1):
+        j = i - k
+        if j < 0:
+            return 0.0
+        if j < len(db) and db[j] < top - quiet_db:
+            return round((j + 1) * 0.01, 3)
+    return None
+
+
 def refine_words(words: list[dict], y: np.ndarray, sr: int, text: str | None = None,
                  least_shift: float = 0.1) -> list[dict]:
     """Word starts moved to where the word's sound begins. The transcriber starts a word straight after the one
@@ -314,9 +329,13 @@ def refine_words(words: list[dict], y: np.ndarray, sr: int, text: str | None = N
     - holds two voiced stretches more than 0.15 s apart (a sound, a pause, then the word): the later one;
     - holds no voicing at all (the word is later than the transcriber says): the next voiced stretch, within 0.8 s.
 
-    Less 0.05 s for a word opening on an unvoiced consonant (0.02 otherwise), and only when that moves it 0.1 s or
-    more. Starts only move later, and stay in order; an end is pushed past its start when it has to be."""
+    The start is then where the sound before that voicing begins, back to the last quiet frame (`_sound_onset`),
+    or, with no quiet frame within 0.3 s, 0.05 s before it for a word opening on an unvoiced consonant (0.02
+    otherwise); only when the voicing is 0.1 s or more later. Starts only move later, and stay in order; an end is
+    pushed past its start when it has to be."""
     runs = voiced_runs(y, sr)
+    db = speech.frames_db(y, sr)
+    top = np.percentile(db, 95) if len(db) else 0.0
     out = [dict(w) for w in words]
     opens = _phrase_openers(words, text)
     for i, w in enumerate(out):
@@ -339,8 +358,10 @@ def refine_words(words: list[dict], y: np.ndarray, sr: int, text: str | None = N
                 target = b[0]
         if target is None or target - s < least_shift:
             continue
-        lead = 0.05 if speech.norm(w["word"]).startswith(UNVOICED_START) else 0.02
-        w["start"] = round(max(s, target - lead), 3)
+        onset = _sound_onset(db, top, target)   # back from the voicing to where the sound starts: an unvoiced
+        if onset is None:                       # or soft first consonant (M5's review: "Like" 0.13 s late)
+            onset = target - (0.05 if speech.norm(w["word"]).startswith(UNVOICED_START) else 0.02)
+        w["start"] = round(max(s, onset), 3)
         if touching:
             w["start"] = round(min(w["start"], s + 0.8 * (e - s)), 3)
         w["end"] = round(max(e, w["start"] + 0.08), 3)

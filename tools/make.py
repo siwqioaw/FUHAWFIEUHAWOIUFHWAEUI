@@ -34,7 +34,9 @@ for _sub in ("edit", "verify", "roblox"):
     sys.path.insert(0, os.path.join(ROOT, "tools", _sub))
 
 CAPTION_STYLE = {"comedy": "comedy", "story": "story", "music": "header"}
-OFF = [0.0, 3.0, 400.0]  # actors not in a shot wait far behind the camera, a stud apart
+# Actors not in a shot wait 200 studs under the floor, 4 studs apart. "Far behind the camera" (z = 400) was in
+# front of every camera looking north on the open street: two extras stood in the sky in M5's first frames.
+OFF = [0.0, -200.0, 0.0]
 HEAD, FACE = 1.5, 0.6  # an R6 actor's head centre above its torso centre; the face in front of the head
 
 

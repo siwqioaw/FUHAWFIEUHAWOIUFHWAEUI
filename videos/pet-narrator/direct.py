@@ -44,7 +44,7 @@ s = Spec("pet-narrator", family="story", set="street", set_options={"props": str
          extra_sets=[("home", "bedroom", HOME, {"props": [{"kind": "dog", "at": [2.0, 0, 3.5], "facing": [-1, 0, 0], **MAXDOG}]}),
                      ("living", "living_room", LIVING, {"props": [{"kind": "dog", "at": [-0.2, 0, 4.0], "facing": [-1, 0, -0.4], **MAXDOG}]}),
                      ("dance", "classroom", DANCE, {"board": "SCHOOL DANCE!",
-                                                    "props": [{"kind": "dog", "at": [3.6, 0, -6.2], "facing": [-1, 0, 0], **MAXDOG}]})])
+                                                    "props": [{"kind": "dog", "at": [5.4, 0, -5.4], "facing": [-1, 0, -0.35], **MAXDOG}]})])
 for ln in json.load(open(os.path.join(HERE, "lines.json"), encoding="utf-8")):
     s.line(ln["id"], ln["role"], ln["text"])
 
@@ -56,44 +56,50 @@ def bubble(over, at, size=210, dur=0.9):   # about a pet's head at 9 studs: the 
 DOG_A, CAT_A, CAT_B, DOG_B, DOG_MAX = (head(-42, 18, SOUTH), head(-24.6, 18, SOUTH, "cat"), head(9.4, 18, SOUTH, "cat"),
                                        head(25.8, 18, SOUTH), head(45.8, 18, SOUTH))
 LIVING_DOG = head(-0.2, 4.0, [-1, 0, -0.4])
-DANCE_DOG = head(3.6, -6.2, [-1, 0, 0])
+DANCE_DOG = head(5.4, -5.4, [-1, 0, -0.35])   # beside Max, not in him (its head was on his mark)
 
 s.add(
     # -- A: the rule, on strangers' pets
     shot("rule", {"ex1": actor([-44, 3, 18.5], facing=SOUTH, poses=[(0, "hands_on_hips")], faces=[(0, "proud")])},
          push([-43, 3.6, 18.3], 12.5, 9.5, fov=50, toward=[0, 0, -1]), say=[("a", 0.0)],
-         overlays=[bubble(DOG_A, "a:pet")], until="a:dogs"),
+         sfx=[("pop", "a:pet", -10)], overlays=[bubble(DOG_A, "a:pet")], until="a:cats"),
     shot("cats", {"ex2": actor([-26, 3, 18.5], facing=SOUTH, faces=[(0, "smile")])},
-         push([-25.3, 3.6, 18.3], 11.5, 9.2, fov=50, toward=[0.35, 0, -1]), overlays=[bubble(CAT_A, "a:cats")],
+         push([-25.3, 3.6, 18.3], 11.5, 9.2, fov=50, toward=[0.35, 0, -1]), sfx=[("pop", "a:cats", -10)],
+         overlays=[bubble(CAT_A, "a:cats")],
          until="a:and"),
     shot("love", {"ex1": actor([-44, 3, 18.5], facing=SOUTH, poses=[(0, "cheer")], faces=[(0, "grin")])},
-         push([-43.1, 3.7, 18.3], 10.5, 8.8, fov=50, toward=[-0.4, 0, -1]),
+         push([-42.6, 3.7, 18.3], 10.5, 9.0, fov=50, toward=[-0.4, 0, -1]), sfx=[("pop", "a:love", -10)],
          overlays=[bubble(DOG_A, "a:love", 210)], until="a:because"),
     shot("brag", {"ex2": actor([-26, 3, 18.5], facing=SOUTH, poses=[(0, "hands_on_hips")], faces=[(0, "proud")])},
          pull([-25.3, 3.6, 18.3], 7.0, 9.5, fov=50, toward=[0, 0, -1]),
-         overlays=[bubble(CAT_A, "a:brag", 210)], until="a:end+0.04"),
+         sfx=[("pop", "a:brag", -10)], overlays=[bubble(CAT_A, "a:brag", 210)], until="a:end+0.04"),
     # -- B: the brags, then Max's dog
     shot("aced", {"girl1": actor([8, 3, 18.5], facing=SOUTH, poses=[(0, "hands_on_hips")], faces=[(0, "proud")])},
          push([8.7, 3.6, 18.3], 11.5, 9.2, fov=50, toward=[-0.35, 0, -1]), say=[("b", "a:end+0.04")],   # clear of the car
-         overlays=[bubble(CAT_B, "b:mia")], until="b:jake's"),
+         sfx=[("pop", "b:mia", -10)], overlays=[bubble(CAT_B, "b:mia")], until="b:jake's"),
     shot("fastest", {"ex3": actor([24, 3, 18.5], facing=SOUTH, poses=[(0, "cheer")], faces=[(0, "starstruck")])},
-         push([24.9, 3.6, 18.3], 11.5, 9.2, fov=50, toward=[-0.3, 0, -1]), overlays=[bubble(DOG_B, "b:jake's")],
+         push([24.9, 3.6, 18.3], 11.5, 9.2, fov=50, toward=[-0.3, 0, -1]), sfx=[("pop", "b:jake's", -10)],
+         overlays=[bubble(DOG_B, "b:jake's")],
          until="b:but"),
     shot("max", {"max": actor([44, 3, 18.5], facing=SOUTH, faces=[(0, "nervous")])},
-         push([44.9, 3.6, 18.3], 12.0, 9.2, fov=50, toward=[0, 0, -1]), overlays=[bubble(DOG_MAX, "b:truth")],
+         push([44.9, 3.6, 18.3], 12.0, 9.2, fov=50, toward=[0, 0, -1]), sfx=[("pop", "b:truth", -10)],
+         overlays=[bubble(DOG_MAX, "b:truth")],
          until="b:like"),
-    shot("mirror", {"max": actor([-2, 3, 2], facing=[0, 0, -1], poses=[(0, "idle"), ("b:hi", "point")],
+    shot("mirror", {"max": actor([-6.5, 3, 1.5], facing=[0, 0, -1], poses=[(0, "idle"), ("b:hi", "wave")],
                                  faces=[(0, "grin"), ("b:nine", "cringe")])},
          push("max.head", 5.2, 4.2, move=0.4), set="home", until="b:or"),
     shot("cartoon", {"max": actor([-2, 3, 3], facing=[0, 0, -1], poses=[(0, "idle")], faces=[(0, "cry")])},
-         push("max.head", 5.0, 4.0, move=0.4), set="living", until="b:twice"),
+         [{"t": 0, "aim": "max.head+[0,0.2,0]", "distance": 7.5, "fov": 48, "height": -0.3, "orbit": 40},
+          {"t": 0.04, "aim": "max.head+[0,0.2,0]", "distance": 6.6, "fov": 48, "height": -0.3, "orbit": 40,
+           "move": 0.4, "ease": "out"}], set="living", until="b:twice"),
     shot("twice", {"max": actor([-2, 3, 3], facing=[0, 0, -1], poses=[(0, "slump")], faces=[(0, "sob")])},
-         pull("max.face", 2.6, 4.8, move=0.3), set="living", until="b:max#2"),
+         [{"t": 0, "aim": "max.face+[0,0.25,0]", "distance": 2.8, "fov": 45, "height": -0.2, "orbit": -35}],
+         set="living", until="b:max#2"),
     shot("begged", {"max": actor([-2, 3, 3], facing=[1, 0, 0.4], poses=[(0, "hands_on_head")], faces=[(0, "pout")])},
          wide([2.4, 3.6, 6.8], [-1.6, 4.0, 3.2], fov=52), set="living", until="b:he#2"),
     shot("didnt", {},
          push([LIVING_DOG[0], 2.5, LIVING_DOG[2]], 5.6, 4.7, fov=50, height=0.0, toward=[-1, 0, -0.4]), set="living",
-         overlays=[bubble(LIVING_DOG, "b:didn't", 220)], until="b:end+0.04"),
+         sfx=[("pop", "b:didn't", -10)], overlays=[bubble(LIVING_DOG, "b:didn't", 220)], until="b:end+0.04"),
     # -- C: the dance, the dog speaks up, the reveal
     shot("dance", {"lily": actor([0, 3, -8], facing=[0, 0, 1], poses=[(0, "laugh")], faces=[(0, "laugh")]),
                    "ex1": actor([-5, 3, -6], facing=[0.3, 0, 1], poses=[(0, "cheer")], faces=[(0, "grin")]),
@@ -103,27 +109,27 @@ s.add(
          wide([7.5, 7.0, 6.0], [-1.5, 3.8, -8], fov=58, push_in=3.0), set="dance", say=[("c", "b:end+0.04")],
          until="c:max"),
     shot("walk", {"max": actor([2.4, 3, -6.6], facing=[-1, 0, -0.6], faces=[(0, "nervous")],
-                               walk={"from": [7.5, 3, -2.5], "to": [2.6, 3, -6.4], "start": 0.0}),
+                               walk={"from": [6.8, 3, -1.2], "to": [2.6, 3, -6.4], "start": 0.0}),
                   "lily": actor([0, 3, -8], facing=[1, 0, 0.6], faces=[(0, "smile")])},
          wide([6.5, 5.0, 3.5], [1.2, 3.8, -7], fov=50), set="dance", until="c:and#1"),
     shot("froze", {"max": actor([2.6, 3, -6.4], facing=[-1, 0, -0.6], faces=[(0, "blank")], drift=0.0)},
          push("max.head", 4.6, 3.4, move=0.5), set="dance", drift=0.0, until="c:so"),
     shot("said_it", {"max": actor([2.6, 3, -6.4], facing=[-1, 0, -0.3], faces=[(0, "shock")])},
-         push([903.0 - 900.0, 3.75, -6.3], 9.5, 8.0, fov=50, toward=[-1, 0, 0.3]), set="dance",
+         push([3.4, 3.75, -6.2], 9.5, 8.0, fov=50, toward=[-1, 0, -0.1]), set="dance", sfx=[("pop", "c:dog", -10)],
          overlays=[bubble(DANCE_DOG, "c:dog", 210)], until="c:he#1"),
     shot("likes_you", {"lily": actor([0, 3, -8], facing=[1, 0, 0.6], faces=[(0, "shock"), ("c:september", "love")])},
          push("lily.head+[0,0.3,0]", 6.0, 4.6), set="dance", until="c:lily#2"),
     shot("smiled", {"lily": actor([0, 3, -8], facing=[0.5, 0, 1], poses=[(0, "idle")], faces=[(0, "love")]),
                     "max": actor([2.4, 3, -6.8], facing=[-0.5, 0, 1], faces=[(0, "wide_happy")])},
          wide([1.2, 5.2, 1.0], [1.2, 5.4, -7.4], fov=50), set="dance", until="c:and#2"),
-    shot("honestly", {"max": actor([2.6, 3, -6.4], facing=[1, 0, 0.2], faces=[(0, "wide_happy")])},
-         push(DANCE_DOG[:1] + [2.2] + DANCE_DOG[2:], 6.0, 4.0, fov=50, height=0.6, toward=[-1, 0, 0]), set="dance",
+    shot("honestly", {"max": actor([2.6, 3, -6.4], facing=[-1, 0, -0.3], faces=[(0, "wide_happy")])},
+         push([3.4, 3.8, -6.2], 9.0, 7.5, fov=50, toward=[-1, 0, -0.1]), set="dance", sfx=[("pop", "c:honestly", -10)],
          overlays=[bubble(DANCE_DOG, "c:honestly", 220, 1.2)], until="c:best"),
-    shot("me", {}, push(DANCE_DOG[:1] + [2.5] + DANCE_DOG[2:], 3.8, 2.9, fov=48, height=0.0, toward=[-1, 0, 0],
+    shot("me", {}, push(DANCE_DOG[:1] + [2.5] + DANCE_DOG[2:], 3.6, 2.7, fov=48, height=0.0, toward=[-0.6, 0, -1],
                         move=0.6), set="dance", sfx=[("pop", "c:me")],
-         overlays=[("\U0001F4AC", DANCE_DOG, "c:that's", {"size": 230, "lift": 0.2, "dur": 1.6})], until="c:end+0.35"),
+         overlays=[("\U0001F4AC", DANCE_DOG, "c:me", {"size": 230, "lift": 0.2, "dur": 1.4})], until="c:end+0.35"),
 )
-s.music("build/library/music/lofi_bed.mp3", start=0.0, gain_db=-15.0, duck_db=-4.0)
+s.music("build/library/music/lofi_bed.mp3", start=0.0, gain_db=-16.0, duck_db=-9.0)
 
 if __name__ == "__main__":
     print(s.write(HERE))

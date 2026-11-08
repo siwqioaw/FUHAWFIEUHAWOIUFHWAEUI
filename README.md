@@ -109,7 +109,10 @@ python tools/make.py all videos/group-project # plan, shoot, cut, mix, deliver (
 An agent can't watch or listen, so every claim is measured on the delivered file and every check is itself tested:
 `tests/selftest.py` plants a failure for each check (flashes, short captions, clicks at cuts, undeclared sound across
 a cut, a missing word, a long pause, a peak over the ceiling, a face off the head...) and fails if any check misses it.
-Every round of work gets an independent reviewer, and every new kind of failure joins `docs/VERIFY.md`.
+Every round of work gets an independent reviewer, and every new kind of failure joins `docs/VERIFY.md`. The first
+review of each of the first four videos found problems every automated check had passed (half the bells off screen,
+cuts off the beat, an elbow through an arm, a camera inside a parked car); each became a check, a selftest case or a
+checklist line (`videos/*/review.md`).
 
 | Part | Tested |
 |---|---|
