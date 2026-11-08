@@ -30,8 +30,9 @@ failure found to this list and to `docs/VERIFY.md`.
 - **The signature escalates:** when the story says louder or more, the sound and the picture get louder and bigger
   (M4's dings measured quieter as the line said "so loud"); the rule shown in the first second, not after it's
   explained.
-- **Gestures read:** a raised hand clears the head (from eye height; from below, foreshortened, it reached his
-  eyes); a point crosses the frame toward its target, not at the camera; background gestures not behind a
+- **Gestures read:** a raised hand clears the head (an R6 arm straight up reaches only the top of the head, its
+  shoulder pivot is that low: `hand_up` leans the body 20 degrees away so the hand clears it by 0.6); a point
+  crosses the frame toward its target, not at the camera; background gestures not behind a
   foreground head (two fists poked out of a narrator's hair like ears).
 - **Icons:** over the right head (the one the rule is about), never on a face.
 - **Set writing:** none under the captions (posters, boards, scoreboards: `{"signs": False}`).

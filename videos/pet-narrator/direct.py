@@ -43,7 +43,8 @@ s = Spec("pet-narrator", family="story", set="street", set_options={"props": str
                "ex3": "extra_c"},
          extra_sets=[("home", "bedroom", HOME, {"props": [{"kind": "dog", "at": [2.0, 0, 3.5], "facing": [-1, 0, 0], **MAXDOG}]}),
                      ("living", "living_room", LIVING, {"props": [{"kind": "dog", "at": [-0.2, 0, 4.0], "facing": [-1, 0, -0.4], **MAXDOG}]}),
-                     ("dance", "classroom", DANCE, {"board": "",   # its "SCHOOL DANCE!" sat under every caption
+                     ("dance", "classroom", DANCE, {"board": "", "signs": False,   # its "SCHOOL DANCE!" and its
+                                                    # posters sat under the captions
                                                     "props": [{"kind": "dog", "at": [5.4, 0, -5.4], "facing": [-1, 0, -0.35], **MAXDOG}]})])
 for ln in json.load(open(os.path.join(HERE, "lines.json"), encoding="utf-8")):
     s.line(ln["id"], ln["role"], ln["text"])

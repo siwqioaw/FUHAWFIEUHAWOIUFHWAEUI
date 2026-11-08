@@ -698,6 +698,50 @@ def _staging(plan: dict, least: float = 0.15) -> list[str]:
     return out
 
 
+def _cameras_in_sets(plan: dict, spec: dict, step: float = 0.25) -> list[str]:
+    """Each shot's camera, every `step` seconds, against its set as built (kit.boxes): outside the room (above its
+    ceiling, behind a wall) or inside any part, with 0.08 studs' margin for the lens. M4's first top-down shot sat
+    above the classroom's ceiling and filmed white; M5's first push in `aced` started inside a parked car."""
+    import camera
+    import kit
+    places = {None: (spec.get("set", "baseplate"), spec.get("set_options", {}), (0.0, 0.0, 0.0))}
+    for extra in spec.get("sets", []):
+        places[extra["id"]] = (extra["name"], extra.get("options", {}), tuple(extra["at"]))
+    built = {}
+    out = []
+    for s in plan["shots"]:
+        key = s.get("set")
+        if key not in places or places[key][0] not in kit.SETS:
+            continue
+        if key not in built:
+            name, opt, off = places[key]
+            st = kit.SETS[name](opt)
+            room = st.bounds and tuple(v + off[i // 2] for i, v in enumerate(st.bounds))
+            built[key] = (room, kit.boxes(st, off))
+        room, parts = built[key]
+        path = camera.moves([(k[0], k[1], k[2], k[3]) for k in s["camera"]])
+        t, said = 0.0, set()
+        while t <= s["seconds"] + 1e-9:
+            p = path(min(t, s["seconds"] - 1e-3))["pos"]
+            if room and not (room[0] < p[0] < room[1] and room[2] < p[1] < room[3] and room[4] < p[2] < room[5]):
+                if "room" not in said:
+                    out.append(f"{s['name']}: the camera leaves the room at {t:.2f} s (at {[round(v, 1) for v in p]}: "
+                               f"above the ceiling or behind a wall)")
+                    said.add("room")
+            else:
+                m = 0.08
+                for b in parts:
+                    if b[0] - m < p[0] < b[1] + m and b[2] - m < p[1] < b[3] + m and b[4] - m < p[2] < b[5] + m:
+                        if b not in said:
+                            out.append(f"{s['name']}: the camera is inside a part of the set at {t:.2f} s (a box "
+                                       f"{b[1] - b[0]:.1f} x {b[3] - b[2]:.1f} x {b[5] - b[4]:.1f} at "
+                                       f"{[round((b[0] + b[1]) / 2, 1), round((b[2] + b[3]) / 2, 1), round((b[4] + b[5]) / 2, 1)]})")
+                            said.add(b)
+                        break
+            t += step
+    return out
+
+
 def _offset_shot(spec: dict, off) -> None:
     """A shot staged in another set: its coordinates (not its actor-relative points) moved by the set's offset."""
     if spec.get("_shifted"):
@@ -817,7 +861,8 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
             overlays.append({"icon": ov.get("icon"), "text": ov.get("text"), "over": _point(spec, ov["over"], ot),
                              "start": ot, "dur": float(ov.get("dur", 0.6)),
                              "size": float(ov.get("size", 150)), "lift": float(ov.get("lift", 1.4))})
-        plan["shots"].append({"overlays": overlays, "name": spec["name"], "start": st, "frames": s["frames"],
+        plan["shots"].append({"overlays": overlays, "name": spec["name"], "set": spec.get("set"), "start": st,
+                              "frames": s["frames"],
                               "frame0": s["frame0"],
                               "seconds": s["frames"] / fps, "camera": cam, "actors": actors,
                               "drift": spec.get("drift", 1.0), "streak": bool(spec.get("streak")),
@@ -888,6 +933,8 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
         print(f"  framing: {warn}")
     for warn in _staging(plan):
         print(f"  staging: {warn}")
+    for warn in _cameras_in_sets(plan, sh.spec):
+        print(f"  camera: {warn}")
     import qc
     from timeline import Timeline
     short = [row for row in qc.text_times(Timeline(cut), 12.0) if row[0] == "FAIL"]

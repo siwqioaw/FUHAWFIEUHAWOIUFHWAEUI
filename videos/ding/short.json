@@ -1876,21 +1876,17 @@
    "camera": [
     {
      "t": 0,
-     "aim": "her.head",
-     "distance": 9.0,
-     "fov": 50,
-     "height": -0.2,
-     "between": "sc"
-    },
-    {
-     "t": 0.04,
-     "aim": "her.head",
-     "distance": 7.5,
-     "fov": 50,
-     "height": -0.2,
-     "between": "sc",
-     "move": 0.3,
-     "ease": "out"
+     "pos": [
+      1.0,
+      4.6,
+      6.2
+     ],
+     "look": [
+      5.8,
+      4.3,
+      10.0
+     ],
+     "fov": 55
     }
    ],
    "say": [],

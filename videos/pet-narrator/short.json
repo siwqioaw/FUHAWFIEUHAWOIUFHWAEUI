@@ -1915,6 +1915,7 @@
    ],
    "options": {
     "board": "",
+    "signs": false,
     "props": [
      {
       "kind": "dog",

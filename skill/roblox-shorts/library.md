@@ -57,7 +57,8 @@ idle, arms_out, hands_on_head, point, point_left, arms_crossed, hands_on_hips, l
 lean_in, wave, hand_up, sit. A pose is a name or a dict of joints (`{"root": (-6, 0, 14), "neck": (4, 0, 10), ...}`,
 degrees; M4's peek round the lockers, M2's point across the frame), so poses combine: `{**SIT, "neck": (-28, 0,
 0)}` sits slumped. Keys snap in 5 frames with a little overshoot and then drift; `(t, pose, 0.35)` takes 0.35 s
-(sitting down). `sit` rests the legs on a seat 1 stud up (the cafeteria's benches) with the body half a stud lower
+(sitting down). `hand_up` leans the body away, since an R6 arm straight up only reaches the top of the head.
+`sit` rests the legs on a seat 1 stud up (the cafeteria's benches) with the body half a stud lower
 than standing; the classroom's chairs are 1.7 up, so there an actor stands at the chair and the desk hides its legs.
 `walk={"from", "to", "start", "freq"}` walks heel to toe at a steady speed (a higher `freq` for a run): the actor
 waits at `from` until `start`, and on arriving turns to its own `facing` in 0.3 s, then takes its poses (so a walk

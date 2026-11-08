@@ -39,8 +39,7 @@ ARMS_UP = {"ls": (176, 0, -8), "rs": (176, 0, 8), "neck": (14, 0, 0)}   # a chee
 
 s.add(
     # first day: bright, eager
-    shot("hello", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "idle"), (0.1, "wave")], faces=[(0, "grin")]),
-                   "ex1": actor([1.8, 3, -5], facing=[-0.3, 0, 1], poses=[(0, "cheer")], faces=[(0, "smile")])},
+    shot("hello", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "idle"), (0.1, "wave")], faces=[(0, "grin")])},
          push("leo.head+[-0.9,0.3,0]", 10.0, 8.5, fov=48), seconds=length(0)),   # framed toward the waving hand
     shot("hand_up", {"leo": actor([6, 3, -1.9], facing=TO_BOARD, poses=[(0, "idle"), (0.05, "hand_up")],
                                   faces=[(0, "starstruck")]),   # at his desk (it hides his legs), front row
@@ -59,7 +58,8 @@ s.add(
          overlays=[("\U0001F4A4", "leo.head", 0.2, {"size": 130, "lift": 1.2, "dur": 1.0})], seconds=length(3)),
     shot("yelled", {"teacher": actor([-2.4, 3, 0.8], facing=[0.2, 0, 1], poses=[(0, POINT_AT)], faces=[(0, "yell")]),
                     "leo": actor([2.3, 3, 0.2], facing=[-0.3, 0, 1], poses=[(0, TIRED)], faces=[(0, "dead")])},
-         two_shot("teacher", "leo", distance=10.5, fov=50), set="class", seconds=length(4)),   # the point across at him
+         [{"t": 0, "pos": [-0.25, 4.9, 13.0], "look": [-0.25, 4.3, 0.5], "fov": 52}], set="class",
+         seconds=length(4)),   # the point across the frame at him
     shot("freedom", {"leo": actor([0, 3, -12], facing=US, poses=[(0, "cheer")], faces=[(0, "evil")],
                                   walk={"from": [0, 3, -30], "to": [0, 3, -12], "start": 0.0, "freq": 3.4}),
                      "ex3": actor([4.4, 3, -26], facing=[-0.5, 0, 1], poses=[(0, "hands_on_head")],

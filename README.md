@@ -9,7 +9,7 @@ driven by an agent skill.
 
 ![Python](https://img.shields.io/badge/python-3.11-3776AB?logo=python&logoColor=white)
 ![Roblox Studio](https://img.shields.io/badge/Roblox%20Studio-MCP-00A2FF)
-![selftest](https://img.shields.io/badge/selftest-113%20%2F%20113-2ea44f)
+![selftest](https://img.shields.io/badge/selftest-114%20%2F%20114-2ea44f)
 ![output](https://img.shields.io/badge/output-1080%C3%971920%20%C2%B7%20-14%20LUFS-8A2BE2)
 
 </div>
@@ -71,7 +71,7 @@ connector (for voices).
 ```powershell
 git clone https://github.com/siwqioaw/vid-editing && cd vid-editing
 pip install -r requirements.txt
-python tests/selftest.py                      # 113 checks against planted failures
+python tests/selftest.py                      # 114 checks against planted failures
 python tools/roblox/facekit.py build build/faces/kit --install   # the 43 faces, into Studio
 python tools/install_skill.py                 # the skill, for every agent on this machine
 python tools/doctor.py                        # is everything ready?
@@ -95,11 +95,12 @@ python tools/make.py all videos/group-project # plan, shoot, cut, mix, deliver (
 
 | | |
 |---|---|
-| **Sets** | classroom · hallway · bedroom · living room · street (day / night) · cyclorama, built from code with marks and camera marks, several per video (`docs/SETS.md`) |
+| **Sets** | classroom · hallway · bedroom · living room · street (day / night) · gym (with a school-dance dressing) · cafeteria · cyclorama, built from code with marks and camera marks, several per video; props from blocky pets to a bank of lockers to hide behind (`docs/SETS.md`) |
 | **Cast** | 14 looks from free Roblox catalog items checked on R6, including our own recurring narrator (`tools/roblox/cast.json`) |
 | **Faces** | 43 expressions in one hand-tuned line style, swapped on the word (`docs/FACES.md`) |
-| **Poses** | 15 snappy R6 poses that snap in 5 frames and drift, planted leans, a heel-to-toe walk (`tools/roblox/pose.py`) |
-| **Camera** | push, pull, swoop, dutch, low, top-down, over the shoulder with depth of field, two-shot (`tools/shots.py`) |
+| **Poses** | 16 snappy R6 poses, sitting included, that snap in 5 frames and drift; poses combine as data; planted leans; a heel-to-toe walk that ends turned to its mark (`tools/roblox/pose.py`) |
+| **Camera** | push, pull, swoop, dutch, low, top-down, over the shoulder with depth of field, two-shot, aimed where each pose puts the face (`tools/shots.py`) |
+| **Before the shoot** | the plan warns about anyone never in frame, a face under the captions, cut by the frame's edge or under the Shorts UI, actors' bodies or arms inside each other, and a camera inside a prop or outside the room (`tools/make.py plan`) |
 | **Voices** | a cast picked by measuring 14 auditions against the references: narrator, girl, deep punch, storyteller (`docs/VOICE.md`) |
 | **Captions** | the references' three styles, matched to within 2 px on full-size frames (`docs/CAPTIONS.md`) |
 | **Sound** | effects from code (the 47 Hz boom, whooshes, dings), music beds, ducking, mastering (`docs/AUDIO.md`) |
@@ -116,7 +117,7 @@ checklist line (`videos/*/review.md`).
 
 | Part | Tested |
 |---|---|
-| The checks (`tools/verify/`) | `tests/selftest.py`: 113 of 113 |
+| The checks (`tools/verify/`) | `tests/selftest.py`: 114 of 114 |
 | Portrait capture, actors, faces, posing, camera | spikes S1-S4 in Studio (`docs/ROBLOX_CAPTURE.md`) |
 | Voice | spike S5: 14 auditions measured; an independent review's fixes in (`docs/VOICE.md`) |
 | Captions | spike S6: baselines within 2 px of the references; their pace measured from the picture (a new caption every 0.55-0.73 s, the fastest 5% at 30-45 characters a second) and the read-time check set from it (`docs/CAPTIONS.md`) |

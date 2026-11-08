@@ -758,6 +758,14 @@ def pipeline_checks(expect) -> None:
     expect(f"make: an actor waits at its walk's start ({before['pos']}), and on arriving turns to its mark's facing "
            f"({turned}, not the walk's way; M4's 'Leo sat down' stayed in profile)",
            before["pos"] == [-4, 3, 0] and abs(turned[0]) < 1e-6 and turned[1] > 0.99)
+    def cam_at(pos):
+        return {"name": "c", "set": None, "seconds": 0.5,
+                "camera": [[0.0, {"pos": pos, "look": [0, 4, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]]}
+    in_set = make._cameras_in_sets({"shots": [cam_at([-9, 3.1, -12]), cam_at([0, 16, 0]), cam_at([3, 5, 0])]},
+                                   {"set": "classroom", "set_options": {}})
+    expect(f"make: the plan flags a camera inside a part of its set (the teacher's desk) and one above its ceiling, and "
+           f"passes one in the open ({in_set})",
+           len(in_set) == 2 and "inside a part" in in_set[0] and "leaves the room" in in_set[1])
     def staged(a_pos, b_pos, a_look, b_look, walk=None):
         acts = {"a": {"cf": {"pos": a_pos, "look": a_look}, "poses": [[0.0, "idle"]]},
                 "b": {"cf": {"pos": b_pos, "look": b_look}, "poses": [[0.0, "idle"]]}}

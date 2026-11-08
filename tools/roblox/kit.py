@@ -37,6 +37,7 @@ class Set:
         self.marks: dict[str, dict] = {}
         self.cams: dict[str, dict] = {}
         self.park = (0, 3, -120)
+        self.bounds = None   # a room's inside, (x0, x1, y0, y1, z0, z1): set by room()
 
     # ---- primitives
     def part(self, shape: str, size, pos, color, material="SmoothPlastic", rot=(0, 0, 0), transparency=0.0,
@@ -178,6 +179,7 @@ def room(s: Set, w, d, h, x0=0.0, z0=0.0, wall=(214, 222, 236), trim=(70, 120, 2
     to, bottom, top), ...]} openings along a wall (doors, windows), in studs from the wall's left end as seen from
     inside."""
     gaps = gaps or {}
+    s.bounds = (x0 - w / 2, x0 + w / 2, 0.0, h, z0 - d / 2, z0 + d / 2)
     s.box((w + 2, 1, d + 2), (x0, -0.5, z0), floor, floor_mat)
     if ceiling:
         s.box((w + 2, 1, d + 2), (x0, h + 0.5, z0), ceiling, "SmoothPlastic")
@@ -1101,6 +1103,20 @@ def cafeteria(opt: dict) -> Set:
     s.cam("tables", (-12, 5, 4), (-12, 4, -10), 55)
     s.park = (0, 3, -110)
     return s
+
+
+def boxes(s: Set, offset=(0.0, 0.0, 0.0)) -> list:
+    """Every part's box as the world has it (rotation taken into the bounds): [(x0, x1, y0, y1, z0, z1), ...], signs
+    included. For checking where a camera is."""
+    from pose import angles
+    out = []
+    rows = [(r[1:4], r[4:7], r[7:10]) for r in s.parts] + [(g["size"], g["pos"], g["rot"]) for g in s.signs]
+    for size, pos, rot in rows:
+        m = angles(*rot)
+        half = [abs(m[i][0]) * size[0] / 2 + abs(m[i][1]) * size[1] / 2 + abs(m[i][2]) * size[2] / 2 for i in range(3)]
+        c = [pos[i] + offset[i] for i in range(3)]
+        out.append((c[0] - half[0], c[0] + half[0], c[1] - half[1], c[1] + half[1], c[2] - half[2], c[2] + half[2]))
+    return out
 
 
 def _with_props(fn):

@@ -59,7 +59,9 @@ POSES: dict[str, dict] = {
     "lean_in": {"root": (-12, 0, 0), "neck": (10, 0, 0), "ls": (24, 0, -8), "rs": (24, 0, 8)},
     "wave": {"rs": (140, 0, 30), "ls": (0, 0, -4), "neck": (0, 0, -6)},    # the right hand up and out, raised
                                                                            # through the front: sideways past 60 clips
-    "hand_up": {"rs": (176, 0, 8), "ls": (0, 0, -4), "neck": (8, 0, 0)},               # "me! me!": straight up
+    # "me! me!": an R6 arm straight up only reaches the top of the head (the shoulder's pivot is low: M2's second
+    # review saw a fist beside his face), so the body leans away 20 degrees and the hand clears the head by 0.6
+    "hand_up": {"root": (0, 0, 20), "neck": (0, 0, 15), "rs": (178, 0, 6), "ls": (8, 0, -14)},
     # seated on a seat 1 stud up (the cafeteria's benches): legs straight ahead, resting on it, the body half a stud
     # lower than standing. Mark the actor where it sits, facing the way its legs go; a snap of about 0.35 s,
     # (t, "sit", 0.35), reads as sitting down. (The classroom's chairs are 1.7 up: stand behind the desk instead.)

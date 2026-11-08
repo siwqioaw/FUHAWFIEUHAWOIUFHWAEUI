@@ -254,8 +254,8 @@ default the owner can change in one place):
   time every word. torchaudio's aligner is being deprecated; look for a maintained one before adding 1-2 GB of model.
 - **M4's script** has a hole a reviewer found: if kind talk dings, why did Leo hear none when everyone liked him?
   Fixing it means a new line and a new shoot: the owner's call.
-- **A ceiling check in the plan**: the flat-frame check catches a camera above a ceiling after the shoot; the plan
-  could know each set's ceiling and warn before it.
+- ~~A ceiling check in the plan~~ **Done:** the plan checks every camera, every quarter second, against its set's
+  room and parts (`make._cameras_in_sets`).
 
 ## Where the knowledge lives
 

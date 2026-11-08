@@ -138,7 +138,8 @@ s.add(
     shot("quote", {"her": actor([5.0, 3, 8.5], facing=[-1, 0, -0.3], poses=[(0, "idle"), ("c:funny", "laugh")],
                                 faces=[(0, "laugh"), ("c:why", "cute")]),
                    "sc": actor([6.6, 3, 11.6], facing=[-1, 0, -0.6], faces=[(0, "grin")])},   # clear of her arm
-         two_shot("her", "sc", distance=7.5, fov=50), set="new_school", until="c:the#4"),
+         [{"t": 0, "pos": [1.0, 4.6, 6.2], "look": [5.8, 4.3, 10.0], "fov": 55}], set="new_school",
+         until="c:the#4"),   # from the bank's end, where he listens (the two-shot put the camera inside the bank)
     shot("rule", {"leo": actor([-1.2, 3, 4.6], facing=[0.35, 0, 1], poses=[(0, "idle")],
                                faces=[(0, "teary"), ("c:bad", "wide_happy")])},
          [{"t": 0, "aim": "leo.face", "distance": 2.8, "fov": 45, "toward": [0.85, 0, 0.5]},

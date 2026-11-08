@@ -60,31 +60,6 @@
       0,
       1
      ]
-    },
-    "ex1": {
-     "at": [
-      1.8,
-      3,
-      -5
-     ],
-     "poses": [
-      [
-       0,
-       "cheer"
-      ]
-     ],
-     "faces": [
-      [
-       0,
-       "smile"
-      ]
-     ],
-     "drift": 1.0,
-     "facing": [
-      -0.3,
-      0,
-      1
-     ]
     }
    },
    "camera": [
@@ -451,21 +426,17 @@
    "camera": [
     {
      "t": 0,
-     "aim": "teacher.head",
-     "distance": 12.0,
-     "fov": 50,
-     "height": -0.2,
-     "between": "leo"
-    },
-    {
-     "t": 0.04,
-     "aim": "teacher.head",
-     "distance": 10.5,
-     "fov": 50,
-     "height": -0.2,
-     "between": "leo",
-     "move": 0.3,
-     "ease": "out"
+     "pos": [
+      -0.25,
+      4.9,
+      13.0
+     ],
+     "look": [
+      -0.25,
+      4.3,
+      0.5
+     ],
+     "fov": 52
     }
    ],
    "say": [],
