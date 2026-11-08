@@ -9,14 +9,22 @@ reaction to close.
 ## Building it
 
 - Music from YouTube's Audio Library (never AI music here: the music is the focus). Find its beat grid and its
-  loudest section (`docs/MAKING.md`), start the bed on a beat, and make every shot two (or three) beats long.
-- `seconds=2 * BEAT` per shot; a boom on the turn between sides; `texts` for the headers.
-- Each shot one tableau with a small camera move: `push`, `low`, `top`, `two_shot`, `dutch_in`.
+  loudest section (`docs/MAKING.md`), start the bed on a beat, and cut on its accents, measured from the strongest
+  onsets and their autocorrelation (M2's first cut read a 120 BPM 3-3-2 track as 80 BPM and missed every accent).
+  Put the biggest cuts on the biggest hits, and make the length whole phrases, not only whole bars (M2's five bars
+  over four-bar chords loop on the beat but not the phrase).
+- Fixed shot lengths in frames (`CUTS`), a boom on the turn between sides; `texts` for the headers.
+- Each shot one tableau that reads at a glance, with a small camera move: `push`, `low`, `two_shot`, `dutch_in`.
+  Not `top` (from above, R6s are hair and shoulders). A raised hand needs `hand_up` (it leans away: an R6 arm
+  straight up only reaches the top of the head); a point turned across the frame at its target; a seated look at a
+  desk (the desk hides the legs) or a cafeteria bench (`sit`); people behind the punchline's face stood where they
+  show above or beside it, not behind it (two fists out of a narrator's hair read as ears).
 
 ## Example skeleton (original)
 
-`videos/first-vs-last/direct.py`: eager on the first day (cheering, hand up, friends), wrecked on the last (asleep,
-yelled at, sprinting out with an evil grin), then a deadpan "Me:".
+`videos/first-vs-last/direct.py`: eager on the first day (a wave, a hand up in class, a high five), wrecked on the
+last (asleep at his desk, yelled at, sprinting out with an evil grin), then "Me:": the channel's narrator, wrecked
+on the first day while everyone behind him cheers.
 
 ## Rubric
 
