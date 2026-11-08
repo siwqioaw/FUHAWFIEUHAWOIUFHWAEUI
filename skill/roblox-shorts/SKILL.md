@@ -30,7 +30,8 @@ schedule or change a channel setting.
 Times measured on the first videos (M5's in `videos/pet-narrator/notes.md`): voice processing 2-4 min (the
 transcriber on the CPU; seconds when cached), stills 8 min for 20 shots, the shoot 1.4-1.8 s a frame at 60 fps (a
 30 s story about 53 min; music formats at 30 fps, half), cut, mix and deliver 5 min, a review 25 min: about two and a
-half hours from the prompt to a reviewed file. Load the transcriber (3 GB) only while Studio isn't shooting.
+half hours from the prompt to a reviewed file. Load the transcriber (3 GB) only while Studio isn't shooting, and
+expect a shoot to slow to 2-3 s a frame while reviewers or renders share the CPU.
 
 ## The house rules (from the owner, all binding)
 
