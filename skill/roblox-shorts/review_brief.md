@@ -6,7 +6,9 @@ background while you do something else; it takes 20-30 minutes. Don't re-plan or
 it reads `plan.json` and `cut.json`, and a newer one than the file confuses it.
 
 Every first review of the first four videos found real must-fix problems that every automated check had passed
-(bells off the frame, cuts off the beat, a camera inside a car, an actor's elbow through another's arm). Fix what it
+(bells off the frame, cuts off the beat, a camera inside a car, an actor's elbow through another's arm), and the
+second rounds found lines not shown in the picture and a speaker hidden behind its owner. A later round gets the
+earlier reviews too (`videos/<slug>/review.md`), to check the fixes hold and look past them. Fix what it
 finds, write `videos/<slug>/review.md` (each finding, its cause, its fix or why it stays), and add every new kind of
 failure to `checklist.md`.
 
@@ -44,12 +46,13 @@ How to look and measure:
 - ffprobe/ffmpeg are on the PATH; Python has numpy, PIL, soundfile, opencv, scipy. PYTHONIOENCODING=utf-8 to print.
 
 Check every item in skill/roblox-shorts/checklist.md and docs/VERIFY.md's checklist with evidence, and also: <THE
-FORMAT'S OWN QUESTIONS: does the first second state the premise; does every icon appear over the right head, when
-it should, on screen; do the cuts land on the music's beats; does the twist land; does it loop>; is each caption
-the script's words, in time with the voice (not before it), never over a face; does each face and pose change land
-on its word; are the right people in each shot and in frame; is anything wrong at any cut (a stray or doubled frame,
-a jump cut, a camera inside something, a loading texture); is the music under the voice; is anything a logo, a brand
-or someone else's content; is it suitable for teens.
+FORMAT'S OWN QUESTIONS: does the first second state the premise; does every icon appear over the right head, when it
+should, on screen, its subject visible; do the cuts land on the music's beats; does the twist land; does it loop>; is
+each caption the script's words, in time with the voice (not before it), never over a face; does each face and pose
+change land on its word; are the right people in each shot and in frame, with every gesture inside the frame; does
+every line's action show in the picture; is any actor inside another or inside furniture; is anything wrong at any
+cut (a stray or doubled frame, a jump cut, a camera inside something, a loading texture); is the music under the
+voice; is anything a logo, a brand or someone else's content; is it suitable for teens.
 
 Report: first the findings, each marked must-fix, should-fix or nit, with the time or frame, what you saw (and which
 frame file shows it), and the checklist item it fails. Then a short list of what you checked and found fine. Keep
