@@ -218,16 +218,42 @@ def _actor_dir(shot: dict, name: str) -> list:
     return [d[0] / n, 0.0, d[2] / n]
 
 
-def _point(shot: dict, p) -> list:
-    """A point: [x, y, z], or 'actor.head' / 'actor.face' / 'actor.torso' / 'actor.feet', with '+[dx,dy,dz]'."""
+def _posed_points(pos, d, keys: list, t: float, planted: bool = True) -> tuple[list, list]:
+    """An actor's head centre and face in world studs, where its pose at time t puts them: a slump drops the face
+    half a stud and tips it forward, a laugh throws it back (M5's "twice": a close-up aimed at the upright face
+    framed the slumped one on the frame's bottom edge). pos is the torso's centre at rest, d the way it faces, keys
+    the poses [[t, pose], ...] in seconds into the shot. The joints as the harness poses them (pose.clearance())."""
+    import pose
+    joints, rootpos = pose.at(keys, float(t), drift_amount=0.0, planted=planted)
+    r_root = pose.angles(*joints["root"])
+    r_head = pose._mul(r_root, pose.angles(*joints["neck"]))
+    neck = pose._apply(r_root, (0.0, 1.0, 0.0))
+    rise = pose._apply(r_head, (0.0, HEAD - 1.0, 0.0))
+    ahead = pose._apply(r_head, (0.0, 0.0, -FACE))
+    head = [rootpos[i] + neck[i] + rise[i] for i in range(3)]
+    face = [head[i] + ahead[i] for i in range(3)]
+    right = (-d[2], 0.0, d[0])
+
+    def world(v):   # the character's axes (x its right, y up, z its back) to the world's
+        return [pos[i] + v[0] * right[i] + (v[1] if i == 1 else 0.0) - v[2] * d[i] for i in range(3)]
+    return world(head), world(face)
+
+
+def _point(shot: dict, p, t: float | None = None) -> list:
+    """A point: [x, y, z], or 'actor.head' / 'actor.face' / 'actor.torso' / 'actor.feet', with '+[dx,dy,dz]'. With
+    the time t (seconds into the shot) a head or face is where the actor's pose then puts it (_posed_points)."""
     if isinstance(p, (list, tuple)):
         return _vec(p)
     base, _, extra = str(p).partition("+")
     name, _, part = base.partition(".")
     pos = _actor_pos(shot, name)
     d = _actor_dir(shot, name)
+    keys = (shot.get("_poses") or {}).get(name)
     if part in ("", "torso"):
         out = pos
+    elif part in ("head", "face") and keys and t is not None:
+        head, face = _posed_points(pos, d, keys, t, shot["actors"][name].get("planted", True))
+        out = head if part == "head" else face
     elif part == "head":
         out = [pos[0], pos[1] + HEAD, pos[2]]
     elif part == "face":
@@ -242,15 +268,16 @@ def _point(shot: dict, p) -> list:
     return out
 
 
-def _view(shot: dict, v: dict) -> dict:
-    """A camera view from its spec (docs/MAKING.md, "Camera"): aim / pos+look / ots / low / top, then dutch, back."""
+def _view(shot: dict, v: dict, t: float | None = None) -> dict:
+    """A camera view from its spec (docs/MAKING.md, "Camera"): aim / pos+look / ots / low / top, then dutch, back.
+    t is the key's time in the shot: a head or face is aimed at where the actor's pose has it then."""
     import camera
     if "aim" in v:
-        target = _point(shot, v["aim"])
+        target = _point(shot, v["aim"], t)
         toward = v.get("toward")
         if v.get("between"):  # a two-shot: framed on the point between two heads, from the side both face
             name_b = v["between"].split(".")[0]
-            other = _point(shot, name_b + ".head")
+            other = _point(shot, name_b + ".head", t)
             target = [(p + q) / 2 for p, q in zip(target, other)]
             if toward is None:
                 da, db = _actor_dir(shot, v["aim"].split(".")[0]), _actor_dir(shot, name_b)
@@ -265,22 +292,22 @@ def _view(shot: dict, v: dict) -> dict:
         out = camera.aim(target, toward=toward or (0, 0, 1), distance=v.get("distance", 6.0),
                          height=v.get("height", 0.0), fov=v.get("fov", 45.0), roll=v.get("roll", 0.0))
     elif "pos" in v:
-        out = camera.view(_vec(v["pos"]), _point(shot, v["look"]), roll=v.get("roll", 0.0), fov=v.get("fov", 45.0))
+        out = camera.view(_vec(v["pos"]), _point(shot, v["look"], t), roll=v.get("roll", 0.0), fov=v.get("fov", 45.0))
     elif "ots" in v:
         o = v["ots"]
         near, far = o["near"], o["far"]
-        out = camera.ots(_point(shot, near + ".head"), _point(shot, far + ".face"), side=o.get("side", 1.5),
+        out = camera.ots(_point(shot, near + ".head", t), _point(shot, far + ".face", t), side=o.get("side", 1.5),
                          behind=o.get("behind", 2.8), up=o.get("up", 0.4), fov=o.get("fov", 45.0),
                          blur=o.get("blur", 0.6), lift=o.get("lift", 1.0))
     elif "low" in v:
         o = v["low"]
-        target = _point(shot, o["aim"])
+        target = _point(shot, o["aim"], t)
         toward = o.get("toward") or (_actor_dir(shot, o["aim"].split(".")[0]) if isinstance(o["aim"], str) else (0, 0, 1))
         out = camera.low(target, toward=toward, distance=o.get("distance", 5.0), eye=o.get("eye", 2.5),
                          fov=o.get("fov", 55.0))
     elif "top" in v:
         o = v["top"]
-        out = camera.top(_point(shot, o["aim"]), height=o.get("height", 8.0), up=o.get("up", (0, 0, 1)),
+        out = camera.top(_point(shot, o["aim"], t), height=o.get("height", 8.0), up=o.get("up", (0, 0, 1)),
                          fov=o.get("fov", 50.0))
     else:
         raise ValueError(f"shot {shot['name']}: a camera key needs aim, pos, ots, low or top: {v}")
@@ -446,13 +473,18 @@ def _clauses(words: list, style: str, emoji: str | None, story: bool,
         cur.append((w, s, e))
         last = i == len(words) - 1
         brk = w[-1:] in ".!?" and not last
+        carry = []
         if not brk and not last:
             trial = " ".join(x[0] for x in cur + [words[i + 1]])
             brk = len(captions.lines_of(trial, style)) > 3  # the references run a clause over 1-3 lines
+            if brk:   # too long for one caption: split at its last comma, not a word from its end (M3's second
+                commas = [k for k, x in enumerate(cur[:-1]) if x[0][-1:] in ",;:"]   # review: "September." alone)
+                if commas and commas[-1] >= 1:
+                    carry, cur = cur[commas[-1] + 1:], cur[:commas[-1] + 1]
         if brk or last:
             text = _lower_first(" ".join(x[0] for x in cur), names)  # lower case; CAPS only where stressed
             out.append([text, cur[0][1], cur[-1][2]])
-            cur = []
+            cur = carry
     if out and emoji:
         out[-1][0] += " " + emoji
     return [tuple(c) for c in out]
@@ -493,15 +525,17 @@ def _balance(caps: list, fps: float, most: float = 0.12) -> None:
             caps[i + 1]["show"] += take
 
 
-def _snap_to_cuts(caps: list, cuts: list, fps: float, most: int = 4) -> None:
-    """A caption due up to `most` frames after a cut comes in on the cut instead: captions cut in with the picture,
-    on the cut or a frame or two before (M3's review: five came in 1-3 frames after one). The caption before it
-    gives way, if it can spare the frames."""
+def _snap_to_cuts(caps: list, cuts: list, fps: float, most: int = 4, early: int = 2) -> None:
+    """A caption due up to `most` frames after a cut, or up to `early` frames before one, comes in on the cut
+    instead: captions cut in with the picture (M3's reviews: five came in 1-3 frames after a cut, and four 2 frames
+    before one, over the shot before). The caption before it gives way, if it can spare the frames."""
     for i, c in enumerate(caps):
         if c.get("style") not in ("comedy", "story"):
             continue
         f = int(round(c["show"] * fps))
         cut = max((x for x in cuts if 0 < f - x <= most), default=None)
+        if cut is None:
+            cut = min((x for x in cuts if 0 < x - f <= early), default=None)
         if cut is None:
             continue
         t = cut / fps
@@ -509,14 +543,30 @@ def _snap_to_cuts(caps: list, cuts: list, fps: float, most: int = 4) -> None:
             if t - caps[i - 1]["show"] < 0.3:
                 continue  # the one before can't give the frames
             caps[i - 1]["hide"] = t
+        if i and caps[i - 1]["hide"] < t and caps[i - 1]["hide"] >= c["show"] - 1e-9:
+            caps[i - 1]["hide"] = t   # waiting for the cut: the one before stays up till then
         c["show"] = t
+
+
+def _plan_face(a: dict, t: float) -> list:
+    """A planned actor's face at time t in its shot, as its pose puts it (_posed_points); a walker's rest face at
+    the walk's end."""
+    pos = a["walk"]["to"] if a.get("walk") else a["cf"]["pos"]
+    look = a["cf"].get("look") or [pos[0], pos[1], pos[2] + 1.0]
+    d = [look[0] - pos[0], 0.0, look[2] - pos[2]]
+    n = math.hypot(d[0], d[2]) or 1.0
+    d = [d[0] / n, 0.0, d[2] / n]
+    keys = [[0.0, "idle"]] if a.get("walk") else (a.get("poses") or [[0.0, "idle"]])
+    return _posed_points(pos, d, keys, t, a.get("planted", True))[1]
 
 
 def _framing(plan: dict, size=(1080, 1920)) -> list[str]:
     """Actors a shot lists but its camera never shows: each one's head (and a walk's both ends) projected through
     the camera at the shot's start, middle and end. A portrait frame is narrow: at 15 studs, a 58-degree camera sees
     about 4.7 studs either side of its centre, so a hallway's sides are out of shot (M4's first stills: the gossips
-    by the lockers never appeared). Warnings, not failures: an actor can be meant to wait out of shot."""
+    by the lockers never appeared). Then each face mid-shot, where its pose puts it: under the caption block, cut by
+    an edge of the frame (M3's second review: half-faces at both edges of the chat), or down where the Shorts UI
+    covers it (M5's slumped close-up). Warnings, not failures: an actor can be meant to wait out of shot."""
     import camera
     out = []
     w, h = size
@@ -535,11 +585,19 @@ def _framing(plan: dict, size=(1080, 1920)) -> list[str]:
                 out.append(f"{s['name']}: {name} is never in frame (head out of shot at its start, middle and end)")
                 continue
             # the face against the caption block: stories caption high (centre 24.8% down), comedy low (77.9%)
-            p = spots[-1] if a.get("walk") else spots[0]
-            xy = camera.project(views[1], [p[0], p[1] + 1.5, p[2]], size=size)
+            face = _plan_face(a, s["seconds"] / 2)
+            xy = camera.project(views[1], face, size=size)
             if not xy or not 0 <= xy[0] <= w:
                 continue
             frac = xy[1] / h
+            top = camera.project(views[1], [face[0], face[1] + 0.6, face[2]], size=size)
+            r = abs(xy[1] - top[1]) if top else 0.0   # the head's radius on screen, in pixels
+            edge = min((xy[0], "left"), (w - xy[0], "right"), (xy[1], "top"), key=lambda e: e[0])
+            if 0 <= frac <= 1.0 and edge[0] < 0.6 * r:   # past an eye
+                out.append(f"{s['name']}: {name}'s face is cut by the frame's {edge[1]} edge")
+            elif 0.85 < frac <= 1.0:
+                out.append(f"{s['name']}: {name}'s face is {frac:.0%} down, on the frame's bottom edge where the "
+                           f"Shorts UI covers it (frame it above 85%)")
             if plan.get("family") == "story" and 0.0 <= frac < 0.36:
                 out.append(f"{s['name']}: {name}'s face is {frac:.0%} down, under the story captions (frame it "
                            f"below 36%)")
@@ -629,10 +687,12 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
         def res(ref, _st=st):
             return _resolve(ref, _st, line_starts, words)
 
+        spec["_poses"] = {name: [[res(p[0]), p[1]] for p in a.get("poses", [[0, "idle"]])]
+                          for name, a in spec.get("actors", {}).items() if not a.get("walk")}
         cam = []
         for key in spec.get("camera", []):
-            v = _view(spec, key)
-            cam.append([res(key.get("t", 0.0)), v, float(key.get("move", 0.0)), key.get("ease", "out")])
+            kt = res(key.get("t", 0.0))
+            cam.append([kt, _view(spec, key, kt), float(key.get("move", 0.0)), key.get("ease", "out")])
         if not cam:
             raise SystemExit(f"shot {spec['name']}: no camera")
         actors = {}
@@ -661,8 +721,9 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
                 hits.append({"frame": int(round(at * fps)), "what": f"{fx_['sound']} in {spec['name']}"})
         overlays = []
         for ov in spec.get("overlays", []):
-            overlays.append({"icon": ov.get("icon"), "text": ov.get("text"), "over": _point(spec, ov["over"]),
-                             "start": res(ov.get("at", 0.0)), "dur": float(ov.get("dur", 0.6)),
+            ot = res(ov.get("at", 0.0))
+            overlays.append({"icon": ov.get("icon"), "text": ov.get("text"), "over": _point(spec, ov["over"], ot),
+                             "start": ot, "dur": float(ov.get("dur", 0.6)),
                              "size": float(ov.get("size", 150)), "lift": float(ov.get("lift", 1.4))})
         plan["shots"].append({"overlays": overlays, "name": spec["name"], "start": st, "frames": s["frames"],
                               "frame0": s["frame0"],
@@ -682,6 +743,15 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
         print(f"plan --keep-shots: {len(plan['shots'])} shots kept as shot"
               + (f", {len(replan)} restaged to shoot again ({', '.join(replan)})" if replan else "")
               + "; overlays, effects and captions timed again")
+    # A ding rung within 0.3 s of another is part of its burst, not a hit of its own: its onset can't rise 6 dB over
+    # the last one's ring, so the sync check would flag every one (M4's "then twenty": six dings 0.07 s apart).
+    last_ding = -1e9
+    for x in sorted(sounds, key=lambda x: x["start"]):
+        if x["sound"] == "ding":
+            if x["start"] - last_ding < 0.3:
+                x["hit"] = False
+            last_ding = x["start"]
+    hits = [{"frame": int(round(x["start"] * fps)), "what": f"{x['sound']} in {x['shot']}"} for x in sounds if x["hit"]]
     # captions: from the lines, in the family's style
     style = sh.spec.get("caption_style", CAPTION_STYLE.get(sh.family, "comedy"))
     caps = []

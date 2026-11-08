@@ -1313,9 +1313,9 @@
      ],
      "walk": {
       "from": [
-       6.8,
+       4.6,
        3,
-       -1.2
+       -2.6
       ],
       "to": [
        2.6,
@@ -1914,7 +1914,7 @@
     0.0
    ],
    "options": {
-    "board": "SCHOOL DANCE!",
+    "board": "",
     "props": [
      {
       "kind": "dog",

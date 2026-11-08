@@ -159,6 +159,9 @@ The checks have to come back clean first. Then:
 - the end: nothing cut off in the last frames (a note, a word), so the loop is clean;
 - everyone a shot is about in frame (the portrait frame sees about 4.7 studs either side at 15 studs; the plan
   warns), and no camera inside a wall or a prop (a frame of one flat colour);
+- no face cut by an edge of the frame (a half-face at the edge of a group shot: M2's "Me:", M3's chat, M4's
+  whisper) or down past 85% of the height, under the Shorts UI (M5's slumped close-up); the plan warns about both,
+  with each face where its pose puts it;
 - the first two seconds: what is this, and why keep watching?
 - and every failure in `docs/LESSONS.md`, and every one found since.
 
@@ -180,7 +183,7 @@ The checks have to come back clean first. Then:
   in linear light; a projection turned the wrong way.
 
 It confirms that each check catches its failure and passes the clean parts. It also checks `master.py`'s loudness
-meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 102 of 102.
+meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 106 of 106.
 
 On the third trailer cut, the delivered file measured:
 

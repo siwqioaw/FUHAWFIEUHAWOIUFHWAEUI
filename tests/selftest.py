@@ -702,6 +702,16 @@ def pipeline_checks(expect) -> None:
     snaps = [{"text": "a", "style": "comedy", "show": 0.0, "hide": 1.05}, {"text": "b", "style": "comedy",
                                                                            "show": 1.05, "hide": 2.0}]
     make._snap_to_cuts(snaps, [0, 30], 30)
+    pre = [{"text": "a", "style": "comedy", "show": 0.0, "hide": 0.9333}, {"text": "b", "style": "comedy",
+                                                                            "show": 0.9333, "hide": 2.0}]
+    make._snap_to_cuts(pre, [0, 30], 30)
+    expect(f"make: a caption due 2 frames before a cut waits for it, the one before staying up ({pre[1]['show']:.3f} s, "
+           f"the cut at 1.000)", abs(pre[1]["show"] - 1.0) < 1e-9 and abs(pre[0]["hide"] - 1.0) < 1e-9)
+    long_words = [(w, k * 0.25, k * 0.25 + 0.2) for k, w in enumerate(
+        "then there's this guy, who hasn't answered the group chat since September.".split())]
+    split = [c[0] for c in make._clauses(long_words, "comedy", None, False)]
+    expect(f"make: a comedy sentence too long for one caption splits at its comma ({split})",
+           split == ["then there's this guy,", "who hasn't answered the group chat since September."])
     chain = [{"show": 0.0, "hide": 0.26}, {"show": 0.26, "hide": 0.54}, {"show": 0.54, "hide": 0.8}]   # the old rule drew 2 on frame 32
     spans = [make._caption_frames(c, 60) for c in chain]
     expect(f"make: captions back to back never share a frame ({spans})",
@@ -723,6 +733,24 @@ def pipeline_checks(expect) -> None:
     flagged = make._framing(framed)
     expect(f"make: the framing check passes actors in shot ({clean}) and flags one the camera never sees ({flagged})",
            not clean and len(flagged) == 1 and "far" in flagged[0])
+    def edged(x, look_y):
+        cam = [[0.0, {"pos": [0, 4.5, -10], "look": [0, look_y, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]]
+        return make._framing({"family": "music", "shots": [{"name": "s", "seconds": 1.0, "camera": cam,
+                                                           "actors": {"a": {"cf": {"pos": [x, 3, 0]}}}}]})
+    side, bottom, middle = edged(-2.5, 4.5), edged(0.0, 8.5), edged(0.0, 4.5)
+    expect(f"make: the plan flags a face cut by the frame's edge ({side}) and one down on the bottom edge under the "
+           f"Shorts UI ({bottom}); a centred face passes ({middle})",
+           len(side) == 1 and "right edge" in side[0] and len(bottom) == 1 and "Shorts UI" in bottom[0] and not middle)
+    rig = {"name": "x", "actors": {"m": {"at": [0, 3, 0], "facing": [0, 0, -1]}}}
+    rest = make._point(rig, "m.face")
+    rig["_poses"] = {"m": [[0.0, "idle"]]}
+    idle = make._point(rig, "m.face", 0.0)
+    rig["_poses"] = {"m": [[0.0, "idle"], [1.0, "slump"]]}
+    early, slumped = make._point(rig, "m.face", 0.5), make._point(rig, "m.face", 2.0)
+    expect(f"make: a camera aims at the face where the pose puts it: a slump's {slumped[1] - rest[1]:+.2f} studs down "
+           f"and {rest[2] - slumped[2]:+.2f} forward, an idle face where it was ({idle}, before the slump {early})",
+           max(abs(a - b) for a, b in zip(idle, rest)) < 1e-9 and max(abs(a - b) for a, b in zip(early, rest)) < 1e-9
+           and slumped[1] - rest[1] < -0.4 and rest[2] - slumped[2] > 0.4 and abs(slumped[0]) < 1e-9)
     u1 = make._raw_name("b", 0, "https://cdn.example/gen/AAA/content.mp3?Expires=1&Signature=x")
     u2 = make._raw_name("b", 0, "https://cdn.example/gen/AAA/content.mp3?Expires=2&Signature=y")
     u3 = make._raw_name("b", 0, "https://cdn.example/gen/BBB/content.mp3?Expires=1&Signature=x")

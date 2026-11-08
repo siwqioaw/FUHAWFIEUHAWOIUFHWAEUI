@@ -24,7 +24,7 @@ video's record and are committed.
 |---|---|---|---|
 | voice | `short.json` lines, `build/<slug>/takes.json` (the agent writes it after generating each line with the ElevenLabs connector: {line id: [take URL or file, ...]}; each download is named by its take, so a regenerated line's new takes are fetched; a link expires after some
 hours, and then the copy fetched while it worked is used) | `voice/<id>.wav`, `voice/words.json`, `voice/report.md` | any voice check fails (`docs/VOICE.md`) |
-| plan | the spec, `words.json` | `plan.json` (every shot's camera path, actors' pose and face keys, voices, effects, captions), `cut.json` (the timeline every check reads) | a time can't be resolved, a shot has no camera, a caption is up too briefly to read (`qc.py`'s rule, found before the shoot); it warns about an actor a shot lists but never shows, and a face under the captions (a story's face above 36% of the height, a comedy's below 66%) |
+| plan | the spec, `words.json` | `plan.json` (every shot's camera path, actors' pose and face keys, voices, effects, captions), `cut.json` (the timeline every check reads) | a time can't be resolved, a shot has no camera, a caption is up too briefly to read (`qc.py`'s rule, found before the shoot); it warns about an actor a shot lists but never shows, a face under the captions (a story's face above 36% of the height, a comedy's below 66%), a face cut by an edge of the frame, and one below 85% where the Shorts UI covers it; each face where its pose puts it |
 | shoot | `plan.json` | `shots/<shot>/f00000.png ...` (960 x 1707) | frames are missing after 4 attempts |
 | cut | `plan.json`, the frames | `master.mov` (1080 x 1920, ProRes) | a frame is missing |
 | mix | `plan.json`, `cut.json`, the voice files | `mix_raw.wav`, `mix.wav`; the placements into `cut.json` | |
@@ -70,7 +70,10 @@ each, plus about a minute to start the playtest and stage the cast; cut 35 s; mi
   - `camera`: keys, each a view and, after the first, `move` (seconds; 0 cuts) and `ease` (`out`, `inout`, `in`,
     `linear`). A view is one of:
     - `{"aim": "kid.head", "distance": 5.5, "height": -0.3, "fov": 45, "toward": [x, y, z]}`: framed on a point
-      (an actor's `head`, `face`, `torso` or `feet`, or `[x, y, z]`), from in front of whoever it aims at;
+      (an actor's `head`, `face`, `torso` or `feet`, or `[x, y, z]`), from in front of whoever it aims at. A head
+      or face is where the actor's pose has it at the key's time: a slump drops the face half a stud and tips it
+      forward, a laugh throws it back (M5's first `twice` aimed at the upright face and framed the slumped one on the
+      frame's bottom edge). An overlay over a head follows the pose at its time the same way;
     - `{"pos": [x, y, z], "look": "girl.face"}`;
     - `{"ots": {"near": "kid", "far": "girl"}}` (over the shoulder, with depth of field);
     - `{"low": {"aim": "kid.head"}}`, `{"top": {"aim": "kid.torso"}}`;

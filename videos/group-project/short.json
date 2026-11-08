@@ -23,12 +23,6 @@
   "nerd": {
    "look": "nerd"
   },
-  "ex1": {
-   "look": "extra_a"
-  },
-  "ex2": {
-   "look": "extra_b"
-  },
   "ex3": {
    "look": "extra_c"
   }
@@ -102,18 +96,18 @@
    "actors": {
     "me": {
      "at": [
-      5,
+      0.6,
       3,
-      -11
+      -11.5
      ],
      "poses": [
       [
        0,
-       "hands_on_head"
+       "idle"
       ],
       [
        "l1:why",
-       "arms_out"
+       "hands_on_head"
       ]
      ],
      "faces": [
@@ -138,17 +132,17 @@
     {
      "t": 0,
      "aim": "me.head",
-     "distance": 9.0,
+     "distance": 13.0,
      "fov": 45,
      "height": -0.3
     },
     {
      "t": 0.04,
      "aim": "me.head",
-     "distance": 5.6,
+     "distance": 6.2,
      "fov": 45,
      "height": -0.3,
-     "move": 0.28,
+     "move": 0.35,
      "ease": "out"
     }
    ],
@@ -204,14 +198,14 @@
     {
      "t": 0,
      "aim": "girl.head",
-     "distance": 9.5,
+     "distance": 11.0,
      "fov": 45,
      "height": -0.3
     },
     {
      "t": 0.04,
      "aim": "girl.head",
-     "distance": 7.2,
+     "distance": 9.4,
      "fov": 45,
      "height": -0.3,
      "move": 0.28,
@@ -241,7 +235,7 @@
      "poses": [
       [
        0,
-       "arms_crossed"
+       "idle"
       ]
      ],
      "faces": [
@@ -299,59 +293,9 @@
    "seconds": "auto",
    "pad": 0.08,
    "actors": {
-    "ex1": {
-     "at": [
-      -3,
-      3,
-      14.2
-     ],
-     "poses": [
-      [
-       0,
-       "idle"
-      ]
-     ],
-     "faces": [
-      [
-       0,
-       "bored"
-      ]
-     ],
-     "drift": 1.0,
-     "facing": [
-      0,
-      0,
-      -1
-     ]
-    },
-    "ex2": {
-     "at": [
-      6,
-      3,
-      14.2
-     ],
-     "poses": [
-      [
-       0,
-       "slump"
-      ]
-     ],
-     "faces": [
-      [
-       0,
-       "sleepy"
-      ]
-     ],
-     "drift": 1.0,
-     "facing": [
-      0,
-      0,
-      -1
-     ]
-    },
     "ex3": {
      "at": [
-      -2.2,
+      -0.3,
       3,
       7.4
      ],
@@ -376,7 +320,7 @@
     },
     "nerd": {
      "at": [
-      4.6,
+      3.3,
       3,
       7.4
      ],
@@ -486,15 +430,15 @@
    "camera": [
     {
      "t": 0,
-     "aim": "jock.face",
-     "distance": 3.2,
+     "aim": "jock.face+[0,-0.45,0]",
+     "distance": 3.4,
      "fov": 45,
      "height": -0.3
     },
     {
      "t": 0.04,
-     "aim": "jock.face",
-     "distance": 2.6,
+     "aim": "jock.face+[0,-0.45,0]",
+     "distance": 2.8,
      "fov": 45,
      "height": -0.3,
      "move": 0.3,
@@ -558,7 +502,7 @@
     {
      "t": 0,
      "aim": "me.face",
-     "distance": 2.8,
+     "distance": 3.4,
      "fov": 45,
      "height": -0.2
     },
@@ -568,7 +512,7 @@
      "distance": 7.0,
      "fov": 45,
      "height": -0.2,
-     "move": 0.22,
+     "move": 0.7,
      "ease": "out"
     }
    ],
@@ -595,7 +539,7 @@
      "poses": [
       [
        0,
-       "hands_on_hips"
+       "idle"
       ]
      ],
      "faces": [

@@ -17,7 +17,9 @@ failure found to this list and to `docs/VERIFY.md`.
 - **First frames of every shot:** nothing still loading (textures, faces, lights).
 - **Faces:** the right face on the right word; never a blank default face; no face hidden by a hand or hair; the
   actor whose line it is looks like they're saying it.
-- **Framing:** heads above the caption block (70% of the height); nobody cut in half at an edge unless meant; the
+- **Framing:** heads clear of the caption block (a comedy's sits below 66% of the height, a story's above 36%); no face
+  cut by an edge of the frame (the plan warns: a back row at a push-in's edges shows only as half-faces) or down past
+  85% under the Shorts UI; a close-up aimed at the face where the pose puts it (a slump drops it half a stud); the
   subject of the line in frame; no camera inside a wall or a prop.
 - **Staging:** no actor inside furniture or another actor; feet on the floor; no one floating; walks don't slide.
 - **Captions:** the script's words, timed to the voice; CAPS where the script stresses; emoji drawn (comedy only);

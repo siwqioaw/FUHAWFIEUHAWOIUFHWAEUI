@@ -18,7 +18,7 @@ s = Spec("group-project", family="comedy", set="classroom",
          title="Why does every group project have THAT one person",
          set_options={"board": "GROUP PROJECT\n40 slides\nDue FRIDAY"},
          cast={"me": "narrator", "girl": "popular_girl", "jock": "jock", "teacher": "teacher",
-               "nerd": "nerd", "ex1": "extra_a", "ex2": "extra_b", "ex3": "extra_c"})
+               "nerd": "nerd", "ex3": "extra_c"})
 
 s.line("l1", "narrator", "[excited] Nah, why does every group project have that ONE person?", emoji="\U0001F62D")
 s.line("l2", "girl", "[bubbly] Oh my gosh, you guys, I'll do the title page!", emoji="✨")
@@ -40,32 +40,31 @@ BOARD_GIRL, BOARD_ME = [-2.0, 3, -14], [2.4, 3, -14]   # 4.4 apart: at 3, her el
 TOWARD_US = [0, 0, 1]
 TO_BOARD = [0, 0, -1]
 
-extras = {   # the class, in the frame behind the jock: two between the desk rows, two at the back
-    "ex1": actor([-3, 3, 14.2], facing=TO_BOARD, faces=[(0, "bored")]),
-    "ex2": actor([6, 3, 14.2], facing=TO_BOARD, faces=[(0, "sleepy")], poses=[(0, "slump")]),
-    "ex3": actor([-2.2, 3, 7.4], facing=TO_BOARD, faces=[(0, "deadpan")]),
-    "nerd": actor([4.6, 3, 7.4], facing=TO_BOARD, faces=[(0, "smile")], poses=[(0, "think")]),
+extras = {   # the class behind the jock, either side of his head (a back row showed only as half-faces at the edges)
+    "ex3": actor([-0.3, 3, 7.4], facing=TO_BOARD, faces=[(0, "deadpan")]),
+    "nerd": actor([3.3, 3, 7.4], facing=TO_BOARD, faces=[(0, "smile")], poses=[(0, "think")]),
 }
 
 s.add(
-    shot("hook", {"me": actor(FRONT, facing=TOWARD_US,
-                              poses=[(0, "hands_on_head"), ("l1:why", "arms_out")],
+    shot("hook", {"me": actor([0.6, 3, -11.5], facing=TOWARD_US,
+                              poses=[(0, "idle"), ("l1:why", "hands_on_head")],
                               faces=[(0, "smug"), ("l1:one", "angry")])},
-         push("me.head", 9.0, 5.6), say=[("l1", 0.0)], pad=0.18),
+         push("me.head", 13.0, 6.2, move=0.35), say=[("l1", 0.0)], pad=0.18),
     shot("title_page", {"girl": actor(GIRL, facing=TOWARD_US, poses=[(0, "idle"), ("l2:title", "cheer")],
                                       faces=[(0, "grin"), ("l2:title", "starstruck")])},
-         push("girl.head", 9.5, 7.2), say=[("l2", 0.05)], pad=0.15),
-    shot("forty", {"me": actor(FRONT, facing=TOWARD_US, poses=[(0, "arms_crossed")],
+         push("girl.head", 11.0, 9.4), say=[("l2", 0.05)], pad=0.15),
+    shot("forty", {"me": actor(FRONT, facing=TOWARD_US, poses=[(0, "idle")],
                                faces=[(0, "deadpan"), ("l3:forty", "side_eye")])},
          push("me.head", 5.6, 4.3, move=0.35), say=[("l3", 0.0)], sfx=[("boom", "l3:end+0.04")], pad=0.55),
     shot("the_chat", {**extras, "jock": actor(JOCK, facing=TO_BOARD, poses=[(0, "idle")], faces=[(0, "sleepy")])},
          push("jock.head", 12.0, 7.5, fov=50, height=-0.6, move=0.4), say=[("l4", 0.0)], pad=0.08),
     shot("seen", {"jock": actor(JOCK, facing=TO_BOARD, poses=[(0, "idle")], faces=[(0, "sleepy")])},
-         push("jock.face", 3.2, 2.6, move=0.3), say=[("l5", 0.08)], sfx=[("boom", "l5:end+0.02")], pad=0.6),
+         push("jock.face+[0,-0.45,0]", 3.4, 2.8, move=0.3), say=[("l5", 0.08)], sfx=[("boom", "l5:end+0.02")],
+         pad=0.6),
     shot("alone", {"me": actor([10.5, 3, -4], facing=[-1, 0, 0], poses=[(0, "facepalm"), ("l6:every", "slump")],
                                faces=[(0, "teary"), ("l6:every", "cry")])},
-         pull("me.face", 2.8, 7.0), say=[("l6", 0.0)], pad=0.12),
-    shot("pres_day", {"girl": actor(BOARD_GIRL, facing=TOWARD_US, poses=[(0, "hands_on_hips")], faces=[(0, "smug")]),
+         pull("me.face", 3.4, 7.0, move=0.7), say=[("l6", 0.0)], pad=0.12),
+    shot("pres_day", {"girl": actor(BOARD_GIRL, facing=TOWARD_US, poses=[(0, "idle")], faces=[(0, "smug")]),
                       "me": actor(BOARD_ME, facing=TOWARD_US, poses=[(0, "idle")], faces=[(0, "side_eye_left")])},
          two_shot("girl", "me", distance=13.5, fov=50), say=[("l7", 0.0)], pad=0.1),
     shot("as_we", {"girl": actor(BOARD_GIRL, facing=TOWARD_US, poses=[(0, "hands_on_hips")],

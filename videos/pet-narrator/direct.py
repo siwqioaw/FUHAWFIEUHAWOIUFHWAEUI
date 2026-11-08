@@ -43,7 +43,7 @@ s = Spec("pet-narrator", family="story", set="street", set_options={"props": str
                "ex3": "extra_c"},
          extra_sets=[("home", "bedroom", HOME, {"props": [{"kind": "dog", "at": [2.0, 0, 3.5], "facing": [-1, 0, 0], **MAXDOG}]}),
                      ("living", "living_room", LIVING, {"props": [{"kind": "dog", "at": [-0.2, 0, 4.0], "facing": [-1, 0, -0.4], **MAXDOG}]}),
-                     ("dance", "classroom", DANCE, {"board": "SCHOOL DANCE!",
+                     ("dance", "classroom", DANCE, {"board": "",   # its "SCHOOL DANCE!" sat under every caption
                                                     "props": [{"kind": "dog", "at": [5.4, 0, -5.4], "facing": [-1, 0, -0.35], **MAXDOG}]})])
 for ln in json.load(open(os.path.join(HERE, "lines.json"), encoding="utf-8")):
     s.line(ln["id"], ln["role"], ln["text"])
@@ -109,7 +109,7 @@ s.add(
          wide([7.5, 7.0, 6.0], [-1.5, 3.8, -8], fov=58, push_in=3.0), set="dance", say=[("c", "b:end+0.04")],
          until="c:max"),
     shot("walk", {"max": actor([2.4, 3, -6.6], facing=[-1, 0, -0.6], faces=[(0, "nervous")],
-                               walk={"from": [6.8, 3, -1.2], "to": [2.6, 3, -6.4], "start": 0.0}),
+                               walk={"from": [4.6, 3, -2.6], "to": [2.6, 3, -6.4], "start": 0.0}),   # in frame
                   "lily": actor([0, 3, -8], facing=[1, 0, 0.6], faces=[(0, "smile")])},
          wide([6.5, 5.0, 3.5], [1.2, 3.8, -7], fov=50), set="dance", until="c:and#1"),
     shot("froze", {"max": actor([2.6, 3, -6.4], facing=[-1, 0, -0.6], faces=[(0, "blank")], drift=0.0)},

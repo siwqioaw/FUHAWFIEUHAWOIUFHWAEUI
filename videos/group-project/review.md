@@ -23,3 +23,30 @@ Fine, by the reviewer's measure: the specs, loudness (-14.2 LUFS, -2.4 dBTP), no
 every shot's first frames textured, every line at its planned start, the captions' words, caps and emoji, heads clear
 of the captions, every boom on its hit, the music 15-20 dB under the voice, the premise at frame 0, no logo or
 reference content, teen-appropriate.
+
+All eleven fixed in the tools or the staging; the whole video shot again from them (the two narrator lines
+regenerated: "[curious]" and "[deadpan]" still read an octave down, "[annoyed]" and "[frustrated]" keep his voice).
+
+## Round 2 (2026-11-08, on `out/group-project.mp4` of 07:38)
+
+No must-fix problems. Evidence in `build/review2/group-project/`.
+
+| # | Finding | Severity | Fix |
+|---|---|---|---|
+| 1 | The presentation two-shot too tight: arms out at both edges, her hand meeting his forearm (the framing check projects heads only) | should | her arms at her sides |
+| 2 | Gestures still clipped in close-ups: the hook's arms out, the girl's cheer at the edges | should | the hook's hands on his head; her shot wider |
+| 3 | Half-faces at both edges of `the_chat` | should | the front pair moved inside the frame; the back row dropped (at the push-in's edges it could only show as half-faces: the plan's new edge check flagged both) |
+| 4 | Captions 2 frames before four cuts, over the shot before | nit | a caption due up to 2 frames before a cut waits for it; selftest |
+| 5 | Line 3 lower (157 Hz) than the narrator's others | nit | kept: inside the register check, a sarcastic read |
+| 6 | `alone` opens with a whip, not a reveal | nit | a slower pull-back |
+| 7 | The hook shows the board in pieces | nit | the narrator centred under it, the shot opening wide on it |
+| 8 | "September." left alone as a caption | nit | a long comedy sentence splits at its comma; selftest |
+| 9 | "seen." touches the jock's chin | nit | the face framed higher |
+| 10 | Crossed arms read as two boxes in `forty` | nit | arms at his sides |
+
+Fine, by the reviewer's measure: every check on the file (-14.2 LUFS, -2.4 dBTP), every line on its planned start to
+the sample, the captions' words and pace (14.6 characters a second), faces on their words within 4 frames, every boom
+on its punch with its punch-in and its tail ducked, the voice 18-23 dB over the bed, narrator lines within 1.2 dB of
+each other, no jump cuts (2.3x and 2.15x where it was 1.17x), a clean loop, teen-safe.
+
+Seven shots restaged and shot again (`plan --keep-shots --replan ...`). Re-planning them with the camera aimed where each pose puts the face moved one: `alone`'s pull-back starts on the facepalm's lowered face.
