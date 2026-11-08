@@ -173,15 +173,22 @@ def _segments(tokens, style: dict, size: int):
 
 
 def _rows(segs, space: float, style: dict) -> list[list]:
-    """Segments wrapped into rows no wider than the style's width (an emoji never starts a row)."""
+    """Segments wrapped into rows no wider than the style's width. An emoji never starts a row: one that won't fit
+    takes the word before it down to the next row (hung on the end it drew "and on presentation day? 👀" to x = 961,
+    under the Shorts buttons: M3's third review)."""
     gap = style["cap"] * 0.12
     rows: list[list] = []
     cur, wcur = [], 0.0
     for s in segs:
         sep = (gap if s[0] == "emoji" else space) if cur else 0.0
-        if cur and s[0] != "emoji" and wcur + sep + s[3] > style["width"]:
-            rows.append(cur)
-            cur, wcur, sep = [], 0.0, 0.0
+        if cur and wcur + sep + s[3] > style["width"]:
+            if s[0] != "emoji":
+                rows.append(cur)
+                cur, wcur, sep = [], 0.0, 0.0
+            elif len(cur) > 1 and cur[-1][0][0] != "emoji":
+                last, lsep = cur.pop()
+                rows.append(cur)
+                cur, wcur = [(last, 0.0)], last[3]
         cur.append((s, sep))
         wcur += sep + s[3]
     if cur:

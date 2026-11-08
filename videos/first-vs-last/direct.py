@@ -64,7 +64,7 @@ s.add(
     shot("asleep", {"leo": actor([-3, 3, 5.1], facing=TO_BOARD, poses=[(0, "slump")], faces=[(0, "sleepy")])},
          [{"t": 0, "aim": "leo.head+[0,0.1,0]", "distance": 7.5, "fov": 48, "orbit": 30},   # down the aisle:
           {"t": 0.04, "aim": "leo.head+[0,0.1,0]", "distance": 6.0, "fov": 48, "orbit": 30, "move": 0.4,
-           "ease": "out"}], set="class", sfx=[("boom", 0.0, 3)],   # straight on, a front-row chair filled the bottom
+           "ease": "out"}], set="class", sfx=[("boom", 0.0, 1)],   # straight on, a front-row chair filled the bottom
          overlays=[("\U0001F4A4", "leo.head", 0.2, {"size": 130, "lift": 1.2, "dur": 1.0})], seconds=length(3)),
     shot("yelled", {"teacher": actor([-2.8, 3, 0.8], facing=[0.2, 0, 1], poses=[(0, POINT_AT_L)], faces=[(0, "yell")]),
                     "leo": actor([2.3, 3, 0.2], facing=[-0.3, 0, 1], poses=[(0, TIRED)], faces=[(0, "dead")])},

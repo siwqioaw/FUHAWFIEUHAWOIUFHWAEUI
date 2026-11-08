@@ -110,3 +110,9 @@ failure found to this list and to `docs/VERIFY.md`.
 - A rule's signature without its sound (M5's bubbles): every instance gets both, as M4's bells and dings do.
 - Captions over set text (a poster's "GAME ON" right above them): keep text on walls out of the captions' band.
 - Word starts late after the refinement (M5: 0.09-0.24 s): `refine_words` walks back to the sound's onset.
+- A caption reaching the Shorts buttons (M3: a trailing emoji drew "and on presentation day?" to x = 961): keep
+  every caption inside x 140-940; the wrap now takes an emoji's word down with it.
+- A delivered file under the loudness target after a hit was raised (M2: -15.9 LUFS with its boom 3 dB up): the
+  master won't limit more than 6 dB; measure the file, not the mix.
+- Lines said but not shown in a rant (M3: "every single slide" over him crying, "we all get the same grade"
+  over the teacher): show the thing (the laptop's "Slide 40 / 40", an A over each of the three).

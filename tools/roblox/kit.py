@@ -658,10 +658,45 @@ def locker_bank(s: Set, pos, facing=(0, 0, 1), n: int = 3, color=(205, 60, 60), 
     s.box(top, (x, h + 0.15, z), tuple(int(c * 0.72) for c in color), "Metal")
 
 
+def _euler_xyz(yaw_deg: float, pitch_deg: float) -> tuple:
+    """The part rotation (Roblox's CFrame.Angles x, y, z in degrees: Rx Ry Rz) of a turn `yaw_deg` about the vertical
+    after a tilt `pitch_deg` about the part's own x axis (Ry(yaw) Rx(pitch)): a lid leaning back on a prop that faces
+    any way, where (pitch, yaw, 0) would tilt it about the world's x axis instead."""
+    ya, pa = math.radians(yaw_deg), math.radians(pitch_deg)
+    cy, sy, cp, sp = math.cos(ya), math.sin(ya), math.cos(pa), math.sin(pa)
+    r = [[cy, sy * sp, sy * cp], [0.0, cp, -sp], [-sy, cy * sp, cy * cp]]   # Ry(yaw) @ Rx(pitch)
+    b = math.asin(max(-1.0, min(1.0, r[0][2])))
+    return (math.degrees(math.atan2(-r[1][2], r[2][2])), math.degrees(b), math.degrees(math.atan2(-r[0][1], r[0][0])))
+
+
+def laptop(s: Set, pos, facing=(0, 0, 1), text="Slide 40 / 40", color=(70, 72, 82), screen=(246, 247, 252),
+           ink=(40, 60, 150)):
+    """An open laptop on a surface (pos y is the surface; facing: toward its user), its screen showing `text`: the
+    work on screen (M3's third review: "every single slide" was said over him crying, with no slide in sight). The
+    lid leans back 18 degrees from the deck's back edge; no logo on it."""
+    x, y, z = pos
+    yaw = _yaw(facing)
+
+    def at(dx, dy, dz):
+        rx, rz = _rot(dx, dz, yaw)
+        return (x + rx, y + dy, z + rz)
+
+    s.box((2.4, 0.12, 1.6), at(0, 0.06, 0), color, "Metal", rot=(0, yaw, 0))             # the deck
+    s.box((2.1, 0.03, 0.75), at(0, 0.13, -0.2), (45, 46, 54), rot=(0, yaw, 0))          # the keys
+    s.box((0.8, 0.02, 0.4), at(0, 0.125, 0.45), tuple(int(c * 0.85) for c in color), rot=(0, yaw, 0))   # the pad
+    tilt, h = 18.0, 1.55
+    rot = _euler_xyz(yaw, -tilt)
+    t = math.radians(tilt)
+    cy, cz = 0.12 + h / 2 * math.cos(t), -0.8 - h / 2 * math.sin(t)
+    s.box((2.4, h, 0.08), at(0, cy, cz), color, "Metal", rot=rot)                        # the lid
+    s.sign((2.2, h - 0.2, 0.02), at(0, cy + 0.05 * math.sin(t), cz + 0.05 * math.cos(t)), text, face="Back",
+           bg=screen, fg=ink, rot=rot, scale=0.72)                                        # its screen, toward the user
+
+
 PROPS = {"dog": dog, "cat": cat, "plant": plant, "lamp": lamp, "table": table, "rug": rug, "car": car, "tree": tree,
          "pine": pine, "bookshelf": bookshelf, "sofa": sofa, "tv": tv,
          "balloons": balloons, "cake": cake, "smoothie": smoothie, "ice_pack": ice_pack, "wall_phone": wall_phone,
-         "lockers": locker_bank}
+         "lockers": locker_bank, "laptop": laptop}
 
 
 def props(s: Set, items: list) -> None:

@@ -406,7 +406,7 @@
     {
      "sound": "boom",
      "at": 0.0,
-     "gain_db": 3
+     "gain_db": 1
     }
    ],
    "drift": 1.0,

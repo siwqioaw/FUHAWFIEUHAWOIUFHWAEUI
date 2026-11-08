@@ -571,8 +571,9 @@ def _snap_to_cuts(caps: list, cuts: list, fps: float, most: int = 4, early: int 
             continue
         f = int(round(c["show"] * fps))
         word = int(round(c.get("start", c["show"]) * fps))
-        cut = max((x for x in cuts if 0 < f - x <= most and word - x <= 3), default=None)   # back to a cut only
-        if cut is None:                       # while its word is 3 frames off (M3's third review: "seen." 6 early)
+        cut = max((x for x in cuts if 0 < f - x <= most and word - x <= 2), default=None)   # back to a cut only
+        if cut is None:   # while its word is 2 frames off at most, the lead it has anyway: never before its word by
+            #               more (M3's third review: "seen." 6 frames early; at 3, "then there's this guy," was 3)
             cut = min((x for x in cuts if 0 < x - f <= early), default=None)
         if cut is None:
             continue
@@ -594,7 +595,9 @@ def _snap_to_cuts(caps: list, cuts: list, fps: float, most: int = 4, early: int 
 
 def _plan_hands(a: dict, t: float) -> dict:
     """A planned standing actor's hands at time t in world studs, as its pose puts them, with whether each is a
-    gesture (raised above the shoulder, flung out past 2.2 studs from the body's centre line, or held out ahead)."""
+    gesture (raised above the shoulder, flung out past 2.2 studs from the body's centre line, or held out ahead;
+    arms folded across the chest, the hands ahead of it but within 0.8 of the centre line, aren't: a close-up cuts
+    their shoulders as it cuts any arm, and the fold still reads)."""
     import pose
     pos = a["cf"]["pos"]
     look = a["cf"].get("look") or [pos[0], pos[1], pos[2] + 1.0]
@@ -611,7 +614,8 @@ def _plan_hands(a: dict, t: float) -> dict:
         outer = [[pos[i] + c[0] * right[i] + (c[1] if i == 1 else 0.0) - c[2] * d[i] for i in range(3)]
                  for c in limbs[arm]]
         span = max(abs(c[0]) for c in limbs[arm])   # elbows out (hands on hips) count, not only the hand
-        out[arm] = (world, y > 0.5 or abs(x) > 2.2 or span > 2.3 or z < -1.4, outer)
+        folded = abs(x) < 0.8 and y < 0.5
+        out[arm] = (world, y > 0.5 or abs(x) > 2.2 or span > 2.3 or (z < -1.4 and not folded), outer)
     return out
 
 
@@ -1000,17 +1004,43 @@ def _offset_shot(spec: dict, off) -> None:
     spec["_shifted"] = True
 
 
-def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) -> bool:
+def _seeds(plan_path: str, names: list) -> list:
+    """Each shot's seed (its hold's drift): the one it had in the plan already made, by name, so a shot put in
+    before others doesn't change theirs and make every later shot stale (M3's third round: "slides" put in before
+    five shots); a new shot takes the lowest seed not taken, its place in a first plan."""
+    old = {}
+    if os.path.exists(plan_path):
+        try:
+            old = {x["name"]: x["seed"] for x in _load(plan_path).get("shots", []) if "seed" in x}
+        except (ValueError, KeyError):
+            old = {}
+    kept = {n: old[n] for n in names if n in old}
+    taken, out = set(kept.values()), []
+    for k, n in enumerate(names):
+        if n in kept:
+            out.append(kept[n])
+            continue
+        seed = k
+        while seed in taken:
+            seed += 1
+        taken.add(seed)
+        out.append(seed)
+    return out
+
+
+def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None, write: bool = True) -> bool:
     """Time the whole video: shot lengths (from the lines when 'auto'), every word-anchored key, the captions.
 
     `keep_shots`, for a video already shot: every shot's timing, camera and actors (what its frames show) stay as
     in the plan already made; the overlays, effects and captions (drawn and mixed after the shoot) follow the
     current word times. Refused if a shot or a line would move. `replan`: shots that take the spec's current camera
-    and actors within their kept timing, to be shot again (`shoot --only`)."""
+    and actors within their kept timing, to be shot again (`shoot --only`). `write` False (`plan --check`): print
+    the times and every warning but write nothing, to try a restage while that video's shots are being shot."""
     words = _words(sh)
     lines = sh.lines()
     fps = sh.fps
     before = _load(sh.path("plan.json")) if keep_shots else None
+    seeds = _seeds(sh.path("plan.json"), [x["name"] for x in sh.spec["shots"]])
     if before and [x["name"] for x in before["shots"]] != [x["name"] for x in sh.spec["shots"]]:
         print("plan --keep-shots: the spec's shots aren't the ones planned; plan and shoot again instead")
         return False
@@ -1098,7 +1128,7 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
                               "frame0": s["frame0"],
                               "seconds": s["frames"] / fps, "camera": cam, "actors": actors,
                               "drift": spec.get("drift", 1.0), "streak": bool(spec.get("streak")),
-                              "seed": k})
+                              "seed": seeds[k]})
     if before:
         moved = [v["line"] for v, w in zip(sorted(voices, key=lambda v: v["line"]),
                                            sorted(before["voices"], key=lambda v: v["line"]))
@@ -1150,7 +1180,8 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
     plan["voices"], plan["sounds"] = voices, sounds
     plan["music"] = sh.spec.get("music")
     plan["punch"] = sh.spec.get("punch", True)
-    _save(sh.path("plan.json"), plan)
+    if write:
+        _save(sh.path("plan.json"), plan)
     import captions as _c
     cut = {"fps": fps, "clips": [{"name": s["name"], "frames": s["frames"]} for s in plan["shots"]],
            "texts": [{"text": re.sub(r"\{\w+:([^}]*)\}", r"\1",   # the words as read: no emoji, no {colour:...}
@@ -1159,7 +1190,10 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
                       "frames": _caption_frames(c, fps)[1] - _caption_frames(c, fps)[0],
                       "speech": c["style"] in ("comedy", "story")} for c in caps],
            "hits": hits, "silences": [], "cues": []}
-    _save(sh.path("cut.json"), cut)
+    if write:
+        _save(sh.path("cut.json"), cut)
+    else:
+        print("plan --check: nothing written")
     print(f"plan: {len(plan['shots'])} shots, {total:.2f} s ({frame0} frames at {fps}), {len(voices)} lines, "
           f"{len(caps)} captions, {len(sounds)} effects ({len(hits)} hits)")
     for s in plan["shots"]:
@@ -1738,6 +1772,8 @@ def main() -> int:
                          "captions again")
     ap.add_argument("--replan", nargs="*", default=[],
                     help="plan --keep-shots: shots that take the spec's current camera and actors, to shoot again")
+    ap.add_argument("--check", action="store_true",
+                    help="plan: print the times and warnings, write nothing (safe while the video is being shot)")
     args = ap.parse_args()
     sh = Short(args.video)
     t0 = time.time()
@@ -1745,8 +1781,8 @@ def main() -> int:
         ok = stage_shoot(sh, args.only, stills=True)
     elif args.stage == "shoot":
         ok = stage_shoot(sh, args.only, frames=args.frames)
-    elif args.stage == "plan" and args.keep_shots:
-        ok = stage_plan(sh, keep_shots=True, replan=args.replan)
+    elif args.stage == "plan":
+        ok = stage_plan(sh, keep_shots=args.keep_shots, replan=args.replan, write=not args.check)
     elif args.stage == "all":
         ok = True
         for name in ("plan", "shoot", "cut", "mix", "deliver"):

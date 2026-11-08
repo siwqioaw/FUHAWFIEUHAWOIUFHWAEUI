@@ -67,7 +67,7 @@ cheerers clear above the narrator); the point still didn't read, for the third r
 | 1 | `yelled`: the point doesn't read: her pointing arm runs across her own navy sweater, from off the left edge; the shot frozen | must | the far arm, swung across her body | she points with the near arm, into the gap toward him, 0.4 studs further off; a slow push |
 | 2 | The board says "WELCOME, CLASS!" under "Last day of school.." | should | the first day's board on the last day | "Have a great summer!" |
 | 3 | A one-frame cheer on `freedom`'s first frame | should | a walk's first frame held the actor's pose (today's change to walks) | walking from frame 0 (selftest); the first frame of every walk shot taken since, taken again |
-| 4 | The boom on the turn barely reaches a phone: +2.9 dB at 300 Hz-8 kHz, the softest cut | should | a pure sub-bass boom, its sub pumping the limiter | the boom carries a low-mid body and a knock over a lower sub (selftest); its cue 3 dB up: +6.8 dB |
+| 4 | The boom on the turn barely reaches a phone: +2.9 dB at 300 Hz-8 kHz, the softest cut | should | a pure sub-bass boom, its sub pumping the limiter | the boom carries a low-mid body and a knock over a lower sub (selftest); its cue 1 dB up: +3.4 dB after the master (3 dB up, its peak needed 8 dB of limiting, the master backed off and the file came out at -15.9 LUFS) |
 | 5 | `friends`: the outer hands touch the edges; it reads as cheering, not a high five | nit | a cheer pose | a real high five: the inner hands meet between their heads, the outer arms down |
 | 6 | The classmate's head cut at the right edge in `hand_up` | nit | | moved in |
 | 7 | Leo stands inside his chair at his desk | nit | the actor's mark is the chair's | the classroom leaves those chairs out (`no_chair`) |

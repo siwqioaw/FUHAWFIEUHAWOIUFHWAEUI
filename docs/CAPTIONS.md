@@ -13,7 +13,15 @@ captions.lines_of(text, "comedy")                                      # how it 
 ## The styles
 
 All white Montserrat SemiBold with a black outline and no box, letter-spaced -0.02 em, cut in hard on the cut (or a
-frame or two before it).
+frame or two before it). A caption comes up 2 frames before its word and never earlier: one due 1-2 frames before a
+cut waits for it, one whose word comes up to 2 frames after a cut comes in on the cut, and one whose word comes later
+stays with its word (M3's third review: "seen." snapped back to the cut came up 6 frames early). A line's first
+caption waits for the first sound of its line within 18 dB of the take's peak, not a soft glide under the music
+("WE?!" was up 13 frames before the shout).
+
+Every caption stays inside its width: an emoji that won't fit on the last row takes the word before it down to the
+next, as an emoji never starts a row (hung on the end, "and on presentation day? 👀" drew to x = 961 of 1080, under
+the Shorts buttons).
 
 | Style | For | Cap height | Outline | Line to line | Where | Width | Emoji |
 |---|---|---|---|---|---|---|---|

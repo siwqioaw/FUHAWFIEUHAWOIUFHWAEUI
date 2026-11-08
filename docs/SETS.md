@@ -30,6 +30,7 @@ Any set takes props in its options, placed for the whole video: `{"props": [{"ki
 | `wall_phone` | an old wall phone with a handset and a coiled cord | facing; `at` is its centre on the wall |
 | `lockers` | a free-standing bank of lockers, a plain steel back: something to hide behind (M4's "he hid behind the lockers") | facing (its doors), n, color, h |
 | `tray` | a lunch tray with a slice of pizza, a carton of milk and an apple | color; `at` y is the table top (2.6 in the cafeteria) |
+| `laptop` | an open laptop, no logo: the deck, keys, a pad, the lid leaning back 18 degrees with `text` on its screen (M3's "Slide 40 / 40": the work shown, not just said). Its screen faces its user: shoot it over the user's shoulder to read it | facing (toward its user), text, color; `at` y is the surface (a school desk's top is 2.675) |
 | `plant`, `lamp`, `table`, `rug`, `car`, `tree`, `pine`, `bookshelf`, `sofa`, `tv` | the furniture builders | their own |
 
 The gym and the cafeteria were previewed with `python tests/studio_library.py sets gym cafeteria`: the cafeteria right first time; the gym burned out white at first (its lights at 0.9 over 40 studs, and one over the whole room) and reads right at the classroom's levels (0.45 over 30).

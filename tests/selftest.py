@@ -623,6 +623,14 @@ def caption_checks(expect) -> None:
         raised = True
     expect(f"captions: a long caption wraps to {len(long)} lines; an emoji without a picture raises instead of "
            f"drawing a box ({raised})", len(long) >= 2 and raised)
+    hung = "and on presentation day? 👀"
+    layer, (x, _) = captions.render(hung, "comedy")
+    cols = np.where(np.asarray(layer)[..., 3].max(axis=0) > 0.04)[0]
+    span = (int(x + cols.min()), int(x + cols.max()))
+    rows = captions.lines_of(hung, "comedy")
+    expect(f"captions: an emoji that won't fit takes its word to the next row ({rows}), the block inside the width "
+           f"({span}; hung on the end it drew to x = 961, under the Shorts buttons: M3's third review)",
+           len(rows) == 2 and span[1] <= 540 + 400 + 8 and span[0] >= 540 - 400 - 8)
 
 
 def pipeline_checks(expect) -> None:
@@ -771,9 +779,11 @@ def pipeline_checks(expect) -> None:
                 "actors": {"a": {"cf": {"pos": [0, 3, 0], "look": [0, 3, -10]}, "poses": [[0.0, pose_name]]}}}]})
                 if "leaves the frame" in w]
     cut_cheer, wide_cheer, close_idle = gesture(4.0, "cheer"), gesture(11.0, "cheer"), gesture(4.0, "idle")
-    expect(f"make: the plan flags a gesture cut off by the frame (a cheer at 4 studs: {cut_cheer}) and passes it "
-           f"framed wider ({wide_cheer}) and arms at rest in the close-up ({close_idle})",
-           len(cut_cheer) == 2 and not wide_cheer and not close_idle)
+    folded, cut_point = gesture(4.0, "arms_crossed"), gesture(2.6, "point")
+    expect(f"make: the plan flags a gesture cut off by the frame (a cheer at 4 studs: {cut_cheer}; a point held out "
+           f"ahead at 2.6: {cut_point}) and passes it framed wider ({wide_cheer}), arms at rest in the close-up "
+           f"({close_idle}) and arms folded across the chest, the shoulders cut as any close-up cuts them ({folded})",
+           len(cut_cheer) == 2 and len(cut_point) == 1 and not wide_cheer and not close_idle and not folded)
     def cut_pair(dist_b, orbit_b):
         def shot_(name, dist, orb):
             import math as _m
@@ -798,6 +808,12 @@ def pipeline_checks(expect) -> None:
     expect(f"make: the plan flags an icon over a subject hidden behind an actor (M5's dog behind Max: {behind}) and "
            f"passes one beside him ({beside}) and one over his own head ({own})",
            len(behind) == 1 and "hidden behind max" in behind[0] and not beside and not own)
+    seed_plan = os.path.join(OUT, "seeds_plan.json")
+    with open(seed_plan, "w", encoding="utf-8") as fh:
+        json.dump({"shots": [{"name": n, "seed": k} for k, n in enumerate(["a", "b", "c", "d"])]}, fh)
+    inserted, fresh = make._seeds(seed_plan, ["a", "b", "new", "c", "d"]), make._seeds(OUT + "/none.json", ["a", "b"])
+    expect(f"make: a shot put in before others leaves their seeds (their drift, so their frames stay current: "
+           f"{inserted}); a first plan numbers them in order ({fresh})", inserted == [0, 1, 4, 2, 3] and fresh == [0, 1])
     stamp_dir = os.path.join(OUT, "stamp_test")
     os.makedirs(stamp_dir, exist_ok=True)
     plan_s = {"fps": 60, "shots": [{"name": "s", "frames": 10, "camera": [[0.0, {"pos": [0, 4, -8], "look": [0, 4, 0],
@@ -904,8 +920,13 @@ def pipeline_checks(expect) -> None:
     late = [{"text": "a", "style": "comedy", "show": 0.0, "hide": 1.05, "start": 0.0},
             {"text": "seen.", "style": "comedy", "show": 1.1, "hide": 2.0, "start": 1.1667}]
     make._snap_to_cuts(late, [0, 30], 30)
+    three = [{"text": "a", "style": "comedy", "show": 0.0, "hide": 10.3, "start": 0.0},
+             {"text": "then there's this guy,", "style": "comedy", "show": 10.3833, "hide": 11.5, "start": 10.4167}]
+    make._snap_to_cuts(three, [0, 622], 60)
     expect(f"make: a caption whose word comes 5 frames after a cut stays with its word ({late[1]['show']:.3f} s; "
-           f"snapped back it came up 6 frames early, M3's 'seen.')", abs(late[1]["show"] - 1.1) < 1e-9)
+           f"snapped back it came up 6 frames early, M3's 'seen.'), and one whose word comes 3 frames after stays a "
+           f"frame after the cut ({three[1]['show'] * 60:.0f}, the cut at 622), never 3 early",
+           abs(late[1]["show"] - 1.1) < 1e-9 and abs(three[1]["show"] - 10.3833) < 1e-9)
     import soundfile as _sf
     glide_sr = 22050
     tt = np.arange(int(0.8 * glide_sr)) / glide_sr

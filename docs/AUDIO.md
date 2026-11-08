@@ -76,8 +76,15 @@ Most Shorts are heard on a phone's speaker, which plays little below 200-300 Hz.
 level from 300 Hz to 8 kHz in the 0.3 s after a hit against the 0.3 s before. M2's turn rose under 3 dB there with
 a pure sub-bass boom (-46 dB of its energy above 300 Hz: silent on a phone, and its sub pumped the limiter, pulling
 the music's mids down under it); the other cuts rose 9-10. The boom now carries a low-mid body (a glide from 180 to
-110 Hz driven into harmonics) and a knock at 0.8-4 kHz over a lower sub (`sfx.boom`, `sub=0.45`), and the turn rises
-+6.8 dB with its cue up 3 dB. A sound that must read on a phone needs its own energy above 300 Hz.
+110 Hz driven into harmonics) and a knock at 0.8-4 kHz over a lower sub (`sfx.boom`, `sub=0.45`). A sound that must
+read on a phone needs its own energy above 300 Hz.
+
+Its peak still sets how loud the file can be. Over a loud music bed (M2's track at -1 dB, no voice), the boom's cue
+3 dB up rose 7.7 dB on the phone band in the mix, but its peak needed 8 dB of limiting to reach -14 LUFS; the master
+takes 6 at most, backed off, and the file came out at -15.9 LUFS and failed, the boom squashed to +5.0 dB. At +2 dB:
+-15.1 LUFS, still out. At +1 dB: -14.3 LUFS and +3.4 dB on the phone band, kept. Neither a lighter sub (+1 dB of
+mids for the same peak at most) nor dipping the bed under the boom (the boom's own peak is the limit) bought more.
+Check the delivered loudness after raising any hit.
 
 ## What a measurement can't tell you
 

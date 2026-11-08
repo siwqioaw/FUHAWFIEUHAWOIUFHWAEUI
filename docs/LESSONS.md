@@ -92,9 +92,13 @@ check, mostly in the plan (`make.py plan` warns before a frame is shot), with a 
 | Dings quieter as the story said "so loud". | Gains set by ear. | The checklist: the signature escalates, measured. |
 | A reviewer confused by a plan newer than the file. | Re-planned after delivery. | Never re-plan or re-deliver while a reviewer works; shot folders now stamp the plan they were shot from. |
 | Max and his dog inside the coffee table for four shots. | The staging check compared actors only with each other. | The plan checks every limb against the set's parts and props. |
-| A punch captioned 13 frames before the shout. | The take opened on a soft glide the transcriber called the first word. | A line's first caption waits for the take to be heard; a snap to a cut keeps a caption within 3 frames of its word. |
+| A punch captioned 13 frames before the shout. | The take opened on a soft glide the transcriber called the first word. | A line's first caption waits for the take to be heard; a snap to a cut keeps a caption within 2 frames of its word, the lead it has anyway. |
 | A boom silent on a phone. | Pure sub-bass, and its sub pumped the limiter. | The boom carries a low-mid body and a knock; punches are measured at 300 Hz-8 kHz. |
 | A one-frame flick on a run's first frame. | A change to walks held the actor's pose on frame 0: a regression. | A selftest per behaviour; `shoot --frames 0` took just those frames again. |
+| A delivered file 2 dB quiet after a fix. | M2's boom raised 3 dB for phones: its peak needed more limiting than the master gives, so the master backed off. | Re-check the delivered loudness after raising any hit (`docs/AUDIO.md`). |
+| A caption under the Shorts buttons. | A trailing emoji was hung on a full row, past the style's width. | An emoji takes its word to the next row; selftest. |
+| Crossed arms in a close-up as two boxes; hands on hips as elbows off both edges. | Poses picked for a body the close-up doesn't show. | In a close-up, arms at the sides; the plan's gesture check (folded arms don't count). |
+| One shot put in made five more stale. | A shot's drift seed was its place in the list. | Seeds follow shot names across plans; selftest. |
 
 The later rounds still found real problems, fewer of them staging and more of them story and sound (a point that
 didn't read for three rounds, lines said but not shown, a boom no phone could play), and one regression from a tool

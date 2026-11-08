@@ -31,7 +31,7 @@ s = Spec("ding", family="story", set="hallway", title="In this world, you hear a
                                                                 "facing": [0, 0, 1], "n": 3, "color": BLUE}]}),
                      ("class", "classroom", CLASS, {"board": "", "signs": False}),
                      ("lunch", "cafeteria", CAFE, {"trays": False,   # only his tray: he eats alone
-                                                   "props": [{"kind": "tray", "at": [-12.0, 2.6, -6.2]},   # his, alone
+                                                   "props": [{"kind": "tray", "at": [-12.0, 2.6, -5.6]},   # his, alone
                                                              {"kind": "tray", "at": [-12.0, 2.6, 2.3]},    # the next
                                                              {"kind": "tray", "at": [-7.6, 2.6, 2.3],      # day, at
                                                               "color": [70, 190, 180]}]})])                # her table
@@ -52,8 +52,9 @@ def bell(over, at, size=150, lift=1.5, dur=0.7):
 
 SIT = {"lh": (90, 0, 0), "rh": (90, 0, 0), "ls": (12, 0, -3), "rs": (12, 0, 3), "rootpos": (0, -0.5, 0)}
 SIT_SLUMP = {**SIT, "root": (-9, 0, 0), "neck": (-28, 0, 0), "ls": (8, 0, -2), "rs": (8, 0, 2)}
-SIT_WHISPER = {**SIT, "root": (-10, -24, 0), "neck": (8, -22, 0), "ls": (20, 0, -8), "rs": (20, 0, 8)}  # to her right
-PEEK = {"root": (-6, 0, 14), "neck": (4, 0, 10), "ls": (26, 0, -10), "rs": (10, 0, 8)}   # leaning out to his left
+SIT_WHISPER = {**SIT, "root": (-3, -8, 0), "neck": (8, -30, 0), "ls": (8, 0, -6), "rs": (8, 0, 6)}   # her head
+#                                    to her right (turning her body to it put her arm in the table)
+PEEK = {"root": (-6, 0, 14), "neck": (4, 0, 10), "ls": (26, 0, -10), "rs": (2, 0, 8)}   # leaning out to his left
 SEAT = -7.65                 # the far bench of the cafeteria's first table (kit.cafeteria, mark "seat_far")
 SEAT_B = 0.85                # the far bench of the table behind it, where she sits
 
@@ -78,12 +79,13 @@ s.add(
          sfx=[("ding", "a:people", -5), ("ding", "a:few", -5), ("ding", "a:day", -5)],
          overlays=[bell("ex2.head", "a:people", 110), bell("jock.head", "a:few", 110), bell("ex3.head", "a:day", 100)],
          until="a:leo"),
-    shot("leo", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "hands_on_hips")], faces=[(0, "grin")])},
-         push("leo.head", 8.5, 5.0), until="a:not"),
+    shot("leo", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "idle")], faces=[(0, "grin")])},
+         push("leo.head", 8.5, 5.0), until="a:not"),   # arms at his sides: hands on hips put his elbows off both
+    # edges, and crossed they read as two boxes in a close-up
     shot("liked", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "laugh")], faces=[(0, "laugh")]),
-                   "ex3": actor([-1.9, 3, -2.6], facing=[0.4, 0, 1], poses=[(0, "laugh")], faces=[(0, "laugh")]),
+                   "ex3": actor([-1.5, 3, -2.8], facing=[0.4, 0, 1], poses=[(0, "laugh")], faces=[(0, "laugh")]),
                    "jock": actor([1.8, 3, -5.2], facing=[-0.4, 0, 1], poses=[(0, "cheer")], faces=[(0, "grin")])},
-         two_shot("ex3", "jock", distance=13.0, fov=58), until="a:end+0.04"),   # staggered (side by side they
+         two_shot("ex3", "jock", distance=14.0, fov=58), until="a:end+0.04"),   # staggered (side by side they
     # met); wide enough for Leo's laughing arms
     # -- B: a new school, and the dings start
     shot("switch", {"leo": actor([-4.6, 3, -26], facing=[0.3, 0, 1], faces=[(0, "nervous")],
@@ -110,8 +112,8 @@ s.add(
     # he went through them
          wide([0, 6.5, 4.5], [0, 3.8, -12], fov=62), set="new_school", until="b:ding#2"),   # in front of the bank
     shot("dingding", {"leo": actor([0, 3, -5], facing=US, poses=[(0, "hands_on_head")], faces=[(0, "scared")])},
-         [{"t": 0, "aim": "leo.face", "distance": 6.4, "fov": 45, "height": -1.4, "orbit": 30},   # his hands on his
-          {"t": 0.04, "aim": "leo.face", "distance": 5.2, "fov": 45, "height": -1.4, "orbit": 30, "move": 0.4,
+         [{"t": 0, "aim": "leo.face", "distance": 7.0, "fov": 50, "height": -1.4, "orbit": 30},   # his hands on his
+          {"t": 0.04, "aim": "leo.face", "distance": 5.8, "fov": 50, "height": -1.4, "orbit": 30, "move": 0.4,
            "ease": "out"}], set="new_school",   # head inside; low and round, unlike the next shot's frontal push
          sfx=[("ding", "b:ding#2", 1), ("ding", "b:ding#3", 1), ("ding", "b:ding#4", 1)],
          overlays=[bell("leo.head+[1.0,0.2,0]", "b:ding#2", 120), bell("leo.head+[-1.0,0.4,0]", "b:ding#3", 120),
@@ -120,9 +122,11 @@ s.add(
     shot("stopped", {"leo": actor([-6.0, 3, 2], facing=L, poses=[(0, "slump")], faces=[(0, "sad")])},
          push("leo.head", 6.5, 4.8, move=0.5), set="new_school", until="b:he#3"),
     shot("lunch", {"leo": actor([-12.0, 3, SEAT], facing=[0, 0, 1], poses=[(0, SIT_SLUMP)], faces=[(0, "sad")]),
-                   "sa": actor([-10.7, 3, -11.0], facing=[1, 0, 0.3], poses=[(0, "laugh")], faces=[(0, "laugh")]),
-                   "sb": actor([-8.3, 3, -11.0], facing=[-1, 0, 0.3], poses=[(0, "idle")], faces=[(0, "grin")])},
-         [{"t": 0, "pos": [-10.5, 4.4, 1.6], "look": [-10.5, 3.9, -8.6], "fov": 56}], set="lunch",
+                   "sa": actor([-9.0, 3, -9.5], facing=[1, 0, 0.25], poses=[(0, "idle")], faces=[(0, "laugh")]),
+                   "sb": actor([-7.0, 3, -9.5], facing=[-1, 0, 0.25], poses=[(0, "idle")], faces=[(0, "grin")])},
+         [{"t": 0, "pos": [-9.8, 4.4, 3.6], "look": [-9.8, 3.9, -8.6], "fov": 60}], set="lunch",   # the two by
+         # the counter, clear of it and of him (between his bench and the tray rail two fit only side on); his tray
+         # pushed off: his slumped face was over its milk
          until="b:he#4"),
     shot("home", {"leo": actor([2.5, 3, 18], facing=[0, 0, 1], faces=[(0, "sad")],
                                 walk={"from": [2.5, 3, 10], "to": [2.5, 3, 18], "start": 0.0})},
@@ -144,11 +148,11 @@ s.add(
     shot("hid", {"leo": actor([-1.2, 3, 4.6], facing=[0.35, 0, 1], poses=[(0, PEEK)], faces=[(0, "nervous")])},
          [{"t": 0, "pos": [0.6, 4.6, 11.0], "look": [-0.45, 4.4, 4.8], "fov": 45}], set="new_school",
          until="c:the#3"),   # from the girls' side: the bank hides him but his head round its end
-    shot("quote", {"her": actor([5.0, 3, 8.5], facing=[-1, 0, -0.3], poses=[(0, "idle"), ("c:funny", "laugh")],
+    shot("quote", {"her": actor([5.0, 3, 10.5], facing=[-1, 0, -0.3], poses=[(0, "idle"), ("c:funny", "laugh")],
                                 faces=[(0, "laugh"), ("c:why", "cute")]),
-                   "sc": actor([6.6, 3, 11.6], facing=[-1, 0, -0.6], faces=[(0, "grin")])},   # clear of her arm
-         [{"t": 0, "pos": [1.0, 4.6, 6.2], "look": [5.8, 4.3, 10.0], "fov": 55}], set="new_school",
-         until="c:the#4"),   # from the bank's end, where he listens (the two-shot put the camera inside the bank)
+                   "sc": actor([6.0, 3, 13.6], facing=[-1, 0, -0.6], faces=[(0, "grin")])},   # clear of her arm
+         [{"t": 0, "pos": [-0.2, 4.6, 4.8], "look": [5.2, 4.3, 11.12], "fov": 55}], set="new_school",
+         until="c:the#4"),   # from where he hides, his eyes: down the hall far enough that her laughing arms fit
     shot("rule", {"leo": actor([-1.2, 3, 4.6], facing=[0.35, 0, 1], poses=[(0, "idle")],
                                faces=[(0, "teary"), ("c:bad", "wide_happy")])},
          [{"t": 0, "aim": "leo.face", "distance": 2.8, "fov": 45, "toward": [0.85, 0, 0.5]},
