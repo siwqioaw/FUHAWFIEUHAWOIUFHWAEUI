@@ -95,9 +95,11 @@ s.add(
          [{"t": 0, "pos": [0.0, 6.5, 4.6], "look": [0.0, 4.6, -11.0], "fov": 60},   # a little high: their heads
           {"t": 0.04, "pos": [0.0, 6.5, 3.8], "look": [0.0, 4.6, -11.0], "fov": 60, "move": 1.0, "ease": "out"}],   # clear
          say=[("l10", 0.05)], pad=0.05,
-         overlays=[(None, "girl.head", "l10:we", {"text": "A+", "size": 150, "lift": 1.3, "dur": 1.2}),
-                   (None, "jock.head", "l10:same", {"text": "A+", "size": 150, "lift": 1.3, "dur": 1.0}),
-                   (None, "me.head", "l10:grade", {"text": "A+", "size": 150, "lift": 1.3, "dur": 0.8})]),
+         overlays=[(None, "girl.head", "l10:we", {"text": "A+", "size": 240, "lift": 1.9, "dur": 1.85}),
+                   (None, "jock.head", "l10:same", {"text": "A+", "size": 240, "lift": 1.9, "dur": 1.2}),
+                   (None, "me.head", "l10:grade", {"text": "A+", "size": 240, "lift": 1.9, "dur": 0.93})]),
+         # big, over their heads, all three up together at the end (at 150 and 1.3 up they were small, pushed
+         # beside the heads)
     shot("dead", {"me": actor(BOARD_ME, facing=TOWARD_US, poses=[(0, "slump")], faces=[(0, "dead")])},
          push("me.head", 5.0, 3.8, move=0.5), sfx=[("boom", 0.0)], seconds=1.25),
 )
