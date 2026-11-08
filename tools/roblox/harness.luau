@@ -13,7 +13,8 @@
 -- A frame is one JSON object written to the harness's Frame attribute. Once applied, Applied is set to its id, or to
 -- -1 with Err set to the error.
 --   id       set by capture.py
---   cam      12 CFrame components, or {pos = {x, y, z}, look = {x, y, z}, roll = degrees}
+--   cam      12 CFrame components, or {pos = {x, y, z}, look = {x, y, z}, roll = degrees, up = {x, y, z}}; up is
+--            the frame's top for a camera looking straight up or down (default: the world's up)
 --   fov      vertical field of view in degrees (default 70)
 --   dof      {focus, radius, near, far} for a depth-of-field effect; absent for none
 --   hud      true to show the game's screens (default hidden)
@@ -122,8 +123,12 @@ end
 
 local function cframe(c)
 	if c.pos then
-		local cf =
-			CFrame.lookAt(Vector3.new(c.pos[1], c.pos[2], c.pos[3]), Vector3.new(c.look[1], c.look[2], c.look[3]))
+		local up = if c.up then Vector3.new(c.up[1], c.up[2], c.up[3]) else Vector3.yAxis
+		local cf = CFrame.lookAt(
+			Vector3.new(c.pos[1], c.pos[2], c.pos[3]),
+			Vector3.new(c.look[1], c.look[2], c.look[3]),
+			up
+		)
 		if c.roll then
 			cf *= CFrame.Angles(0, 0, math.rad(c.roll))
 		end

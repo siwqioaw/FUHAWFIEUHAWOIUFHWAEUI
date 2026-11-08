@@ -7,7 +7,7 @@ Each step writes files that the next step reads, so any step can be rerun alone 
 | 0 | Measure the references | `tools/verify/analyze.py` | `build/analysis/` |
 | 1 | Write the beat sheet | you | `beats.md` |
 | 2 | Write the timeline | you | `cut.json` |
-| 3 | Capture the shots | `tools/roblox/capture.py`, `stage.py`, `pose.py` | `build/shots/<shot>/f00000.png ...` |
+| 3 | Capture the shots | `tools/roblox/capture.py`, `stage.py`, `pose.py`, `camera.py` | `build/shots/<shot>/f00000.png ...` |
 | 4 | Show stills | `render.stills` | `build/stills/` |
 | 5 | Write the edit | your `frame_at(r)` | |
 | 6 | Render the master | `render.master` | `build/master.mov` |

@@ -6,9 +6,10 @@ each check catches what it should and passes what it should (docs/VERIFY.md, "Tr
 Planted: photosensitive flashes; a caption too short to read; an accent number (exempt); a black stretch; a sound
 running across a cut undeclared; a declared bridge and a prelap (allowed); a click at a cut; a silence that isn't; a
 picture hit with no sound on it; R6 poses that go wrong (an unplanted lean; a walk too fast, at standing height or
-not planted; an arm in the head or chest; a swing that jumps speed). It also renders through render.py's worker
-processes, masters through master.py (checked against ffmpeg's own loudness meter) and encodes through deliver.py,
-so a broken tool fails here first.
+not planted; an arm in the head or chest; a swing that jumps speed); camera moves that overshoot, jump, ease the
+wrong way or smear wrong; a smear that doubles. It also renders through render.py's worker processes, masters through
+master.py (checked against ffmpeg's own loudness meter) and encodes through deliver.py, so a broken tool fails here
+first.
 """
 
 from __future__ import annotations
@@ -304,6 +305,95 @@ def main() -> int:
     clips, clean = pose.snap_clearance("idle", "arms_crossed"), pose.snap_clearance("idle", "arms_out")
     expect(f"pose: snap_clearance finds an arm through the chest between poses ({clips:.2f} studs; a clean snap "
            f"{clean:.3f})", clips > 0.2 and clean < 0.01)
+
+    import camera
+
+    def monotone(f) -> bool:
+        us = [k / 200 for k in range(201)]
+        vals = [f(u) for u in us]
+        return abs(vals[0]) < 1e-9 and abs(vals[-1] - 1) < 1e-9 and all(b >= a - 1e-12 for a, b in zip(vals, vals[1:]))
+
+    good_eases = all(monotone(f) for f in camera.EASES.values())
+    expect(f"camera: every ease runs from 0 to 1 without going back ({', '.join(camera.EASES)}); one that overshoots "
+           f"fails", good_eases and not monotone(pose.ease_out_back))
+    a = camera.aim((0, 4.5, 0), distance=9)
+    b, c = camera.aim((0, 4.5, 0), distance=5), camera.dutch(camera.aim((2, 4.5, 0), distance=6), 12)
+    path = camera.moves([(0.0, a), (0.1, b, 0.25, "out"), (0.2, c, 0.2, "inout")])
+
+    def jump(p) -> float:
+        return max(abs(x - y) for x, y in zip(p(0.2 - 1e-6)["pos"], p(0.2 + 1e-6)["pos"]))
+
+    def restart(t):  # a planted failure: the second move starts from the first's target, not where the camera was
+        return camera.blend(b, c, camera.ease_in_out(min(1, (t - 0.2) / 0.2))) if t >= 0.2 else path(t)
+    ends = max(abs(x - y) for x, y in zip(path(0.45)["pos"], c["pos"])) + abs(path(0.45)["roll"] - 12)
+    expect(f"camera: a move cut short by the next carries on from where it was ({jump(path):.5f} studs; restarting "
+           f"from its target jumps {jump(restart):.2f}) and ends on its view ({ends:.5f})",
+           jump(path) < 0.01 and jump(restart) > 0.3 and ends < 1e-6)
+    push = camera.moves([(0.0, a), (0.0, b, 0.25, "out")])
+    steps = [math.dist(push((k + 1) / 60)["pos"], push(k / 60)["pos"]) for k in range(15)]
+    whip = camera.moves([(0.0, a), (0.0, b, 0.25, "in")])
+    wsteps = [math.dist(whip((k + 1) / 60)["pos"], whip(k / 60)["pos"]) for k in range(15)]
+    expect(f"camera: an ease-out push is fastest on its first frame ({steps[0]:.2f} studs, then "
+           f"{steps[1]:.2f}, {steps[2]:.2f}...); an ease-in one isn't",
+           steps[0] == max(steps) and all(x >= y for x, y in zip(steps, steps[1:])) and wsteps[0] < max(wsteps))
+    left, right = camera.aim((0, 4.5, 0), distance=5, fov=45), camera.aim((5, 4.5, 0), distance=5, fov=45)
+    swoop = camera.moves([(0.0, left), (0.1, right, 0.15, "inout")])
+    widths = [camera.smear(swoop, k / 60) for k in range(20)]
+    still = camera.smear(camera.moves([(0.0, left)]), 0.2)
+    expect(f"camera: a swoop's smear is 0 while it holds and widest mid-move ({[round(w) for w in widths[5:17]]} px); "
+           f"a camera that doesn't move gets none ({still:.1f})",
+           widths[0] < 1 and widths[-1] < 1 and max(widths) > 100 and widths.index(max(widths)) in (10, 11)
+           and still < 1)
+    drift = max(math.dist(camera.hold(a, k / 60)["pos"], a["pos"]) for k in range(240))
+    expect(f"camera: a hold drifts slowly ({drift:.3f} studs at 9 studs back)", 0.005 < drift < 0.06)
+
+    def rate(f, u):
+        lo, hi = max(0.0, u - 1e-4), min(1.0, u + 1e-4)
+        return (f(hi) - f(lo)) / (hi - lo)
+    io = [rate(camera.ease_in_out, u) for u in (0.0, 0.5, 1.0)]
+    lin = [rate(camera.EASES["linear"], u) for u in (0.0, 0.5, 1.0)]
+    expect(f"camera: a swoop starts and ends still and is fastest midway ({[round(x, 2) for x in io]}); linear isn't",
+           io[0] < 0.01 and io[2] < 0.01 and abs(io[1] - 1.5) < 0.01 and not (lin[0] < 0.01))
+    peak = max(widths)
+    sym = abs(camera.smear(swoop, 0.175 - 0.02) - camera.smear(swoop, 0.175 + 0.02))
+    cut = camera.moves([(0.0, left), (0.1, right, 0.0)])
+    expect(f"camera: a swoop's smear peaks at {peak:.0f} px (150-190 for half a frame's slide), evenly either side "
+           f"of its middle ({sym:.2f}); a cut gets none ({camera.smear(cut, 0.1):.0f})",
+           150 < peak < 190 and sym < 1 and camera.smear(cut, 0.1) == 0)
+    near_drift = max(math.dist(camera.hold(b, k / 60)["pos"], b["pos"]) for k in range(240))
+    side = camera.view((9, 4.5, 0), (0, 4.5, 0))
+    side_drift = max(abs(camera.hold(side, k / 60)["pos"][2]) for k in range(240))
+    expect(f"camera: drift grows with distance ({drift:.3f} studs at 9 back, {near_drift:.3f} at 5) and works for a "
+           f"camera facing sideways ({side_drift:.3f} across its frame)",
+           1.5 < drift / near_drift < 2.0 and side_drift > 0.01)
+    ring = camera.aim((0, 4.5, 0), toward=(0, 0, 1), distance=6)
+    swing = camera.moves([(0.0, ring), (0.0, camera.orbit(ring, 90), 0.3, "inout")])
+    radius = min(math.dist(swing(k / 60)["pos"], (0, 4.5, 0)) for k in range(19))
+    expect(f"camera: a move between orbit views keeps its distance ({radius:.2f} of 6 studs at the closest)",
+           abs(radius - 6) < 0.01)
+    over = camera.ots((0, 4.2, 7), (0, 4.5, 0), side=1.3, behind=2.8, up=0.6)
+    fwd = camera._unit(camera._sub((0, 4.5, 0), (0, 4.2, 7)))
+    right = camera._unit(camera._cross(fwd, (0, 1, 0)))
+    lowv, topv = camera.low((0, 3.6, 0), eye=2.5), camera.top((0, 3, 0), height=8, up=(0, 0, 1))
+    _, _, top_up = camera.axes(topv)
+    expect("camera: over the shoulder sits behind the near actor on the side asked; low sits at its eye height; "
+           "top-down frames with its up; dutch hands the harness its roll",
+           math.dist(over["pos"], (0, 4.5, 0)) > math.dist((0, 4.2, 7), (0, 4.5, 0))
+           and camera._dot(camera._sub(over["pos"], (0, 4.2, 7)), right) > 1.2 and abs(lowv["pos"][1] - 2.5) < 1e-9
+           and abs(top_up[2] - 1) < 1e-9 and camera.state(camera.dutch(a, 14))["cam"]["roll"] == 14)
+    import time as _time
+    many = camera.moves([(0.0, a)] + [(0.05 * i, camera.orbit(a, 10 * i), 0.1) for i in range(1, 20)])
+    t0 = _time.time()
+    for k in range(60):
+        many(k / 60)
+    took = _time.time() - t0
+    expect(f"camera: a path of 20 keys takes {took * 1000:.0f} ms for 60 frames", took < 1.0)
+    bar = np.zeros((9, 101, 3), np.float32)
+    bar[:, 50] = 1.0
+    st, wh = fx.streak(bar, 31)[4, 35:66, 0], fx.whip(bar, 31)[4, 35:66, 0]
+    tapered = st.argmax() == 15 and all(st[i] <= st[i + 1] + 1e-6 for i in range(15)) and st[1] < 0.5 * st[15]
+    flat = wh.max() - wh[wh > 0].min() < 1e-6
+    expect("fx: streak tapers to its ends (one streak per feature); whip's flat sweep doesn't", tapered and flat)
 
     bad = [w for w, ok in results if not ok]
     print(f"\n{len(results) - len(bad)}/{len(results)} as expected. Files in {OUT}")

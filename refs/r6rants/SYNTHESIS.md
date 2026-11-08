@@ -193,6 +193,13 @@ night street). Stories add grade and light changes as story signals (above).
 ## Camera grammar (all families)
 
 - **Every shot moves at its start:** a 0.2-0.3 s eased push-in or pull-back, then a hold with slight drift (006).
+- **Measured frame by frame (spike S4):** the difference between whole frames can't tell the camera from the animation
+  in the shot, so track a feature (a face's size, the floor's tiles). 007's pull-back at 3.73 eases out: its first step
+  shrinks the face to about two thirds. Its whip-pan at 4.50 speeds up and slows down (the floor slides 2, 7, 12, 18,
+  24, 32, 44, 60 px a frame, then 51, 40, 30, 22, 16, 10, 5). 002's swoop that rolls to a dutch angle speeds up and
+  slows down over about 0.4 s. 006's pull-backs run near-steady for 0.2-0.27 s, then stop. Swoops between framings:
+  001's at 0.48 is sharp, with speed lines, fastest at its end as it lands the two-shot; 004's at 12.80 is sharp; 003's
+  time-jump swoop is blurred.
 - **Swoops of 0.05-0.32 s** join framings inside a scene: action to reaction (004), speaker to the person named
   (013), into a two-shot with speed lines (001, 005).
 - **ECU, then a fast pull-back** (0.1-0.25 s) to show the situation (007, 011).

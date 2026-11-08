@@ -12,6 +12,7 @@ from __future__ import annotations
 import cv2
 import numpy as np
 
+import look
 import typeset as ts
 
 GLYPHS = "ABCDEFGHJKLMNPQRSTUVWXYZ0123456789"
@@ -152,6 +153,19 @@ def whip(img: np.ndarray, dx: float) -> np.ndarray:
         return img
     k = np.full((1, n), 1.0 / n, np.float32)
     return cv2.filter2D(img, -1, k, borderType=cv2.BORDER_REFLECT)
+
+
+def streak(img: np.ndarray, dx: float) -> np.ndarray:
+    """A camera move's motion blur, dx pixels wide (camera.smear gives dx): the frame averaged along a horizontal
+    sweep with a tapered weight, in linear light. whip's flat weight, in sRGB, doubled features at the ends of the
+    sweep (two pupils to an eye in spike S4) and darkened edges."""
+    n = int(abs(dx))
+    if n < 2:
+        return img
+    n += 1 - n % 2  # odd, so the weight centres on the pixel
+    k = (1.0 - np.abs(np.linspace(-1.0, 1.0, n + 2)[1:-1])).astype(np.float32)[None, :]
+    lin = look.srgb_to_linear(img)
+    return look.linear_to_srgb(cv2.filter2D(lin, -1, k / k.sum(), borderType=cv2.BORDER_REFLECT))
 
 
 def tear(img: np.ndarray, amount: float, seed: int, bands: int = 9) -> np.ndarray:
