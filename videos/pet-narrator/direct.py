@@ -103,7 +103,7 @@ s.add(
     # -- C: the dance, the dog speaks up, the reveal
     shot("dance", {"lily": actor([0, 3, -8], facing=[0, 0, 1], poses=[(0, "laugh")], faces=[(0, "laugh")]),
                    "ex1": actor([-5, 3, -6], facing=[0.3, 0, 1], poses=[(0, "cheer")], faces=[(0, "grin")]),
-                   "ex2": actor([1.5, 3, -11], facing=[-0.3, 0, 1], poses=[(0, "laugh")], faces=[(0, "laugh")]),
+                   "ex2": actor([2.2, 3, -11], facing=[-0.3, 0, 1], poses=[(0, "laugh")], faces=[(0, "laugh")]),
                    "ex3": actor([-3, 3, -11], facing=[0, 0, 1], poses=[(0, "cheer")], faces=[(0, "starstruck")]),
                    "girl1": actor([-7, 3, -9], facing=[0.3, 0, 1], poses=[(0, "laugh")], faces=[(0, "grin")])},
          wide([7.5, 7.0, 6.0], [-1.5, 3.8, -8], fov=58, push_in=3.0), set="dance", say=[("c", "b:end+0.04")],
@@ -120,7 +120,7 @@ s.add(
     shot("likes_you", {"lily": actor([0, 3, -8], facing=[1, 0, 0.6], faces=[(0, "shock"), ("c:september", "love")])},
          push("lily.head+[0,0.3,0]", 6.0, 4.6), set="dance", until="c:lily#2"),
     shot("smiled", {"lily": actor([0, 3, -8], facing=[0.5, 0, 1], poses=[(0, "idle")], faces=[(0, "love")]),
-                    "max": actor([2.4, 3, -6.8], facing=[-0.5, 0, 1], faces=[(0, "wide_happy")])},
+                    "max": actor([2.4, 3, -6.6], facing=[-0.5, 0, 1], faces=[(0, "wide_happy")])},   # clear of her arm
          wide([1.2, 5.2, 1.0], [1.2, 5.4, -7.4], fov=50), set="dance", until="c:and#2"),
     shot("honestly", {"max": actor([2.6, 3, -6.4], facing=[-1, 0, -0.3], faces=[(0, "wide_happy")])},
          push([3.4, 3.8, -6.2], 9.0, 7.5, fov=50, toward=[-1, 0, -0.1]), set="dance", sfx=[("pop", "c:honestly", -10)],

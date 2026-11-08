@@ -66,7 +66,10 @@ each, plus about a minute to start the playtest and stage the cast; cut 35 s; mi
   - `seconds`: a number, or `"auto"`: to the end of its last line plus `pad`.
   - `actors`: who is in the shot, where (`at`, the torso centre: y = 3 standing on a floor at 0), which way they face,
     their pose keys and face keys. Anyone in the cast but not in the shot waits far behind the camera.
-  - `walk`: `{"from": [...], "to": [...], "start": t}`: a heel-to-toe walk between two points, then the poses.
+  - `walk`: `{"from": [...], "to": [...], "start": t}`: a heel-to-toe walk between two points: the actor waits at
+    `from` until `start`, turns to its own facing in 0.3 s on arriving, then takes its poses. Pose keys are
+    `(t, pose)` or `(t, pose, snap seconds)`; a pose is a name in `pose.POSES` or a dict of joints (`sit` rests on a
+    seat 1 stud up). The plan warns when two actors' bodies or arms meet, or a walk passes through someone.
   - `camera`: keys, each a view and, after the first, `move` (seconds; 0 cuts) and `ease` (`out`, `inout`, `in`,
     `linear`). A view is one of:
     - `{"aim": "kid.head", "distance": 5.5, "height": -0.3, "fov": 45, "toward": [x, y, z]}`: framed on a point
@@ -92,6 +95,8 @@ each, plus about a minute to start the playtest and stage the cast; cut 35 s; mi
 - **overlays:** icons popping over a point in the scene, projected through the shot's camera: `{"icon": "bell", "over":
   "leo.head", "at": "b:ding", "size": 150}` (an emoji name or picture; the rule's signature in a story). Add `"text":
   "99%"` for a line in the `label` style over it, or give only the text: a number over a head, a message in a bubble.
+  An icon over a head follows the pose at its time; one that would cover any actor's face is moved beside that
+  head (in a close-up the captions' band leaves no room above it).
 - **planted:** false for an actor whose feet shouldn't be kept on the floor.
 - **music:** a bed looped to length from `start` (`offset` seconds into the track), ducked under the voice (6 dB by
   default, `duck_db`), or not (`"duck": false`, for music formats).
@@ -118,8 +123,10 @@ script capitalizes mid-sentence, so "so Leo stopped" keeps "Leo had never" capit
   "you hear a | ding." becomes "you hear | a ding."; "most people hear | a few a | day." becomes "most people | hear
   a few | a day.". Four words only where a phrase is said too fast to split.
 - Each shows 2 frames before its first word and holds until the next. One said too fast to read takes up to 0.12 s
-  from a neighbour with time to spare (`_balance`). One due up to 4 frames after a cut comes in on the cut
-  (`_snap_to_cuts`), and the render and `cut.json` count a caption's frames by one rule (`_caption_frames`).
+  from a neighbour with time to spare (`_balance`): first by hiding later, then by showing earlier, but never more
+  than 2 frames before its words (M4's "then he" came up 7 frames early, over the shot before). One due up to 4
+  frames after a cut, or 2 before one, comes in on the cut and keeps its time on screen (`_snap_to_cuts`), and the
+  render and `cut.json` count a caption's frames by one rule (`_caption_frames`).
 
 The read-time check treats them as speech: heard as they're read, they need only their characters at 35 a second, and
 0.25 s at the least, the references' own pace (`docs/VERIFY.md`, `caption_pace.py`).

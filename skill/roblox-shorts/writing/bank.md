@@ -34,7 +34,7 @@ weeks. He sits with her anyway. "I'm only here because I'm bored." His phone: 99
 - *Benefit becomes cost:* the honest girl is the loneliest; the hero's lie is the kind one.
 - *Loophole:* does it charge back when you tell the truth?
 - *Quotable:* "That's a one-percent lie."
-- *Sets:* bedroom, classroom (lunch), hallway. *Cast:* me, bestie, popular_girl, extras. *Icons:* 📱.
+- *Sets:* bedroom, cafeteria (lunch), hallway. *Cast:* me, bestie, popular_girl, extras. *Icons:* 📱.
 - *To build:* nothing: a number over a head is an overlay with text (`{"text": "99%"}`, `docs/MAKING.md`).
 
 ### 3. The crown (21)
@@ -110,9 +110,9 @@ pack. Deleted your account? Have you tried lying down? Every rule appears as an 
 **"If a gym teacher OWNED Roblox."** Twenty push-ups before every obby. No walking, running only. "The floor is lava"
 is the warm-up. Respawning costs a lap.
 
-- *Quotable:* "That's a lap." · *Sets:* stage_void (a gym: a floor colour and lines), street. *Cast:* jock as the
+- *Quotable:* "That's a lap." · *Sets:* gym, street. *Cast:* jock as the
   teacher, nerd, extras. *Icons:* 🔥, 💦.
-- *Built:* the `whistle` effect. *To build:* gym floor lines (thin parts in a `stage_void`).
+- *Built:* the `whistle` effect, the `gym` set (a court with its lines, hoops, bleachers).
 
 ## Comparisons and lists (family C)
 

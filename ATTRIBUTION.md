@@ -54,7 +54,7 @@ Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`):
 | Asset | Source | License | Used in |
 |---|---|---|---|
 | Montserrat, Regular to Black (`assets/fonts/montserrat/`) | github.com/JulietaUla/Montserrat, by The Montserrat Project Authors | SIL Open Font License 1.1 (`OFL.txt` beside it) | every caption, from S6 |
-| 62 Noto 3D emoji at 128 px (`assets/emoji/noto/`) | github.com/googlefonts/noto-emoji (`3D/png/128`), by Google | the repository's README: images under the Apache License 2.0, fonts under the SIL OFL 1.1 (its LICENSE file beside them) | caption emoji, from S6 |
+| 62 Noto 3D emoji at 128 px (`assets/emoji/noto/`) | github.com/googlefonts/noto-emoji (`3D/png/128`), by Google | the repository's README: images under the Apache License 2.0, fonts under the SIL OFL 1.1 (its LICENSE file beside them) | caption emoji, from S6; the icons that pop over heads: M4's bells, M2's 💤, M5's speech bubbles |
 
 ## Music
 

@@ -63,7 +63,8 @@ def shoot_sets(names: list[str]) -> None:
     def body():
         for name in names:
             t0 = time.time()
-            for opt_name, opt in (("", {}),) + ((("night", {"night": True}),) if name == "street" else ()):
+            extra = {"street": (("night", {"night": True}),), "gym": (("dance", {"dance": True}),)}.get(name, ())
+            for opt_name, opt in (("", {}),) + extra:
                 print(sets.build(name, opt))
                 s = kit.SETS[name](opt)
                 for cam, v in s.cams.items():

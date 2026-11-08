@@ -626,9 +626,37 @@ def wall_phone(s: Set, pos, facing=(0, 0, 1), color=(70, 70, 80)):
         s.cyl(0.08, 0.08, at(-0.15, -0.75 - 0.12 * k, 0.32), (40, 40, 48), axis="x")
 
 
+def locker_bank(s: Set, pos, facing=(0, 0, 1), n: int = 3, color=(205, 60, 60), h: float = 7.0):
+    """A free-standing bank of `n` lockers on the floor at pos, their doors facing `facing` (+-x or +-z), a plain
+    steel back: something to hide behind and listen ("he hid behind the lockers")."""
+    x, _, z = pos
+    ax = "x" if abs(facing[0]) > abs(facing[2]) else "z"
+    f = 1 if (facing[0] if ax == "x" else facing[2]) > 0 else -1
+    w, depth = 1.8, 1.6
+    span = n * (w + 0.05)
+    for i in range(n):
+        o = -span / 2 + (i + 0.5) * (w + 0.05)
+        cx, cz = (x, z + o) if ax == "x" else (x + o, z)
+        size = (depth, h, w) if ax == "x" else (w, h, depth)
+        s.box(size, (cx, h / 2, cz), color, "Metal")
+        for k in range(3):   # vents, and the handle
+            vy = h - 1.0 - 0.3 * k
+            if ax == "x":
+                s.box((0.05, 0.12, w * 0.6), (cx + f * (depth / 2 + 0.02), vy, cz), tuple(int(c * 0.72) for c in color))
+            else:
+                s.box((w * 0.6, 0.12, 0.05), (cx, vy, cz + f * (depth / 2 + 0.02)), tuple(int(c * 0.72) for c in color))
+        if ax == "x":
+            s.box((0.12, 0.7, 0.15), (cx + f * (depth / 2 + 0.05), h * 0.48, cz + w * 0.3), METAL, "Metal")
+        else:
+            s.box((0.15, 0.7, 0.12), (cx + w * 0.3, h * 0.48, cz + f * (depth / 2 + 0.05)), METAL, "Metal")
+    top = (depth + 0.1, 0.3, span) if ax == "x" else (span, 0.3, depth + 0.1)
+    s.box(top, (x, h + 0.15, z), tuple(int(c * 0.72) for c in color), "Metal")
+
+
 PROPS = {"dog": dog, "cat": cat, "plant": plant, "lamp": lamp, "table": table, "rug": rug, "car": car, "tree": tree,
          "pine": pine, "bookshelf": bookshelf, "sofa": sofa, "tv": tv,
-         "balloons": balloons, "cake": cake, "smoothie": smoothie, "ice_pack": ice_pack, "wall_phone": wall_phone}
+         "balloons": balloons, "cake": cake, "smoothie": smoothie, "ice_pack": ice_pack, "wall_phone": wall_phone,
+         "lockers": locker_bank}
 
 
 def props(s: Set, items: list) -> None:
@@ -836,10 +864,252 @@ def stage_void(opt: dict) -> Set:
     return s
 
 
+def hoop(s: Set, x_wall: float, z: float = 0.0, toward: int = -1, rim=(240, 100, 30)):
+    """A basketball hoop on the end wall at x_wall, facing `toward` (+1 faces +x): a brace, a backboard with its
+    target square, an orange rim 10 studs up (twice an R6's height, as a real one is twice a teen's) and a net."""
+    f = toward
+    s.box((2.2, 0.5, 0.5), (x_wall + f * 1.1, 13.0, z), METAL, "Metal")
+    bx = x_wall + f * 2.35
+    s.box((0.3, 4.0, 6.5), (bx, 13.4, z), (245, 245, 248))
+    face = bx + f * 0.17
+    for dy in (-0.9, 0.9):
+        s.box((0.06, 0.14, 2.4), (face, 12.3 + dy, z), (220, 50, 50))
+    for dz in (-1.13, 1.13):
+        s.box((0.06, 1.8, 0.14), (face, 12.3, z + dz), (220, 50, 50))
+    cx = bx + f * 1.25
+    for k in range(10):
+        a = 2 * math.pi * k / 10
+        s.box((0.62, 0.12, 0.2), (cx + 0.95 * math.cos(a), 11.4, z + 0.95 * math.sin(a)), rim, "Metal",
+              rot=(0, -math.degrees(a) + 90, 0))
+    s.box((0.9, 0.12, 0.2), (bx + f * 0.45, 11.4, z), rim, "Metal")
+    s.cyl(1.5, 0.85, (cx, 10.6, z), (250, 250, 250), "Fabric", transparency=0.45)
+
+
+def bleachers(s: Set, x: float, z_front: float, z_back: float, w: float = 40.0, tiers: int = 5, rise: float = 1.25,
+              colors=((198, 148, 94), (178, 130, 82))):
+    """Wooden bleachers along a wall: `tiers` steps rising from z_front to the wall at z_back (z_back > z_front)."""
+    step = (z_back - z_front) / tiers
+    for k in range(tiers):
+        z0 = z_front + step * k
+        h = rise * (k + 1)
+        s.box((w, h, z_back - z0), (x, h / 2, (z0 + z_back) / 2), colors[k % 2], "WoodPlanks")
+        s.box((w, 0.12, 0.25), (x, h + 0.02, z0 + 0.15), (240, 240, 240))   # a white nosing on each step
+    s.box((w, 0.25, 0.25), (x, rise * tiers + 2.6, z_back - 0.3), METAL, "Metal")   # the rail at the top
+    for dx in (-w / 2, 0.0, w / 2):
+        s.box((0.25, 2.6, 0.25), (x + dx, rise * tiers + 1.3, z_back - 0.3), METAL, "Metal")
+
+
+def gym(opt: dict) -> Set:
+    """A school gym, 64 x 44 x 26: a honey wood court with its lines and blue paint, a hoop at each end, wooden
+    bleachers along the +z wall, blue and gold banners, high windows, a scoreboard over the doors' wall, stacked
+    mats and a ball rack. {"dance": True} dresses it for the school dance: balloons along the walls, streamers under
+    the ceiling, a mirror ball, coloured lights and a DJ table with speakers. {"scoreboard": False} leaves it off."""
+    s = Set("gym", opt.get("lighting", "interior"))
+    W, D, H = 64.0, 44.0, 26.0
+    BLUE, GOLD = (40, 85, 200), (250, 190, 50)
+    room(s, W, D, H, wall=(228, 230, 236), trim=BLUE, floor=(214, 160, 98), floor_mat="WoodPlanks",
+         gaps={"n": [(10, 20, 17, 23), (27, 37, 17, 23), (44, 54, 17, 23)], "s": [(4, 14, 0, 9)]})
+    for xc in (-17, 0, 17):
+        window(s, (xc, 20.0, D / 2 + 0.5), 10.0, 6.0, axis="z")
+    for xc in (-25.6, -20.4):
+        door(s, (xc, 0, -D / 2 - 0.3), axis="z", color=(60, 95, 180), w=4.8, h=8.6)
+    # the court: blue paint, then white lines a hair above it
+    L, C = 0.05, (250, 250, 250)
+    for sx in (-1, 1):
+        s.box((12, 0.04, 10), (sx * 22, 0.02, 0), BLUE)
+        s.box((0.35, L, 10.35), (sx * 16, L / 2, 0), C)
+        for dz in (-5, 5):
+            s.box((12, L, 0.35), (sx * 22, L / 2, dz), C)
+    for dz in (-15, 15):
+        s.box((56.35, L, 0.35), (0, L / 2, dz), C)
+    for dx in (-28, 28):
+        s.box((0.35, L, 30.35), (dx, L / 2, 0), C)
+    s.box((0.35, L, 30), (0, L / 2, 0), C)
+    s.cyl(0.06, 4.6, (0, 0.03, 0), C, axis="y")
+    s.cyl(0.07, 4.25, (0, 0.035, 0), BLUE, axis="y")
+    s.cyl(0.08, 1.2, (0, 0.04, 0), GOLD, axis="y")
+    hoop(s, -W / 2, 0, toward=1)
+    hoop(s, W / 2, 0, toward=-1)
+    bleachers(s, 0, 8.0, D / 2, w=40, tiers=5)
+    for xc in (-24, -12, 12, 24):   # banners: under the high windows over the bleachers, and either side of the
+        for zw, y in ((D / 2 - 0.3, 13.0), (-D / 2 + 0.3, 15.5)):   # scoreboard (not over the doors)
+            if zw < 0 and xc < -10:
+                continue
+            s.box((4.5, 6.0, 0.2), (xc, y, zw), BLUE)
+            s.box((4.5, 0.8, 0.24), (xc, y - 2.2, zw), GOLD)
+    if opt.get("scoreboard", True):
+        s.box((14.6, 6.0, 0.6), (0, 19.0, -D / 2 + 0.4), (24, 24, 28))
+        s.sign((6.6, 5.0, 0.1), (-3.5, 19.0, -D / 2 + 0.75), "HOME\n24", face="Back", bg=(24, 24, 28),
+               fg=(255, 90, 60), font="Arcade", scale=0.85)
+        s.sign((6.6, 5.0, 0.1), (3.5, 19.0, -D / 2 + 0.75), "GUEST\n18", face="Back", bg=(24, 24, 28),
+               fg=(255, 200, 60), font="Arcade", scale=0.85)
+    for k, dy in enumerate((0.35, 1.05, 1.75)):   # mats stacked in the corner
+        s.box((6.0, 0.7, 4.0), (-27.5 + 0.15 * k, dy, 17.5 - 0.1 * k), BLUE if k % 2 == 0 else (70, 120, 220),
+              "Fabric")
+    s.box((5.2, 0.25, 1.4), (27, 1.4, -18.5), METAL, "Metal")   # the ball rack
+    s.box((5.2, 0.25, 1.4), (27, 2.9, -18.5), METAL, "Metal")
+    for dx in (-2.5, 2.5):
+        s.box((0.25, 3.2, 1.4), (27 + dx, 1.6, -18.5), METAL, "Metal")
+    for row, y in ((0, 2.1), (1, 3.6)):
+        for k in range(4):
+            s.ball(1.1, (25.35 + k * 1.1, y, -18.5), (225, 110, 40))
+    for x in (-20, 0, 20):
+        for z in (-10, 10):
+            ceiling_light(s, (x, H - 0.4, z), length=10, axis="x", brightness=0.9, rng=40)
+    s.light((0, 16, 0), (255, 246, 232), 1.0, 60)
+    if opt.get("dance"):
+        party = ((255, 90, 190), (60, 210, 255), (170, 100, 255), (255, 200, 70))
+        for k, (x, z) in enumerate(((-30.5, -19.5), (-14, -19.5), (14, -19.5), (28, -19.5), (-28, 6), (28, 6),
+                                    (-21, 7.2), (21, 7.2))):
+            balloons(s, (x, 0, z), colors=(party[k % 4], party[(k + 1) % 4], party[(k + 2) % 4]), height=7.5)
+        for k in range(28):   # streamers hanging under the ceiling, in rows across the room
+            x = -27 + (k % 7) * 9
+            z = -15 + (k // 7) * 10
+            s.box((0.1, 4.5, 1.1), (x, H - 3.0, z), party[k % 4], "Fabric")
+        s.part("ball", (3.2, 3.2, 3.2), (0, 18.0, 0), (225, 228, 240), "Foil", reflect=0.6)
+        s.box((0.1, H - 19.6, 0.1), (0, (19.6 + H) / 2, 0), BLACK)
+        for k, (x, z) in enumerate(((-16, -8), (16, -8), (-16, 8), (16, 8), (0, -14), (0, 12))):
+            s.light((x, 7.0, z), party[k % 4], 2.2, 26)
+        table(s, (0, 0, -16.5), w=8.0, d=3.0, h=3.0, color=(36, 36, 42))   # the DJ's table
+        s.box((2.0, 0.25, 1.4), (0, 3.3, -16.5), (60, 60, 66))
+        s.box((1.8, 1.2, 0.08), (0, 3.95, -17.1), (90, 200, 255), "Neon")
+        for dx in (-6.0, 6.0):   # speakers
+            s.box((2.4, 5.0, 2.2), (dx, 2.5, -17.0), (30, 30, 34))
+            s.cyl(0.15, 0.85, (dx, 1.8, -15.85), (70, 70, 78), axis="z")
+            s.cyl(0.15, 0.45, (dx, 3.9, -15.85), (70, 70, 78), axis="z")
+    s.mark("centre", (0, 3, 2), (0, 3, -10))
+    s.mark("left_court", (-16, 3, 0), (-30, 3, 0))
+    s.mark("right_court", (16, 3, 0), (30, 3, 0))
+    s.mark("bleachers", (-4, 5.5, 12.2), (-4, 5.5, 0))          # on the second step, facing the court
+    s.mark("bleachers_high", (4, 8.0, 17.8), (4, 8.0, 0))      # on the fourth
+    s.mark("door", (-23, 3, -17), (-23, 3, 0))
+    s.mark("dj", (0, 3, -19.0), (0, 3, 0))
+    s.cam("wide", (26, 12, -16), (-2, 4, 6), 60)
+    s.cam("court", (0, 6, -14), (0, 4.5, 12), 60)
+    s.cam("hoop", (14, 4.5, 4), (31, 11, 0), 55)
+    s.cam("bleachers", (0, 6, 1), (0, 6, 18), 55)
+    s.park = (0, 3, -150)
+    return s
+
+
+def lunch_table(s: Set, pos, length: float = 14.0, top=(220, 80, 80)):
+    """A long cafeteria table along x with a bench down each side, in the table's colour, on steel legs, sized for
+    R6 bodies sitting (pose "sit"): the benches 1 stud up, the top 2.6, its underside clear of a seated R6's legs
+    (2.0). A sitter's mark is on a bench's centre line, 2.65 from the table's, facing the table."""
+    x, _, z = pos
+    s.box((length, 0.3, 3.6), (x, 2.45, z), top)
+    s.box((length - 0.4, 0.12, 3.3), (x, 2.24, z), (150, 152, 160), "Metal")
+    for dx in (-length / 2 + 1.2, length / 2 - 1.2):
+        s.box((0.4, 2.2, 0.4), (x + dx, 1.1, z), METAL, "Metal")
+        s.box((0.4, 0.25, 6.6), (x + dx, 0.13, z), METAL, "Metal")
+        for dz in (-2.65, 2.65):
+            s.box((0.35, 0.7, 0.35), (x + dx, 0.35, z + dz), METAL, "Metal")
+    for dz in (-2.65, 2.65):
+        s.box((length, 0.3, 1.3), (x, 0.85, z + dz), top)
+
+
+def tray(s: Set, pos, color=(240, 140, 60)):
+    """A lunch tray with a slice of pizza, a carton of milk and an apple. `pos` y is the table top."""
+    x, y, z = pos
+    s.box((1.7, 0.12, 1.15), (x, y + 0.06, z), color)
+    s.wedge((0.12, 0.75, 0.9), (x - 0.35, y + 0.19, z), (245, 190, 80), rot=(0, 0, 90))
+    s.box((0.35, 0.6, 0.35), (x + 0.45, y + 0.42, z - 0.2), (250, 250, 250))
+    s.box((0.36, 0.18, 0.36), (x + 0.45, y + 0.42, z - 0.2), (60, 120, 220))
+    s.ball(0.42, (x + 0.45, y + 0.33, z + 0.3), (215, 40, 45))
+
+
+PROPS["tray"] = tray
+
+
+def cafeteria(opt: dict) -> Set:
+    """A school cafeteria, 52 x 40 x 15: six long tables with benches in two columns, the lunch counter along the
+    -z wall with the food in steel pans behind a glass guard, a chalkboard menu drawn in pictures, two vending
+    machines on the +x wall, trash cans, a bulletin board, windows in the +z wall, double doors in the -x wall."""
+    s = Set("cafeteria", opt.get("lighting", "interior"))
+    W, D, H = 52.0, 40.0, 15.0
+    room(s, W, D, H, wall=(198, 232, 212), trim=(235, 125, 55), floor=(238, 232, 220), floor_mat="CeramicTiles",
+         gaps={"n": [(8, 16, 4.5, 11.5), (22, 30, 4.5, 11.5), (36, 44, 4.5, 11.5)], "w": [(26, 35, 0, 8.6)]})
+    for xc in (-14, 0, 14):
+        window(s, (xc, 8.0, D / 2 + 0.5), 8.0, 7.0, axis="z")
+    for zc in (8.25, 12.75):
+        door(s, (-W / 2 - 0.3, 0, zc), axis="x", color=(205, 95, 60), w=4.3, h=8.2)
+    tops = [(220, 80, 80), (70, 140, 230), (250, 195, 60)]
+    for r, z in enumerate((-5, 3.5, 12)):
+        for c, x in enumerate((-12, 10)):
+            lunch_table(s, (x, 0, z), 14.0, tops[(r + c) % 3])
+    for k, (x, z) in enumerate(((-15, -6.2), (-9, -3.8), (13, -6.2), (-12, 4.7), (7, 2.3), (12, 13.2))):
+        tray(s, (x, 2.6, z), ((240, 140, 60), (70, 190, 180))[k % 2])
+    # the serving line along the -z wall
+    cz = -14.5
+    s.box((24, 3.0, 3.0), (2, 1.5, cz), (190, 195, 205), "Metal")
+    s.box((24.2, 0.25, 3.2), (2, 3.12, cz), (165, 170, 180), "Metal")
+    s.box((24, 0.2, 1.4), (2, 2.4, cz + 2.2), METAL, "Metal")
+    for dx in (-11, -3.5, 3.5, 11):
+        s.box((0.2, 0.6, 1.2), (2 + dx, 2.0, cz + 2.0), METAL, "Metal")
+    foods = [(240, 175, 70), (95, 170, 75), (250, 220, 90), (246, 242, 232), (200, 85, 60), (235, 185, 120)]
+    for k, col in enumerate(foods):
+        px = 2 - 10 + k * 4
+        s.box((3.4, 0.3, 2.0), (px, 3.35, cz), (212, 214, 220), "Metal")
+        s.box((3.0, 0.22, 1.6), (px, 3.45, cz), col)
+    s.box((24, 0.15, 2.0), (2, 5.6, cz), (205, 232, 246), "Glass", transparency=0.5)
+    for dx in (-11.8, 0, 11.8):
+        s.box((0.15, 2.3, 0.15), (2 + dx, 4.4, cz - 0.6), METAL, "Metal")
+    s.box((24, 3.2, 1.6), (2, 1.6, -D / 2 + 0.8), (205, 208, 215), "Metal")   # the kitchen counter behind
+    s.box((24.2, 0.25, 1.8), (2, 3.3, -D / 2 + 0.8), (150, 155, 165), "Metal")
+    # the menu, drawn in chalk pictures: a slice, an apple, a carton, a cookie
+    s.box((13.0, 5.6, 0.25), (2, 9.6, -D / 2 + 0.4), (120, 80, 50), "Wood")
+    s.box((12.2, 4.8, 0.3), (2, 9.6, -D / 2 + 0.45), (40, 72, 58))
+    zf = -D / 2 + 0.65
+    s.wedge((0.1, 1.8, 2.0), (-2.2, 9.7, zf), (245, 190, 80), rot=(0, 90, 0))
+    s.ball(1.6, (0.9, 9.7, zf), (215, 50, 50))
+    s.box((1.1, 1.8, 0.1), (3.6, 9.7, zf), (250, 250, 250))
+    s.box((1.12, 0.5, 0.12), (3.6, 9.9, zf), (60, 120, 220))
+    s.cyl(0.1, 0.85, (6.3, 9.7, zf), (190, 140, 80), axis="z")
+    # vending machines on the +x wall
+    for zc, col in ((-6.0, (205, 40, 50)), (-1.6, (40, 95, 205))):
+        x = W / 2 - 1.7
+        s.box((3.2, 8.0, 3.8), (x, 4.0, zc), col)
+        s.box((0.1, 4.8, 2.6), (x - 1.95, 5.0, zc - 0.3), (200, 235, 255), "Glass", transparency=0.35)
+        for row in range(4):
+            for k in range(3):
+                s.box((0.3, 0.6, 0.55), (x - 1.75, 3.2 + row * 1.15, zc - 1.2 + k * 0.85),
+                      ((250, 200, 60), (90, 200, 90), (240, 120, 60), (230, 230, 240))[(row + k) % 4])
+        s.box((0.12, 0.8, 2.6), (x - 1.66, 1.4, zc - 0.3), (25, 25, 30))
+        s.box((0.12, 1.4, 0.5), (x - 1.66, 5.2, zc + 1.35), (60, 60, 66))
+    for x, z in ((-22.5, 16.5), (22.5, 16.5), (-22.5, -12.5)):   # trash cans
+        s.cyl(2.6, 1.1, (x, 1.3, z), (110, 118, 130))
+        s.cyl(0.25, 1.2, (x, 2.72, z), (40, 40, 46))
+    s.box((0.3, 5.0, 9.0), (-W / 2 + 0.35, 8.0, -6.0), (190, 150, 100), "Wood")   # a bulletin board
+    for k, (dy, dz, col) in enumerate(((1.1, -2.6, (250, 230, 120)), (-0.8, -2.2, (140, 200, 250)),
+                                      (0.9, 0.6, (250, 160, 190)), (-1.0, 1.4, (170, 230, 160)),
+                                      (0.6, 3.2, (250, 250, 250)))):
+        s.box((0.1, 1.6, 1.9), (-W / 2 + 0.55, 8.0 + dy, -6.0 + dz), col)
+    clock(s, (W / 2 - 0.6, 11.5, 6.0), axis="x")
+    for x in (-14, 0, 14):
+        for z in (-8, 6):
+            ceiling_light(s, (x, H - 0.4, z), length=9, axis="x")
+    s.mark("centre", (0, 3, 4), (0, 3, -10))
+    s.mark("line", (2, 3, -10.6), (2, 3, -20))
+    s.mark("server", (2, 3, -17.6), (2, 3, 0))
+    s.mark("seat_far", (-12, 3, -7.65), (-12, 3, 0))     # on table 1's far bench, facing the table: pose "sit"
+    s.mark("seat_near", (-12, 3, -2.35), (-12, 3, -12))   # its near bench
+    s.mark("seat2_far", (10, 3, -7.65), (10, 3, 0))
+    s.mark("vending", (22.0, 3, -3.8), (26, 3, -3.8))
+    s.mark("door", (-22, 3, 10.5), (0, 3, 10.5))
+    s.cam("wide", (20, 11, 17), (-6, 3, -6), 60)
+    s.cam("line", (9, 5.5, -6), (0, 4.5, -17), 55)
+    s.cam("tables", (-12, 5, 4), (-12, 4, -10), 55)
+    s.park = (0, 3, -110)
+    return s
+
+
 def _with_props(fn):
     def build(opt: dict) -> Set:
         st = fn(opt)
         props(st, opt.get("props"))
+        if opt.get("signs") is False:   # no writing anywhere: posters, boards and scoreboards blank (M4's and M5's
+            for g in st.signs:          # reviews: set text under the captions)
+                g["text"] = ""
         return st
     build.__doc__ = fn.__doc__
     return build
@@ -847,4 +1117,4 @@ def _with_props(fn):
 
 SETS = {name: _with_props(fn) for name, fn in {
     "classroom": classroom, "hallway": hallway, "bedroom": bedroom, "living_room": living_room, "street": street,
-    "stage_void": stage_void}.items()}
+    "gym": gym, "cafeteria": cafeteria, "stage_void": stage_void}.items()}

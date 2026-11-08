@@ -11,10 +11,15 @@ All of it is code in the repository; a video's `direct.py` names it.
 | `bedroom` | interior | bed, desk_chair, centre, door | from_door, bed_side, desk |
 | `living_room` | interior | sofa_left, sofa_right, kitchen, centre, front_door | tv_side, wide, kitchen |
 | `street` | day; `{"night": True}` for night (lamps on, windows lit, black sky) | sidewalk_a, sidewalk_b, road, lawn, porch | street, along, houses |
+| `gym` | interior; `{"dance": True}` for a school dance (balloons, streamers, a mirror ball, coloured lights, a DJ table) | centre, left_court, right_court, bleachers, bleachers_high (on the steps), door, dj | wide, court, hoop, bleachers |
+| `cafeteria` | interior | centre, line (in the lunch line), server, seat_far, seat_near, seat2_far (on the benches: pose `sit`), vending, door | wide, line, tables |
 | `stage_void` | interior | centre, left, right (a one-colour cyclorama, `{"color": [r, g, b]}`) | front |
 
 - Options: the classroom's whiteboard text (`{"board": "..."}`), the hallway's locker colour (`{"lockers": [r, g,
-  b]}`), the bedroom's walls, blanket and rug, the living room's sofa colour, the street's car colour.
+  b]}`), the bedroom's walls, blanket and rug, the living room's sofa colour, the street's car colour, the gym's
+  dance dressing and scoreboard. Any set: `{"signs": False}` blanks every poster and board. In a story, a wall's
+  writing sits right under the captions in a level shot (three of the first four videos): turn it off unless the
+  words are the joke.
 - Coordinates: studs, y up, floors at y = 0; a standing actor's `at` has y = 3. The classroom is 44 x 36 (the board
   at z = -18, students face -z, desks at x -12, -3, 6, 15 and z -4, 3, 10; aisles at x -7.5, 1.5, 10.5). The hallway
   is 18 wide and 80 long along z (lockers at x = +-8.2). Stand at x = +-6 only for a shot looking across the hall:
@@ -23,9 +28,9 @@ All of it is code in the repository; a video's `direct.py` names it.
   `shot(..., set="new_school")` with that set's own coordinates.
 - Props in any set's options, `{"props": [{"kind": "dog", "at": [x, 0, z], "facing": [..], ...}]}`: `dog` and `cat`
   (blocky pets: colour, spot, collar, size), `balloons`, `cake` and `smoothie` (on a surface: `at` y is its top),
-  `ice_pack`, `wall_phone` (`at` is its centre on the wall), and the furniture builders (`plant`, `lamp`, `table`,
-  `rug`, `car`, `tree`, `pine`, `bookshelf`, `sofa`, `tv`). Props stay put for the whole video: an actor can't carry
-  one.
+  `ice_pack`, `wall_phone` (`at` is its centre on the wall), `lockers` (a free-standing bank to hide behind),
+  `tray` (lunch on a table), and the furniture builders (`plant`, `lamp`, `table`, `rug`, `car`, `tree`, `pine`,
+  `bookshelf`, `sofa`, `tv`). Props stay put for the whole video: an actor can't carry one.
 
 ## Cast (`tools/roblox/cast.json`)
 
@@ -49,10 +54,17 @@ Comedy changes faces on the word; stories give each shot one face. `facekit.py s
 ## Poses (`tools/roblox/pose.py`)
 
 idle, arms_out, hands_on_head, point, point_left, arms_crossed, hands_on_hips, laugh, facepalm, cheer, slump, think,
-lean_in, wave, hand_up. Keys snap in 5 frames with a little overshoot and then drift; `walk={"from", "to", "start",
-"freq"}` walks heel to toe at a steady speed (a higher `freq` for a run). No sitting pose yet: an actor standing at a
-desk's chair, seen from the board's side, reads as seated (the desk hides the legs; an R6 torso sits at about the
-height it stands). A gesture must stay inside the frame: arms up leave a close-up.
+lean_in, wave, hand_up, sit. A pose is a name or a dict of joints (`{"root": (-6, 0, 14), "neck": (4, 0, 10), ...}`,
+degrees; M4's peek round the lockers, M2's point across the frame), so poses combine: `{**SIT, "neck": (-28, 0,
+0)}` sits slumped. Keys snap in 5 frames with a little overshoot and then drift; `(t, pose, 0.35)` takes 0.35 s
+(sitting down). `sit` rests the legs on a seat 1 stud up (the cafeteria's benches) with the body half a stud lower
+than standing; the classroom's chairs are 1.7 up, so there an actor stands at the chair and the desk hides its legs.
+`walk={"from", "to", "start", "freq"}` walks heel to toe at a steady speed (a higher `freq` for a run): the actor
+waits at `from` until `start`, and on arriving turns to its own `facing` in 0.3 s, then takes its poses (so a walk
+to a seat, a turn and `sit` reads as sitting down). A gesture must stay inside the frame: arms up leave a close-up,
+and a `point` aims where the body faces (at the camera, it's a block: turn the arm with y). The plan warns when two
+actors' bodies or arms meet (side by side, R6s need 4 studs between them; cheering, 5) and when a walk passes
+within that of someone.
 
 ## Camera (`tools/shots.py`)
 
@@ -81,5 +93,7 @@ for a medium shot at about 3.6 studs up from 9.5 away); `make.py plan` warns abo
 
 ## Captions and on-screen text (`tools/edit/captions.py`)
 
-`comedy`, `story`, `header`, `label`; emoji from `assets/emoji/noto/` (63 pictures). Overlays: an icon popping over
+`comedy`, `story`, `header`, `label`; emoji from `assets/emoji/noto/` (62 pictures). Overlays: an icon popping over
 a point (`overlays=[("bell", "leo.head", "b:ding")]`): bell, heart, money, skull, fire, eyes, warning, or any emoji.
+Over a head it follows the pose (a slumped head's icon drops with it); kept clear of the captions, and moved beside
+any face it would cover (in a close-up there's no room above the head: M4's bells landed on foreheads).

@@ -4,7 +4,9 @@
  "family": "story",
  "fps": 60,
  "set": "hallway",
- "set_options": {},
+ "set_options": {
+  "signs": false
+ },
  "cast": {
   "leo": {
    "look": "me"
@@ -79,6 +81,10 @@
       [
        0,
        "smile"
+      ],
+      [
+       "a:every",
+       "confused"
       ]
      ],
      "drift": 1.0,
@@ -92,7 +98,7 @@
      "at": [
       0.6,
       3,
-      9.9
+      10.0
      ],
      "poses": [
       [
@@ -108,16 +114,16 @@
      ],
      "drift": 1.0,
      "facing": [
-      -0.55,
+      0.85,
       0,
-      -0.85
+      -0.53
      ]
     },
     "ex2": {
      "at": [
-      3.2,
+      3.0,
       3,
-      7.7
+      8.5
      ],
      "poses": [
       [
@@ -133,9 +139,9 @@
      ],
      "drift": 1.0,
      "facing": [
-      -0.75,
+      -0.85,
       0,
-      -0.65
+      0.53
      ]
     }
    },
@@ -178,9 +184,25 @@
      "at": 0.0
     }
    ],
-   "sfx": [],
+   "sfx": [
+    {
+     "sound": "ding",
+     "at": "a:every",
+     "gain_db": -3
+    }
+   ],
    "drift": 1.0,
-   "until": "a:talks"
+   "until": "a:talks",
+   "overlays": [
+    {
+     "icon": "bell",
+     "over": "ex1.head",
+     "at": "a:every",
+     "size": 130,
+     "lift": 1.5,
+     "dur": 0.7
+    }
+   ]
   },
   {
    "name": "whisper",
@@ -191,7 +213,7 @@
      "at": [
       0.6,
       3,
-      9.9
+      10.0
      ],
      "poses": [
       [
@@ -207,16 +229,16 @@
      ],
      "drift": 1.0,
      "facing": [
-      -0.55,
+      0.85,
       0,
-      -0.85
+      -0.53
      ]
     },
     "ex2": {
      "at": [
-      3.2,
+      3.0,
       3,
-      7.7
+      8.5
      ],
      "poses": [
       [
@@ -232,9 +254,9 @@
      ],
      "drift": 1.0,
      "facing": [
-      -0.75,
+      -0.85,
       0,
-      -0.65
+      0.53
      ]
     }
    },
@@ -242,7 +264,7 @@
     {
      "t": 0,
      "aim": "pg.head",
-     "distance": 9.0,
+     "distance": 8.5,
      "fov": 50,
      "height": -0.2,
      "between": "ex2"
@@ -250,7 +272,7 @@
     {
      "t": 0.04,
      "aim": "pg.head",
-     "distance": 7.5,
+     "distance": 7.0,
      "fov": 50,
      "height": -0.2,
      "between": "ex2",
@@ -583,9 +605,9 @@
     },
     "ex3": {
      "at": [
-      -2.3,
+      -1.9,
       3,
-      -2.2
+      -2.6
      ],
      "poses": [
       [
@@ -608,9 +630,9 @@
     },
     "jock": {
      "at": [
-      2.3,
+      2.2,
       3,
-      -2.2
+      -4.6
      ],
      "poses": [
       [
@@ -664,9 +686,9 @@
    "actors": {
     "leo": {
      "at": [
-      0,
+      -4.6,
       3,
-      -30
+      -26
      ],
      "poses": [
       [
@@ -682,20 +704,20 @@
      ],
      "drift": 1.0,
      "facing": [
-      0,
+      0.3,
       0,
       1
      ],
      "walk": {
       "from": [
-       0,
+       -4.6,
        3,
-       -32
+       -32.5
       ],
       "to": [
-       0,
+       -4.6,
        3,
-       -25
+       -26
       ],
       "start": 0.0
      }
@@ -705,16 +727,16 @@
     {
      "t": 0,
      "pos": [
-      2.5,
-      5.5,
-      -16
+      2.0,
+      5.0,
+      -16.5
      ],
      "look": [
-      0,
-      4,
-      -28
+      -4.2,
+      4.0,
+      -29.0
      ],
-     "fov": 50
+     "fov": 55
     }
    ],
    "say": [
@@ -845,16 +867,16 @@
     {
      "t": 0,
      "aim": "leo.head",
-     "distance": 7.0,
-     "fov": 48,
-     "orbit": 35
+     "distance": 7.5,
+     "fov": 50,
+     "height": -1.6
     },
     {
      "t": 0.05,
      "aim": "leo.head",
-     "distance": 4.4,
-     "fov": 48,
-     "orbit": 35,
+     "distance": 5.4,
+     "fov": 50,
+     "height": -1.6,
      "dutch": -12,
      "move": 0.3,
      "ease": "inout"
@@ -865,42 +887,42 @@
     {
      "sound": "ding",
      "at": "b:two",
-     "gain_db": -3
+     "gain_db": -1
     },
     {
      "sound": "ding",
      "at": "b:more",
-     "gain_db": -3
+     "gain_db": -1
     },
     {
      "sound": "ding",
      "at": "b:twenty+0.00",
-     "gain_db": -7
+     "gain_db": -3
     },
     {
      "sound": "ding",
      "at": "b:twenty+0.07",
-     "gain_db": -7
+     "gain_db": -3
     },
     {
      "sound": "ding",
      "at": "b:twenty+0.14",
-     "gain_db": -7
+     "gain_db": -3
     },
     {
      "sound": "ding",
      "at": "b:twenty+0.21",
-     "gain_db": -7
+     "gain_db": -3
     },
     {
      "sound": "ding",
      "at": "b:twenty+0.28",
-     "gain_db": -7
+     "gain_db": -3
     },
     {
      "sound": "ding",
      "at": "b:twenty+0.35",
-     "gain_db": -7
+     "gain_db": -3
     }
    ],
    "drift": 1.0,
@@ -1018,9 +1040,9 @@
     },
     "sa": {
      "at": [
-      -2.6,
+      -4.3,
       3,
-      -7
+      -8.0
      ],
      "poses": [
       [
@@ -1043,9 +1065,9 @@
     },
     "sb": {
      "at": [
-      2.8,
+      4.3,
       3,
-      -9.5
+      -6.5
      ],
      "poses": [
       [
@@ -1068,9 +1090,9 @@
     },
     "nerd": {
      "at": [
-      -2.9,
+      4.5,
       3,
-      -11.5
+      -12.8
      ],
      "poses": [
       [
@@ -1086,7 +1108,7 @@
      ],
      "drift": 1.0,
      "facing": [
-      0.7,
+      -0.7,
       0,
       0.7
      ]
@@ -1097,15 +1119,15 @@
      "t": 0,
      "pos": [
       0,
-      6.0,
-      4
+      6.5,
+      9.0
      ],
      "look": [
       0,
       3.8,
       -10
      ],
-     "fov": 55
+     "fov": 62
     }
    ],
    "say": [],
@@ -1167,15 +1189,18 @@
    "sfx": [
     {
      "sound": "ding",
-     "at": "b:ding#2"
+     "at": "b:ding#2",
+     "gain_db": 1
     },
     {
      "sound": "ding",
-     "at": "b:ding#3"
+     "at": "b:ding#3",
+     "gain_db": 1
     },
     {
      "sound": "ding",
-     "at": "b:ding#4"
+     "at": "b:ding#4",
+     "gain_db": 1
     }
    ],
    "drift": 1.0,
@@ -1270,14 +1295,50 @@
    "actors": {
     "leo": {
      "at": [
-      1.5,
+      -12.0,
       3,
-      3
+      -7.65
      ],
      "poses": [
       [
        0,
-       "slump"
+       {
+        "lh": [
+         90,
+         0,
+         0
+        ],
+        "rh": [
+         90,
+         0,
+         0
+        ],
+        "ls": [
+         8,
+         0,
+         -2
+        ],
+        "rs": [
+         8,
+         0,
+         2
+        ],
+        "rootpos": [
+         0,
+         -0.5,
+         0
+        ],
+        "root": [
+         -9,
+         0,
+         0
+        ],
+        "neck": [
+         -28,
+         0,
+         0
+        ]
+       }
       ]
      ],
      "faces": [
@@ -1290,35 +1351,81 @@
      "facing": [
       0,
       0,
-      -1
+      1
+     ]
+    },
+    "sa": {
+     "at": [
+      -9.1,
+      3,
+      -10.9
+     ],
+     "poses": [
+      [
+       0,
+       "laugh"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "laugh"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      1,
+      0,
+      0
+     ]
+    },
+    "sb": {
+     "at": [
+      -6.9,
+      3,
+      -10.9
+     ],
+     "poses": [
+      [
+       0,
+       "cheer"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "grin"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      -1,
+      0,
+      0
      ]
     }
    },
    "camera": [
     {
      "t": 0,
-     "top": {
-      "aim": "leo.torso",
-      "height": 11.0,
-      "fov": 60
-     }
-    },
-    {
-     "t": 0.04,
-     "top": {
-      "aim": "leo.torso",
-      "height": 9.0,
-      "fov": 60
-     },
-     "move": 0.3,
-     "ease": "out"
+     "pos": [
+      -10.5,
+      4.4,
+      1.6
+     ],
+     "look": [
+      -10.5,
+      3.9,
+      -8.6
+     ],
+     "fov": 56
     }
    ],
    "say": [],
    "sfx": [],
    "drift": 1.0,
    "until": "b:he#4",
-   "set": "class"
+   "set": "lunch"
   },
   {
    "name": "home",
@@ -1327,9 +1434,9 @@
    "actors": {
     "leo": {
      "at": [
-      0,
+      2.5,
       3,
-      10
+      18
      ],
      "poses": [
       [
@@ -1351,14 +1458,14 @@
      ],
      "walk": {
       "from": [
-       0,
+       2.5,
        3,
-       6
+       10
       ],
       "to": [
-       0,
+       2.5,
        3,
-       14
+       18
       ],
       "start": 0.0
      }
@@ -1368,14 +1475,14 @@
     {
      "t": 0,
      "pos": [
-      0,
+      2.5,
       5.0,
-      -2
+      2.5
      ],
      "look": [
-      0,
+      2.5,
       3.5,
-      14
+      18
      ],
      "fov": 50
     }
@@ -1453,9 +1560,9 @@
    "actors": {
     "leo": {
      "at": [
-      0,
+      2.5,
       3,
-      0
+      -4
      ],
      "poses": [
       [
@@ -1485,17 +1592,21 @@
     {
      "t": 0,
      "aim": "leo.head",
-     "distance": 6.5,
-     "fov": 48
+     "distance": 9.0,
+     "fov": 55,
+     "height": -2.2,
+     "orbit": 30
     },
     {
-     "t": 0.05,
+     "t": 0.04,
      "aim": "leo.head",
-     "distance": 3.8,
-     "fov": 48,
+     "distance": 6.4,
+     "fov": 55,
+     "height": -2.2,
+     "orbit": 30,
      "dutch": 14,
-     "move": 0.35,
-     "ease": "inout"
+     "move": 0.4,
+     "ease": "out"
     }
    ],
    "say": [],
@@ -1503,47 +1614,47 @@
     {
      "sound": "ding",
      "at": "c:dings+0.00",
-     "gain_db": -6
+     "gain_db": 2
     },
     {
      "sound": "ding",
      "at": "c:dings+0.18",
-     "gain_db": -6
+     "gain_db": 2
     },
     {
      "sound": "ding",
      "at": "c:dings+0.36",
-     "gain_db": -6
+     "gain_db": 2
     },
     {
      "sound": "ding",
      "at": "c:dings+0.54",
-     "gain_db": -6
+     "gain_db": 2
     },
     {
      "sound": "ding",
      "at": "c:dings+0.72",
-     "gain_db": -6
+     "gain_db": 2
     },
     {
      "sound": "ding",
      "at": "c:dings+0.90",
-     "gain_db": -6
+     "gain_db": 2
     },
     {
      "sound": "ding",
      "at": "c:dings+1.08",
-     "gain_db": -6
+     "gain_db": 2
     },
     {
      "sound": "ding",
      "at": "c:dings+1.26",
-     "gain_db": -6
+     "gain_db": 2
     },
     {
      "sound": "ding",
      "at": "c:dings+1.44",
-     "gain_db": -6
+     "gain_db": 2
     }
    ],
    "drift": 1.0,
@@ -1631,14 +1742,35 @@
    "actors": {
     "leo": {
      "at": [
-      -6.0,
+      -1.2,
       3,
-      4
+      4.6
      ],
      "poses": [
       [
        0,
-       "lean_in"
+       {
+        "root": [
+         -6,
+         0,
+         14
+        ],
+        "neck": [
+         4,
+         0,
+         10
+        ],
+        "ls": [
+         26,
+         0,
+         -10
+        ],
+        "rs": [
+         10,
+         0,
+         8
+        ]
+       }
       ]
      ],
      "faces": [
@@ -1649,82 +1781,26 @@
      ],
      "drift": 1.0,
      "facing": [
-      1,
+      0.35,
       0,
-      0
-     ]
-    },
-    "her": {
-     "at": [
-      5.0,
-      3,
-      8.5
-     ],
-     "poses": [
-      [
-       0,
-       "idle"
-      ]
-     ],
-     "faces": [
-      [
-       0,
-       "smile"
-      ]
-     ],
-     "drift": 1.0,
-     "facing": [
-      -1,
-      0,
-      -0.3
-     ]
-    },
-    "sc": {
-     "at": [
-      5.6,
-      3,
-      10.6
-     ],
-     "poses": [
-      [
-       0,
-       "idle"
-      ]
-     ],
-     "faces": [
-      [
-       0,
-       "grin"
-      ]
-     ],
-     "drift": 1.0,
-     "facing": [
-      -1,
-      0,
-      -0.6
+      1
      ]
     }
    },
    "camera": [
     {
      "t": 0,
-     "low": {
-      "aim": "leo.head",
-      "distance": 6.0,
-      "eye": 2.2,
-      "fov": 55
-     }
-    },
-    {
-     "t": 0.04,
-     "low": {
-      "aim": "leo.head",
-      "distance": 4.5,
-      "eye": 2.2,
-      "fov": 55
-     },
-     "move": 0.3,
-     "ease": "out"
+     "pos": [
+      0.6,
+      4.6,
+      11.0
+     ],
+     "look": [
+      -0.45,
+      4.4,
+      4.8
+     ],
+     "fov": 45
     }
    ],
    "say": [],
@@ -1738,31 +1814,6 @@
    "seconds": "auto",
    "pad": 0.2,
    "actors": {
-    "leo": {
-     "at": [
-      -6.0,
-      3,
-      4
-     ],
-     "poses": [
-      [
-       0,
-       "lean_in"
-      ]
-     ],
-     "faces": [
-      [
-       0,
-       "nervous"
-      ]
-     ],
-     "drift": 1.0,
-     "facing": [
-      1,
-      0,
-      0.5
-     ]
-    },
     "her": {
      "at": [
       5.0,
@@ -1798,9 +1849,9 @@
     },
     "sc": {
      "at": [
-      5.6,
+      6.6,
       3,
-      10.6
+      11.6
      ],
      "poses": [
       [
@@ -1855,9 +1906,9 @@
    "actors": {
     "leo": {
      "at": [
-      -6.0,
+      -1.2,
       3,
-      4
+      4.6
      ],
      "poses": [
       [
@@ -1877,9 +1928,9 @@
      ],
      "drift": 1.0,
      "facing": [
-      1,
+      0.35,
       0,
-      0
+      1
      ]
     }
    },
@@ -1887,16 +1938,24 @@
     {
      "t": 0,
      "aim": "leo.face",
-     "distance": 2.6,
+     "distance": 2.8,
      "fov": 45,
-     "height": -0.2
+     "toward": [
+      0.85,
+      0,
+      0.5
+     ]
     },
     {
      "t": 0.04,
      "aim": "leo.face",
-     "distance": 6.5,
+     "distance": 5.5,
      "fov": 45,
-     "height": -0.2,
+     "toward": [
+      0.85,
+      0,
+      0.5
+     ],
      "move": 0.5,
      "ease": "out"
     }
@@ -1905,8 +1964,8 @@
    "sfx": [
     {
      "sound": "shimmer",
-     "at": "c:never",
-     "gain_db": -2
+     "at": "c:bad",
+     "gain_db": -9
     }
    ],
    "drift": 1.0,
@@ -1920,19 +1979,54 @@
    "actors": {
     "leo": {
      "at": [
-      2.9,
+      -7.6,
       3,
-      -4
+      -7.65
      ],
      "poses": [
       [
        0,
        "idle"
+      ],
+      [
+       0.95,
+       {
+        "lh": [
+         90,
+         0,
+         0
+        ],
+        "rh": [
+         90,
+         0,
+         0
+        ],
+        "ls": [
+         12,
+         0,
+         -3
+        ],
+        "rs": [
+         12,
+         0,
+         3
+        ],
+        "rootpos": [
+         0,
+         -0.5,
+         0
+        ]
+       },
+       0.35
       ]
      ],
      "faces": [
       [
        0,
+       "nervous"
+      ],
+      [
+       "c:down",
        "grin"
       ]
      ],
@@ -1944,59 +2038,60 @@
      ],
      "walk": {
       "from": [
-       6.5,
+       -3.8,
        3,
-       -4
+       -7.65
       ],
       "to": [
-       2.9,
+       -7.6,
        3,
-       -4
+       -7.65
       ],
       "start": 0.0
      }
     },
     "her": {
      "at": [
-      0.4,
+      -12.0,
       3,
-      -4
+      -7.65
      ],
      "poses": [
       [
        0,
-       "idle"
+       {
+        "lh": [
+         90,
+         0,
+         0
+        ],
+        "rh": [
+         90,
+         0,
+         0
+        ],
+        "ls": [
+         12,
+         0,
+         -3
+        ],
+        "rs": [
+         12,
+         0,
+         3
+        ],
+        "rootpos": [
+         0,
+         -0.5,
+         0
+        ]
+       }
       ]
      ],
      "faces": [
       [
        0,
        "cute"
-      ]
-     ],
-     "drift": 1.0,
-     "facing": [
-      0,
-      0,
-      1
-     ]
-    },
-    "sc": {
-     "at": [
-      -2.4,
-      3,
-      -4.6
-     ],
-     "poses": [
-      [
-       0,
-       "idle"
-      ]
-     ],
-     "faces": [
-      [
-       0,
-       "grin"
       ]
      ],
      "drift": 1.0,
@@ -2010,44 +2105,162 @@
    "camera": [
     {
      "t": 0,
-     "aim": "her.head",
-     "distance": 12.0,
-     "fov": 52,
-     "height": -0.2,
-     "between": "leo"
-    },
-    {
-     "t": 0.04,
-     "aim": "her.head",
-     "distance": 10.5,
-     "fov": 52,
-     "height": -0.2,
-     "between": "leo",
-     "move": 0.3,
-     "ease": "out"
+     "pos": [
+      -5.6,
+      4.3,
+      2.0
+     ],
+     "look": [
+      -9.6,
+      3.6,
+      -7.65
+     ],
+     "fov": 56
     }
    ],
    "say": [],
    "sfx": [],
    "drift": 1.0,
    "until": "c:the#6",
-   "set": "class"
+   "set": "lunch"
   },
   {
    "name": "her",
    "seconds": "auto",
    "pad": 0.2,
    "actors": {
-    "her": {
+    "leo": {
      "at": [
-      0.4,
+      -7.6,
       3,
-      -4
+      -7.65
      ],
      "poses": [
       [
        0,
-       "idle"
+       {
+        "lh": [
+         90,
+         0,
+         0
+        ],
+        "rh": [
+         90,
+         0,
+         0
+        ],
+        "ls": [
+         12,
+         0,
+         -3
+        ],
+        "rs": [
+         12,
+         0,
+         3
+        ],
+        "rootpos": [
+         0,
+         -0.5,
+         0
+        ]
+       }
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "grin"
+      ],
+      [
+       "c:ding",
+       "starstruck"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    "her": {
+     "at": [
+      -12.0,
+      3,
+      -7.65
+     ],
+     "poses": [
+      [
+       0,
+       {
+        "lh": [
+         90,
+         0,
+         0
+        ],
+        "rh": [
+         90,
+         0,
+         0
+        ],
+        "ls": [
+         12,
+         0,
+         -3
+        ],
+        "rs": [
+         12,
+         0,
+         3
+        ],
+        "rootpos": [
+         0,
+         -0.5,
+         0
+        ]
+       }
+      ],
+      [
+       "c:loudest",
+       {
+        "lh": [
+         90,
+         0,
+         0
+        ],
+        "rh": [
+         90,
+         0,
+         0
+        ],
+        "ls": [
+         20,
+         0,
+         -8
+        ],
+        "rs": [
+         20,
+         0,
+         8
+        ],
+        "rootpos": [
+         0,
+         -0.5,
+         0
+        ],
+        "root": [
+         -10,
+         -24,
+         0
+        ],
+        "neck": [
+         8,
+         -22,
+         0
+        ]
+       },
+       0.25
       ]
      ],
      "faces": [
@@ -2056,7 +2269,7 @@
        "cute"
       ],
       [
-       "c:ding",
+       "c:loudest",
        "love"
       ]
      ],
@@ -2071,20 +2284,32 @@
    "camera": [
     {
      "t": 0,
-     "aim": "her.head",
-     "distance": 7.0,
-     "fov": 45,
-     "height": -0.3,
-     "orbit": -30
+     "pos": [
+      -10.2,
+      4.0,
+      3.2
+     ],
+     "look": [
+      -10.2,
+      4.0,
+      -7.65
+     ],
+     "fov": 60
     },
     {
      "t": 0.04,
-     "aim": "her.head",
-     "distance": 4.6,
-     "fov": 45,
-     "height": -0.3,
-     "orbit": -30,
-     "move": 0.35,
+     "pos": [
+      -10.2,
+      4.0,
+      2.4
+     ],
+     "look": [
+      -10.2,
+      4.0,
+      -7.65
+     ],
+     "fov": 60,
+     "move": 1.6,
      "ease": "out"
     }
    ],
@@ -2098,20 +2323,20 @@
     {
      "sound": "ding",
      "at": "c:ding",
-     "gain_db": 3
+     "gain_db": 5
     }
    ],
    "drift": 1.0,
-   "until": "c:end+0.3",
-   "set": "class",
+   "until": "c:end+0.12",
+   "set": "lunch",
    "overlays": [
     {
      "icon": "bell",
-     "over": "her.head",
+     "over": "leo.head",
      "at": "c:ding",
      "size": 210,
      "lift": 1.7,
-     "dur": 2.5
+     "dur": 1.6
     }
    ]
   }
@@ -2130,6 +2355,28 @@
      60,
      110,
      210
+    ],
+    "signs": false,
+    "props": [
+     {
+      "kind": "lockers",
+      "at": [
+       -3.0,
+       0,
+       6.6
+      ],
+      "facing": [
+       0,
+       0,
+       1
+      ],
+      "n": 3,
+      "color": [
+       60,
+       110,
+       210
+      ]
+     }
     ]
    }
   },
@@ -2142,14 +2389,36 @@
     0.0
    ],
    "options": {
-    "board": "Welcome back!"
+    "board": "",
+    "signs": false
+   }
+  },
+  {
+   "id": "lunch",
+   "name": "cafeteria",
+   "at": [
+    600.0,
+    0.0,
+    0.0
+   ],
+   "options": {
+    "props": [
+     {
+      "kind": "tray",
+      "at": [
+       -12.0,
+       2.6,
+       -6.2
+      ]
+     }
+    ]
    }
   }
  ],
  "music": {
   "track": "build/library/music/story_bed.mp3",
   "start": 0.0,
-  "gain_db": -15.0,
-  "duck_db": -4.0
+  "gain_db": -16.0,
+  "duck_db": -9.0
  }
 }

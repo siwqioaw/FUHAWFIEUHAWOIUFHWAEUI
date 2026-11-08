@@ -41,8 +41,8 @@ TOWARD_US = [0, 0, 1]
 TO_BOARD = [0, 0, -1]
 
 extras = {   # the class behind the jock, either side of his head (a back row showed only as half-faces at the edges)
-    "ex3": actor([-0.3, 3, 7.4], facing=TO_BOARD, faces=[(0, "deadpan")]),
-    "nerd": actor([3.3, 3, 7.4], facing=TO_BOARD, faces=[(0, "smile")], poses=[(0, "think")]),
+    "ex3": actor([-0.6, 3, 7.4], facing=TO_BOARD, faces=[(0, "deadpan")]),     # 4.2 apart: at 3.6 their arms met
+    "nerd": actor([3.6, 3, 7.4], facing=TO_BOARD, faces=[(0, "smile")], poses=[(0, "think")]),
 }
 
 s.add(

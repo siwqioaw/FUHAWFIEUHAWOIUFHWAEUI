@@ -60,6 +60,10 @@ POSES: dict[str, dict] = {
     "wave": {"rs": (140, 0, 30), "ls": (0, 0, -4), "neck": (0, 0, -6)},    # the right hand up and out, raised
                                                                            # through the front: sideways past 60 clips
     "hand_up": {"rs": (176, 0, 8), "ls": (0, 0, -4), "neck": (8, 0, 0)},               # "me! me!": straight up
+    # seated on a seat 1 stud up (the cafeteria's benches): legs straight ahead, resting on it, the body half a stud
+    # lower than standing. Mark the actor where it sits, facing the way its legs go; a snap of about 0.35 s,
+    # (t, "sit", 0.35), reads as sitting down. (The classroom's chairs are 1.7 up: stand behind the desk instead.)
+    "sit": {"lh": (90, 0, 0), "rh": (90, 0, 0), "ls": (12, 0, -3), "rs": (12, 0, 3), "rootpos": (0, -0.5, 0)},
 }
 
 
@@ -370,6 +374,26 @@ def _grid(step: float = 0.05) -> np.ndarray:
 
 
 _ARM = _grid()
+_ARM_CORNERS = np.array([(x, y, z) for x in (-0.5, 0.5) for y in (-1.0, 1.0) for z in (-0.5, 0.5)])
+
+
+def reach(joints: dict) -> tuple[float, float, float, float]:
+    """The floor box an R6 body covers as the harness poses it from at() output: (x0, x1, z0, z1) in studs in its
+    own space (x to its right, z behind it, facing -Z) from its torso's centre: the torso (2 x 1) and each arm's and
+    leg's block where its pose puts it (seated, the legs reach 2 studs ahead). At rest about (-2.1, 2.1, -0.5, 0.5): two R6s side by side touch at 4 studs
+    (M3's presentation: 3 apart, her elbow through his arm)."""
+    xs, zs = [-1.0, 1.0], [-0.5, 0.5]
+    for arm, shoulder, side in (("rs", (1.0, 0.5, 0.0), 0.5), ("ls", (-1.0, 0.5, 0.0), -0.5)):
+        m = np.array(angles(*joints[arm]))
+        p = (_ARM_CORNERS + (side, -0.5, 0.0)) @ m.T + shoulder
+        xs += [float(v) for v in p[:, 0]]
+        zs += [float(v) for v in p[:, 2]]
+    for leg, hip, lx in (("rh", (1.0, -1.0, 0.0), (-1.0, 0.0)), ("lh", (-1.0, -1.0, 0.0), (0.0, 1.0))):
+        m = np.array(angles(*joints[leg]))   # a leg turns about its hip's outer top corner, as soles() has it
+        p = np.array([(x, y, z) for x in lx for y in (-LEG, 0.0) for z in (-FOOT, FOOT)]) @ m.T + hip
+        xs += [float(v) for v in p[:, 0]]
+        zs += [float(v) for v in p[:, 2]]
+    return min(xs), max(xs), min(zs), max(zs)
 
 
 def clearance(joints: dict) -> float:

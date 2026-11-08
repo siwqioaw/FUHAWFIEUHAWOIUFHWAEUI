@@ -315,6 +315,12 @@ def main() -> int:
     expect(f"pose: every pose keeps its arms out of the head and torso (worst {worst[0]:.3f} studs, {worst[1]}); "
            f"the old hands_on_head went {old:.2f} into the head, forearms pushed in {chest:.2f} into the chest",
            worst[0] <= 0.1 and old > 0.25 and chest > 0.25)
+    sj, sr = pose.at([(0.0, "sit")], 0.0, drift_amount=0.0)
+    seat = min(c[1] for cs in pose.soles(sj, sr).values() for c in cs) + 3.0
+    ahead = pose.reach(sj)[2]
+    expect(f"pose: 'sit' rests the legs on a seat {seat:.2f} studs up (the cafeteria's benches are 1.0), reaching "
+           f"{-ahead:.1f} ahead, the body {-sr[1]:.1f} lower than standing", abs(seat - 1.0) < 0.02 and ahead < -1.9
+           and abs(sr[1] + 0.5) < 1e-9)
     clips, clean = pose.snap_clearance("idle", "arms_crossed"), pose.snap_clearance("idle", "arms_out")
     expect(f"pose: snap_clearance finds an arm through the chest between poses ({clips:.2f} studs; a clean snap "
            f"{clean:.3f})", clips > 0.2 and clean < 0.01)
@@ -741,6 +747,33 @@ def pipeline_checks(expect) -> None:
     expect(f"make: the plan flags a face cut by the frame's edge ({side}) and one down on the bottom edge under the "
            f"Shorts UI ({bottom}); a centred face passes ({middle})",
            len(side) == 1 and "right edge" in side[0] and len(bottom) == 1 and "Shorts UI" in bottom[0] and not middle)
+    walker = {"camera": [[0.0, {"pos": [0, 5, 10], "look": [0, 4, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0,
+                          "out"]], "drift": 0.0, "seed": 0,
+              "actors": {"a": {"cf": {"pos": [0, 3, 0], "look": [0, 3, 10]}, "poses": [[0.0, "idle"]],
+                               "faces": [[0, "smile"]],
+                               "walk": {"from": [-4, 3, 0], "to": [0, 3, 0], "start": 0.5, "freq": 1.5}}}}
+    walk_at = make.shot_fn({}, walker, ["a"])
+    before, after = walk_at(0.2)["actors"][0]["cf"], walk_at(2.5)["actors"][0]["cf"]
+    turned = [round(after["look"][k] - after["pos"][k], 2) for k in (0, 2)]
+    expect(f"make: an actor waits at its walk's start ({before['pos']}), and on arriving turns to its mark's facing "
+           f"({turned}, not the walk's way; M4's 'Leo sat down' stayed in profile)",
+           before["pos"] == [-4, 3, 0] and abs(turned[0]) < 1e-6 and turned[1] > 0.99)
+    def staged(a_pos, b_pos, a_look, b_look, walk=None):
+        acts = {"a": {"cf": {"pos": a_pos, "look": a_look}, "poses": [[0.0, "idle"]]},
+                "b": {"cf": {"pos": b_pos, "look": b_look}, "poses": [[0.0, "idle"]]}}
+        if walk:
+            acts["w"] = {"cf": {"pos": walk[1], "look": walk[1]}, "walk": {"from": walk[0], "to": walk[1]}}
+        return make._staging({"shots": [{"name": "s", "actors": acts}]})
+    close_pair = staged([0, 3, 0], [3, 3, 0], [0, 3, 10], [3, 3, 10])
+    apart = staged([0, 3, 0], [4.4, 3, 0], [0, 3, 10], [4.4, 3, 10])
+    facing = staged([0, 3, 0], [2.0, 3, 0], [10, 3, 0], [-10, 3, 0])
+    through = staged([-20, 3, 0], [20, 3, 0], [-20, 3, 10], [20, 3, 10], walk=([-20, 3, -10], [-17.3, 3, 10]))
+    past_ok = staged([-20, 3, 0], [20, 3, 0], [-20, 3, 10], [20, 3, 10], walk=([-15.6, 3, -10], [-15.6, 3, 10]))
+    expect(f"make: the plan flags actors inside each other (side by side 3 studs apart: {close_pair}; a walk 2.7 studs "
+           f"from someone: {through}) and passes 4.4 apart, two facing each other 2 apart, a walk 4.4 off "
+           f"({apart}, {facing}, {past_ok})",
+           len(close_pair) == 1 and "overlap" in close_pair[0] and len(through) == 1 and "walk passes through a"
+           in through[0] and not apart and not facing and not past_ok)
     rig = {"name": "x", "actors": {"m": {"at": [0, 3, 0], "facing": [0, 0, -1]}}}
     rest = make._point(rig, "m.face")
     rig["_poses"] = {"m": [[0.0, "idle"]]}
@@ -776,6 +809,20 @@ def pipeline_checks(expect) -> None:
     expect(f"make: a caption said too fast to read borrows time from a neighbour with some to spare ({up} s up)",
            up[1] >= qc.SPEECH_MIN + 1 / 60 - 1e-9 and caps_b[1]["show"] >= 1.0 - 0.12 - 1e-9
            and abs(caps_b[0]["hide"] - caps_b[1]["show"]) < 1e-9 and up[0] > 0.9)
+    early_cap = [{"text": "everyone just liked him.", "show": 7.75, "hide": 8.74, "style": "story"},
+                 {"text": "then he", "show": 8.807, "hide": 9.073, "style": "story"},
+                 {"text": "switched schools.", "show": 9.073, "hide": 9.72, "style": "story"}]
+    make._snap_to_cuts(early_cap, [530], 60)
+    expect(f"make: a caption that waits for a cut just after it keeps its time on screen ({early_cap[1]['show']:.3f}-"
+           f"{early_cap[1]['hide']:.3f} s, the cut at 8.833; M4's 'then he' lost 2 frames and failed its read)",
+           abs(early_cap[1]["show"] - 530 / 60) < 1e-9
+           and early_cap[1]["hide"] - early_cap[1]["show"] >= 0.266 - 1e-9 and early_cap[2]["show"] == early_cap[1]["hide"])
+    tight = [{"text": "liked him.", "show": 0.0, "hide": 1.0}, {"text": "then he", "show": 1.0, "hide": 1.2},
+             {"text": "switched schools forever.", "show": 1.2, "hide": 1.75}]
+    make._balance(tight, 60)
+    expect(f"make: a caption short of reading time hides later before it shows earlier ({caps_b[1]['show']:.3f} s, "
+           f"its words at 1.000), and never shows more than 2 frames before its words ({tight[1]['show']:.3f} s)",
+           abs(caps_b[1]["show"] - 1.0) < 1e-9 and 1.0 - 2 / 60 - 1e-9 <= tight[1]["show"] < 1.0)
     tl = Timeline.load(sh.path("cut.json"))
     expect(f"make: the boom after the line is a picture hit ({tl.hits})",
            len(tl.hits) == 1 and abs(tl.hits[0]["frame"] - round(2.65 * 30)) <= 1)
@@ -801,6 +848,17 @@ def pipeline_checks(expect) -> None:
            f"the story captions ({len(xs_o)} pixels, x {xs_o.min() if len(xs_o) else -1}-{xs_o.max() if len(xs_o) else -1}"
            f", top {ys_o.min() if len(ys_o) else -1})",
            len(xs_o) > 500 and xs_o.max() < 1080 and ys_o.min() >= 0.33 * 1920 - 2)
+    close = {"pos": [0, 4.5, 3], "look": [0, 4.5, 0], "roll": 0.0, "fov": 50.0, "dof": None}   # a head 3 studs off
+    on_face, off_face = np.zeros((1920, 1080, 3), np.float32), np.zeros((1920, 1080, 3), np.float32)
+    bell_ov = {"icon": "bell", "over": [0, 4.5, 0], "size": 150, "lift": 1.4}
+    make._overlay(on_face, bell_ov, close, 0.5, keep=make.ICON_BAND["story"])
+    make._overlay(off_face, bell_ov, close, 0.5, keep=make.ICON_BAND["story"], heads=[[0, 4.5, 0]])
+    box = (slice(int(960 - 0.9 * 412), int(960 + 0.9 * 412)), slice(int(540 - 0.8 * 412), int(540 + 0.8 * 412)))
+    n_on, n_off = int((on_face[box].max(axis=2) > 0.05).sum()), int((off_face[box].max(axis=2) > 0.05).sum())
+    ys_f, xs_f = np.nonzero(off_face.max(axis=2) > 0.05)
+    expect(f"make: an icon the captions' band pushes onto a face in a close-up moves beside the head ({n_on} pixels "
+           f"on the face without the heads, {n_off} with them; drawn at x {xs_f.min() if len(xs_f) else -1}-"
+           f"{xs_f.max() if len(xs_f) else -1})", n_on > 500 and n_off == 0 and len(xs_f) > 500 and xs_f.max() < 1080)
     img_t = np.zeros((1920, 1080, 3), np.float32)
     make._overlay(img_t, {"icon": None, "text": "99%", "over": [0, 3, 0], "size": 150, "lift": 1.4}, view, 0.5)
     ys_t, xs_t = np.nonzero(img_t.min(axis=2) > 0.9)   # the white fill of the label's letters
@@ -831,6 +889,15 @@ def pipeline_checks(expect) -> None:
         st = kit.SETS["stage_void"]({"props": [{"kind": name, "at": [0, 0, 0]}]})
         prop_parts[name] = len(st.parts) + len(st.signs) - len(kit.SETS["stage_void"]({}).parts)
     expect(f"kit: every prop builds in a set's options ({prop_parts})", all(n > 0 for n in prop_parts.values()))
+    worded = {name: [g["text"] for g in kit.SETS[name]({}).signs if g["text"]] for name in kit.SETS}
+    plain = {name: [g["text"] for g in kit.SETS[name]({"signs": False}).signs if g["text"]] for name in kit.SETS}
+    gym_dance = kit.SETS["gym"]({"dance": True})
+    expect(f"kit: a set's writing ({sum(len(v) for v in worded.values())} signs) all goes blank with signs False "
+           f"({sum(len(v) for v in plain.values())} left); the gym dresses for a dance ({len(gym_dance.parts)} parts, "
+           f"{len(gym_dance.lights)} lights against {len(kit.SETS['gym']({}).parts)} and {len(kit.SETS['gym']({}).lights)})",
+           sum(len(v) for v in worded.values()) >= 6 and not any(plain.values())
+           and len(gym_dance.parts) > len(kit.SETS["gym"]({}).parts) + 50
+           and len(gym_dance.lights) > len(kit.SETS["gym"]({}).lights))
     bad = []
     for name in facekit.NAMES:
         a = np.asarray(facekit.draw(name))[..., 3]

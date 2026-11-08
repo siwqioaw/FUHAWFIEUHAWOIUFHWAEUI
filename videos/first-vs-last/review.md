@@ -26,3 +26,27 @@ frames, the boom on its frame, the headers on their cuts and never over eyes, th
 every asset licensed, teen-appropriate.
 
 Re-cut and every shot shot again.
+
+## Round 2 (2026-11-08, on `out/first-vs-last.mp4` of 08:26)
+
+A second fresh reviewer. Evidence in `build/review2/first-vs-last/`. The cuts landed on the beat (-16 to +9 ms from
+the accents); the weak point was staging: four of seven shots didn't read from the picture alone.
+
+| # | Finding | Severity | Cause | Fix |
+|---|---|---|---|---|
+| 1 | `hand_up` doesn't read: the fist level with his eyes; the bottom 24% a front-row chair's back; no classmates; Leo in the aisle | must | a camera low in the desks (from below, the raised arm foreshortens to head height) | Leo at his front-row desk (it hides his legs), a classmate behind, shot from the board's end at eye height: the hand clears his head |
+| 2 | `hello`: the wave's hand never in frame | should | framed on his head at 7.2 studs | framed toward the waving hand, wider |
+| 3 | `yelled`: the point aimed at the camera (a block), the teacher cut by the edge, the two 3.6 apart with their arms touching | should | `point` aims where the body faces | the teacher faces us and points across the frame at Leo (the arm turned 52 degrees), 4.7 apart |
+| 4 | `Me:`: the cheerers at the edges with no arms; their fists poking out of the narrator's hair like ears | should | level, the people behind sat behind his head | from 2.5 studs above: the cheerers stand clear above his head, arms straight up so two fit the frame |
+| 5 | The loop is in phase on the beat, not the phrase (five bars over four-bar chords) | nit | 10.0 s | kept: on the beat, no click; noted |
+| 6 | 4.78 s isn't the music's own hit (13th of 15 accents); the biggest are at 7.28 and 8.78 | nit | the notes overclaimed | notes corrected: the boom carries the turn; freedom and Me: cut on the two biggest hits |
+| 7 | `freedom` stops dead: the run covered its 12 studs in 1 s, then a snap to the cheer | nit | the run too short | 18 studs: a run the whole shot long |
+| 8 | An orange band (the chair back) in the first frames of `asleep` | nit | straight on, the camera rose past a front-row chair | down the aisle, 30 degrees round |
+| 9 | `friends`: both outer arms cut | nit | | wider (the high five's contact is meant) |
+| 10 | The board's "same both days" can't be noticed; `package.md` says 10.5 s | nit | | the claim dropped; 10.0 s |
+
+Fine, by the reviewer's measure: -14.4 LUFS, -2.4 dBTP, read times, no flashes, clicks, flat, black or frozen frames,
+six hard cuts and no stray frame, the bed from 22.740 s, 120 BPM 3-3-2 confirmed, the cuts -16 to +9 ms from the
+accents, the headers on their cuts and never over a face, no logo, every asset licensed, teen-suitable.
+
+Every shot restaged and shot again (the cuts unchanged).

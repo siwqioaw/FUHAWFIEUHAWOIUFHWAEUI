@@ -1,6 +1,6 @@
 # first-vs-last: package
 
-The file: `out/first-vs-last.mp4` (music comparison, 10.5 s, 1080 x 1920). Paste these when you upload it; uploading, scheduling and
+The file: `out/first-vs-last.mp4` (music comparison, 10.0 s, 1080 x 1920). Paste these when you upload it; uploading, scheduling and
 the audience setting stay yours.
 
 ## Title (41 characters)

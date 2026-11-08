@@ -21,7 +21,20 @@ failure found to this list and to `docs/VERIFY.md`.
   cut by an edge of the frame (the plan warns: a back row at a push-in's edges shows only as half-faces) or down past
   85% under the Shorts UI; a close-up aimed at the face where the pose puts it (a slump drops it half a stud); the
   subject of the line in frame; no camera inside a wall or a prop.
-- **Staging:** no actor inside furniture or another actor; feet on the floor; no one floating; walks don't slide.
+- **Staging:** no actor inside furniture or another actor (the plan's staging warnings: R6s side by side need 4
+  studs, cheering 5; a walk 4 studs' room past anyone); feet on the floor; no one floating; walks don't slide; a
+  walk ends facing where the shot needs the face.
+- **Every beat in the picture:** each line's action shown, not just said (M4: "switched schools" over a white wall,
+  "hid behind the lockers" with no lockers to hide behind, "ate lunch alone" from above, "sat down" in profile).
+  Lunch goes in the `cafeteria`, a dance in the `gym` with `{"dance": True}`.
+- **The signature escalates:** when the story says louder or more, the sound and the picture get louder and bigger
+  (M4's dings measured quieter as the line said "so loud"); the rule shown in the first second, not after it's
+  explained.
+- **Gestures read:** a raised hand clears the head (from eye height; from below, foreshortened, it reached his
+  eyes); a point crosses the frame toward its target, not at the camera; background gestures not behind a
+  foreground head (two fists poked out of a narrator's hair like ears).
+- **Icons:** over the right head (the one the rule is about), never on a face.
+- **Set writing:** none under the captions (posters, boards, scoreboards: `{"signs": False}`).
 - **Captions:** the script's words, timed to the voice; CAPS where the script stresses; emoji drawn (comedy only);
   readable on a phone; never over a face.
 - **Sound:** the voice clear over the bed; a boom after every punch (comedy); the rule's sound on every instance

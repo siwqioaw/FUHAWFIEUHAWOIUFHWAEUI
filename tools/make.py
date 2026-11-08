@@ -490,39 +490,49 @@ def _clauses(words: list, style: str, emoji: str | None, story: bool,
     return [tuple(c) for c in out]
 
 
-def _balance(caps: list, fps: float, most: float = 0.12) -> None:
-    """A caption up too briefly to read (a phrase said very fast) takes up to `most` seconds from its neighbours: it
-    shows earlier, into a gap or from the caption before when that one has time to spare, then hides later, from the
-    one after. So it stays within a few frames of its words, and nothing it borrows from drops below its own need."""
+def _cap_need(c: dict, fps: float) -> float:
+    """The seconds a speech caption needs on screen: qc.py's read rule, and a frame for rounding."""
+    import captions as _c
     import qc
+    text = " ".join(t for t in c["text"].split() if not _c.is_emoji(t))
+    return max(qc.SPEECH_MIN, len(text) / qc.SPEECH_CPS) + 1.0 / fps
 
-    def need(c):
-        import captions as _c
-        text = " ".join(t for t in c["text"].split() if not _c.is_emoji(t))
-        return max(qc.SPEECH_MIN, len(text) / qc.SPEECH_CPS) + 1.0 / fps   # a frame for rounding
 
+def _balance(caps: list, fps: float, most: float = 0.12) -> None:
+    """A caption up too briefly to read (a phrase said very fast) takes up to `most` seconds from its neighbours:
+    first it hides later, into a gap or from the caption after when that one has time to spare; then it shows earlier,
+    but never more than two frames before its words (M4's second review: "then he" came up 7 frames early, over the
+    shot before). Nothing it borrows from drops below its own need."""
     def spare(c):
-        return (c["hide"] - c["show"]) - need(c)
+        return (c["hide"] - c["show"]) - _cap_need(c, fps)
 
     for i, c in enumerate(caps):
         short = -spare(c)
         if short <= 0:
             continue
-        early = min(short, most)
-        if i and caps[i - 1]["hide"] <= c["show"] - 1e-9:   # a gap before it
-            take = min(early, c["show"] - caps[i - 1]["hide"])
-            c["show"] -= take
-            early -= take
-            short -= take
-        if short > 0 and early > 0 and i and abs(caps[i - 1]["hide"] - c["show"]) < 1e-6:
-            take = min(early, max(0.0, spare(caps[i - 1])))
-            caps[i - 1]["hide"] -= take
-            c["show"] -= take
-            short -= take
-        if short > 0 and i + 1 < len(caps) and abs(caps[i + 1]["show"] - c["hide"]) < 1e-6:
-            take = min(short, most, max(0.0, spare(caps[i + 1])))
+        later = min(short, most)
+        nxt = caps[i + 1] if i + 1 < len(caps) else None
+        if nxt is None or nxt["show"] > c["hide"] + 1e-9:   # a gap after it, or the end
+            take = later if nxt is None else min(later, nxt["show"] - c["hide"])
             c["hide"] += take
-            caps[i + 1]["show"] += take
+            later -= take
+            short -= take
+        if short > 0 and later > 0 and nxt is not None and abs(nxt["show"] - c["hide"]) < 1e-6:
+            take = min(later, max(0.0, spare(nxt)))
+            c["hide"] += take
+            nxt["show"] += take
+            short -= take
+        early = min(short, 2.0 / fps)
+        if early > 0 and i:
+            prev = caps[i - 1]
+            if prev["hide"] <= c["show"] - 1e-9:   # a gap before it
+                take = min(early, c["show"] - prev["hide"])
+                c["show"] -= take
+                early -= take
+            if early > 0 and abs(prev["hide"] - c["show"]) < 1e-6:
+                take = min(early, max(0.0, spare(prev)))
+                prev["hide"] -= take
+                c["show"] -= take
 
 
 def _snap_to_cuts(caps: list, cuts: list, fps: float, most: int = 4, early: int = 2) -> None:
@@ -543,9 +553,15 @@ def _snap_to_cuts(caps: list, cuts: list, fps: float, most: int = 4, early: int 
             if t - caps[i - 1]["show"] < 0.3:
                 continue  # the one before can't give the frames
             caps[i - 1]["hide"] = t
+        nxt = caps[i + 1] if i + 1 < len(caps) else None
+        hide = c["hide"] + max(0.0, t - c["show"])   # waiting for the cut, it keeps its time on screen (M4's
+        if nxt is not None and hide > nxt["show"] + 1e-9:   # "then he" lost 2 of its frames and failed its read)
+            if (nxt["hide"] - hide) < _cap_need(nxt, fps):
+                continue   # the one after can't give the frames either: it stays before the cut
+            nxt["show"] = hide
         if i and caps[i - 1]["hide"] < t and caps[i - 1]["hide"] >= c["show"] - 1e-9:
             caps[i - 1]["hide"] = t   # waiting for the cut: the one before stays up till then
-        c["show"] = t
+        c["show"], c["hide"] = t, hide
 
 
 def _plan_face(a: dict, t: float) -> list:
@@ -604,6 +620,81 @@ def _framing(plan: dict, size=(1080, 1920)) -> list[str]:
             elif plan.get("family") == "comedy" and 0.66 < frac <= 1.0:
                 out.append(f"{s['name']}: {name}'s face is {frac:.0%} down, under the comedy captions (frame it "
                            f"above 66%)")
+    return out
+
+
+def _reach(poses: list) -> tuple:
+    """The floor box an actor covers over every pose it takes, in its own axes (pose.reach())."""
+    import pose
+    boxes = [pose.reach(pose.at([[0.0, p[1]]], 0.0, drift_amount=0.0)[0]) for p in (poses or [[0.0, "idle"]])]
+    return (min(b[0] for b in boxes), max(b[1] for b in boxes), min(b[2] for b in boxes), max(b[3] for b in boxes))
+
+
+def _footprint(pos, d, box) -> tuple:
+    """A floor box in the world: its corners, and its two axes (the actor's right and back)."""
+    right, back = (-d[2], d[0]), (-d[0], -d[2])
+    corners = [(pos[0] + lx * right[0] + lz * back[0], pos[2] + lx * right[1] + lz * back[1])
+               for lx in box[:2] for lz in box[2:]]
+    return corners, (right, back)
+
+
+def _overlap(a, b) -> float:
+    """How deep two floor boxes (_footprint) overlap, in studs; 0 when they're apart (the separating axis test)."""
+    depth = float("inf")
+    for ax in a[1] + b[1]:
+        pa = [c[0] * ax[0] + c[1] * ax[1] for c in a[0]]
+        pb = [c[0] * ax[0] + c[1] * ax[1] for c in b[0]]
+        o = min(max(pa), max(pb)) - max(min(pa), min(pb))
+        if o <= 0:
+            return 0.0
+        depth = min(depth, o)
+    return depth
+
+
+def _staging(plan: dict, least: float = 0.15) -> list[str]:
+    """Actors inside each other: each one's floor box (body and arms, over every pose it takes) against every other
+    standing within 2 studs of its height, and a walk's box at every half stud of its path against those standing
+    (M4's second review: Leo walked through two students 2.6-2.8 studs from his path; M3's first, her elbow through
+    his arm at 3 studs). Two R6s side by side need 4 studs between them. Warnings, like the framing ones."""
+    from itertools import combinations
+    out = []
+    for s in plan["shots"]:
+        boxes, walks = {}, {}
+        for name, a in s.get("actors", {}).items():
+            if a.get("walk"):
+                w = a["walk"]
+                walks[name] = (w["from"], w["to"])
+                continue
+            pos = a["cf"]["pos"]
+            look = a["cf"].get("look") or [pos[0], pos[1], pos[2] + 1.0]
+            d = [look[0] - pos[0], 0.0, look[2] - pos[2]]
+            n = math.hypot(d[0], d[2]) or 1.0
+            boxes[name] = (pos, _footprint(pos, [d[0] / n, 0.0, d[2] / n], _reach(a.get("poses"))))
+        for (n1, (p1, f1)), (n2, (p2, f2)) in combinations(boxes.items(), 2):
+            depth = _overlap(f1, f2) if abs(p1[1] - p2[1]) < 2.0 else 0.0
+            if depth > least:
+                out.append(f"{s['name']}: {n1} and {n2} overlap by {depth:.1f} studs (an arm through the other: stand "
+                           f"them further apart)")
+        for name, (p0, p1) in walks.items():
+            run = [p1[0] - p0[0], 0.0, p1[2] - p0[2]]
+            length = math.hypot(run[0], run[2])
+            if length < 1e-6:
+                continue
+            d = [run[0] / length, 0.0, run[2] / length]
+            x0, x1, z0, z1 = _reach([[0.0, "idle"]])
+            box = (x0, x1, z0 - 0.4, z1 + 0.4)   # the arms swing
+            worst = {}
+            for k in range(int(length / 0.5) + 1):
+                f = min(1.0, k * 0.5 / length)
+                here = [p0[0] + run[0] * f, p0[1], p0[2] + run[2] * f]
+                mine = _footprint(here, d, box)
+                for other, (q, fo) in boxes.items():
+                    if abs(q[1] - here[1]) < 2.0:
+                        worst[other] = max(worst.get(other, 0.0), _overlap(mine, fo))
+            for other, depth in worst.items():
+                if depth > least:
+                    out.append(f"{s['name']}: {name}'s walk passes through {other} (by {depth:.1f} studs: give the "
+                               f"path 4 studs' room)")
     return out
 
 
@@ -701,7 +792,8 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
             d = _actor_dir(spec, name)
             actors[name] = {"planted": a.get("planted", True),
                             "cf": {"pos": pos, "look": [pos[0] + d[0] * 10, pos[1], pos[2] + d[2] * 10]},
-                            "poses": [[res(p[0]), p[1]] for p in a.get("poses", [[0, "idle"]])],
+                            "poses": [[res(p[0]), p[1]] + [float(x) for x in p[2:3]]   # (t, pose, snap s)
+                                      for p in a.get("poses", [[0, "idle"]])],
                             "faces": [[res(f[0]), f[1]] for f in a.get("faces", [[0, "smile"]])],
                             "drift": a.get("drift", 1.0)}
             if a.get("walk"):
@@ -794,6 +886,8 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
         print(f"  {s['name']}: {s['start']:.2f}-{s['start'] + s['seconds']:.2f} s ({s['frames']} frames)")
     for warn in _framing(plan):
         print(f"  framing: {warn}")
+    for warn in _staging(plan):
+        print(f"  staging: {warn}")
     import qc
     from timeline import Timeline
     short = [row for row in qc.text_times(Timeline(cut), 12.0) if row[0] == "FAIL"]
@@ -835,16 +929,25 @@ def shot_fn(plan: dict, shot: dict, cast: list[str]):
                                                   "look": [OFF[0] + 4 * i, OFF[1], OFF[2] + 10]}})
                 continue
             cf = a["cf"]
-            if a.get("walk") and t >= a["walk"]["start"]:
+            if a.get("walk"):
                 w = a["walk"]
-                tw = t - w["start"]
+                tw = max(0.0, t - w["start"])   # before it starts: waiting at the start, facing the way it'll go
                 dist = math.dist(w["from"], w["to"])
                 trav = min(pose.walk_travel(tw, freq=w["freq"]), dist)
                 u = trav / dist if dist else 1.0
                 pos = [w["from"][j] + (w["to"][j] - w["from"][j]) * u for j in range(3)]
                 d = [w["to"][0] - w["from"][0], 0.0, w["to"][2] - w["from"][2]]
+                if trav >= dist:   # arrived: turn to the mark's facing over 0.3 s (M4's "Leo sat down" stayed in
+                    arrive = dist / max(pose.walk_travel(1.0, freq=w["freq"]), 1e-6)   # profile, the walk's way)
+                    k = min(1.0, max(0.0, (tw - arrive) / 0.3))
+                    k = k * k * (3 - 2 * k)
+                    f = [cf["look"][0] - cf["pos"][0], 0.0, cf["look"][2] - cf["pos"][2]]
+                    n0, n1 = math.hypot(d[0], d[2]) or 1.0, math.hypot(f[0], f[2]) or 1.0
+                    a0, a1 = math.atan2(d[2] / n0, d[0] / n0), math.atan2(f[2] / n1, f[0] / n1)
+                    turn = (a1 - a0 + math.pi) % (2 * math.pi) - math.pi
+                    d = [math.cos(a0 + turn * k), 0.0, math.sin(a0 + turn * k)]
                 cf = {"pos": pos, "look": [pos[0] + d[0], pos[1], pos[2] + d[2]]}
-                if trav < dist:
+                if 0.0 < trav < dist:
                     joints, rootpos = pose.walking(tw, freq=w["freq"])
                 else:
                     joints, rootpos = pose.at(a["poses"], t, drift_amount=a.get("drift", 1.0), seed=i + 1,
@@ -975,6 +1078,21 @@ def _caption_layer(text: str, style: str):
     return captions.render(text, style)
 
 
+def _heads(shot: dict, t: float) -> list:
+    """The head centres of a planned shot's standing actors at time t, as posed (a walker's isn't known here)."""
+    out = []
+    for a in shot.get("actors", {}).values():
+        if a.get("walk"):
+            continue
+        pos = a["cf"]["pos"]
+        look = a["cf"].get("look") or [pos[0], pos[1], pos[2] + 1.0]
+        d = [look[0] - pos[0], 0.0, look[2] - pos[2]]
+        n = math.hypot(d[0], d[2]) or 1.0
+        out.append(_posed_points(pos, [d[0] / n, 0.0, d[2] / n], a.get("poses") or [[0.0, "idle"]], t,
+                                 a.get("planted", True))[0])
+    return out
+
+
 def frame_at(build: str, r: int) -> np.ndarray:
     """Record frame r of the cut: the shot's captured frame at 1080 x 1920, a swoop's streak, the captions."""
     import cv2
@@ -998,11 +1116,14 @@ def frame_at(build: str, r: int) -> np.ndarray:
         px = camera.smear(_path_for(plan_path, shot["name"]), k / fps, fps=fps) * 1080 / 960
         if px > 1.5:
             out = fx.streak(out, px)
+    heads = None
     for ov in shot.get("overlays", []):
         u = (k / fps - ov["start"]) / max(ov["dur"], 1e-3)
         if 0.0 <= u < 1.0:
+            if heads is None:
+                heads = _heads(shot, k / fps)
             out = _overlay(out, ov, _path_for(plan_path, shot["name"])(k / fps), u,
-                           keep=ICON_BAND.get(plan.get("family"), (0.03, 0.97)))
+                           keep=ICON_BAND.get(plan.get("family"), (0.03, 0.97)), heads=heads)
     zoom = _punch(plan, r)
     if zoom > 1.0005:
         h, w = out.shape[:2]
@@ -1063,12 +1184,33 @@ def _icon(name: str, size: int):
 ICON_BAND = {"story": (0.33, 0.97), "comedy": (0.03, 0.70), "music": (0.20, 0.97)}
 
 
-def _overlay(img: np.ndarray, ov: dict, view: dict, u: float, keep=(0.03, 0.97)) -> np.ndarray:
+def _clear_of_faces(cx: float, cy: float, hw: float, hh: float, faces: list, size, keep, m: float) -> tuple:
+    """An icon's centre moved off any face it would cover: beside that head, on the side it was nearer, level with
+    the top of the head (M4's second review: in close-ups the captions' band pushed every bell onto a forehead).
+    faces: (x, y, r) on screen, r the head's radius in pixels. Left where it is when no side has room."""
+    w, h = size
+
+    def covers(x, y):
+        return [f for f in faces if abs(x - f[0]) < hw + 0.8 * f[2] and abs(y - f[1]) < hh + 0.9 * f[2]]
+
+    hit = covers(cx, cy)
+    if not hit:
+        return cx, cy
+    fx, fy, r = max(hit, key=lambda f: f[2])
+    y = min(max(fy - 0.6 * r, keep[0] * h + hh), keep[1] * h - hh)
+    for x in sorted((fx + 0.8 * r + hw + 6, fx - 0.8 * r - hw - 6), key=lambda v: abs(v - cx)):
+        if hw + m <= x <= w - hw - m and not covers(x, y):
+            return x, y
+    return cx, cy
+
+
+def _overlay(img: np.ndarray, ov: dict, view: dict, u: float, keep=(0.03, 0.97), heads=()) -> np.ndarray:
     """An icon, a line of text or both (the text over the icon) popping up over a point in the scene: projected
     through the shot's camera, scaled in with a little overshoot over the first fifth of its time, faded out over the
     last fifth. Text is drawn in the `label` style, its natural size at `size` 150 ("99%" over a head, a text in a
     speech bubble). An icon that would land off the frame, or in the captions' band, is pulled just inside `keep`
-    (M4's review: in close-ups, 13 of 26 bells set around a head projected off screen)."""
+    (M4's review: in close-ups, 13 of 26 bells set around a head projected off screen), then moved off any face it
+    would cover: `heads` are the head centres of the shot's actors, as posed (_clear_of_faces)."""
     import cv2
 
     import camera
@@ -1094,6 +1236,12 @@ def _overlay(img: np.ndarray, ov: dict, view: dict, u: float, keep=(0.03, 0.97))
         pics.append(cv2.resize(layer, (max(1, int(layer.shape[1] * k)), max(1, int(layer.shape[0] * k))),
                                interpolation=cv2.INTER_AREA))
     h, w = img.shape[:2]
+    faces = []
+    for hd in heads:
+        c = camera.project(view, hd, size=(w, h))
+        top = camera.project(view, [hd[0], hd[1] + 0.6, hd[2]], size=(w, h))
+        if c and top:
+            faces.append((c[0], c[1], abs(c[1] - top[1])))
     for pic in pics:
         pic = pic.copy()
         pic[..., 3] *= alpha
@@ -1101,6 +1249,7 @@ def _overlay(img: np.ndarray, ov: dict, view: dict, u: float, keep=(0.03, 0.97))
         m = 0.02 * w
         cx = min(max(xy[0], hw + m), w - hw - m)
         cy = min(max(xy[1], keep[0] * h + hh), keep[1] * h - hh)
+        cx, cy = _clear_of_faces(cx, cy, hw, hh, faces, (w, h), keep, m)
         look.over(img, pic, int(cx - hw), int(cy - hh))
     return img
 
