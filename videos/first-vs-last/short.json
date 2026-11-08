@@ -18,15 +18,18 @@
   "ex1": {
    "look": "extra_a"
   },
-  "ex2": {
-   "look": "extra_b"
+  "ex3": {
+   "look": "extra_c"
+  },
+  "nar": {
+   "look": "narrator"
   }
  },
  "lines": [],
  "shots": [
   {
    "name": "hello",
-   "seconds": 1.5,
+   "seconds": 1.2666666666666666,
    "pad": 0.2,
    "actors": {
     "leo": {
@@ -42,7 +45,7 @@
       ],
       [
        0.1,
-       "cheer"
+       "wave"
       ]
      ],
      "faces": [
@@ -60,7 +63,7 @@
     },
     "ex1": {
      "at": [
-      -2.4,
+      2.6,
       3,
       -5
      ],
@@ -78,7 +81,7 @@
      ],
      "drift": 1.0,
      "facing": [
-      0.3,
+      -0.3,
       0,
       1
      ]
@@ -87,15 +90,15 @@
    "camera": [
     {
      "t": 0,
-     "aim": "leo.head",
-     "distance": 9.5,
+     "aim": "leo.head+[0,0.2,0]",
+     "distance": 9.0,
      "fov": 48,
      "height": -0.3
     },
     {
      "t": 0.04,
-     "aim": "leo.head",
-     "distance": 6.0,
+     "aim": "leo.head+[0,0.2,0]",
+     "distance": 7.2,
      "fov": 48,
      "height": -0.3,
      "move": 0.28,
@@ -113,14 +116,18 @@
    "actors": {
     "leo": {
      "at": [
-      1.5,
+      -0.4,
       3,
-      3
+      3.5
      ],
      "poses": [
       [
        0,
-       "point"
+       "idle"
+      ],
+      [
+       0.05,
+       "hand_up"
       ]
      ],
      "faces": [
@@ -135,51 +142,24 @@
       0,
       -1
      ]
-    },
-    "teacher": {
-     "at": [
-      -9,
-      3,
-      -14.5
-     ],
-     "poses": [
-      [
-       0,
-       "idle"
-      ]
-     ],
-     "faces": [
-      [
-       0,
-       "smile"
-      ]
-     ],
-     "drift": 1.0,
-     "facing": [
-      0,
-      0,
-      1
-     ]
     }
    },
    "camera": [
     {
      "t": 0,
-     "low": {
-      "aim": "leo.head",
-      "distance": 6.5,
-      "eye": 2.4,
-      "fov": 55
-     }
+     "aim": "leo.head+[0,0.6,0]",
+     "distance": 9.0,
+     "fov": 50,
+     "height": -1.2,
+     "orbit": 35
     },
     {
      "t": 0.04,
-     "low": {
-      "aim": "leo.head",
-      "distance": 5.0,
-      "eye": 2.4,
-      "fov": 55
-     },
+     "aim": "leo.head+[0,0.6,0]",
+     "distance": 7.5,
+     "fov": 50,
+     "height": -1.2,
+     "orbit": 35,
      "move": 0.3,
      "ease": "out"
     }
@@ -191,19 +171,19 @@
   },
   {
    "name": "friends",
-   "seconds": 1.5,
+   "seconds": 2.0,
    "pad": 0.2,
    "actors": {
     "leo": {
      "at": [
-      -1.3,
+      -2.2,
       3,
       0
      ],
      "poses": [
       [
        0,
-       "hands_on_hips"
+       "cheer"
       ]
      ],
      "faces": [
@@ -214,14 +194,14 @@
      ],
      "drift": 1.0,
      "facing": [
-      0,
+      0.2,
       0,
       1
      ]
     },
     "friend": {
      "at": [
-      1.3,
+      2.2,
       3,
       0
      ],
@@ -239,7 +219,7 @@
      ],
      "drift": 1.0,
      "facing": [
-      0,
+      -0.2,
       0,
       1
      ]
@@ -249,7 +229,7 @@
     {
      "t": 0,
      "aim": "leo.head",
-     "distance": 10.5,
+     "distance": 12.5,
      "fov": 50,
      "height": -0.2,
      "between": "friend"
@@ -257,7 +237,7 @@
     {
      "t": 0.04,
      "aim": "leo.head",
-     "distance": 9.0,
+     "distance": 11.0,
      "fov": 50,
      "height": -0.2,
      "between": "friend",
@@ -271,14 +251,14 @@
   },
   {
    "name": "asleep",
-   "seconds": 1.5,
+   "seconds": 1.2666666666666666,
    "pad": 0.2,
    "actors": {
     "leo": {
      "at": [
-      1.5,
+      -3,
       3,
-      3
+      5.1
      ],
      "poses": [
       [
@@ -303,20 +283,18 @@
    "camera": [
     {
      "t": 0,
-     "top": {
-      "aim": "leo.torso",
-      "height": 12.0,
-      "fov": 50
-     }
+     "aim": "leo.head+[0,0.1,0]",
+     "distance": 7.5,
+     "fov": 48,
+     "height": -0.3
     },
     {
      "t": 0.04,
-     "top": {
-      "aim": "leo.torso",
-      "height": 10.0,
-      "fov": 50
-     },
-     "move": 0.3,
+     "aim": "leo.head+[0,0.1,0]",
+     "distance": 6.0,
+     "fov": 48,
+     "height": -0.3,
+     "move": 0.4,
      "ease": "out"
     }
    ],
@@ -328,11 +306,21 @@
     }
    ],
    "drift": 1.0,
-   "set": "class"
+   "set": "class",
+   "overlays": [
+    {
+     "icon": "💤",
+     "over": "leo.head",
+     "at": 0.2,
+     "size": 130,
+     "lift": 1.2,
+     "dur": 1.0
+    }
+   ]
   },
   {
    "name": "yelled",
-   "seconds": 1.5,
+   "seconds": 1.2333333333333334,
    "pad": 0.2,
    "actors": {
     "teacher": {
@@ -420,7 +408,7 @@
      "at": [
       0,
       3,
-      -20
+      -12
      ],
      "poses": [
       [
@@ -449,17 +437,17 @@
       "to": [
        0,
        3,
-       -16
+       -12
       ],
       "start": 0.0,
-      "freq": 2.4
+      "freq": 3.4
      }
     },
-    "ex2": {
+    "ex3": {
      "at": [
-      2.2,
+      2.4,
       3,
-      -27
+      -26
      ],
      "poses": [
       [
@@ -484,18 +472,34 @@
    "camera": [
     {
      "t": 0,
-     "aim": "leo.head",
-     "distance": 10.0,
-     "fov": 48
+     "pos": [
+      0,
+      5.2,
+      -3.5
+     ],
+     "look": [
+      0,
+      4.2,
+      -18
+     ],
+     "fov": 55,
+     "back": 1.5
     },
     {
-     "t": 0.05,
-     "aim": "leo.head",
-     "distance": 6.5,
-     "fov": 48,
-     "dutch": -14,
-     "move": 0.4,
-     "ease": "inout"
+     "t": 0.04,
+     "pos": [
+      0,
+      5.2,
+      -3.5
+     ],
+     "look": [
+      0,
+      4.2,
+      -18
+     ],
+     "fov": 55,
+     "move": 0.3,
+     "ease": "out"
     }
    ],
    "say": [],
@@ -504,10 +508,10 @@
   },
   {
    "name": "me",
-   "seconds": 1.5,
+   "seconds": 1.2333333333333334,
    "pad": 0.2,
    "actors": {
-    "leo": {
+    "nar": {
      "at": [
       0,
       3,
@@ -516,13 +520,63 @@
      "poses": [
       [
        0,
-       "arms_crossed"
+       "slump"
       ]
      ],
      "faces": [
       [
        0,
-       "deadpan"
+       "dead"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    "ex1": {
+     "at": [
+      -2.6,
+      3,
+      -6
+     ],
+     "poses": [
+      [
+       0,
+       "cheer"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "grin"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    "friend": {
+     "at": [
+      2.6,
+      3,
+      -7
+     ],
+     "poses": [
+      [
+       0,
+       "cheer"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "laugh"
       ]
      ],
      "drift": 1.0,
@@ -536,17 +590,17 @@
    "camera": [
     {
      "t": 0,
-     "aim": "leo.head",
-     "distance": 6.0,
-     "fov": 45,
-     "height": -0.3
+     "aim": "nar.head",
+     "distance": 7.0,
+     "fov": 48,
+     "height": 0.9
     },
     {
      "t": 0.04,
-     "aim": "leo.head",
-     "distance": 4.4,
-     "fov": 45,
-     "height": -0.3,
+     "aim": "nar.head",
+     "distance": 5.6,
+     "fov": 48,
+     "height": 0.9,
      "move": 0.3,
      "ease": "out"
     }
@@ -574,19 +628,19 @@
   {
    "text": "{yellow:First} day of school..",
    "from": 0.0,
-   "to": 4.5,
+   "to": 4.766666666666667,
    "style": "header"
   },
   {
    "text": "{red:Last} day of school..",
-   "from": 4.5,
-   "to": 9.0,
+   "from": 4.766666666666667,
+   "to": 8.766666666666667,
    "style": "header"
   },
   {
    "text": "Me:",
-   "from": 9.0,
-   "to": 10.5,
+   "from": 8.766666666666667,
+   "to": 10.0,
    "style": "header"
   }
  ],

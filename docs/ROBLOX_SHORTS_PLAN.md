@@ -179,11 +179,11 @@ Each spike has a test it must pass. None depends on the others except S7.
 | | Milestone | Done when |
 |---|---|---|
 | M0 | Reference study | done 2026-11-07: 16 notes, `SYNTHESIS.md`, the listener pass (checked) and the research report filed |
-| M1 | Spikes | S1-S7 pass; a 6-second test file |
-| M2 | First Short: a comparison montage | no voice, about 11 s: proves sets, cast, faces, poses, camera, capture, music, header text |
-| M3 | A rant | voice, captions and acting, 25-30 s |
-| M4 | An "In this world" story | 30-35 s, a twist, an emotional beat |
-| M5 | One prompt to file | the skill runs alone end to end; time per video measured |
+| M1 | Spikes | S1-S7 pass; a 6-second test file. **Done 2026-11-08** (the table above) |
+| M2 | First Short: a comparison montage | no voice, about 11 s: proves sets, cast, faces, poses, camera, capture, music, header text. **Made 2026-11-08:** `videos/first-vs-last`, 10.0 s at 30 fps. Its review found the cuts off the beat (the track measured again: 120 BPM, accents 3-3-2), three shots that didn't read and a loop that came round mid-bar; re-cut on the accents, five bars long, every shot restaged (`videos/first-vs-last/review.md`) |
+| M3 | A rant | voice, captions and acting, 25-30 s. **Made 2026-11-08:** `videos/group-project`, 26.9 s at 60 fps, ten lines in three voices. Its review found an elbow through an arm, captions before their words, two lines an octave under the narrator, a jump cut, a click on the loop; each fixed in the tools and the video shot again (`videos/group-project/review.md`) |
+| M4 | An "In this world" story | 30-35 s, a twist, an emotional beat. **Made 2026-11-08:** `videos/ding`, 33.6 s, 21 shots in three places. Its review found half the bells off screen, white frames from a camera above a ceiling, jump cuts and the old school's people at the new one; fixed, eleven shots restaged (`videos/ding/review.md`) |
+| M5 | One prompt to file | the skill runs alone end to end; time per video measured. **Made 2026-11-08:** `videos/pet-narrator` from the owner's example concept, 29.9 s, 20 shots in four places, the pets and the speech bubble built for it. About two and a half hours from the prompt to a reviewed file, an hour of it the shoot (`videos/pet-narrator/notes.md`) |
 | M6 | Scale | more sets and archetypes; the owner's channel analytics feed back into the playbooks |
 
 ## Owner decisions
@@ -245,6 +245,17 @@ default the owner can change in one place):
   permission.
 - **Technical:** shoot time, portrait resolution, Studio stability over long sessions, and stiff animation (one of
   the trailer's rejections).
+
+## Backlog (from the first videos' reviews)
+
+- **Sitting.** R6 has no sit pose yet (`pose.py` drives the hips, so it's buildable): M4's "Leo sat down" shows him
+  walking up instead. Needs the leg angle checked in Studio against the classroom's chairs (seat top 1.71 studs).
+- **Word times.** `voice.refine_words` corrects the transcriber at phrase breaks; a forced aligner (a CTC model) would
+  time every word. torchaudio's aligner is being deprecated; look for a maintained one before adding 1-2 GB of model.
+- **M4's script** has a hole a reviewer found: if kind talk dings, why did Leo hear none when everyone liked him?
+  Fixing it means a new line and a new shoot: the owner's call.
+- **A ceiling check in the plan**: the flat-frame check catches a camera above a ceiling after the shoot; the plan
+  could know each set's ceiling and warn before it.
 
 ## Where the knowledge lives
 

@@ -568,6 +568,8 @@ def _offset_shot(spec: dict, off) -> None:
         for sub in ("low", "top"):
             if sub in key and "aim" in key[sub]:
                 key[sub]["aim"] = mv(key[sub]["aim"])
+    for ov in spec.get("overlays", []):   # an icon over a point given in the set's own frame (M5: every bubble
+        ov["over"] = mv(ov["over"])       # outside the street sat 600-900 studs off and was never drawn)
     spec["_shifted"] = True
 
 
@@ -1114,8 +1116,10 @@ def stage_mix(sh: Short) -> bool:
     if music:
         start = float(music.get("start", 0.0))
         bed = _music(music, plan["seconds"] - start, sr)
-        n = min(len(bed), int(0.35 * sr))
-        if n:   # faded at the end: a note cut off there clicks every time the Short loops (M3's review)
+        # a bed under a voice fades at the end: a note cut off there clicked on every loop (M3's review); a music
+        # format's track runs to the end, its length whole bars, so the loop comes round in phase (M2's review)
+        n = min(len(bed), int(float(music.get("fade_out", 0.35 if music.get("duck", True) else 0.0)) * sr))
+        if n:
             bed[-n:] = bed[-n:] * np.linspace(1.0, 0.0, n)[:, None] if bed.ndim == 2 else bed[-n:] * np.linspace(1.0, 0.0, n)
         clip, at = _clip_at(plan, start)
         mix.place("music", bed, clip, at=at, until=plan["shots"][-1]["name"], label="music")

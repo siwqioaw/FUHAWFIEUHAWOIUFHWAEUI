@@ -57,3 +57,24 @@ M5 is the run the skill was built for, so its failures went back into the tools 
 the voice chain left at 38-42 dB under (cut now), a soft first consonant (the transcriber hears a padded copy), new
 takes downloaded under old names (named by the take now), captions breaking on "a" and "the" (split by phrase now),
 and actors out of the narrow frame (the plan warns). Each is in `skill/roblox-shorts/checklist.md` and the selftest.
+
+## Time, stage by stage
+
+Measured on this machine (Windows, Studio on its own monitor, the transcriber on the CPU). The first M5 run was also
+the run that found the tools' faults, so the fixes' time (hours) isn't a stage of a normal run and isn't counted.
+
+| Stage | Time | Measured from |
+|---|---|---|
+| Concept, tests, script | about 4 min after the libraries' commit (03:13 to 03:17) | file times: `lines.json` 03:17 |
+| Voice: three lines, two takes each, through the connector | seconds a line | the connector |
+| Music bed (ElevenLabs music) | seconds | `lofi_bed.mp3` 03:21 |
+| Direction (`direct.py`): 20 shots, four sets, props, bubbles | about 25 min, alongside other work | file times |
+| Voice processing and checks | 192 s (6 s from the cache) | `make.py voice` |
+| Plan | 8-9 s | `make.py plan` |
+| Stills: 20 shots, then 12 restaged, then 3 | 470 + 273 + 96 s | `make.py stills` |
+| Shoot: 1794 frames at 60 fps | 3159 s (52.7 min, 1.76 s a frame with staging) | `make.py shoot` |
+| Cut, mix, deliver (every check) | 171 + 9 + 129 s | `make.py cut`, `mix`, `deliver` |
+| Independent review | about 25 min | the reviewer agent |
+
+So a 30-second story is about two and a half hours from the prompt to a reviewed file: an hour of it the shoot, half
+an hour looking at stills and restaging, half an hour of review; the writing is the shortest part.

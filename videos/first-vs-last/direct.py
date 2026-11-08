@@ -1,7 +1,12 @@
 """Milestone M2, a comparison montage (family C, no voice): "First day of school VS Last day of school".
 
-A header per side; three shots a side, each two beats of the track (80 BPM: 1.5 s), the second side outdoing the
-first; a boom on the turn; a deadpan "Me" to close and loop. 30 fps, as the references' music formats are.
+A header per side; three shots a side, the second side outdoing the first; a boom on the turn; "Me:" to close and
+loop. 30 fps, as the references' music formats are.
+
+The cuts land on the track's accents, measured (its review found the first cut missed them): "The Plan's Working",
+from 22.74 s in, is 120 BPM in 4/4 with its accents 3-3-2 in each 2 s bar, at +0, +0.75 and +1.5 s from 1.28 s.
+So the cuts are at 1.28, 2.78, 4.78 (the turn, on the music's own hit), 6.03, 7.28 and 8.78 s, and the video is
+10.0 s, five bars, so the loop comes round in phase.
 
     python videos/first-vs-last/direct.py
 """
@@ -11,43 +16,57 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "..", "tools"))
-from shots import Spec, actor, dutch_in, hold, low, pull, push, shot, swoop, top, two_shot, wide  # noqa: E402
+from shots import Spec, actor, low, push, shot, top, two_shot, wide  # noqa: E402
 
 CLASS = (200.0, 0.0, 0.0)
-BEAT = 0.75                      # "The Plan's Working", 80 BPM; the bed starts on a beat
-s = Spec("first-vs-last", family="music", set="hallway", fps=30,
+FPS = 30
+CUTS = [0, 38, 83, 143, 181, 218, 263, 300]   # frames: the accents at 1.28, 2.78, 4.78, 6.03, 7.28, 8.78; 10.0 s
+
+
+def length(i):
+    return (CUTS[i + 1] - CUTS[i]) / FPS
+
+
+s = Spec("first-vs-last", family="music", set="hallway", fps=FPS,
          title="First day of school VS Last day of school",
-         cast={"leo": "me", "friend": "jock", "teacher": "teacher", "ex1": "extra_a", "ex2": "extra_b"},
+         cast={"leo": "me", "friend": "jock", "teacher": "teacher", "ex1": "extra_a", "ex3": "extra_c",
+               "nar": "narrator"},
          extra_sets=[("class", "classroom", CLASS, {"board": "Welcome, class!"})])
-US = [0, 0, 1]
+US, TO_BOARD = [0, 0, 1], [0, 0, -1]
 
 s.add(
     # first day: bright, eager
-    shot("hello", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "idle"), (0.1, "cheer")], faces=[(0, "grin")]),
-                   "ex1": actor([-2.4, 3, -5], facing=[0.3, 0, 1], poses=[(0, "cheer")], faces=[(0, "smile")])},
-         push("leo.head", 9.5, 6.0, fov=48), seconds=2 * BEAT),
-    shot("hand_up", {"leo": actor([1.5, 3, 3], facing=[0, 0, -1], poses=[(0, "point")], faces=[(0, "starstruck")]),
-                     "teacher": actor([-9, 3, -14.5], facing=US, faces=[(0, "smile")])},
-         low("leo.head", distance=5.0, eye=2.4), set="class", seconds=2 * BEAT),
-    shot("friends", {"leo": actor([-1.3, 3, 0], facing=US, poses=[(0, "hands_on_hips")], faces=[(0, "grin")]),
-                     "friend": actor([1.3, 3, 0], facing=US, poses=[(0, "cheer")], faces=[(0, "laugh")])},
-         two_shot("leo", "friend", distance=9.0, fov=50), seconds=2 * BEAT),
+    shot("hello", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "idle"), (0.1, "wave")], faces=[(0, "grin")]),
+                   "ex1": actor([2.6, 3, -5], facing=[-0.3, 0, 1], poses=[(0, "cheer")], faces=[(0, "smile")])},
+         push("leo.head+[0,0.2,0]", 9.0, 7.2, fov=48), seconds=length(0)),
+    shot("hand_up", {"leo": actor([-0.4, 3, 3.5], facing=TO_BOARD, poses=[(0, "idle"), (0.05, "hand_up")],
+                                  faces=[(0, "starstruck")])},
+         [{"t": 0, "aim": "leo.head+[0,0.6,0]", "distance": 9.0, "fov": 50, "height": -1.2, "orbit": 35},
+          {"t": 0.04, "aim": "leo.head+[0,0.6,0]", "distance": 7.5, "fov": 50, "height": -1.2, "orbit": 35,
+           "move": 0.3, "ease": "out"}], set="class", seconds=length(1)),
+    shot("friends", {"leo": actor([-2.2, 3, 0], facing=[0.2, 0, 1], poses=[(0, "cheer")], faces=[(0, "grin")]),
+                     "friend": actor([2.2, 3, 0], facing=[-0.2, 0, 1], poses=[(0, "cheer")], faces=[(0, "laugh")])},
+         two_shot("leo", "friend", distance=11.0, fov=50), seconds=length(2)),
     # last day: everything worse, then absurd
-    shot("asleep", {"leo": actor([1.5, 3, 3], facing=[0, 0, -1], poses=[(0, "slump")], faces=[(0, "sleepy")])},
-         top("leo.torso", height=10.0), set="class", sfx=[("boom", 0.0)], seconds=2 * BEAT),
+    shot("asleep", {"leo": actor([-3, 3, 5.1], facing=TO_BOARD, poses=[(0, "slump")], faces=[(0, "sleepy")])},
+         push("leo.head+[0,0.1,0]", 7.5, 6.0, fov=48, move=0.4), set="class", sfx=[("boom", 0.0)],
+         overlays=[("\U0001F4A4", "leo.head", 0.2, {"size": 130, "lift": 1.2, "dur": 1.0})], seconds=length(3)),
     shot("yelled", {"teacher": actor([-1.0, 3, 0.5], facing=[0.55, 0, 1], poses=[(0, "point")], faces=[(0, "yell")]),
                     "leo": actor([2.6, 3, 0.9], facing=[-0.45, 0, 1], poses=[(0, "slump")], faces=[(0, "dead")])},
-         two_shot("teacher", "leo", distance=9.0, fov=50), set="class", seconds=2 * BEAT),   # turned to us: faces read
-    shot("freedom", {"leo": actor([0, 3, -20], facing=US, poses=[(0, "cheer")], faces=[(0, "evil")],
-                                  walk={"from": [0, 3, -24], "to": [0, 3, -16], "start": 0.0, "freq": 2.4}),
-                     "ex2": actor([2.2, 3, -27], facing=[0, 0, 1], poses=[(0, "hands_on_head")], faces=[(0, "shock")])},
-         dutch_in("leo.head", degrees=-14, start=10.0, end=6.5, move=0.4), seconds=2 * BEAT),
-    shot("me", {"leo": actor([0, 3, 0], facing=US, poses=[(0, "arms_crossed")], faces=[(0, "deadpan")])},
-         push("leo.head", 6.0, 4.4, move=0.3), seconds=2 * BEAT),
+         two_shot("teacher", "leo", distance=9.0, fov=50), set="class", seconds=length(4)),
+    shot("freedom", {"leo": actor([0, 3, -12], facing=US, poses=[(0, "cheer")], faces=[(0, "evil")],
+                                  walk={"from": [0, 3, -24], "to": [0, 3, -12], "start": 0.0, "freq": 3.4}),
+                     "ex3": actor([2.4, 3, -26], facing=US, poses=[(0, "hands_on_head")], faces=[(0, "shock")])},
+         wide([0, 5.2, -3.5], [0, 4.2, -18], fov=55, push_in=1.5), seconds=length(5)),
+    # Me: the channel's own narrator, wrecked on the first day while everyone else cheers
+    shot("me", {"nar": actor([0, 3, 0], facing=US, poses=[(0, "slump")], faces=[(0, "dead")]),
+                "ex1": actor([-2.6, 3, -6], facing=US, poses=[(0, "cheer")], faces=[(0, "grin")]),
+                "friend": actor([2.6, 3, -7], facing=US, poses=[(0, "cheer")], faces=[(0, "laugh")])},
+         push("nar.head", 7.0, 5.6, fov=48, height=0.9, move=0.3), seconds=length(6)),
 )
-s.text("{yellow:First} day of school..", 0.0, 3 * 2 * BEAT, style="header")
-s.text("{red:Last} day of school..", 3 * 2 * BEAT, 6 * 2 * BEAT, style="header")
-s.text("Me:", 6 * 2 * BEAT, 7 * 2 * BEAT, style="header")
+s.text("{yellow:First} day of school..", 0.0, CUTS[3] / FPS, style="header")
+s.text("{red:Last} day of school..", CUTS[3] / FPS, CUTS[6] / FPS, style="header")
+s.text("Me:", CUTS[6] / FPS, CUTS[7] / FPS, style="header")
 s.music("build/library/music/the_plans_working.mp3", start=0.0, gain_db=-1.0, offset=22.74, duck=False)
 
 if __name__ == "__main__":

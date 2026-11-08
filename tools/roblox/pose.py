@@ -57,6 +57,9 @@ POSES: dict[str, dict] = {
     "slump": {"root": (-9, 0, 0), "neck": (-28, 0, 0), "ls": (4, 0, -2), "rs": (4, 0, 2)},
     "think": {"rs": (104, 36, -16), "neck": (6, 0, 8)},                                # the hand before the chin
     "lean_in": {"root": (-12, 0, 0), "neck": (10, 0, 0), "ls": (24, 0, -8), "rs": (24, 0, 8)},
+    "wave": {"rs": (140, 0, 30), "ls": (0, 0, -4), "neck": (0, 0, -6)},    # the right hand up and out, raised
+                                                                           # through the front: sideways past 60 clips
+    "hand_up": {"rs": (176, 0, 8), "ls": (0, 0, -4), "neck": (8, 0, 0)},               # "me! me!": straight up
 }
 
 

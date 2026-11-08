@@ -53,10 +53,10 @@ flowchart LR
 
 | Video | Format | Length | Notes |
 |---|---|---|---|
-| `videos/group-project` | rant | 27.3 s | "Nah, why does every group project have that ONE person?": three examples, three booms, "WE?!" |
-| `videos/ding` | "In this world" story | 33.6 s | 21 shots across two schools and a classroom; a bell and a ding for every ding |
-| `videos/first-vs-last` | music comparison | 10.5 s | cut on the beat of a YouTube Audio Library track |
-| `videos/pet-narrator` | "In this world" story | 29.9 s | the one-prompt run: pets built from code, four places, a speech bubble whenever a pet speaks |
+| `videos/group-project` | rant | 26.9 s | "Nah, why does every group project have that ONE person?": three examples, three booms, "WE?!"; one review round, its fixes in |
+| `videos/ding` | "In this world" story | 33.6 s | 21 shots across two schools and a classroom; a bell and a ding on every ding; one review round, eleven shots restaged |
+| `videos/first-vs-last` | music comparison | 10.0 s | cut on the accents of a YouTube Audio Library track (measured: 120 BPM, 3-3-2); "Me:" is the channel's narrator |
+| `videos/pet-narrator` | "In this world" story | 29.9 s | M5, the one-prompt run: pets built from code, four places, a speech bubble whenever a pet speaks |
 | `videos/s7-test` | pipeline test | 6.4 s | the first end-to-end file |
 
 Each folder holds the video's `direct.py` (its whole spec, in code), `short.json`, `notes.md` (the concepts weighed,
@@ -98,7 +98,7 @@ python tools/make.py all videos/group-project # plan, shoot, cut, mix, deliver (
 | **Sets** | classroom · hallway · bedroom · living room · street (day / night) · cyclorama, built from code with marks and camera marks, several per video (`docs/SETS.md`) |
 | **Cast** | 14 looks from free Roblox catalog items checked on R6, including our own recurring narrator (`tools/roblox/cast.json`) |
 | **Faces** | 43 expressions in one hand-tuned line style, swapped on the word (`docs/FACES.md`) |
-| **Poses** | 13 snappy R6 poses that snap in 5 frames and drift, planted leans, a heel-to-toe walk (`tools/roblox/pose.py`) |
+| **Poses** | 15 snappy R6 poses that snap in 5 frames and drift, planted leans, a heel-to-toe walk (`tools/roblox/pose.py`) |
 | **Camera** | push, pull, swoop, dutch, low, top-down, over the shoulder with depth of field, two-shot (`tools/shots.py`) |
 | **Voices** | a cast picked by measuring 14 auditions against the references: narrator, girl, deep punch, storyteller (`docs/VOICE.md`) |
 | **Captions** | the references' three styles, matched to within 2 px on full-size frames (`docs/CAPTIONS.md`) |

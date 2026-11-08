@@ -649,7 +649,8 @@ def pipeline_checks(expect) -> None:
                       {"name": "two", "until": "s:ding#2", "set": "far",
                        "actors": {"a": {"at": [0, 3, 0], "facing": [0, 0, 1]}},
                        "camera": [{"t": 0, "pos": [0, 4, 8], "look": [0, 4, 0]}], "say": [{"line": "s", "at": 0.1}],
-                       "overlays": [{"icon": "bell", "over": "a.head", "at": "s:ding"}]},
+                       "overlays": [{"icon": "bell", "over": "a.head", "at": "s:ding"},
+                                    {"icon": "bell", "over": [1.0, 2.0, 0.0], "at": "s:ding"}]},
                       {"name": "three", "until": "s:end+0.2", "actors": {}, "camera": [{"t": 0, "pos": [0, 5, 9],
                                                                                          "look": [0, 4, 0]}]}]}
     json.dump(spec, open(os.path.join(vdir, "short.json"), "w", encoding="utf-8"), ensure_ascii=False)
@@ -671,8 +672,9 @@ def pipeline_checks(expect) -> None:
            f"expected {s_start + 1.3:.2f}); its overlay on the first 'ding' ({two['overlays'][0]['start']:.2f} s in)",
            abs(two["start"] + two["seconds"] - (s_start + 1.3)) < 1 / 30 + 1e-6
            and abs(two["overlays"][0]["start"] - 0.9) < 1e-6)
-    expect(f"make: a shot in another set is moved by its offset (the actor at x {two['actors']['a']['cf']['pos'][0]})",
-           abs(two["actors"]["a"]["cf"]["pos"][0] - 400) < 1e-6)
+    expect(f"make: a shot in another set is moved by its offset (the actor at x {two['actors']['a']['cf']['pos'][0]}, "
+           f"an icon over a point at x {two['overlays'][1]['over'][0]})",
+           abs(two["actors"]["a"]["cf"]["pos"][0] - 400) < 1e-6 and abs(two["overlays"][1]["over"][0] - 401) < 1e-6)
     caps = [c["text"] for c in plan["captions"]]
     sh.family = "story"
     make.stage_plan(sh)

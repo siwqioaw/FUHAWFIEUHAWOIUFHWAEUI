@@ -49,8 +49,10 @@ Comedy changes faces on the word; stories give each shot one face. `facekit.py s
 ## Poses (`tools/roblox/pose.py`)
 
 idle, arms_out, hands_on_head, point, point_left, arms_crossed, hands_on_hips, laugh, facepalm, cheer, slump, think,
-lean_in. Keys snap in 5 frames with a little overshoot and then drift; `walk={"from", "to", "start"}` walks
-heel to toe at a steady speed.
+lean_in, wave, hand_up. Keys snap in 5 frames with a little overshoot and then drift; `walk={"from", "to", "start",
+"freq"}` walks heel to toe at a steady speed (a higher `freq` for a run). No sitting pose yet: an actor standing at a
+desk's chair, seen from the board's side, reads as seated (the desk hides the legs; an R6 torso sits at about the
+height it stands). A gesture must stay inside the frame: arms up leave a close-up.
 
 ## Camera (`tools/shots.py`)
 

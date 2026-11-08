@@ -24,11 +24,13 @@ schedule or change a channel setting.
 | 5 | Stills | `make.py stills` (`--only` for a few): look at every still at full size, with a caption drawn over it in the video's style. Fix staging (someone hidden or out of the narrow frame, a face cut off or under the captions, a frame of one flat colour: the camera inside a wall, a logo on a costume) before the shoot. | `build/<slug>/stills/` | `checklist.md` |
 | 6 | Shoot | `make.py shoot` (runs in the background; resumes on failure). Needs Studio open in the capture layout and `python tools/roblox/studio_mcp.py serve`. | frames | `docs/ROBLOX_CAPTURE.md` |
 | 7 | Cut, mix, deliver | `make.py cut`, `mix`, `deliver`: every check on the delivered file must pass. | `out/<slug>.mp4`, `build/<slug>/verify/` | `docs/VERIFY.md` |
-| 8 | Review | A fresh reviewer agent gets the file, the timeline and `checklist.md` (not your opinion of it). Fix what it finds; add any new kind of failure to the checklist. | `videos/<slug>/review.md` | `checklist.md` |
+| 8 | Review | A fresh reviewer agent gets the file, the timeline and `checklist.md` (not your opinion of it), briefed from `review_brief.md`. Fix what it finds (`plan --keep-shots --replan <shots>` restages shots without moving the rest); add any new kind of failure to the checklist. | `videos/<slug>/review.md` | `review_brief.md`, `checklist.md` |
 | 9 | Package | Title, description, hashtags (`writing/packaging.md`); credits for every licensed asset in `ATTRIBUTION.md`. | `videos/<slug>/package.md` | |
 
-Times measured on the first videos: voice 1-6 min (the transcriber on the CPU), stills 4 min, the shoot 1.0-1.8 s a
-frame at 60 fps (a 30 s story, about an hour; music formats at 30 fps, half), cut, mix and deliver 2-4 min.
+Times measured on the first videos (M5's in `videos/pet-narrator/notes.md`): voice processing 2-4 min (the
+transcriber on the CPU; seconds when cached), stills 8 min for 20 shots, the shoot 1.4-1.8 s a frame at 60 fps (a
+30 s story about 53 min; music formats at 30 fps, half), cut, mix and deliver 5 min, a review 25 min: about two and a
+half hours from the prompt to a reviewed file. Load the transcriber (3 GB) only while Studio isn't shooting.
 
 ## The house rules (from the owner, all binding)
 
@@ -59,7 +61,7 @@ frame at 60 fps (a 30 s story, about an hour; music formats at 30 fps, half), cu
   (jokes, twists, escalation, the teen voice), packaging (titles, descriptions, hashtags).
 - `building.md`: new sets and props with `tools/roblox/kit.py` (the buildings), lighting, marks, previews.
 - `assets.md`: new faces, catalog items for new looks, sounds, music, emoji: how to make or find each, licensed.
-- `checklist.md`: what the reviewer checks, every failure found so far.
+- `checklist.md`: what the reviewer checks, every failure found so far; `review_brief.md`: the brief to give it.
 - Worked examples: `videos/group-project/direct.py` (a rant), `videos/ding/direct.py` (a story across three sets),
   `videos/first-vs-last/direct.py` (a music comparison), `videos/pet-narrator/direct.py` (the one-prompt run: a
   story across four sets, pets made from code as props, a speech bubble as the rule's signature).

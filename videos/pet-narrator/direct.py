@@ -49,7 +49,7 @@ for ln in json.load(open(os.path.join(HERE, "lines.json"), encoding="utf-8")):
     s.line(ln["id"], ln["role"], ln["text"])
 
 
-def bubble(over, at, size=130, dur=0.9):
+def bubble(over, at, size=210, dur=0.9):   # about a pet's head at 9 studs: the rule's signature has to read
     return ("\U0001F4AC", over, at, {"size": size, "lift": 0.35, "dur": dur})
 
 
@@ -68,13 +68,13 @@ s.add(
          until="a:and"),
     shot("love", {"ex1": actor([-44, 3, 18.5], facing=SOUTH, poses=[(0, "cheer")], faces=[(0, "grin")])},
          push([-43.1, 3.7, 18.3], 10.5, 8.8, fov=50, toward=[-0.4, 0, -1]),
-         overlays=[bubble(DOG_A, "a:love", 130)], until="a:because"),
+         overlays=[bubble(DOG_A, "a:love", 210)], until="a:because"),
     shot("brag", {"ex2": actor([-26, 3, 18.5], facing=SOUTH, poses=[(0, "hands_on_hips")], faces=[(0, "proud")])},
          pull([-25.3, 3.6, 18.3], 7.0, 9.5, fov=50, toward=[0, 0, -1]),
-         overlays=[bubble(CAT_A, "a:brag", 130)], until="a:end+0.04"),
+         overlays=[bubble(CAT_A, "a:brag", 210)], until="a:end+0.04"),
     # -- B: the brags, then Max's dog
     shot("aced", {"girl1": actor([8, 3, 18.5], facing=SOUTH, poses=[(0, "hands_on_hips")], faces=[(0, "proud")])},
-         push([8.7, 3.6, 18.3], 11.5, 9.2, fov=50, toward=[0, 0, -1]), say=[("b", "a:end+0.04")],
+         push([8.7, 3.6, 18.3], 11.5, 9.2, fov=50, toward=[-0.35, 0, -1]), say=[("b", "a:end+0.04")],   # clear of the car
          overlays=[bubble(CAT_B, "b:mia")], until="b:jake's"),
     shot("fastest", {"ex3": actor([24, 3, 18.5], facing=SOUTH, poses=[(0, "cheer")], faces=[(0, "starstruck")])},
          push([24.9, 3.6, 18.3], 11.5, 9.2, fov=50, toward=[-0.3, 0, -1]), overlays=[bubble(DOG_B, "b:jake's")],
@@ -93,7 +93,7 @@ s.add(
          wide([2.4, 3.6, 6.8], [-1.6, 4.0, 3.2], fov=52), set="living", until="b:he#2"),
     shot("didnt", {},
          push([LIVING_DOG[0], 2.5, LIVING_DOG[2]], 5.6, 4.7, fov=50, height=0.0, toward=[-1, 0, -0.4]), set="living",
-         overlays=[bubble(LIVING_DOG, "b:didn't", 170)], until="b:end+0.04"),
+         overlays=[bubble(LIVING_DOG, "b:didn't", 220)], until="b:end+0.04"),
     # -- C: the dance, the dog speaks up, the reveal
     shot("dance", {"lily": actor([0, 3, -8], facing=[0, 0, 1], poses=[(0, "laugh")], faces=[(0, "laugh")]),
                    "ex1": actor([-5, 3, -6], facing=[0.3, 0, 1], poses=[(0, "cheer")], faces=[(0, "grin")]),
@@ -110,7 +110,7 @@ s.add(
          push("max.head", 4.6, 3.4, move=0.5), set="dance", drift=0.0, until="c:so"),
     shot("said_it", {"max": actor([2.6, 3, -6.4], facing=[-1, 0, -0.3], faces=[(0, "shock")])},
          push([903.0 - 900.0, 3.75, -6.3], 9.5, 8.0, fov=50, toward=[-1, 0, 0.3]), set="dance",
-         overlays=[bubble(DANCE_DOG, "c:dog", 160)], until="c:he#1"),
+         overlays=[bubble(DANCE_DOG, "c:dog", 210)], until="c:he#1"),
     shot("likes_you", {"lily": actor([0, 3, -8], facing=[1, 0, 0.6], faces=[(0, "shock"), ("c:september", "love")])},
          push("lily.head+[0,0.3,0]", 6.0, 4.6), set="dance", until="c:lily#2"),
     shot("smiled", {"lily": actor([0, 3, -8], facing=[0.5, 0, 1], poses=[(0, "idle")], faces=[(0, "love")]),
@@ -118,10 +118,10 @@ s.add(
          wide([1.2, 5.2, 1.0], [1.2, 5.4, -7.4], fov=50), set="dance", until="c:and#2"),
     shot("honestly", {"max": actor([2.6, 3, -6.4], facing=[1, 0, 0.2], faces=[(0, "wide_happy")])},
          push(DANCE_DOG[:1] + [2.2] + DANCE_DOG[2:], 6.0, 4.0, fov=50, height=0.6, toward=[-1, 0, 0]), set="dance",
-         overlays=[bubble(DANCE_DOG, "c:honestly", 150, 1.2)], until="c:best"),
+         overlays=[bubble(DANCE_DOG, "c:honestly", 220, 1.2)], until="c:best"),
     shot("me", {}, push(DANCE_DOG[:1] + [2.5] + DANCE_DOG[2:], 3.8, 2.9, fov=48, height=0.0, toward=[-1, 0, 0],
                         move=0.6), set="dance", sfx=[("pop", "c:me")],
-         overlays=[("\U0001F4AC", DANCE_DOG, "c:that's", {"size": 160, "lift": 0.2, "dur": 1.6})], until="c:end+0.35"),
+         overlays=[("\U0001F4AC", DANCE_DOG, "c:that's", {"size": 230, "lift": 0.2, "dur": 1.6})], until="c:end+0.35"),
 )
 s.music("build/library/music/lofi_bed.mp3", start=0.0, gain_db=-15.0, duck_db=-4.0)
 

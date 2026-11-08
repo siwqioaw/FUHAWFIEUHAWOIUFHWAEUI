@@ -74,3 +74,14 @@ failure found to this list and to `docs/VERIFY.md`.
 - Two captions on one frame (a rounding slip): selftest.
 - People from one place turning up in another (M4: the old school's jock at the new school): cast each place.
 - A jump cut on one line (1.6-1.8x, same angle): orbit the second shot 30 degrees or more.
+- Cuts off the beat (M2: a 120 BPM track with 3-3-2 accents read as 80 BPM from one autocorrelation peak): find
+  the strongest onsets, check the bar (2 s at 120 BPM) and cut on the accents; make a music format whole bars long
+  so the loop comes round in phase.
+- A shot whose joke needs words (M2's top-down "asleep": hair and shoulders): each 1.5 s shot of a music format
+  must read from its picture alone.
+- Icons missing in a video's other sets (M5: every speech bubble outside the street, its point never moved by the
+  set's offset): fixed in `_offset_shot`; selftest. Look for the rule's signature in every shot that has one.
+- A new pose that clips (a sideways wave put the arm 0.33 studs into the head): the selftest measures every pose;
+  raise an arm through the front, not out to the side past about 60 degrees.
+- A prop in the camera's path (M5's `aced` opened inside the street's parked car, at (12, 0, 7)): look at the
+  first frames of every shot, not only the middle still.
