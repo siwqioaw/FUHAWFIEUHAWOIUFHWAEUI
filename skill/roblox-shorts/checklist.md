@@ -35,7 +35,8 @@ failure found to this list and to `docs/VERIFY.md`.
   crosses the frame toward its target, not at the camera; a gesture's hand inside the frame (the plan warns, at
   mid-shot); background gestures not behind a
   foreground head (two fists poked out of a narrator's hair like ears).
-- **Icons:** over the right head (the one the rule is about), never on a face.
+- **Icons:** over the right head (the one the rule is about), never on a face, and over a subject the camera can see:
+  a speaking pet behind its owner puts the bubble on the owner's shirt (M5; the plan warns).
 - **Set writing:** none under the captions (posters, boards, scoreboards: `{"signs": False}`).
 - **Captions:** the script's words, timed to the voice; CAPS where the script stresses; emoji drawn (comedy only);
   readable on a phone; never over a face.

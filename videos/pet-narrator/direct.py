@@ -41,7 +41,8 @@ s = Spec("pet-narrator", family="story", set="street", set_options={"props": str
          title="In this world, your pet narrates your life out loud", names=["Mia", "Jake"],
          cast={"max": "jock", "lily": "popular_girl", "girl1": "bestie", "ex1": "extra_a", "ex2": "extra_b",
                "ex3": "extra_c"},
-         extra_sets=[("home", "bedroom", HOME, {"props": [{"kind": "dog", "at": [2.0, 0, 3.5], "facing": [-1, 0, 0], **MAXDOG}]}),
+         extra_sets=[("home", "bedroom", HOME, {"signs": False,   # its GAME ON poster sat under the mirror's captions
+                                               "props": [{"kind": "dog", "at": [2.0, 0, 3.5], "facing": [-1, 0, 0], **MAXDOG}]}),
                      ("living", "living_room", LIVING, {"props": [{"kind": "dog", "at": [-0.2, 0, 4.0], "facing": [-1, 0, -0.4], **MAXDOG}]}),
                      ("dance", "classroom", DANCE, {"board": "", "signs": False,   # its "SCHOOL DANCE!" and its
                                                     # posters sat under the captions
@@ -58,6 +59,8 @@ DOG_A, CAT_A, CAT_B, DOG_B, DOG_MAX = (head(-42, 18, SOUTH), head(-24.6, 18, SOU
                                        head(25.8, 18, SOUTH), head(45.8, 18, SOUTH))
 LIVING_DOG = head(-0.2, 4.0, [-1, 0, -0.4])
 DANCE_DOG = head(5.4, -5.4, [-1, 0, -0.35])   # beside Max, not in him (its head was on his mark)
+BESIDE_DOG = [3.3, 3, -8.2]      # when the dog speaks, Max a step aside so it shows beside him (on his mark, the dog
+DOG_TWO_SHOT = [3.7, 3.9, -7.03]  # stood behind him and its bubble came out of his shirt)
 
 s.add(
     # -- A: the rule, on strangers' pets
@@ -118,8 +121,10 @@ s.add(
          wide([6.5, 5.0, 3.5], [1.2, 3.8, -7], fov=50), set="dance", until="c:and#1"),
     shot("froze", {"max": actor([2.6, 3, -6.4], facing=[-1, 0, -0.6], faces=[(0, "blank")], drift=0.0)},
          push("max.head", 4.6, 3.4, move=0.5), set="dance", drift=0.0, until="c:so"),
-    shot("said_it", {"max": actor([2.6, 3, -6.4], facing=[-1, 0, -0.3], faces=[(0, "shock")])},
-         push([3.4, 3.75, -6.2], 9.5, 8.0, fov=50, toward=[-1, 0, -0.1]), set="dance", sfx=[("pop", "c:dog", -10)],
+    shot("said_it", {"max": actor(BESIDE_DOG, facing=[-1, 0, -0.3], faces=[(0, "shock")])},
+         [{"t": 0, "aim": DOG_TWO_SHOT, "distance": 9.6, "fov": 50, "toward": [-1, 0, -0.1]},
+          {"t": 0.04, "aim": DOG_TWO_SHOT, "distance": 8.8, "fov": 50, "toward": [-1, 0, -0.1], "move": 0.6,
+           "ease": "out"}], set="dance", sfx=[("pop", "c:dog", -10)],
          overlays=[bubble(DANCE_DOG, "c:dog", 210)], until="c:he#1"),
     shot("likes_you", {"lily": actor([0, 3, -8], facing=[1, 0, 0.6], faces=[(0, "shock"), ("c:september", "love")])},
          push("lily.head+[0,0.3,0]", 6.0, 4.6), set="dance", until="c:lily#2"),
@@ -127,8 +132,10 @@ s.add(
                     "max": actor([2.4, 3, -6.6], facing=[-0.5, 0, 1], faces=[(0, "wide_happy")])},   # clear of her arm
          [{"t": 0, "pos": [3.6, 4.2, -0.5], "look": [0.6, 4.6, -7.6], "fov": 50}], set="dance",
          until="c:and#2"),   # her smile square to the lens; from the front it cut into honestly's Max like a jump
-    shot("honestly", {"max": actor([2.6, 3, -6.4], facing=[-1, 0, -0.3], faces=[(0, "wide_happy")])},
-         push([3.4, 3.8, -6.2], 9.0, 7.5, fov=50, toward=[-1, 0, -0.1]), set="dance", sfx=[("pop", "c:honestly", -10)],
+    shot("honestly", {"max": actor(BESIDE_DOG, facing=[-1, 0, -0.3], faces=[(0, "wide_happy")])},
+         [{"t": 0, "aim": DOG_TWO_SHOT, "distance": 9.2, "fov": 50, "toward": [-1, 0, -0.1]},
+          {"t": 0.04, "aim": DOG_TWO_SHOT, "distance": 8.2, "fov": 50, "toward": [-1, 0, -0.1], "move": 0.6,
+           "ease": "out"}], set="dance", sfx=[("pop", "c:honestly", -10)],
          overlays=[bubble(DANCE_DOG, "c:honestly", 220, 1.2)], until="c:best"),
     shot("me", {}, push(DANCE_DOG[:1] + [2.5] + DANCE_DOG[2:], 3.6, 2.7, fov=48, height=0.0, toward=[-0.6, 0, -1],
                         move=0.6), set="dance", sfx=[("pop", "c:me")],

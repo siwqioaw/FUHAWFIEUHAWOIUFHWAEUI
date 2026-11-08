@@ -684,6 +684,52 @@ def _head_on_screen(view: dict, a: dict, t: float, size) -> tuple | None:
     return abs(xy[1] - top[1]), yaw, pitch
 
 
+def _hidden_subjects(plan: dict, size=(1080, 1920)) -> list[str]:
+    """Each overlay's point (what the icon pops over, before its lift) against every standing actor nearer the
+    camera when it pops: inside that actor's silhouette on screen (its body and arms as a box), the subject is
+    hidden and the icon lands on the actor. An overlay over an actor's own head isn't counted against it."""
+    import camera
+    out = []
+    for s in plan["shots"]:
+        path = None
+        for ov in s.get("overlays", []):
+            if path is None:
+                path = camera.moves([(k[0], k[1], k[2], k[3]) for k in s["camera"]])
+            t = min(max(0.0, ov["start"] + 0.1), s["seconds"] - 1e-3)
+            v = path(t)
+            p = ov["over"]
+            xy = camera.project(v, p, size=size)
+            if not xy:
+                continue
+            dp = math.dist(v["pos"], p)
+            for name, a in s.get("actors", {}).items():
+                if a.get("walk"):
+                    continue
+                pos = a["cf"]["pos"]
+                look = a["cf"].get("look") or [pos[0], pos[1], pos[2] + 1.0]
+                d = [look[0] - pos[0], 0.0, look[2] - pos[2]]
+                n = math.hypot(d[0], d[2]) or 1.0
+                d = [d[0] / n, 0.0, d[2] / n]
+                right = (-d[2], 0.0, d[0])
+                x0, x1, z0, z1 = _reach(a.get("poses"))
+                # round its own head (M4's bells set about it): the icon's subject, not hidden by it
+                if math.dist(p, [pos[0], pos[1] + HEAD, pos[2]]) < 2.0:
+                    continue
+                corners = [[pos[i] + lx * right[i] + (ly if i == 1 else 0.0) - lz * d[i] for i in range(3)]
+                           for lx in (x0, x1) for ly in (-3.0, HEAD + 0.6) for lz in (z0, z1)]
+                pts = [camera.project(v, c, size=size) for c in corners]
+                if any(q is None for q in pts) or math.dist(v["pos"], pos) >= dp - 1.0:
+                    continue   # not a stud nearer the camera than the point: beside it, not in front
+                xs, ys = [q[0] for q in pts], [q[1] for q in pts]
+                # the silhouette's box, narrowed a little: the box is the body's outer bounds, arms and all
+                mx, my = 0.12 * (max(xs) - min(xs)), 0.05 * (max(ys) - min(ys))
+                if min(xs) + mx < xy[0] < max(xs) - mx and min(ys) + my < xy[1] < max(ys) - my:
+                    out.append(f"{s['name']}: the {ov.get('icon') or 'text'} at {ov['start']:.2f} s pops over a point "
+                               f"hidden behind {name} (it lands on {name}): move the subject or the camera")
+                    break
+    return out
+
+
 def _jump_cuts(plan: dict, size=(1080, 1920)) -> list[str]:
     """Across each cut, anyone in frame on both sides at nearly the same size (under 1.4x) and from nearly the same
     angle (under 25 degrees round, 15 up or down): a jump cut. Change the size 1.5x or more, or the angle 30
@@ -1021,6 +1067,8 @@ def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) 
         print(f"  staging: {warn}")
     for warn in _jump_cuts(plan):
         print(f"  cut: {warn}")
+    for warn in _hidden_subjects(plan):
+        print(f"  overlay: {warn}")
     for warn in _cameras_in_sets(plan, sh.spec):
         print(f"  camera: {warn}")
     import qc

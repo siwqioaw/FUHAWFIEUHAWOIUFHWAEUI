@@ -780,6 +780,17 @@ def pipeline_checks(expect) -> None:
     expect(f"make: the plan flags a jump cut (the same face at 1.1x and 8 degrees round: {same}) and passes a cut "
            f"to 1.67x the size ({bigger}) or 35 degrees round ({round_})",
            len(same) == 1 and "jump cut" in same[0] and not bigger and not round_)
+    def bubble_over(point):
+        cam = [[0.0, {"pos": [0, 4.5, -9], "look": [0, 4.0, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]]
+        return make._hidden_subjects({"shots": [{"name": "b", "seconds": 1.0, "camera": cam,
+                                                 "actors": {"max": {"cf": {"pos": [0, 3, 0], "look": [0, 3, -10]},
+                                                                    "poses": [[0.0, "idle"]]}},
+                                                 "overlays": [{"icon": "bubble", "over": point, "start": 0.2,
+                                                               "dur": 1.0, "size": 150, "lift": 0.3}]}]})
+    behind, beside, own = bubble_over([0.3, 2.7, 2.8]), bubble_over([3.2, 2.7, 2.8]), bubble_over([0, 4.5, 0])
+    expect(f"make: the plan flags an icon over a subject hidden behind an actor (M5's dog behind Max: {behind}) and "
+           f"passes one beside him ({beside}) and one over his own head ({own})",
+           len(behind) == 1 and "hidden behind max" in behind[0] and not beside and not own)
     def cam_at(pos):
         return {"name": "c", "set": None, "seconds": 0.5,
                 "camera": [[0.0, {"pos": pos, "look": [0, 4, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]]}

@@ -27,3 +27,13 @@ capitalized at the references' pace (median 0.57 s on screen, 20.8 characters a 
 love face on "September", the street's bubbles on the right pets, a clean loop, every asset licensed, teen-safe.
 
 Planned again in full and shot again.
+
+## Before round 2 (2026-11-08)
+
+The restaged video was delivered once and looked at cut by cut before its second review, and three new problems
+showed: in `said_it` and `honestly` the dog that speaks stood behind Max, so its bubble came out of his shirt (the
+round-1 bubbles were never drawn outside the street, so no one had seen it); the bedroom's "GAME ON" poster sat
+under the mirror's captions once that shot turned 30 degrees. Max now steps aside when the dog speaks (the dog shows
+beside him, facing the lens), the bedroom's writing is off, and the plan warns about an icon over a hidden subject.
+Before that the plan's new checks had restaged `mirror` (the wave cut off; then a jump cut from the street's Max),
+`smiled` (a jump cut into `honestly`) and the dance's dancers (a hand cut off, two too close).
