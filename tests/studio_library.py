@@ -4,6 +4,7 @@
     python tests/studio_library.py sets [classroom hallway ...]     # build/library/sets/<set>_<cam>.png
     python tests/studio_library.py cast                             # build/library/cast/*.png and the fit report
     python tests/studio_library.py faces                            # draw the face kit and install it into Studio
+    python tests/studio_library.py props                            # build/library/props/*.png: every prop
 
 Needs Studio open in the capture layout with the bridge running (docs/ROBLOX_CAPTURE.md). It plays, builds, shoots
 and always cleans up: the set, the actors and the playtest.
@@ -112,6 +113,31 @@ def shoot_cast() -> None:
     print("MISFIT" if any("MISFIT" in r or "FAILED" in r for r in report) else "every look fits R6")
 
 
+def shoot_props() -> None:
+    """Every prop on a cyclorama: the pets and balloons on the floor, the cake, smoothie and ice pack on a table, the
+    wall phone on a short wall; a wide still and a close one of the table (build/library/props/)."""
+    s = kit.SETS["stage_void"]({"color": [150, 195, 255], "props": [
+        {"kind": "dog", "at": [-8.5, 0, 0], "facing": [0.3, 0, 1]},
+        {"kind": "cat", "at": [-5.6, 0, 0.5], "facing": [0.2, 0, 1]},
+        {"kind": "balloons", "at": [-3.0, 0, -0.5]},
+        {"kind": "table", "at": [1.5, 0, 0]},
+        {"kind": "cake", "at": [0.6, 2.75, 0]},
+        {"kind": "smoothie", "at": [2.4, 2.75, 0.5]},
+        {"kind": "ice_pack", "at": [2.6, 2.75, -0.7]},
+    ]})
+    s.box((4, 8, 0.6), (7.5, 4, -1.6), (235, 235, 240))   # a short wall for the phone
+    kit.wall_phone(s, (7.5, 4.6, -1.15), facing=(0, 0, 1))
+
+    def body():
+        print(studio.server(s.luau((0, 0, 0), False), wait=3, timeout=300))
+        for name, cam, look, fov in (("wide", [0, 6.5, 19], [0, 3.2, 0], 55), ("table", [1.5, 5.2, 6.5], [1.5, 2.9, 0], 45),
+                                     ("pets", [-7, 3.4, 7], [-7, 1.8, 0], 45), ("phone", [7.5, 4.8, 4.5], [7.5, 4.4, -1.2], 45)):
+            p = _still(os.path.join(OUT, "props", f"{name}.png"),
+                       {"cam": {"pos": cam, "look": look}, "fov": fov, "actors": []})
+            print("  ", os.path.relpath(p, ROOT))
+    _session(body)
+
+
 def main() -> int:
     cmd = sys.argv[1] if len(sys.argv) > 1 else "sets"
     if cmd == "faces":
@@ -123,6 +149,8 @@ def main() -> int:
         shoot_sets(sys.argv[2:] or list(kit.SETS))
     elif cmd == "cast":
         shoot_cast()
+    elif cmd == "props":
+        shoot_props()
     return 0
 
 

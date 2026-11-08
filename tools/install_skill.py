@@ -25,6 +25,9 @@ def main() -> int:
             continue  # that agent isn't installed here
         dest = os.path.join(home, "roblox-shorts")
         if os.path.isdir(dest):
+            if not os.path.isfile(os.path.join(dest, "REPO.txt")):  # not a copy this script made: leave it alone
+                done.append(f"skipped {dest}: a roblox-shorts skill this script didn't install is there")
+                continue
             shutil.rmtree(dest)
         if remove:
             done.append(f"removed {dest}")

@@ -32,6 +32,10 @@ caption every 0.55-0.73 s (median), up for 0.23-0.30 s at the least; 20-24 chara
 fastest 5% at 30-45. M4's captions, planned: median 0.53 s up, p10 0.39, least 0.27; 19.5 characters a second, p95
 30.3. How `make.py` breaks and times them is in `docs/MAKING.md`.
 
+The comedy references (001, 004, 005, 016, band 70-86% down): a caption every 1.33-1.57 s at the median, 4-5 words,
+14.6-20.8 characters a second. M3's delivered file: every 1.70 s, 4 words, 14.4 characters a second (its words timed
+from the plan, `--words` a transcript in absolute time). A clause per caption reads a little slower than theirs.
+
 ## How it was matched
 
 On four reference frames (001 at 1.2 s, 006 at 2.0 s, 002 at 1.0 s and 014 at 1.5 s, all full size), each glyph's

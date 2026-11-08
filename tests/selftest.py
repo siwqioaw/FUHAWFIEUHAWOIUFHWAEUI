@@ -181,6 +181,10 @@ def main() -> int:
     expect("audio allows the declared bridge", "bed [music] from hook" in text and "bridge to flash frame 25" in text)
     expect("audio allows the prelap", "voice [voice] from calm" in text and "prelap into it" in text)
     expect("audio: the choked whoosh doesn't cross", "whoosh" not in text)
+    bare = Timeline({"fps": tl.fps, "clips": [{"name": c["name"], "frames": c["frames"]} for c in tl.clips]})
+    b_lines, b_fails = vaudio.crossings(bare, xa, sra)
+    expect(f"audio fails a timeline with sound but no cue sheet ({b_fails} failure)",
+           b_fails == 1 and any("declares no cues" in line for line in b_lines))
     s_lines, s_fails = vaudio.silences(tl, xa, sra)
     s_text = "\n".join(s_lines)
     expect("audio passes the muted silence", "ok: the beat before the end" in s_text)
@@ -515,6 +519,25 @@ def voice_checks(expect) -> None:
     removed = sum(b - a for a, b in cuts3)
     expect(f"voice: tighten keeps a creaky tail and an 'h' onset, cutting only the silence between them "
            f"({removed:.3f} s cut of the 0.35 s silence)", len(cuts3) == 1 and 0.2 < removed <= 0.29)
+    # M3's review: the transcriber starts a sentence's first word straight after the last one, over a scoff and a
+    # pause; the word is said 0.47 s later
+    said = 0.4 + 0.05 + 0.12 + 0.35
+    line_r = np.concatenate([word(200, 0.4), np.zeros(int(0.05 * sr)), word(150, 0.12), np.zeros(int(0.35 * sr)),
+                             word(220, 0.4)])
+    heard_r = [{"word": "page", "start": 0.0, "end": 0.42}, {"word": "for", "start": 0.42, "end": 1.0}]
+    after_stop = voice.refine_words(heard_r, line_r, sr, "Page. For")
+    mid_phrase = voice.refine_words(heard_r, line_r, sr, "Page for")
+    expect(f"voice: a sentence's first word timed over the scoff and pause before it starts where it's said "
+           f"({after_stop[1]['start']:.2f} s; said at {said:.2f}, less 0.05 for its 'f'); mid-phrase it's left "
+           f"alone ({mid_phrase[1]['start']:.2f})",
+           abs(after_stop[1]["start"] - (said - 0.05)) < 0.03 and mid_phrase[1]["start"] == 0.42)
+    narrator = {"pitch": [90, 340], "max_pause": 0.2, "level_db": -18.0, "center": 214, "register_st": [-7, 9]}
+    low = voice.check(dict(m_good, pitch={"median": 99.0, "voiced_s": 1.0}), narrator, {})
+    shout = voice.check(dict(m_good, pitch={"median": 329.0, "voiced_s": 1.0}), narrator, {})
+    expect(f"voice: a line an octave under its voice's own pitch fails the register check; a shout above it passes "
+           f"({[w for ok_, w in low if not ok_]})",
+           [w for ok_, w in low if not ok_] and all("register" not in w for ok_, w in shout if not ok_)
+           and any("register" in w for ok_, w in low if not ok_))
     # M5's case, its measured profile (line a, 4.86-5.08 s): silence 60 ms, the floor 38 dB under for 70 ms, silence
     # 10, floor 10, silence 40, floor 35 dB under for 20, silence 10: a 0.22 s gap the old rule couldn't cut
     w1 = word(200, 0.5)
@@ -651,6 +674,23 @@ def pipeline_checks(expect) -> None:
            f"({story_caps})",
            caps[0].endswith("\U0001F62D") and caps[0].startswith("why does") and caps[-1] == "then he left."
            and all(1 <= len(c.split()) <= 3 for c in story_caps) and len(story_caps) >= 5)
+    boom = sfx.make("boom")
+    ducked = make._duck_tail(boom, 48000, 10.0, [10.3])
+    tail_db = 20 * np.log10(np.abs(ducked[int(0.4 * 48000):int(0.6 * 48000)]).max()
+                            / np.abs(boom[int(0.4 * 48000):int(0.6 * 48000)]).max())
+    expect(f"make: a boom's tail is pulled down under the line that starts while it rings ({tail_db:.1f} dB), its "
+           f"hit left alone", abs(tail_db + 12) < 0.5 and np.allclose(ducked[:int(0.2 * 48000)], boom[:int(0.2 * 48000)]))
+    hits = {"fps": 30, "shots": [{"frame0": 0}, {"frame0": 60}],
+            "sounds": [{"start": 1.0, "hit": True}, {"start": 2.0, "hit": True}, {"start": 1.5, "hit": False}]}
+    z = [make._punch(hits, r) for r in (29, 30, 34, 39, 45, 60)]
+    expect(f"make: a boom inside a shot punches in 7% on its frame and settles in 0.3 s; one on a cut doesn't "
+           f"({[round(v, 3) for v in z]})",
+           z[0] == 1.0 and abs(z[1] - 1.07) < 1e-9 and z[1] > z[2] > z[3] >= 1.0 and z[4] == 1.0 and z[5] == 1.0)
+    snaps = [{"text": "a", "style": "comedy", "show": 0.0, "hide": 1.05}, {"text": "b", "style": "comedy",
+                                                                           "show": 1.05, "hide": 2.0}]
+    make._snap_to_cuts(snaps, [0, 30], 30)
+    expect(f"make: a caption due 1-4 frames after a cut comes in on it ({snaps[1]['show']:.3f} s, the cut at 1.000)",
+           abs(snaps[1]["show"] - 1.0) < 1e-9 and abs(snaps[0]["hide"] - 1.0) < 1e-9)
     framed = json.load(open(sh.path("plan.json"), encoding="utf-8"))
     clean = make._framing(framed)
     framed["shots"][0]["actors"]["far"] = {"cf": {"pos": [30.0, 3.0, 0.0], "look": [30.0, 3.0, 10.0]}}
@@ -699,6 +739,12 @@ def pipeline_checks(expect) -> None:
     ys, xs = np.nonzero(img.max(axis=2) > 0.05)
     expect(f"make: an overlay pops up over its point, centred ({xs.mean():.0f}, {ys.mean():.0f} of 1080 x 1920)",
            len(xs) > 500 and abs(xs.mean() - 540) < 20 and ys.mean() < 960)
+    img_t = np.zeros((1920, 1080, 3), np.float32)
+    make._overlay(img_t, {"icon": None, "text": "99%", "over": [0, 3, 0], "size": 150, "lift": 1.4}, view, 0.5)
+    ys_t, xs_t = np.nonzero(img_t.min(axis=2) > 0.9)   # the white fill of the label's letters
+    expect(f"make: a text overlay draws its line over the point, centred ({len(xs_t)} white pixels at "
+           f"{xs_t.mean() if len(xs_t) else 0:.0f}, {ys_t.mean() if len(ys_t) else 0:.0f})",
+           len(xs_t) > 300 and abs(xs_t.mean() - 540) < 25 and abs(ys_t.mean() - ys.mean()) < 60)
     effects = {name: sfx.make(name) for name in sfx.EFFECTS}
     boom = effects["boom"]
     spec_b = np.abs(np.fft.rfft(boom))
@@ -718,6 +764,11 @@ def pipeline_checks(expect) -> None:
     code_shift = json.loads(json.loads(first.luau((100, 0, 0)).split("JSONDecode(")[1].split(")\n")[0]))["p"][0][4]
     expect(f"kit: every set's code builds ({sizes}); an offset moves its parts ({shifted[0]} -> {code_shift})",
            all(n > 0 for n in sizes.values()) and abs(code_shift - shifted[0] - 100) < 1e-6)
+    prop_parts = {}
+    for name in kit.PROPS:
+        st = kit.SETS["stage_void"]({"props": [{"kind": name, "at": [0, 0, 0]}]})
+        prop_parts[name] = len(st.parts) + len(st.signs) - len(kit.SETS["stage_void"]({}).parts)
+    expect(f"kit: every prop builds in a set's options ({prop_parts})", all(n > 0 for n in prop_parts.values()))
     bad = []
     for name in facekit.NAMES:
         a = np.asarray(facekit.draw(name))[..., 3]

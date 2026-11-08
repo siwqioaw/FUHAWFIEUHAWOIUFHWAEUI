@@ -408,7 +408,7 @@ def table(s: Set, pos, w=5.0, d=3.0, h=2.6, color=WOOD):
             s.box((0.3, h - 0.15, 0.3), (x + dx, (h - 0.15) / 2, z + dz), color, "Wood")
 
 
-def rug(s: Set, pos, w, d, color=(200, 80, 90)):
+def rug(s: Set, pos, w=6.0, d=4.0, color=(200, 80, 90)):
     x, _, z = pos
     s.box((w, 0.08, d), (x, 0.04, z), color, "Fabric")
     s.box((w - 1.0, 0.09, d - 1.0), (x, 0.045, z), tuple(min(255, c + 30) for c in color), "Fabric")
@@ -571,8 +571,64 @@ def cat(s: Set, pos, facing=(0, 0, 1), color=(110, 110, 120), size=1.0):
     box((0.18, 0.18, 1.2), (0.35, 0.12, -0.5), color, rot=(0, 25, 0))   # tail
 
 
+def balloons(s: Set, pos, colors=((235, 70, 90), (70, 150, 235), (250, 200, 60)), height=6.5):
+    """A bunch of party balloons tied at pos (x, _, z): three balls on thin strings, a little apart."""
+    x, _, z = pos
+    for k, (dx, dz, c) in enumerate(zip((-0.7, 0.6, 0.0), (0.2, -0.3, 0.6), colors)):
+        top = height + 0.6 * k
+        s.ball(1.5, (x + dx, top, z + dz), c)
+        s.box((0.05, top - 0.75, 0.05), (x + dx / 2, (top - 0.75) / 2, z + dz / 2), (240, 240, 240))
+    s.box((0.4, 0.3, 0.4), (x, 0.15, z), (90, 90, 100))        # the weight
+
+
+def cake(s: Set, pos, frosting=(250, 225, 235), sponge=(235, 190, 120), candles=3):
+    """A two-tier birthday cake to stand on a table top (pos y is the surface), candles lit with a small light."""
+    x, y, z = pos
+    s.cyl(0.9, 1.4, (x, y + 0.45, z), sponge)
+    s.cyl(0.15, 1.45, (x, y + 0.92, z), frosting)
+    s.cyl(0.7, 1.0, (x, y + 1.35, z), sponge)
+    s.cyl(0.12, 1.05, (x, y + 1.72, z), frosting)
+    for k in range(candles):
+        dx = (k - (candles - 1) / 2) * 0.5
+        s.cyl(0.5, 0.06, (x + dx, y + 2.03, z), (120, 180, 240))
+        s.ball(0.16, (x + dx, y + 2.35, z), (255, 200, 80), "Neon")
+    s.light((x, y + 2.6, z), (255, 190, 120), 0.8, 8)
+
+
+def smoothie(s: Set, pos, color=(240, 120, 160)):
+    """A tall smoothie cup with a lid and a straw, to stand on a surface (pos y is the surface)."""
+    x, y, z = pos
+    s.cyl(1.0, 0.32, (x, y + 0.5, z), color, transparency=0.1)
+    s.cyl(0.08, 0.35, (x, y + 1.04, z), (245, 245, 245))
+    s.box((0.07, 0.8, 0.07), (x + 0.1, y + 1.4, z), (60, 160, 230), rot=(0, 0, -12))
+
+
+def ice_pack(s: Set, pos, color=(150, 205, 245)):
+    """A soft-looking ice pack lying on a surface (pos y is the surface)."""
+    x, y, z = pos
+    s.box((1.1, 0.22, 0.75), (x, y + 0.11, z), color, "Fabric")
+    s.box((0.9, 0.05, 0.55), (x, y + 0.24, z), (210, 235, 250), "Fabric")
+
+
+def wall_phone(s: Set, pos, facing=(0, 0, 1), color=(70, 70, 80)):
+    """An old wall phone: a base on the wall at pos (x, y, z: its centre), a handset on its hook, a coiled cord."""
+    x, y, z = pos
+    yaw = _yaw(facing)
+
+    def at(dx, dy, dz):
+        rx, rz = _rot(dx, dz, yaw)
+        return (x + rx, y + dy, z + rz)
+
+    s.box((0.9, 1.5, 0.3), at(0, 0, 0), color, rot=(0, yaw, 0))
+    s.box((0.35, 1.3, 0.3), at(-0.15, 0.05, 0.3), (40, 40, 48), rot=(0, yaw, 0))      # the handset
+    s.box((0.3, 0.3, 0.05), at(0.25, 0.3, 0.17), (200, 200, 210), rot=(0, yaw, 0))     # the keypad
+    for k in range(6):                                                                 # the cord's coils
+        s.cyl(0.08, 0.08, at(-0.15, -0.75 - 0.12 * k, 0.32), (40, 40, 48), axis="x")
+
+
 PROPS = {"dog": dog, "cat": cat, "plant": plant, "lamp": lamp, "table": table, "rug": rug, "car": car, "tree": tree,
-         "pine": pine, "bookshelf": bookshelf, "sofa": sofa, "tv": tv}
+         "pine": pine, "bookshelf": bookshelf, "sofa": sofa, "tv": tv,
+         "balloons": balloons, "cake": cake, "smoothie": smoothie, "ice_pack": ice_pack, "wall_phone": wall_phone}
 
 
 def props(s: Set, items: list) -> None:

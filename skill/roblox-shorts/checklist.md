@@ -45,4 +45,21 @@ failure found to this list and to `docs/VERIFY.md`.
 - A gap hovering round the silence line left uncut (M5's line a, 0.22 s at 38-42 dB under): `voice.quiet_spans`
   fills from the first 30 ms of silence to the last; selftest, with the measured profile.
 - A soft first consonant missed by the transcriber ("She aced" heard as "He aced", M5): it hears a copy with 0.5 s
-  of silence before the line.
+  of silence before the line. When even the raw take is heard wrong, the read is wrong: regenerate the line.
+- Actors a shot is about standing outside the narrow portrait frame (M4's gossips by the lockers, the people Leo
+  walks past; M5's bragging owners): `make.py plan` warns ("never in frame"); stage in depth, not side by side.
+- A camera inside a wall (M4's over-the-shoulder shot from behind an actor against the lockers: a solid blue
+  frame): look at every still before the shoot; film from where the near actor stands instead.
+- A regenerated line's new takes ignored for the old files of the same name: takes are now named by the take.
+- Actors inside each other (M3's presenters 3 studs apart, her elbow through his arm): R6 actors with arms out are
+  about 4 studs wide; stand them 4.4 apart.
+- Captions and faces before their words (M3: a punch captioned 0.6 s before it was said): `voice.refine_words`.
+- Gestures out of frame in close-ups (a cheer, a point): key a face instead, or frame wider.
+- A jump cut (M3's `the_chat` into `seen`: 1.17x the size, the head dropping across the cut): change size by 2x or
+  more, or the angle, and keep the pose.
+- A line in another register (M3: the narrator an octave down, 5-7 dB quieter in the speech band): the voice
+  report's register check.
+- A click when the Short loops (a note cut 8 ms before the end): the mix fades the bed and the end.
+- A check passing on missing data (`audio.py` on a timeline with no cues): it fails that now.
+- Captions coming in after a cut by 1-3 frames: they snap to it.
+- Booms on static holds, their tails under the next word: a punch-in on the hit, the tail ducked.

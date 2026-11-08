@@ -1,0 +1,25 @@
+# group-project: review
+
+## Round 1 (2026-11-08, on `out/group-project.mp4` of 04:13)
+
+A fresh reviewer agent got the delivered file, its timeline and plan, the script, the voice report, the automated
+reports and the checklists. Its evidence is in `build/review/group-project/`. Every finding was checked and stands.
+
+| # | Finding | Severity | Cause | Fix |
+|---|---|---|---|---|
+| 1 | In `pres_day` the girl's elbow (hands on hips) cuts into the narrator's arm for the whole shot | must | they stood 3 studs apart; R6 actors with arms out are about 4 wide | stand 4.4 apart |
+| 2 | Cast items and Roblox's built-ins (the board font, materials, sky) not logged for the videos | must | `ATTRIBUTION.md` listed some items for the spike renders only | rows for every item and built-in, with the videos that use them |
+| 3 | Captions, faces and poses come up to 0.6 s before their words ("for a forty slide project" during the scoff after "page") | should | the transcriber starts a word straight after the last one, stretching it over a pause or a breath | word starts moved to where the sound begins (`voice.refine_words`) |
+| 4 | Gestures keyed to words happen out of frame in close-ups (the girl's cheer and point, the teacher's cheer behind a desk) | should | direction | gestures only where the frame shows them |
+| 5 | A jump cut into `seen`: the same subject, same place, 1.17x the size; the head drops across the cut; an eye under the bangs in "Seen." | should | direction | `seen` a much closer shot from another angle, the pose the same across the cut |
+| 6 | Lines 7 and 10 read an octave low (99 and 105 Hz against 212-224) and 5-7 dB quieter in the speech band: they could sound like another narrator | should | the tags ([suspicious], [defeated]) pulled the read down; the role's pitch range was wide enough to pass it | a check that a role keeps its own register across a video's lines; both lines regenerated |
+| 7 | A click on every loop: a music note starts 8 ms before the end | should | the bed was cut, not faded | the mix fades the bed out at the end |
+| 8 | `audio.py` passed a timeline with no cues (the plan had been re-run after delivery) | should | a check that passes on missing data | `audio.py` fails a timeline with clips but no cues |
+| 9 | Captions come in 1-3 frames after a cut; the render and `cut.json` disagree by a frame | nit | show times not snapped to cuts; rounding in two places | captions snap to a cut just before them; one frame rule |
+| 10 | Booms land on frames with no picture change, and their tails sit under the next line's first word | nit | a boom after a line, inside a shot | a punch-in on every boom; its tail ducked under the next line |
+| 11 | `the_chat` reads as an empty room (the extras out of frame); the hook shows the board only in pieces | nit | direction | the class seated in frame; the hook opens on the whole board |
+
+Fine, by the reviewer's measure: the specs, loudness (-14.2 LUFS, -2.4 dBTP), no flashes, no stray or black frames,
+every shot's first frames textured, every line at its planned start, the captions' words, caps and emoji, heads clear
+of the captions, every boom on its hit, the music 15-20 dB under the voice, the premise at frame 0, no logo or
+reference content, teen-appropriate.

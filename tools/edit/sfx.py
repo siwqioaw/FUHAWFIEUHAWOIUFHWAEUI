@@ -131,8 +131,28 @@ def tick(dur: float = 0.05) -> np.ndarray:
     return _norm(np.sin(2 * np.pi * 2200 * _t(dur)) * _env(dur, 0.0005, 0.006), -9.0)
 
 
+def siren(dur: float = 0.9, lo: float = 620.0, hi: float = 960.0, rate: float = 3.3) -> np.ndarray:
+    """A lie detector's siren: a tone sweeping between two pitches a few times a second, with a little edge."""
+    t = _t(dur)
+    f = lo + (hi - lo) * (0.5 - 0.5 * np.cos(2 * np.pi * rate * t))
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    x = np.sin(ph) + 0.25 * np.sin(2 * ph) + 0.1 * np.sin(3 * ph)
+    return _norm(x * np.minimum(1, t / 0.01) * np.minimum(1, (dur - t) / 0.06), -6.0)
+
+
+def whistle(dur: float = 0.55, f: float = 2900.0) -> np.ndarray:
+    """A coach's whistle: a high tone with the pea's trill (a fast wobble) and breath."""
+    t = _t(dur)
+    wobble = 1 + 0.035 * np.sin(2 * np.pi * 38 * t)
+    ph = 2 * np.pi * np.cumsum(f * wobble) / SR
+    breath = np.convolve(_noise(dur, 7), np.ones(8) / 8, mode="same") * 0.08
+    env = np.minimum(1, t / 0.015) * np.minimum(1, (dur - t) / 0.05)
+    return _norm((np.sin(ph) + 0.2 * np.sin(2 * ph) + breath) * env, -6.0)
+
+
 EFFECTS = {"boom": boom, "whoosh": whoosh, "pop": pop, "ding": ding, "error": error, "shimmer": shimmer,
-           "thud": thud, "riser": riser, "tick": tick}
+           "thud": thud, "riser": riser, "tick": tick,
+           "siren": siren, "whistle": whistle}
 
 
 def make(name: str, **kw) -> np.ndarray:

@@ -37,6 +37,12 @@ def _peak_db(x: np.ndarray) -> float:
 
 def crossings(tl: Timeline, x: np.ndarray, sr: int) -> tuple[list[str], int]:
     lines, fails = [], 0
+    if not tl.cues and len(x) and _peak_db(x) > -60:
+        # Sound with nothing declared: the cue sheet is missing (the plan re-run after the mix wipes it), and every
+        # crossing below would pass unchecked (M3's review: a timeline rewritten after delivery passed).
+        lines += ["## The cue sheet: FAIL", "- the timeline declares no cues but the file has sound: run the mix "
+                  "again so every crossing is checked", ""]
+        fails += 1
     for a, b, f in tl.cuts():
         t = tl.sec(f)
         i = int(t * sr)

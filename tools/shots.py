@@ -99,7 +99,8 @@ def actor(at, look=None, facing=None, poses=None, faces=None, walk=None, drift: 
 def shot(name: str, actors: dict, camera: list, say=None, sfx=None, seconds="auto", pad: float = 0.2,
          streak: bool = False, drift: float = 1.0, until=None, set: str | None = None, overlays=None) -> dict:
     """One shot. `say`: [(line id, at)], `sfx`: [(sound, at)] or [(sound, at, gain_db)]; `until`: end on a time
-    ('b:switched'); `set`: another of the video's sets; `overlays`: [(icon, over, at)] icons popping over a point."""
+    ('b:switched'); `set`: another of the video's sets; `overlays`: [(icon, over, at, {options})] icons popping over a
+    point; the options: size, lift, dur, and "text" for a line drawn over it (an icon of None: the text alone)."""
     out = {"name": name, "seconds": seconds, "pad": pad, "actors": actors, "camera": camera,
            "say": [{"line": s[0], "at": s[1]} for s in (say or [])],
            "sfx": [{"sound": s[0], "at": s[1], **({"gain_db": s[2]} if len(s) > 2 else {})} for s in (sfx or [])],

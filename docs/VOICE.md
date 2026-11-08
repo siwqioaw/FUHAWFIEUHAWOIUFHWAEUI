@@ -47,6 +47,18 @@ silence to its last is silence too. A creaky decay's one-frame dips start nothin
 (`tests/selftest.py` has both, the gap built from M5's measured profile). Processed takes are cached by take and
 settings, with `PROCESS_VERSION` in the key: bump it when the chain changes.
 
+## Word times
+
+The transcriber's word times anchor everything keyed to a word: captions, faces, poses, effects, cuts. It starts a
+word straight after the one before, though, over any pause, held vowel or scoff between them: M3's review found
+"for a forty slide project" captioned 0.6 s before "For" was said (a scoff and a pause after "page."), and "every"
+0.33 s early. `voice.refine_words` moves the start of a word that opens a phrase (after a comma or a sentence's end,
+by the script's punctuation) to its own voiced stretch: from the voicing of the word before or a gap, past a sound
+and a pause, or, when the word holds no voicing at all, to the next voiced stretch. Inside a quick phrase it leaves
+words alone: there the voicing measure misses reduced syllables ("the" in "Jake's the fastest" would have moved
+half a second). On M3's lines it moves "for" to 8.06 s (the reviewer measured about 8.00) and "every" to 17.36
+(17.30). It runs on every take, after the cache.
+
 ## The checks (`report.md`)
 
 Each one fails a line that must be regenerated or reprocessed:
@@ -54,7 +66,10 @@ Each one fails a line that must be regenerated or reprocessed:
 - every scripted word heard by the transcriber, in order (tags dropped, "40" taken for "forty", "21" for
   "twenty-one"). It hears a copy with 0.5 s of silence before the line, its times moved back: from time 0 it missed
   a soft first consonant (M5's "She aced her math test" came back "He aced" on both takes, though the 70 ms "sh" is
-  there, at 4.8-5.3 kHz);
+  there, at 4.8-5.3 kHz). When even the raw take is heard that way, the read is wrong: regenerate the line;
+- its median pitch inside the role's register: within -7 to +9 semitones of the voice's own pitch (`center` in
+  `voices.json`, its audition). A shout can rise a long way and still be him; an octave down sounds like someone else
+  (M3's review: two narrator lines read at 99-105 Hz against his 212-224, heard as another, quieter voice);
 - no word heard that isn't in the script (a tag read aloud, a repeated phrase);
 - the sound starts within 50 ms of the file's start and ends within 150 ms of its end;
 - no pause longer than the role's `max_pause` (0.2 s; 0.15 for stories);

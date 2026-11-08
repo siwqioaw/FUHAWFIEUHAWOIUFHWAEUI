@@ -13,6 +13,24 @@ preset and any extra sets at offsets; `make.py` calls it for every shoot.
 | `street` | 140 x 200 | road with lines, sidewalks, 8 houses with roofs, fences, trees, 4 streetlamps, a parked car; `{"night": True}` lights lamps and windows under a black sky | day / night |
 | `stage_void` | 120 x 120 | one-colour floor and back wall (a cyclorama) | interior |
 
+## Props
+
+Any set takes props in its options, placed for the whole video: `{"props": [{"kind": "dog", "at": [x, 0, z],
+"facing": [x, 0, z], "color": [r, g, b]}]}` (`kit.PROPS`). Made from parts like everything else:
+
+| Prop | What | Options |
+|---|---|---|
+| `dog`, `cat` | blocky R6-scale pets: a dog standing (body, legs, paws, head, snout, bead eyes with catchlights, floppy ears, collar, tail), a cat sitting (pointed ears, green eyes, long tail); M5's narrator and the street's bragging pets | facing, color, spot, collar (dog), size |
+| `balloons` | three party balloons on strings, tied to a weight | colors, height |
+| `cake` | a two-tier birthday cake, candles lit | frosting, sponge, candles; `at` y is the table top |
+| `smoothie` | a tall cup with a lid and a straw | color; `at` y is the surface |
+| `ice_pack` | a soft blue ice pack | color; `at` y is the surface |
+| `wall_phone` | an old wall phone with a handset and a coiled cord | facing; `at` is its centre on the wall |
+| `plant`, `lamp`, `table`, `rug`, `car`, `tree`, `pine`, `bookshelf`, `sofa`, `tv` | the furniture builders | their own |
+
+The pets are looked at in M5's stills. The party props, smoothie, ice pack and wall phone are checked by the selftest
+(each builds) and previewed with `python tests/studio_library.py props`.
+
 ## Measured on the first previews (2026-11-08)
 
 - Build time: 0.5-1 s for a set of 100-300 parts; the street and the classroom about 300 parts each.

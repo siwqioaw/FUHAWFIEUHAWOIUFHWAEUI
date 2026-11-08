@@ -5,7 +5,11 @@
   "keep": 0.07,
   "max_pause": 0.2,
   "level_db": -18.0,
-  "tempo_method": "atempo"
+  "tempo_method": "atempo",
+  "register_st": [
+   -7,
+   9
+  ]
  },
  "roles": {
   "narrator": {
@@ -19,7 +23,8 @@
     90,
     340
    ],
-   "measured": "audition 214 Hz median, 3.5 words a second after 1.12x; the references' narrators 191-247 Hz. Its reads run 99-105 Hz when sarcastic or defeated and 329 Hz when shouting (M3), so the range is wide: the voice id decides the voice, the range only catches a gross mistake"
+   "measured": "audition 214 Hz median, 3.5 words a second after 1.12x; the references' narrators 191-247 Hz. Its reads ran 99-105 Hz when suspicious or defeated in M3, heard by the review as another, quieter voice: the register check (center, register_st) fails a line an octave down, so regenerate it with a tag that keeps his voice; 329 Hz when shouting is still him",
+   "center": 214
   },
   "girl": {
    "name": "Yuria",
@@ -32,7 +37,8 @@
     230,
     450
    ],
-   "measured": "audition 339 Hz; the references' girls about 320 Hz"
+   "measured": "audition 339 Hz; the references' girls about 320 Hz",
+   "center": 339
   },
   "girl_bratty": {
    "name": "Kathie",
@@ -45,7 +51,8 @@
     230,
     460
    ],
-   "measured": "audition 364 Hz"
+   "measured": "audition 364 Hz",
+   "center": 364
   },
   "deep": {
    "name": "Adam",
@@ -60,7 +67,8 @@
     60,
     165
    ],
-   "measured": "audition 82 Hz; the references' deep punches 79-123 Hz"
+   "measured": "audition 82 Hz; the references' deep punches 79-123 Hz",
+   "center": 82
   },
   "story": {
    "name": "Liam",
@@ -79,7 +87,8 @@
     3.6,
     5.6
    ],
-   "measured": "audition 183 Hz, 4.8 words a second in one sentence at 1.2x; the references' storytellers 173-233 Hz, 4.1-4.7 words a second over whole stories; whole story parts in M4 ran 3.8-4.6 words a second (a spaced 'Ding! Ding! Ding!' slows one) and 131-186 Hz (a soft, sad twist reads low), so the ranges allow them"
+   "measured": "audition 183 Hz, 4.8 words a second in one sentence at 1.2x; the references' storytellers 173-233 Hz, 4.1-4.7 words a second over whole stories; whole story parts in M4 ran 3.8-4.6 words a second (a spaced 'Ding! Ding! Ding!' slows one) and 131-186 Hz (a soft, sad twist reads low), so the ranges allow them",
+   "center": 183
   },
   "mom": {
    "name": "Lyra",
@@ -92,7 +101,8 @@
     180,
     460
    ],
-   "measured": "audition 419 Hz when bubbly; untested as a mom"
+   "measured": "audition 419 Hz when bubbly; untested as a mom",
+   "center": 419
   }
  }
 }

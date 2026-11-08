@@ -19,9 +19,9 @@ schedule or change a channel setting.
 | 0 | Concept | If the prompt is a topic, not a premise, generate 10 concepts, score them, take the best. Pick the format. | `notes.md`: the 10, the scores, the pick | `writing/concepts.md`, `formats/` |
 | 1 | Script | Write it to the format's beat table and word budget: a hook in the first second, one quotable 2-4 word line, punches every 2-8 s (comedy) or a twist at about 85% (stories), a hidden detail in the set, a loop ending. Check originality against `refs/r6rants/transcripts/`. | `notes.md` | `writing/craft.md` |
 | 2 | Direct | Choose the set(s), cast, and every shot: actors, poses and faces keyed to words, a camera move per shot, effects. Write `direct.py` with `tools/shots.py`. | `videos/<slug>/direct.py`, `lines.json` | `library.md`, `formats/` |
-| 3 | Voice | Generate each line with the ElevenLabs connector (one flow per video, 2 takes for lines that carry a joke), fetch the takes, `make.py voice`. Fix any FAIL by regenerating that line. | `build/<slug>/takes.json`; the voice report | `docs/VOICE.md` |
-| 4 | Plan | `python videos/<slug>/direct.py`, then `python tools/make.py plan videos/<slug>`. Read the shot times: a new framing every 1.0-2.5 s. | `plan.json`, `cut.json` | `docs/MAKING.md` |
-| 5 | Stills | `make.py stills`: look at every still at full size. Fix staging (someone hidden, a face cut off, a head in the caption block, a wall in the way) before the shoot. | `build/<slug>/stills/` | `checklist.md` |
+| 3 | Voice | Generate each line with the ElevenLabs connector (one flow per video, 2 takes for lines that carry a joke), fetch the takes, `make.py voice`. Fix any FAIL by regenerating that line (a word heard wrong on the raw take too is the read, not the processing: reword it if a sound at the line's start is weak). | `build/<slug>/takes.json`; the voice report | `docs/VOICE.md` |
+| 4 | Plan | `python videos/<slug>/direct.py`, then `python tools/make.py plan videos/<slug>`. Read the shot times (a new framing every 1.0-2.5 s), the captions as they'll break, and every "never in frame" warning: restage anyone a shot is about. It fails a caption up too briefly to read. | `plan.json`, `cut.json` | `docs/MAKING.md` |
+| 5 | Stills | `make.py stills` (`--only` for a few): look at every still at full size, with a caption drawn over it in the video's style. Fix staging (someone hidden or out of the narrow frame, a face cut off or under the captions, a frame of one flat colour: the camera inside a wall, a logo on a costume) before the shoot. | `build/<slug>/stills/` | `checklist.md` |
 | 6 | Shoot | `make.py shoot` (runs in the background; resumes on failure). Needs Studio open in the capture layout and `python tools/roblox/studio_mcp.py serve`. | frames | `docs/ROBLOX_CAPTURE.md` |
 | 7 | Cut, mix, deliver | `make.py cut`, `mix`, `deliver`: every check on the delivered file must pass. | `out/<slug>.mp4`, `build/<slug>/verify/` | `docs/VERIFY.md` |
 | 8 | Review | A fresh reviewer agent gets the file, the timeline and `checklist.md` (not your opinion of it). Fix what it finds; add any new kind of failure to the checklist. | `videos/<slug>/review.md` | `checklist.md` |
@@ -36,7 +36,8 @@ frame at 60 fps (a 30 s story, about an hour; music formats at 30 fps, half), cu
   implied, never shown, no gore, any scary image under about 2 s. Nothing graphic, sexual or hateful, nothing that
   encourages unsafe behaviour. No kid-coded words in titles. No child's personal information anywhere.
 - **Original.** Never reuse the references' footage, music, characters, catchphrases (the "BRO" opener, the sunglasses
-  narrator, the beanie kid) or jokes. Our narrator has blue hair and black glasses (`tools/roblox/cast.json`).
+  narrator, the beanie kid) or jokes. Our narrator has blue hair and black glasses (`tools/roblox/cast.json`). No
+  Roblox logo anywhere, clothes included (an item named "ROBLOX ..." usually carries one).
 - **Licensed.** Every sound, track, font, image and catalog item has a licence and a line in `ATTRIBUTION.md`.
   Voices only from ElevenLabs on the owner's paid plan; never a clone of a real person. Music: YouTube Audio Library,
   or ElevenLabs music for a voiced video's bed (not for a music-only video, where the music is the focus).
@@ -54,10 +55,11 @@ frame at 60 fps (a 30 s story, about an hour; music formats at 30 fps, half), cu
   effects, voices, caption styles, music.
 - `formats/`: one playbook per format, with its beat table, word budget, shot rhythm, sound plan, an original example
   skeleton and a scoring rubric.
-- `writing/`: concepts (generators, premise tests, scoring), craft (jokes, twists, escalation, the teen voice),
-  packaging (titles, descriptions, hashtags).
+- `writing/`: concepts (generators, premise tests, scoring), a bank of tested premises mapped to the library, craft
+  (jokes, twists, escalation, the teen voice), packaging (titles, descriptions, hashtags).
 - `building.md`: new sets and props with `tools/roblox/kit.py` (the buildings), lighting, marks, previews.
 - `assets.md`: new faces, catalog items for new looks, sounds, music, emoji: how to make or find each, licensed.
 - `checklist.md`: what the reviewer checks, every failure found so far.
 - Worked examples: `videos/group-project/direct.py` (a rant), `videos/ding/direct.py` (a story across three sets),
-  `videos/first-vs-last/direct.py` (a music comparison).
+  `videos/first-vs-last/direct.py` (a music comparison), `videos/pet-narrator/direct.py` (the one-prompt run: a
+  story across four sets, pets made from code as props, a speech bubble as the rule's signature).

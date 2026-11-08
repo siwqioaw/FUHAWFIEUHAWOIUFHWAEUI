@@ -482,6 +482,25 @@ def _balance(caps: list, fps: float, most: float = 0.12) -> None:
             caps[i + 1]["show"] += take
 
 
+def _snap_to_cuts(caps: list, cuts: list, fps: float, most: int = 4) -> None:
+    """A caption due up to `most` frames after a cut comes in on the cut instead: captions cut in with the picture,
+    on the cut or a frame or two before (M3's review: five came in 1-3 frames after one). The caption before it
+    gives way, if it can spare the frames."""
+    for i, c in enumerate(caps):
+        if c.get("style") not in ("comedy", "story"):
+            continue
+        f = int(round(c["show"] * fps))
+        cut = max((x for x in cuts if 0 < f - x <= most), default=None)
+        if cut is None:
+            continue
+        t = cut / fps
+        if i and caps[i - 1]["hide"] > t:
+            if t - caps[i - 1]["show"] < 0.3:
+                continue  # the one before can't give the frames
+            caps[i - 1]["hide"] = t
+        c["show"] = t
+
+
 def _framing(plan: dict, size=(1080, 1920)) -> list[str]:
     """Actors a shot lists but its camera never shows: each one's head (and a walk's both ends) projected through
     the camera at the shot's start, middle and end. A portrait frame is narrow: at 15 studs, a 58-degree camera sees
@@ -602,9 +621,9 @@ def stage_plan(sh: Short) -> bool:
                 hits.append({"frame": int(round(at * fps)), "what": f"{fx_['sound']} in {spec['name']}"})
         overlays = []
         for ov in spec.get("overlays", []):
-            overlays.append({"icon": ov["icon"], "over": _point(spec, ov["over"]), "start": res(ov.get("at", 0.0)),
-                             "dur": float(ov.get("dur", 0.6)), "size": float(ov.get("size", 150)),
-                             "lift": float(ov.get("lift", 1.4))})
+            overlays.append({"icon": ov.get("icon"), "text": ov.get("text"), "over": _point(spec, ov["over"]),
+                             "start": res(ov.get("at", 0.0)), "dur": float(ov.get("dur", 0.6)),
+                             "size": float(ov.get("size", 150)), "lift": float(ov.get("lift", 1.4))})
         plan["shots"].append({"overlays": overlays, "name": spec["name"], "start": st, "frames": s["frames"],
                               "frame0": s["frame0"],
                               "seconds": s["frames"] / fps, "camera": cam, "actors": actors,
@@ -628,18 +647,21 @@ def stage_plan(sh: Short) -> bool:
         c["show"] = max(0.0, c["start"] - lead)
         c["hide"] = min(nxt, max(c["end"] + (0.35 if style != "story" else 0.12), c["show"] + 0.3), total)
     _balance(caps, fps)
+    _snap_to_cuts(caps, [s["frame0"] for s in plan["shots"]], fps)
     for extra in sh.spec.get("texts", []):
         caps.append({"text": extra["text"], "style": extra.get("style", "header"), "show": float(extra["from"]),
                      "hide": float(extra.get("to", total)), "start": float(extra["from"]), "end": float(extra.get("to", total))})
     plan["captions"] = caps
     plan["voices"], plan["sounds"] = voices, sounds
     plan["music"] = sh.spec.get("music")
+    plan["punch"] = sh.spec.get("punch", True)
     _save(sh.path("plan.json"), plan)
     import captions as _c
     cut = {"fps": fps, "clips": [{"name": s["name"], "frames": s["frames"]} for s in plan["shots"]],
            "texts": [{"text": re.sub(r"\{\w+:([^}]*)\}", r"\1",   # the words as read: no emoji, no {colour:...}
                                      " ".join(t for t in c["text"].split() if not _c.is_emoji(t))),
-                      "start": int(round(c["show"] * fps)), "frames": max(1, int(round((c["hide"] - c["show"]) * fps))),
+                      "start": _caption_frames(c, fps)[0],
+                      "frames": _caption_frames(c, fps)[1] - _caption_frames(c, fps)[0],
                       "speech": c["style"] in ("comedy", "story")} for c in caps],
            "hits": hits, "silences": [], "cues": []}
     _save(sh.path("cut.json"), cut)
@@ -857,12 +879,49 @@ def frame_at(build: str, r: int) -> np.ndarray:
         u = (k / fps - ov["start"]) / max(ov["dur"], 1e-3)
         if 0.0 <= u < 1.0:
             out = _overlay(out, ov, _path_for(plan_path, shot["name"])(k / fps), u)
-    t = r / fps
+    zoom = _punch(plan, r)
+    if zoom > 1.0005:
+        h, w = out.shape[:2]
+        ch, cw = int(round(h / zoom)), int(round(w / zoom))
+        y0, x0 = (h - ch) // 2, (w - cw) // 2
+        out = cv2.resize(out[y0:y0 + ch, x0:x0 + cw], (w, h), interpolation=cv2.INTER_LINEAR)
     for c in plan["captions"]:
-        if c["show"] <= t < c["hide"]:
+        f0, f1 = _caption_frames(c, fps)
+        if f0 <= r < f1:
             layer, (x, y) = _caption_layer(c["text"], c["style"])
             look.over(out, layer, x, y)
     return out
+
+
+def _caption_frames(c: dict, fps: float) -> tuple[int, int]:
+    """The frames a caption is up for, by the one rule the timeline uses too (M3's review: the render and
+    cut.json disagreed by a frame)."""
+    f0 = int(round(c["show"] * fps))
+    return f0, f0 + max(1, int(round((c["hide"] - c["show"]) * fps)))
+
+
+PUNCH = (0.07, 0.3)   # how far a hit punches in, and how long it takes to settle
+
+
+def _punch(plan: dict, r: int) -> float:
+    """The picture's zoom at frame r: a boom or a thud that doesn't land on a cut punches in 7% on its frame and
+    eases back over 0.3 s, so the hit is in the picture as well as the sound (M3's review: booms on static holds).
+    `"punch": false` in the spec turns it off."""
+    if plan.get("punch") is False:
+        return 1.0
+    fps = plan["fps"]
+    cuts = [s["frame0"] for s in plan["shots"]]
+    z = 1.0
+    for snd in plan.get("sounds", []):
+        if not snd.get("hit"):
+            continue
+        f = int(round(snd["start"] * fps))
+        if any(abs(f - c) <= 2 for c in cuts):
+            continue  # the cut is the hit
+        u = (r - f) / (PUNCH[1] * fps)
+        if 0.0 <= u < 1.0:
+            z = max(z, 1.0 + PUNCH[0] * (1.0 - u) ** 2)
+    return z
 
 
 @functools.lru_cache(maxsize=16)
@@ -875,8 +934,10 @@ def _icon(name: str, size: int):
 
 
 def _overlay(img: np.ndarray, ov: dict, view: dict, u: float) -> np.ndarray:
-    """An icon popping up over a point in the scene: projected through the shot's camera, scaled in with a little
-    overshoot over the first fifth of its time, faded out over the last fifth."""
+    """An icon, a line of text or both (the text over the icon) popping up over a point in the scene: projected
+    through the shot's camera, scaled in with a little overshoot over the first fifth of its time, faded out over the
+    last fifth. Text is drawn in the `label` style, its natural size at `size` 150 ("99%" over a head, a text in a
+    speech bubble)."""
     import cv2
 
     import camera
@@ -890,12 +951,21 @@ def _overlay(img: np.ndarray, ov: dict, view: dict, u: float) -> np.ndarray:
     scale = 1.0 + 0.18 * math.sin(math.pi * pop) if pop < 1 else 1.0
     scale *= pop ** 0.5
     alpha = 1.0 if u < 0.8 else max(0.0, (1.0 - u) / 0.2)
-    size = max(4, int(ov["size"] * scale))
-    pic = _icon(ov["icon"], 256)
-    pic = cv2.resize(pic, (max(1, int(pic.shape[1] * size / pic.shape[0])), size), interpolation=cv2.INTER_AREA)
-    pic = pic.copy()
-    pic[..., 3] *= alpha
-    look.over(img, pic, int(xy[0] - pic.shape[1] / 2), int(xy[1] - pic.shape[0] / 2))
+    pics = []
+    if ov.get("icon"):
+        size = max(4, int(ov["size"] * scale))
+        pic = _icon(ov["icon"], 256)
+        pics.append(cv2.resize(pic, (max(1, int(pic.shape[1] * size / pic.shape[0])), size),
+                               interpolation=cv2.INTER_AREA))
+    if ov.get("text"):
+        layer, _ = _caption_layer(ov["text"], "label")
+        k = max(0.02, ov["size"] / 150.0 * scale)
+        pics.append(cv2.resize(layer, (max(1, int(layer.shape[1] * k)), max(1, int(layer.shape[0] * k))),
+                               interpolation=cv2.INTER_AREA))
+    for pic in pics:
+        pic = pic.copy()
+        pic[..., 3] *= alpha
+        look.over(img, pic, int(xy[0] - pic.shape[1] / 2), int(xy[1] - pic.shape[0] / 2))
     return img
 
 
@@ -936,6 +1006,20 @@ def _music(spec: dict, seconds: float, sr: int) -> np.ndarray | None:
     return x[:n]
 
 
+def _duck_tail(y: np.ndarray, sr: int, start: float, line_starts: list, depth_db: float = -12.0) -> np.ndarray:
+    """A boom's long low tail pulled down under the next line that starts while it rings (M3's review: the tails sat
+    at -16 dBFS in the low band under the next line's first word, the speech at -26), from 50 ms before the line."""
+    nxt = [t - start for t in line_starts if 0.05 < t - start < len(y) / sr]
+    if not nxt:
+        return y
+    i0 = max(0, int((min(nxt) - 0.05) * sr))
+    n = int(0.06 * sr)
+    g = np.ones(len(y))
+    g[i0:i0 + n] = np.linspace(1.0, 10 ** (depth_db / 20), len(g[i0:i0 + n]))
+    g[i0 + n:] = 10 ** (depth_db / 20)
+    return y * (g[:, None] if y.ndim == 2 else g)
+
+
 def stage_mix(sh: Short) -> bool:
     import cues
     import master
@@ -958,6 +1042,8 @@ def stage_mix(sh: Short) -> bool:
         clip, at = _clip_at(plan, s["start"])
         y = sfx.make(s["sound"]) if s["sound"] in sfx.EFFECTS else cues.load(
             s["sound"] if os.path.isabs(s["sound"]) else os.path.join(ROOT, s["sound"]), sr)
+        if s.get("hit"):
+            y = _duck_tail(y, sr, s["start"], [v["start"] for v in plan["voices"]])
         end_clip, _ = _clip_at(plan, min(s["start"] + len(y) / sr, plan["seconds"] - 1e-6))
         mix.place("sfx", y, clip, at=at, gain_db=s.get("gain_db", 0.0),
                   until=end_clip if end_clip != clip else None, label=os.path.basename(s["sound"]))
@@ -966,6 +1052,9 @@ def stage_mix(sh: Short) -> bool:
     if music:
         start = float(music.get("start", 0.0))
         bed = _music(music, plan["seconds"] - start, sr)
+        n = min(len(bed), int(0.35 * sr))
+        if n:   # faded at the end: a note cut off there clicks every time the Short loops (M3's review)
+            bed[-n:] = bed[-n:] * np.linspace(1.0, 0.0, n)[:, None] if bed.ndim == 2 else bed[-n:] * np.linspace(1.0, 0.0, n)
         clip, at = _clip_at(plan, start)
         mix.place("music", bed, clip, at=at, until=plan["shots"][-1]["name"], label="music")
         gains["music"] = float(music.get("gain_db", -14.0))
@@ -976,6 +1065,9 @@ def stage_mix(sh: Short) -> bool:
     raw = mix.render(gains)
     mix.write(sh.path("mix_raw.wav"), raw)
     y = master.master(raw, sr, -14.0, -2.4, silences=mix.silences)
+    n = min(len(y), int(0.015 * sr))
+    if n:
+        y[-n:] = y[-n:] * (np.linspace(1.0, 0.0, n)[:, None] if y.ndim == 2 else np.linspace(1.0, 0.0, n))
     sf.write(sh.path("mix.wav"), y, sr, subtype="PCM_24")
     mix.export(sh.path("cut.json"))
     print(f"mix: {sh.path('mix.wav')} ({master.lufs(y, sr):.1f} LUFS, {master.true_peak_db(y):.1f} dBTP)")

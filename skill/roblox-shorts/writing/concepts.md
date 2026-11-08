@@ -20,7 +20,8 @@ So: universal subjects first, a rule or a type the viewer can already picture, a
 
 ## Generate: ten candidates, never one
 
-Write ten, across at least three formats, before choosing. Mines that work for a teen audience:
+Write ten, across at least three formats, before choosing. `bank.md` holds premises already tested and
+scored, each mapped to the sets and assets it needs: a few of the ten can come from there. Mines that work for a teen audience:
 
 - **School:** group projects, substitute teachers, the cafeteria, gym class, the last five minutes of class, tests,
   homework excuses, lockers, field trips, the new kid, the teacher's pet, the class clown, presentations, detention,

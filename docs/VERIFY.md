@@ -79,7 +79,7 @@ python tools/verify/audio.py cut.json OUT.mp4
 
 | Check | Result |
 |---|---|
-| Crossings | Every placed sound running across every cut, each with its reason: a bridge, or a prelap (a sound placed in the next clip that starts just before it). One with neither FAILs. |
+| Crossings | Every placed sound running across every cut, each with its reason: a bridge, or a prelap (a sound placed in the next clip that starts just before it). One with neither FAILs. So does a timeline with sound but no cue sheet (the plan re-run after the mix wipes it, and every crossing would pass unchecked). |
 | Silences | Each intended silence's peak on the final file. Over -60 dBFS FAILs. |
 | Sync | For each hit: does a sound land within 2 frames (a rise over 6 dB, or a level over -14 dB)? CHECK if not. |
 | Spectrogram | 30 Hz to 16 kHz with every cut marked and named. A tail past a cut shows as energy past its line. |
@@ -152,6 +152,13 @@ The checks have to come back clean first. Then:
 - every still before a shoot (`make.py stills`), at full size: no white wall burned out, no face hidden by a pose or
   cut by the frame, a two-shot wide enough for both, no actor inside furniture;
 - every icon overlay: over the right head, on the right word, with its sound;
+- every caption, face and pose on its word, not before it (a caption up before its punch is said kills the joke);
+- every gesture inside the frame (a cheer in a close-up is a sliver of arm at the edge);
+- no jump cut: the same subject from the same side needs a big change of size or angle across a cut, and the same pose;
+- one voice per role: no line in another register (the voice report's register check);
+- the end: nothing cut off in the last frames (a note, a word), so the loop is clean;
+- everyone a shot is about in frame (the portrait frame sees about 4.7 studs either side at 15 studs; the plan
+  warns), and no camera inside a wall or a prop (a frame of one flat colour);
 - the first two seconds: what is this, and why keep watching?
 - and every failure in `docs/LESSONS.md`, and every one found since.
 
@@ -173,7 +180,7 @@ The checks have to come back clean first. Then:
   in linear light; a projection turned the wrong way.
 
 It confirms that each check catches its failure and passes the clean parts. It also checks `master.py`'s loudness
-meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 90 of 90.
+meter against ffmpeg's. Run it after changing any tool. When it last ran it passed 98 of 98.
 
 On the third trailer cut, the delivered file measured:
 

@@ -17,9 +17,15 @@ All of it is code in the repository; a video's `direct.py` names it.
   b]}`), the bedroom's walls, blanket and rug, the living room's sofa colour, the street's car colour.
 - Coordinates: studs, y up, floors at y = 0; a standing actor's `at` has y = 3. The classroom is 44 x 36 (the board
   at z = -18, students face -z, desks at x -12, -3, 6, 15 and z -4, 3, 10; aisles at x -7.5, 1.5, 10.5). The hallway
-  is 18 wide and 80 long along z (lockers at x = +-8.2; stand at x = +-6).
+  is 18 wide and 80 long along z (lockers at x = +-8.2). Stand at x = +-6 only for a shot looking across the hall:
+  a camera looking along it sees about 4.7 studs either side at 15 studs (below).
 - Several places in one video: `Spec(..., extra_sets=[("new_school", "hallway", (400, 0, 0), {...})])`, then
   `shot(..., set="new_school")` with that set's own coordinates.
+- Props in any set's options, `{"props": [{"kind": "dog", "at": [x, 0, z], "facing": [..], ...}]}`: `dog` and `cat`
+  (blocky pets: colour, spot, collar, size), `balloons`, `cake` and `smoothie` (on a surface: `at` y is its top),
+  `ice_pack`, `wall_phone` (`at` is its centre on the wall), and the furniture builders (`plant`, `lamp`, `table`,
+  `rug`, `car`, `tree`, `pine`, `bookshelf`, `sofa`, `tv`). Props stay put for the whole video: an actor can't carry
+  one.
 
 ## Cast (`tools/roblox/cast.json`)
 
@@ -50,12 +56,19 @@ heel to toe at a steady speed.
 
 `push` (the opener), `pull` (a reveal), `swoop` (speaker to listener, `streak=True` to blur it), `dutch_in` (panic),
 `low` (power, a desk in the foreground), `top` (absurd, lonely), `ots` (an exchange, depth of field), `two_shot`,
-`hold`, `wide` (from a fixed point). Faces stay above 70% of the frame, clear of the captions.
+`hold`, `wide` (from a fixed point). Faces stay above 70% of the frame, clear of the captions (comedy), or below
+the caption block at about a quarter down (stories: frame the head under it).
+
+The frame is portrait, so it is narrow: a camera with a 58-degree field sees `distance x 0.31` studs either side of
+its centre (4.7 at 15 studs, 3.1 at 10), 50 degrees `distance x 0.26`. Put everyone a shot is about inside that, in
+depth rather than side by side: the one it's about in front, the others behind. `make.py plan` warns about any actor
+a shot lists that its camera never shows, and an over-the-shoulder camera needs room behind the near actor (against
+a wall it sits inside the wall: film from where they stand instead, `two_shot` of the far pair).
 
 ## Sound
 
 - Effects from code (`tools/edit/sfx.py`): boom (the punch, 47 Hz), whoosh, pop, ding, error, shimmer, thud, riser,
-  tick. More from the ElevenLabs connector's sound effects (`assets.md`).
+  tick, siren (a lie detector), whistle (a coach's). More from the ElevenLabs connector's sound effects (`assets.md`).
 - Voices (`tools/edit/voices.json`): narrator (Liam), girl (Yuria), girl_bratty (Kathie), deep (Adam), story (Liam at
   1.2x), mom (Lyra).
 - Music beds: `build/library/music/` (made or downloaded per `assets.md`; never committed). Comedy: pizzicato and

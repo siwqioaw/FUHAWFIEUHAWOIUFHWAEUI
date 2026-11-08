@@ -249,6 +249,109 @@ def load_cast(path: str | None) -> dict:
         return json.load(f)
 
 
+UNVOICED_START = ("f", "s", "h", "p", "t", "k", "c", "th", "sh", "ch", "wh", "x")
+
+
+def voiced_runs(y: np.ndarray, sr: int, least: float = 0.03, gap: float = 0.04, within_db: float = 30.0) -> list:
+    """Stretches of voiced speech: YIN-voiced frames within `within_db` of the loudest, joined across gaps under
+    `gap` s, at least `least` s long, as [start, end] seconds."""
+    t, f0, _ = speech.yin(speech.mono16k(y, sr), thresh=0.3)
+    if not len(t):
+        return []
+    db = speech.frames_db(y, sr)
+    top = np.percentile(db, 95)
+    idx = np.clip(np.round(t / 0.01 - 0.5).astype(int), 0, len(db) - 1)
+    v = ~np.isnan(f0) & (db[idx] > top - within_db)
+    runs, start = [], None
+    for k in range(len(t)):
+        if v[k] and start is None:
+            start = float(t[k])
+        elif not v[k] and start is not None:
+            runs.append([start, float(t[k])])
+            start = None
+    if start is not None:
+        runs.append([start, float(t[-1])])
+    merged = []
+    for r in runs:
+        if merged and r[0] - merged[-1][1] < gap:
+            merged[-1][1] = r[1]
+        else:
+            merged.append(r)
+    return [r for r in merged if r[1] - r[0] >= least]
+
+
+def _phrase_openers(words: list[dict], text: str | None) -> list[bool]:
+    """For each heard word: does it open a phrase (follow a comma or a sentence's end)? By the script's punctuation
+    where the script's words match the heard ones, else by the transcriber's."""
+    import difflib
+    ends = ".!?,;:…"
+    heard = [speech.norm(w["word"]) for w in words]
+    out = [i > 0 and words[i - 1]["word"].rstrip("\"')")[-1:] in ends for i in range(len(words))]
+    if not text:
+        return out
+    script = speech.spoken(text)
+    a = [speech.norm(w) for w in script]
+    for blk in difflib.SequenceMatcher(a=a, b=heard, autojunk=False).get_matching_blocks():
+        for k in range(blk.size):
+            ai, bi = blk.a + k, blk.b + k
+            if bi > 0:
+                out[bi] = ai > 0 and script[ai - 1].rstrip("\"')")[-1:] in ends
+    return out
+
+
+def refine_words(words: list[dict], y: np.ndarray, sr: int, text: str | None = None,
+                 least_shift: float = 0.1) -> list[dict]:
+    """Word starts moved to where the word's sound begins. The transcriber starts a word straight after the one
+    before, over a pause, a held vowel or a scoff between them (M3's review: "for" timed 0.6 s before it was said, so
+    its caption and a face keyed to it came early). Only words that open a phrase (after a comma or a sentence's
+    end) are moved: that's where the pauses and breaths are, and inside a quick phrase the voicing measure misses
+    reduced syllables. The phrase breaks are the script's (`text`), matched to the heard words: the transcriber
+    drops punctuation ("The title page. For..." heard as "the title page for"). Such a word starts at its own voiced
+    stretch instead when it:
+
+    - starts inside the voicing of the word before (begun more than 0.06 s earlier) or in a gap: the first voiced
+      stretch inside it;
+    - holds two voiced stretches more than 0.15 s apart (a sound, a pause, then the word): the later one;
+    - holds no voicing at all (the word is later than the transcriber says): the next voiced stretch, within 0.8 s.
+
+    Less 0.05 s for a word opening on an unvoiced consonant (0.02 otherwise), and only when that moves it 0.1 s or
+    more. Starts only move later, and stay in order; an end is pushed past its start when it has to be."""
+    runs = voiced_runs(y, sr)
+    out = [dict(w) for w in words]
+    opens = _phrase_openers(words, text)
+    for i, w in enumerate(out):
+        if not opens[i]:
+            continue
+        s, e = w["start"], w["end"]
+        inside = next((r for r in runs if r[0] <= s < r[1]), None)
+        later = [r for r in runs if s < r[0] <= e - 0.05]
+        touching = [r for r in runs if r[0] < e and r[1] > s]
+        target = None
+        if not touching:
+            nxt = next((r[0] for r in runs if s < r[0] <= s + 0.8), None)
+            if nxt is not None and speech.norm(w["word"]).strip("0123456789"):
+                target = nxt
+        elif inside is None or s - inside[0] > 0.06:
+            target = later[0][0] if later else None
+        group = ([inside] if inside else []) + later
+        for a, b in zip(group, group[1:]):
+            if b[0] - a[1] >= 0.15:
+                target = b[0]
+        if target is None or target - s < least_shift:
+            continue
+        lead = 0.05 if speech.norm(w["word"]).startswith(UNVOICED_START) else 0.02
+        w["start"] = round(max(s, target - lead), 3)
+        if touching:
+            w["start"] = round(min(w["start"], s + 0.8 * (e - s)), 3)
+        w["end"] = round(max(e, w["start"] + 0.08), 3)
+        for later_w in out[i + 1:]:   # the words after it can't start before it does
+            if later_w["start"] >= w["start"] + 0.03:
+                break
+            later_w["start"] = round(w["start"] + 0.03, 3)
+            later_w["end"] = round(max(later_w["end"], later_w["start"] + 0.05), 3)
+    return out
+
+
 def measure(y: np.ndarray, sr: int, text: str, words: list[dict]) -> dict:
     """Everything `check` judges a processed line by."""
     lead, tail = speech.edges(y, sr)
@@ -280,6 +383,13 @@ def check(m: dict, role: dict, line: dict) -> list[tuple[bool, str]]:
         out.append((True, f"median pitch: too little voicing to measure ({m['pitch']['voiced_s']} s)"))
     else:
         out.append((lo <= med <= hi, f"median pitch in {lo}-{hi} Hz ({med})"))
+        if role.get("center"):
+            # The same voice, not another: a read can rise a long way (a shout) but an octave down sounds like
+            # someone else (M3's review: two narrator lines at 99-105 Hz against his 212-224).
+            down, up = role.get("register_st", [-7, 9])
+            st = 12 * np.log2(med / role["center"])
+            out.append((down <= st <= up, f"in the voice's own register: {st:+.1f} semitones from its "
+                        f"{role['center']} Hz (allowed {down} to +{up})"))
     if role.get("rate") and m["words_per_s"] is not None:
         rlo, rhi = role["rate"]
         out.append((rlo <= m["words_per_s"] <= rhi, f"{rlo}-{rhi} words a second ({m['words_per_s']})"))
@@ -342,12 +452,15 @@ def make(lines_path: str, out_dir: str, model: str = "large-v3", device: str = "
     cast = load_cast(_cast_path(spec.get("cast"), base))
     os.makedirs(out_dir, exist_ok=True)
     import transcribe
-    asr, dev = transcribe.load(model, device)
+    asr, dev = None, "the cache"   # loaded at the first take that isn't cached: it needs about 3 GB
+
 
     def hear(path: str, pad: float = HEAR_PAD) -> list[dict]:
         """The words in a processed line, heard from a copy with `pad` seconds of silence before it (a soft first
         consonant at time 0 goes unheard: M5's "She aced" came back "He aced"), timed in the line's own time."""
         nonlocal asr, dev
+        if asr is None:
+            asr, dev = transcribe.load(model, device)
         y, rate = sf.read(path, dtype="float32")
         fd, padded = tempfile.mkstemp(suffix=".wav")
         os.close(fd)
@@ -381,6 +494,7 @@ def make(lines_path: str, out_dir: str, model: str = "large-v3", device: str = "
                 sf.write(dest, y.astype(np.float32), SR, subtype="PCM_24")
                 words = hear(dest)
                 _cache_put(out_dir, take, role, y, info, words)
+            words = refine_words(words, y, SR, line["text"])
             m = measure(y, SR, line["text"], words)
             checks = check(m, role, line)
             bad = sum(1 for ok, _ in checks if not ok)

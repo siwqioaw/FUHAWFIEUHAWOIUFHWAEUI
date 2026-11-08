@@ -42,3 +42,18 @@ prompt would have generated ten; a premise this strong goes straight to the test
 - One storyteller (Liam at 1.2x), three parts generated whole; the pets' brags in the storyteller's voice with
   `[warmly]`, as the references keep characters in the narrator's voice.
 - Four places in one shoot: the street (main), Max's bedroom, the living room, the school dance in the classroom.
+- The brags name the owners ("Mia aced her math test. Jake's the fastest kid in school."): the first version opened
+  line b on "She aced", and both takes read it as "He aced" (heard that way on the raw takes too, the "sh" faint at
+  the line's start). Regenerated with names: every check passes, and each brag lands on a name as its bubble pops.
+  The spec lists `names=["Mia", "Jake"]` so captions keep their capitals.
+- The street's owners stand 18 studs apart, too far for one portrait frame (the plan's framing check: "never in
+  frame"), so "And most people love it, | because their pets brag about them all day" is two shots, cut on
+  "because": a low angle on the dog's owner cheering, then a pull-back from the cat's proud owner.
+- The bubble over Max's dog shows only when it speaks ("He didn't."), not while Max begs.
+
+## What the run found in the tools
+
+M5 is the run the skill was built for, so its failures went back into the tools rather than around them: a pause
+the voice chain left at 38-42 dB under (cut now), a soft first consonant (the transcriber hears a padded copy), new
+takes downloaded under old names (named by the take now), captions breaking on "a" and "the" (split by phrase now),
+and actors out of the narrow frame (the plan warns). Each is in `skill/roblox-shorts/checklist.md` and the selftest.

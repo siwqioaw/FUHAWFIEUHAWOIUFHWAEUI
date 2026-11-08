@@ -85,7 +85,8 @@ each, plus about a minute to start the playtest and stage the cast; cut 35 s; mi
 - **set:** a shot staged in one of the video's other sets (`"sets": [{"id": "new_school", "name": "hallway", "at":
   [400, 0, 0], "options": {...}}]`), its coordinates in that set's own frame.
 - **overlays:** icons popping over a point in the scene, projected through the shot's camera: `{"icon": "bell", "over":
-  "leo.head", "at": "b:ding", "size": 150}` (an emoji name or picture; the rule's signature in a story).
+  "leo.head", "at": "b:ding", "size": 150}` (an emoji name or picture; the rule's signature in a story). Add `"text":
+  "99%"` for a line in the `label` style over it, or give only the text: a number over a head, a message in a bubble.
 - **planted:** false for an actor whose feet shouldn't be kept on the floor.
 - **music:** a bed looped to length from `start` (`offset` seconds into the track), ducked under the voice (6 dB by
   default, `duck_db`), or not (`"duck": false`, for music formats).
@@ -112,10 +113,18 @@ script capitalizes mid-sentence, so "so Leo stopped" keeps "Leo had never" capit
   "you hear a | ding." becomes "you hear | a ding."; "most people hear | a few a | day." becomes "most people | hear
   a few | a day.". Four words only where a phrase is said too fast to split.
 - Each shows 2 frames before its first word and holds until the next. One said too fast to read takes up to 0.12 s
-  from a neighbour with time to spare (`_balance`).
+  from a neighbour with time to spare (`_balance`). One due up to 4 frames after a cut comes in on the cut
+  (`_snap_to_cuts`), and the render and `cut.json` count a caption's frames by one rule (`_caption_frames`).
 
 The read-time check treats them as speech: heard as they're read, they need only their characters at 35 a second, and
 0.25 s at the least, the references' own pace (`docs/VERIFY.md`, `caption_pace.py`).
+
+## Hits
+
+A boom or a thud is a picture hit as well as a sound: one that doesn't land on a cut punches the picture in 7% on its
+frame, easing back over 0.3 s (`_punch`; `"punch": false` in the spec turns it off), and its long tail is pulled down
+12 dB under a line that starts while it rings (`_duck_tail`). The bed fades out over the last 0.35 s and the mix over
+its last 15 ms, so the Short loops without a click.
 
 ## When a shoot fails
 

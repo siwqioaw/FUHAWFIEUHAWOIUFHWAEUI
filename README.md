@@ -9,7 +9,7 @@ driven by an agent skill.
 
 ![Python](https://img.shields.io/badge/python-3.11-3776AB?logo=python&logoColor=white)
 ![Roblox Studio](https://img.shields.io/badge/Roblox%20Studio-MCP-00A2FF)
-![selftest](https://img.shields.io/badge/selftest-90%20%2F%2090-2ea44f)
+![selftest](https://img.shields.io/badge/selftest-98%20%2F%2098-2ea44f)
 ![output](https://img.shields.io/badge/output-1080%C3%971920%20%C2%B7%20-14%20LUFS-8A2BE2)
 
 </div>
@@ -56,10 +56,12 @@ flowchart LR
 | `videos/group-project` | rant | 27.3 s | "Nah, why does every group project have that ONE person?": three examples, three booms, "WE?!" |
 | `videos/ding` | "In this world" story | 33.6 s | 21 shots across two schools and a classroom; a bell and a ding for every ding |
 | `videos/first-vs-last` | music comparison | 10.5 s | cut on the beat of a YouTube Audio Library track |
+| `videos/pet-narrator` | "In this world" story | 29.9 s | the one-prompt run: pets built from code, four places, a speech bubble whenever a pet speaks |
 | `videos/s7-test` | pipeline test | 6.4 s | the first end-to-end file |
 
-Each folder holds the video's `direct.py` (its whole spec, in code), `short.json`, and `notes.md` (the concepts
-weighed, the pick, the decisions). The files themselves are built into `out/` and never committed.
+Each folder holds the video's `direct.py` (its whole spec, in code), `short.json`, `notes.md` (the concepts weighed,
+the pick, the decisions) and `package.md` (the title, description and hashtags to paste when uploading). The files
+themselves are built into `out/` and never committed.
 
 ## Quick start
 
@@ -69,7 +71,7 @@ connector (for voices).
 ```powershell
 git clone https://github.com/siwqioaw/vid-editing && cd vid-editing
 pip install -r requirements.txt
-python tests/selftest.py                      # 84 checks against planted failures
+python tests/selftest.py                      # 98 checks against planted failures
 python tools/roblox/facekit.py build build/faces/kit --install   # the 43 faces, into Studio
 python tools/install_skill.py                 # the skill, for every agent on this machine
 python tools/doctor.py                        # is everything ready?
@@ -111,11 +113,11 @@ Every round of work gets an independent reviewer, and every new kind of failure 
 
 | Part | Tested |
 |---|---|
-| The checks (`tools/verify/`) | `tests/selftest.py`: 90 of 90 |
+| The checks (`tools/verify/`) | `tests/selftest.py`: 98 of 98 |
 | Portrait capture, actors, faces, posing, camera | spikes S1-S4 in Studio (`docs/ROBLOX_CAPTURE.md`) |
 | Voice | spike S5: 14 auditions measured; an independent review's fixes in (`docs/VOICE.md`) |
-| Captions | spike S6: baselines within 2 px of the references (`docs/CAPTIONS.md`) |
-| The pipeline | spike S7: `videos/s7-test`, every check passing; then M2-M4 (`docs/MAKING.md`) |
+| Captions | spike S6: baselines within 2 px of the references; their pace measured from the picture (a new caption every 0.55-0.73 s, the fastest 5% at 30-45 characters a second) and the read-time check set from it (`docs/CAPTIONS.md`) |
+| The pipeline | spike S7: `videos/s7-test`, every check passing; then M2-M5, each with an independent review (`docs/MAKING.md`) |
 
 ## Documents
 
@@ -137,7 +139,7 @@ skill/roblox-shorts/   the agent skill: SKILL.md, formats/, writing/, library, b
 tools/make.py          the pipeline         tools/shots.py      shot helpers       tools/doctor.py   readiness
 tools/roblox/          Studio bridge, capture harness, sets (kit.py), cast, faces (facekit.py), poses, camera
 tools/edit/            voice, captions, effects, cue sheet, master, render, deliver, type, fx
-tools/verify/          qc, audio, speech, sheets, transcribe, analyze, study, timeline
+tools/verify/          qc, audio, speech, caption_pace, sheets, transcribe, analyze, study, timeline
 videos/<slug>/         one folder per video: direct.py, short.json, notes.md   videos/LEDGER.md: the variety ledger
 refs/r6rants/          the reference study: notes, transcripts, measurements, listener pass, synthesis
 assets/                fonts (Montserrat, OFL) and emoji (Noto), with their licences
