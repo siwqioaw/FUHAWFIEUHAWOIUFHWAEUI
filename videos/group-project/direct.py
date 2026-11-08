@@ -71,7 +71,8 @@ s.add(
                                  faces=[(0, "smug"), ("l8:we", "proud")]),
                    "me": actor(BOARD_ME, facing=TOWARD_US, faces=[(0, "side_eye_left")])},
          push("girl.head", 7.0, 5.0), say=[("l8", 0.05)], pad=0.1),
-    shot("we", {"me": actor(BOARD_ME, facing=TOWARD_US, poses=[(0, "hands_on_head")], faces=[(0, "furious")]),
+    shot("we", {"me": actor(BOARD_ME, facing=TOWARD_US, poses=[(0, "lean_in")], faces=[(0, "furious")]),   # into
+    # the lens (hands on his head showed in the push-in only as two slivers at the edges)
                 "girl": actor(BOARD_GIRL, facing=TOWARD_US, faces=[(0, "smug")])},
          dutch_in("me.head", degrees=14, start=7.0, end=3.6, move=0.22), say=[("l9", 0.04)],
          sfx=[("boom", "l9:end+0.02")], pad=0.5),
