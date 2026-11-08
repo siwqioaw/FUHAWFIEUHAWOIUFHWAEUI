@@ -27,10 +27,10 @@ s.line("l4", "narrator", "[annoyed] Then there's this guy, who hasn't answered t
        emoji="\U0001F644")
 s.line("l5", "deep", "[deadpan] [deep voice] Seen.", emoji="\U0001F5FF")
 s.line("l6", "narrator", "[frustrated] So I do the whole thing myself. Every single slide.", emoji="\U0001F62D")
-s.line("l7", "narrator", "[curious] And on presentation day?", emoji="\U0001F440")
+s.line("l7", "narrator", "[annoyed] And on presentation day?", emoji="\U0001F440")
 s.line("l8", "girl", "[confident] So, as WE researched...")
 s.line("l9", "narrator", "[shouting] WE?!", emoji="\U0001F621")
-s.line("l10", "narrator", "[deadpan] And we all get the same grade.", emoji="\U0001F940")
+s.line("l10", "narrator", "[frustrated] And we all get the same grade.", emoji="\U0001F940")
 
 FRONT = [5, 3, -11]          # the narrator in front of the board, talking to us
 GIRL = [-1.5, 3, -10.5]

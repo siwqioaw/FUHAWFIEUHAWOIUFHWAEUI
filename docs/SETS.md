@@ -29,7 +29,7 @@ Any set takes props in its options, placed for the whole video: `{"props": [{"ki
 | `plant`, `lamp`, `table`, `rug`, `car`, `tree`, `pine`, `bookshelf`, `sofa`, `tv` | the furniture builders | their own |
 
 The pets are looked at in M5's stills. The party props, smoothie, ice pack and wall phone are checked by the selftest
-(each builds) and previewed with `python tests/studio_library.py props`.
+(each builds) and were previewed in Studio with `python tests/studio_library.py props` (`build/library/props/`).
 
 ## Measured on the first previews (2026-11-08)
 

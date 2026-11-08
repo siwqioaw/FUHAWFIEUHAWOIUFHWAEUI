@@ -17,6 +17,7 @@ from __future__ import annotations
 import json
 import math
 import os
+import subprocess
 import sys
 
 import numpy as np
@@ -165,6 +166,14 @@ def main() -> int:
     expect("qc passes the loudness of the delivered file", "- PASS: integrated" in rep)
     expect("qc finds the flashes", "general flashes over the whole frame" in rep)
     expect("qc fails the long caption", "FAIL: 'This sentence is much too long to read'" in rep)
+    flat_mp4 = os.path.join(OUT, "flat.mp4")
+    subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-f", "lavfi", "-i",
+                    "testsrc2=s=180x320:d=0.5:r=30", "-f", "lavfi", "-i", "color=c=white:s=180x320:d=0.2:r=30",
+                    "-f", "lavfi", "-i", "color=c=black:s=180x320:d=0.2:r=30", "-filter_complex",
+                    "[0:v][1:v][2:v]concat=n=3:v=1:a=0", "-pix_fmt", "yuv420p", flat_mp4], check=True)
+    flats = qc.flat_frames(flat_mp4)
+    expect(f"qc fails the white frames a camera inside a ceiling makes, not the black ones ({flats})",
+           len(flats) == 1 and "frames 15-20" in flats[0])
     expect("qc passes the short caption", "PASS: 'OK'" in rep)
     expect("qc leaves the accent number out", "'3'" not in rep)
     expect("qc lists the black stretch", "black_start:3.5" in rep)
@@ -681,7 +690,8 @@ def pipeline_checks(expect) -> None:
     expect(f"make: a boom's tail is pulled down under the line that starts while it rings ({tail_db:.1f} dB), its "
            f"hit left alone", abs(tail_db + 12) < 0.5 and np.allclose(ducked[:int(0.2 * 48000)], boom[:int(0.2 * 48000)]))
     hits = {"fps": 30, "shots": [{"frame0": 0}, {"frame0": 60}],
-            "sounds": [{"start": 1.0, "hit": True}, {"start": 2.0, "hit": True}, {"start": 1.5, "hit": False}]}
+            "sounds": [{"start": 1.0, "hit": True, "sound": "boom"}, {"start": 2.0, "hit": True, "sound": "boom"},
+                       {"start": 1.5, "hit": False, "sound": "pop"}, {"start": 1.6, "hit": True, "sound": "ding"}]}
     z = [make._punch(hits, r) for r in (29, 30, 34, 39, 45, 60)]
     expect(f"make: a boom inside a shot punches in 7% on its frame and settles in 0.3 s; one on a cut doesn't "
            f"({[round(v, 3) for v in z]})",
@@ -689,8 +699,21 @@ def pipeline_checks(expect) -> None:
     snaps = [{"text": "a", "style": "comedy", "show": 0.0, "hide": 1.05}, {"text": "b", "style": "comedy",
                                                                            "show": 1.05, "hide": 2.0}]
     make._snap_to_cuts(snaps, [0, 30], 30)
+    chain = [{"show": 0.0, "hide": 0.26}, {"show": 0.26, "hide": 0.54}, {"show": 0.54, "hide": 0.8}]   # the old rule drew 2 on frame 32
+    spans = [make._caption_frames(c, 60) for c in chain]
+    expect(f"make: captions back to back never share a frame ({spans})",
+           all(a[1] == b[0] for a, b in zip(spans, spans[1:])))
     expect(f"make: a caption due 1-4 frames after a cut comes in on it ({snaps[1]['show']:.3f} s, the cut at 1.000)",
            abs(snaps[1]["show"] - 1.0) < 1e-9 and abs(snaps[0]["hide"] - 1.0) < 1e-9)
+    def faced(family, look_y):
+        cam = [[0.0, {"pos": [0, 4.5, -10], "look": [0, look_y, 0], "roll": 0.0, "fov": 50.0, "dof": None}, 0.0, "out"]]
+        return make._framing({"family": family, "shots": [{"name": "s", "seconds": 1.0, "camera": cam,
+                                                           "actors": {"a": {"cf": {"pos": [0, 3, 0]}}}}]})
+    high, level, low_ = faced("story", 2.5), faced("story", 4.5), faced("comedy", 6.5)
+    expect(f"make: the plan flags a face under the captions: a story's high block ({high}), a comedy's low one "
+           f"({low_}); a face mid-frame passes ({level})",
+           len(high) == 1 and "story captions" in high[0] and len(low_) == 1 and "comedy captions" in low_[0]
+           and not level)
     framed = json.load(open(sh.path("plan.json"), encoding="utf-8"))
     clean = make._framing(framed)
     framed["shots"][0]["actors"]["far"] = {"cf": {"pos": [30.0, 3.0, 0.0], "look": [30.0, 3.0, 10.0]}}
@@ -739,6 +762,14 @@ def pipeline_checks(expect) -> None:
     ys, xs = np.nonzero(img.max(axis=2) > 0.05)
     expect(f"make: an overlay pops up over its point, centred ({xs.mean():.0f}, {ys.mean():.0f} of 1080 x 1920)",
            len(xs) > 500 and abs(xs.mean() - 540) < 20 and ys.mean() < 960)
+    img_o = np.zeros((1920, 1080, 3), np.float32)
+    make._overlay(img_o, {"icon": "bell", "over": [9, 7, 0], "size": 150, "lift": 1.4}, view, 0.5,
+                  keep=make.ICON_BAND["story"])
+    ys_o, xs_o = np.nonzero(img_o.max(axis=2) > 0.05)
+    expect(f"make: an icon set off the frame (M4's bells around a head in a close-up) is pulled inside it, clear of "
+           f"the story captions ({len(xs_o)} pixels, x {xs_o.min() if len(xs_o) else -1}-{xs_o.max() if len(xs_o) else -1}"
+           f", top {ys_o.min() if len(ys_o) else -1})",
+           len(xs_o) > 500 and xs_o.max() < 1080 and ys_o.min() >= 0.33 * 1920 - 2)
     img_t = np.zeros((1920, 1080, 3), np.float32)
     make._overlay(img_t, {"icon": None, "text": "99%", "over": [0, 3, 0], "size": 150, "lift": 1.4}, view, 0.5)
     ys_t, xs_t = np.nonzero(img_t.min(axis=2) > 0.9)   # the white fill of the label's letters

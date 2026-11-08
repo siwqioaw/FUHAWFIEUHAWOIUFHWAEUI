@@ -57,7 +57,9 @@ by the script's punctuation) to its own voiced stretch: from the voicing of the 
 and a pause, or, when the word holds no voicing at all, to the next voiced stretch. Inside a quick phrase it leaves
 words alone: there the voicing measure misses reduced syllables ("the" in "Jake's the fastest" would have moved
 half a second). On M3's lines it moves "for" to 8.06 s (the reviewer measured about 8.00) and "every" to 17.36
-(17.30). It runs on every take, after the cache.
+(17.30). It runs on every take, after the cache. For a video already shot, `python tools/edit/voice.py refine
+build/<slug>/voice` re-times its `words.json` against its own lines (the audio untouched), then `make.py plan
+--keep-shots` times the captions again without moving a shot.
 
 ## The checks (`report.md`)
 
@@ -69,7 +71,9 @@ Each one fails a line that must be regenerated or reprocessed:
   there, at 4.8-5.3 kHz). When even the raw take is heard that way, the read is wrong: regenerate the line;
 - its median pitch inside the role's register: within -7 to +9 semitones of the voice's own pitch (`center` in
   `voices.json`, its audition). A shout can rise a long way and still be him; an octave down sounds like someone else
-  (M3's review: two narrator lines read at 99-105 Hz against his 212-224, heard as another, quieter voice);
+  (M3's review: two narrator lines read at 99-105 Hz against his 212-224, heard as another, quieter voice). The
+  tag decides it: on the narrator (Liam), [suspicious], [defeated], [curious] and [deadpan] each read 97-113 Hz,
+  twice; [annoyed], [frustrated] and [excited] 212-279 Hz, [sarcastic] 157 Hz, [shouting] 329 Hz;
 - no word heard that isn't in the script (a tag read aloud, a repeated phrase);
 - the sound starts within 50 ms of the file's start and ends within 150 ms of its end;
 - no pause longer than the role's `max_pause` (0.2 s; 0.15 for stories);
@@ -130,7 +134,9 @@ measures pauses from the level instead.
   s to generate.
 - Processing and transcribing: about 18 s a take on the CPU (the transcriber falls back from the GPU when its CUDA
   libraries are missing, as here); three lines with three takes took 1 min 46 s. The first run downloads the
-  transcription model (about 3 GB).
+  transcription model (about 3 GB). It needs about 3 GB of free memory to load: run the voice stage while Studio
+  isn't shooting (twice it ran out of memory during a shoot). It is loaded only when a take isn't cached, so
+  re-timing words or re-checking cached takes takes seconds (M5's three lines: 6 s).
 
 ## Licence
 

@@ -472,6 +472,9 @@ def make(lines_path: str, out_dir: str, model: str = "large-v3", device: str = "
             except RuntimeError:  # the GPU libraries fail at the first inference, not at load
                 if dev != "cuda":
                     raise
+                import gc
+                asr = None   # let the GPU copy go before loading the CPU one: both at once ran out of memory
+                gc.collect()
                 asr, dev = transcribe.load(model, "cpu")
                 res = transcribe.run(asr, padded, "en")
         finally:
@@ -595,6 +598,27 @@ def reel(lines_path: str, out_dir: str, gap: float = 0.6) -> str:
     return mp4
 
 
+def refine_file(out_dir: str) -> list[tuple[str, str, float]]:
+    """Re-time an existing voice folder's words (`words.json`) against its own processed lines with `refine_words`,
+    without processing or hearing anything again: for a video already shot, whose audio mustn't change. Keeps the
+    transcriber's times as `heard_start`. Returns the moves: (line, word, seconds later)."""
+    path = os.path.join(out_dir, "words.json")
+    data = json.load(open(path, encoding="utf-8"))
+    moves = []
+    for ln in data["lines"]:
+        y, sr = sf.read(os.path.join(out_dir, ln["file"]), dtype="float64")
+        raw = [{**w, "start": w.get("heard_start", w["start"])} for w in ln["words"]]
+        new = refine_words(raw, y, sr, ln.get("text"))
+        for w, r, n in zip(ln["words"], raw, new):
+            w["heard_start"] = r["start"]
+            if abs(n["start"] - r["start"]) > 1e-6:
+                moves.append((ln["id"], w["word"], round(n["start"] - r["start"], 3)))
+            w["start"], w["end"] = n["start"], n["end"]
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=1, ensure_ascii=False)
+    return moves
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -609,7 +633,13 @@ def main() -> int:
     r = sub.add_parser("reel")
     r.add_argument("lines")
     r.add_argument("--out", default="build/voice")
+    rf = sub.add_parser("refine", help="re-time an existing voice folder's words.json against its own lines")
+    rf.add_argument("out", help="the voice folder: build/<slug>/voice")
     args = ap.parse_args()
+    if args.cmd == "refine":
+        for lid, word, dt in refine_file(args.out):
+            print(f"{lid}: {word!r} {dt:+.2f} s")
+        return 0
     if args.cmd == "fetch":
         print(fetch(args.url, args.dest))
         return 0

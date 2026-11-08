@@ -35,9 +35,9 @@ s.add(
     # last day: everything worse, then absurd
     shot("asleep", {"leo": actor([1.5, 3, 3], facing=[0, 0, -1], poses=[(0, "slump")], faces=[(0, "sleepy")])},
          top("leo.torso", height=10.0), set="class", sfx=[("boom", 0.0)], seconds=2 * BEAT),
-    shot("yelled", {"teacher": actor([-0.2, 3, 0.5], facing=[1, 0, 0.3], poses=[(0, "point")], faces=[(0, "yell")]),
-                    "leo": actor([2.3, 3, 0.5], facing=[-1, 0, 0.3], poses=[(0, "slump")], faces=[(0, "dead")])},
-         two_shot("teacher", "leo", distance=8.0, fov=50), set="class", seconds=2 * BEAT),
+    shot("yelled", {"teacher": actor([-1.0, 3, 0.5], facing=[0.55, 0, 1], poses=[(0, "point")], faces=[(0, "yell")]),
+                    "leo": actor([2.6, 3, 0.9], facing=[-0.45, 0, 1], poses=[(0, "slump")], faces=[(0, "dead")])},
+         two_shot("teacher", "leo", distance=9.0, fov=50), set="class", seconds=2 * BEAT),   # turned to us: faces read
     shot("freedom", {"leo": actor([0, 3, -20], facing=US, poses=[(0, "cheer")], faces=[(0, "evil")],
                                   walk={"from": [0, 3, -24], "to": [0, 3, -16], "start": 0.0, "freq": 2.4}),
                      "ex2": actor([2.2, 3, -27], facing=[0, 0, 1], poses=[(0, "hands_on_head")], faces=[(0, "shock")])},

@@ -1,5 +1,5 @@
 """Measured checks on a delivered video (docs/VERIFY.md): its specs, loudness and true peak, photosensitive flashes
-(WCAG 2.3.1), black and frozen frames, and, with a timeline, whether each piece of on-screen text stays up long
+(WCAG 2.3.1), frames of one flat colour, black and frozen frames, and, with a timeline, whether each piece of on-screen text stays up long
 enough to read and whether the audio clicks at the cuts. Writes a Markdown report; exits 1 if anything FAILs.
 
     python tools/verify/qc.py VIDEO.mp4 [--timeline cut.json] [--out DIR] [--lufs -14] [--tp -1.0] [--cps 12]
@@ -137,6 +137,28 @@ def blacks_and_freezes(video: str) -> tuple[list[str], list[str]]:
     return blacks, freezes
 
 
+def flat_frames(video: str, least: float = 2.5) -> list[str]:
+    """Runs of frames of one flat colour that isn't black: a camera inside a wall, a prop or above a ceiling (M4's
+    review found six white frames the black-frame check couldn't see; M4's first stills, a solid blue one). A frame is
+    flat when its brightness varies by less than `least` (of 255) across the picture."""
+    out, run, k = [], None, 0
+    for chunk in media.frames_small_chunks(video, 90):
+        for fr in chunk:
+            g = fr.mean(axis=2)
+            flat = float(g.std()) * 255 < least and float(g.mean()) > 0.08
+            if flat and run is None:
+                run = [k, k, fr.reshape(-1, 3).mean(axis=0)]
+            elif flat:
+                run[1] = k
+            elif run is not None:
+                out.append(run)
+                run = None
+            k += 1
+    if run is not None:
+        out.append(run)
+    return [f"frames {a}-{b}: one flat colour, RGB {tuple(int(c * 255) for c in col)}" for a, b, col in out]
+
+
 def report(video: str, tl: Timeline | None, out_dir: str, lufs: float, tp: float, cps: float) -> tuple[str, bool]:
     info = media.probe(video)
     v = media.video_stream(info)
@@ -175,6 +197,10 @@ def report(video: str, tl: Timeline | None, out_dir: str, lufs: float, tp: float
     failed |= bool(fl)
     lines += ["## Photosensitive flashes (WCAG 2.3.1)", "", f"- {'PASS' if not fl else 'FAIL'}: {len(fl)} problems"]
     lines += [f"  - {p}" for p in fl] + [""]
+    flats = flat_frames(video)
+    failed |= bool(flats)
+    lines += ["## Frames of one flat colour (a camera inside something)", "",
+              f"- {'PASS' if not flats else 'FAIL'}: {len(flats)} runs"] + [f"  - {f}" for f in flats] + [""]
     blacks, freezes = blacks_and_freezes(video)
     lines += ["## Black and frozen frames (check each was meant)", ""]
     lines += [f"- black: {b}" for b in blacks] + [f"- freeze: {f}" for f in freezes]

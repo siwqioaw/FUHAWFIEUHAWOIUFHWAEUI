@@ -63,3 +63,14 @@ failure found to this list and to `docs/VERIFY.md`.
 - A check passing on missing data (`audio.py` on a timeline with no cues): it fails that now.
 - Captions coming in after a cut by 1-3 frames: they snap to it.
 - Booms on static holds, their tails under the next word: a punch-in on the hit, the tail ducked.
+- Faces under the story captions (M5's first stills: the street owners' faces 23-32% down, the captions'
+  block at 19-31%): the plan warns; aim higher and further back (a face about 40% down at 9.5 studs).
+- A camera inside an actor (M5's `didnt`: a dark blur of jeans, the low camera behind Max's legs): the plan
+  can't see it; the stills can. Keep anyone out of the line between a low camera and its subject.
+- Icons off the frame (M4: 13 of 26 bells set round a head in a close-up): the renderer pulls them inside, clear
+  of the captions; set them close to the head in close-ups anyway.
+- Flat frames from a camera above a ceiling (M4's overhead `lunch`: `top()` starts 2 studs over its height; the
+  classroom's ceiling is at 15): `qc.py` fails a run of one flat colour.
+- Two captions on one frame (a rounding slip): selftest.
+- People from one place turning up in another (M4: the old school's jock at the new school): cast each place.
+- A jump cut on one line (1.6-1.8x, same angle): orbit the second shot 30 degrees or more.

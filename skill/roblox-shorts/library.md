@@ -56,14 +56,17 @@ heel to toe at a steady speed.
 
 `push` (the opener), `pull` (a reveal), `swoop` (speaker to listener, `streak=True` to blur it), `dutch_in` (panic),
 `low` (power, a desk in the foreground), `top` (absurd, lonely), `ots` (an exchange, depth of field), `two_shot`,
-`hold`, `wide` (from a fixed point). Faces stay above 70% of the frame, clear of the captions (comedy), or below
+`hold`, `wide` (from a fixed point). Any key takes `"orbit": degrees` (round the subject) and `"dutch"`;
+`top()` starts 2 studs above its height, so keep height + 2 under the ceiling (the classroom's is 15). Faces stay above 70% of the frame, clear of the captions (comedy), or below
 the caption block at about a quarter down (stories: frame the head under it).
 
 The frame is portrait, so it is narrow: a camera with a 58-degree field sees `distance x 0.31` studs either side of
 its centre (4.7 at 15 studs, 3.1 at 10), 50 degrees `distance x 0.26`. Put everyone a shot is about inside that, in
 depth rather than side by side: the one it's about in front, the others behind. `make.py plan` warns about any actor
 a shot lists that its camera never shows, and an over-the-shoulder camera needs room behind the near actor (against
-a wall it sits inside the wall: film from where they stand instead, `two_shot` of the far pair).
+a wall it sits inside the wall: film from where they stand instead, `two_shot` of the far pair). In a story the
+captions sit high: a face must be at least 36% down the frame (aim above the head: `"max.head+[0,0.3,0]"`, or
+for a medium shot at about 3.6 studs up from 9.5 away); `make.py plan` warns about every face under them.
 
 ## Sound
 

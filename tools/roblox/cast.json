@@ -26,6 +26,12 @@
            "about": "the teacher's pet: glasses, neat shirt"},
   "extra_a": {"skin": [234, 184, 146], "hair": [62234425], "shirt": 382537085, "pants": 382537806, "about": "a background kid"},
   "extra_b": {"skin": [105, 64, 40], "hair": [376548738], "shirt": 398633584, "pants": 398633812, "about": "a background kid"},
-  "extra_c": {"skin": [255, 224, 189], "hair": [376524487], "shirt": 144076358, "pants": 382537950, "about": "a background kid"}
+  "extra_c": {"skin": [255, 224, 189], "hair": [376524487], "shirt": 144076358, "pants": 382537950, "about": "a background kid"},
+  "student_a": {"skin": [198, 140, 100], "hair": [376548738], "torso": [196, 64, 64], "arms": [196, 64, 64],
+                "pants": 382537569, "about": "a student at another school: a red sweater (body colours)"},
+  "student_b": {"skin": [255, 220, 180], "hair": [1772336109], "torso": [222, 178, 48], "arms": [222, 178, 48],
+                "pants": 144076760, "about": "a student at another school: a mustard sweater (body colours)"},
+  "student_c": {"skin": [120, 80, 60], "hair": [62234425], "torso": [232, 150, 190], "arms": [232, 150, 190],
+                "pants": 398633812, "about": "a student at another school: a pink sweater (body colours)"}
  }
 }

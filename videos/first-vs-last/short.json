@@ -337,7 +337,7 @@
    "actors": {
     "teacher": {
      "at": [
-      -0.2,
+      -1.0,
       3,
       0.5
      ],
@@ -355,16 +355,16 @@
      ],
      "drift": 1.0,
      "facing": [
-      1,
+      0.55,
       0,
-      0.3
+      1
      ]
     },
     "leo": {
      "at": [
-      2.3,
+      2.6,
       3,
-      0.5
+      0.9
      ],
      "poses": [
       [
@@ -380,9 +380,9 @@
      ],
      "drift": 1.0,
      "facing": [
-      -1,
+      -0.45,
       0,
-      0.3
+      1
      ]
     }
    },
@@ -390,7 +390,7 @@
     {
      "t": 0,
      "aim": "teacher.head",
-     "distance": 9.5,
+     "distance": 10.5,
      "fov": 50,
      "height": -0.2,
      "between": "leo"
@@ -398,7 +398,7 @@
     {
      "t": 0.04,
      "aim": "teacher.head",
-     "distance": 8.0,
+     "distance": 9.0,
      "fov": 50,
      "height": -0.2,
      "between": "leo",

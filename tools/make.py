@@ -106,7 +106,16 @@ def stage_voice(sh: Short) -> bool:
             if src.startswith("http"):
                 dest = sh.path("raw", _raw_name(ln["id"], k, src))
                 if not os.path.exists(dest):
-                    voice.fetch(src, dest)
+                    legacy = sh.path("raw", f"{ln['id']}_{k}.mp3")   # fetched before takes were named by the take
+                    try:
+                        voice.fetch(src, dest)
+                    except RuntimeError as e:   # a signed link expires: use the copy fetched while it worked
+                        if not os.path.exists(legacy):
+                            raise
+                        import shutil
+                        shutil.copyfile(legacy, dest)
+                        print(f"line {ln['id']} take {k + 1}: {e}; using the copy fetched earlier "
+                              f"({os.path.basename(legacy)})")
                 files.append(dest)
             else:
                 files.append(src if os.path.isabs(src) else os.path.join(ROOT, src))
@@ -522,6 +531,19 @@ def _framing(plan: dict, size=(1080, 1920)) -> list[str]:
                         seen = True
             if not seen:
                 out.append(f"{s['name']}: {name} is never in frame (head out of shot at its start, middle and end)")
+                continue
+            # the face against the caption block: stories caption high (centre 24.8% down), comedy low (77.9%)
+            p = spots[-1] if a.get("walk") else spots[0]
+            xy = camera.project(views[1], [p[0], p[1] + 1.5, p[2]], size=size)
+            if not xy or not 0 <= xy[0] <= w:
+                continue
+            frac = xy[1] / h
+            if plan.get("family") == "story" and 0.0 <= frac < 0.36:
+                out.append(f"{s['name']}: {name}'s face is {frac:.0%} down, under the story captions (frame it "
+                           f"below 36%)")
+            elif plan.get("family") == "comedy" and 0.66 < frac <= 1.0:
+                out.append(f"{s['name']}: {name}'s face is {frac:.0%} down, under the comedy captions (frame it "
+                           f"above 66%)")
     return out
 
 
@@ -549,11 +571,20 @@ def _offset_shot(spec: dict, off) -> None:
     spec["_shifted"] = True
 
 
-def stage_plan(sh: Short) -> bool:
-    """Time the whole video: shot lengths (from the lines when 'auto'), every word-anchored key, the captions."""
+def stage_plan(sh: Short, keep_shots: bool = False, replan: list | None = None) -> bool:
+    """Time the whole video: shot lengths (from the lines when 'auto'), every word-anchored key, the captions.
+
+    `keep_shots`, for a video already shot: every shot's timing, camera and actors (what its frames show) stay as
+    in the plan already made; the overlays, effects and captions (drawn and mixed after the shoot) follow the
+    current word times. Refused if a shot or a line would move. `replan`: shots that take the spec's current camera
+    and actors within their kept timing, to be shot again (`shoot --only`)."""
     words = _words(sh)
     lines = sh.lines()
     fps = sh.fps
+    before = _load(sh.path("plan.json")) if keep_shots else None
+    if before and [x["name"] for x in before["shots"]] != [x["name"] for x in sh.spec["shots"]]:
+        print("plan --keep-shots: the spec's shots aren't the ones planned; plan and shoot again instead")
+        return False
     shots, t, line_starts, frame0 = [], 0.0, {}, 0
     # shot lengths first: an 'auto' shot runs to its last line's end plus `pad`
     offsets = {e.get("id", e["name"]): e["at"] for e in sh.spec.get("sets", [])}
@@ -578,6 +609,10 @@ def stage_plan(sh: Short) -> bool:
         if float(dur) <= 0:
             raise SystemExit(f"shot {spec['name']}: {float(dur):.2f} s long")
         n = int(round(float(dur) * fps))
+        if before:   # the timing the frames were shot to
+            kept = before["shots"][len(shots)]
+            n, t = kept["frames"], kept["start"]
+            frame0 = kept["frame0"]
         shots.append({"spec": spec, "start": t, "frames": n, "frame0": frame0})
         frame0 += n
         t = frame0 / fps
@@ -616,7 +651,8 @@ def stage_plan(sh: Short) -> bool:
         for fx_ in spec.get("sfx", []):
             at = st + res(fx_.get("at", 0.0))
             sounds.append({"sound": fx_["sound"], "start": at, "gain_db": fx_.get("gain_db", 0.0),
-                           "shot": spec["name"], "hit": bool(fx_.get("hit", fx_["sound"] in ("boom", "thud")))})
+                           "shot": spec["name"],
+                           "hit": bool(fx_.get("hit", fx_["sound"] in ("boom", "thud", "ding")))})
             if sounds[-1]["hit"]:
                 hits.append({"frame": int(round(at * fps)), "what": f"{fx_['sound']} in {spec['name']}"})
         overlays = []
@@ -629,6 +665,19 @@ def stage_plan(sh: Short) -> bool:
                               "seconds": s["frames"] / fps, "camera": cam, "actors": actors,
                               "drift": spec.get("drift", 1.0), "streak": bool(spec.get("streak")),
                               "seed": k})
+    if before:
+        moved = [v["line"] for v, w in zip(sorted(voices, key=lambda v: v["line"]),
+                                           sorted(before["voices"], key=lambda v: v["line"]))
+                 if v["line"] != w["line"] or abs(v["start"] - w["start"]) > 1e-6]
+        if moved or len(voices) != len(before["voices"]):
+            print(f"plan --keep-shots: lines would move ({moved}); plan and shoot again instead")
+            return False
+        for new_shot, old_shot in zip(plan["shots"], before["shots"]):
+            if new_shot["name"] not in (replan or []):   # what the frames show stays as shot
+                new_shot["camera"], new_shot["actors"] = old_shot["camera"], old_shot["actors"]
+        print(f"plan --keep-shots: {len(plan['shots'])} shots kept as shot"
+              + (f", {len(replan)} restaged to shoot again ({', '.join(replan)})" if replan else "")
+              + "; overlays, effects and captions timed again")
     # captions: from the lines, in the family's style
     style = sh.spec.get("caption_style", CAPTION_STYLE.get(sh.family, "comedy"))
     caps = []
@@ -878,7 +927,8 @@ def frame_at(build: str, r: int) -> np.ndarray:
     for ov in shot.get("overlays", []):
         u = (k / fps - ov["start"]) / max(ov["dur"], 1e-3)
         if 0.0 <= u < 1.0:
-            out = _overlay(out, ov, _path_for(plan_path, shot["name"])(k / fps), u)
+            out = _overlay(out, ov, _path_for(plan_path, shot["name"])(k / fps), u,
+                           keep=ICON_BAND.get(plan.get("family"), (0.03, 0.97)))
     zoom = _punch(plan, r)
     if zoom > 1.0005:
         h, w = out.shape[:2]
@@ -895,9 +945,11 @@ def frame_at(build: str, r: int) -> np.ndarray:
 
 def _caption_frames(c: dict, fps: float) -> tuple[int, int]:
     """The frames a caption is up for, by the one rule the timeline uses too (M3's review: the render and
-    cut.json disagreed by a frame)."""
+    cut.json disagreed by a frame). Both ends are rounded as times, not the end as a length: a caption that hides
+    when the next shows then ends on the frame the next begins (M4's review: rounding the length drew two captions
+    on one frame, five times)."""
     f0 = int(round(c["show"] * fps))
-    return f0, f0 + max(1, int(round((c["hide"] - c["show"]) * fps)))
+    return f0, max(f0 + 1, int(round(c["hide"] * fps)))
 
 
 PUNCH = (0.07, 0.3)   # how far a hit punches in, and how long it takes to settle
@@ -913,8 +965,8 @@ def _punch(plan: dict, r: int) -> float:
     cuts = [s["frame0"] for s in plan["shots"]]
     z = 1.0
     for snd in plan.get("sounds", []):
-        if not snd.get("hit"):
-            continue
+        if not snd.get("hit") or snd.get("sound") not in ("boom", "thud"):
+            continue   # a ding is a hit for the sync check, but the bell is its picture: no punch
         f = int(round(snd["start"] * fps))
         if any(abs(f - c) <= 2 for c in cuts):
             continue  # the cut is the hit
@@ -933,11 +985,16 @@ def _icon(name: str, size: int):
     return captions._outlined_emoji(token, size, max(3, size // 22))
 
 
-def _overlay(img: np.ndarray, ov: dict, view: dict, u: float) -> np.ndarray:
+# Where an icon may sit, as fractions of the height: clear of the family's caption block.
+ICON_BAND = {"story": (0.33, 0.97), "comedy": (0.03, 0.70), "music": (0.20, 0.97)}
+
+
+def _overlay(img: np.ndarray, ov: dict, view: dict, u: float, keep=(0.03, 0.97)) -> np.ndarray:
     """An icon, a line of text or both (the text over the icon) popping up over a point in the scene: projected
     through the shot's camera, scaled in with a little overshoot over the first fifth of its time, faded out over the
     last fifth. Text is drawn in the `label` style, its natural size at `size` 150 ("99%" over a head, a text in a
-    speech bubble)."""
+    speech bubble). An icon that would land off the frame, or in the captions' band, is pulled just inside `keep`
+    (M4's review: in close-ups, 13 of 26 bells set around a head projected off screen)."""
     import cv2
 
     import camera
@@ -962,10 +1019,15 @@ def _overlay(img: np.ndarray, ov: dict, view: dict, u: float) -> np.ndarray:
         k = max(0.02, ov["size"] / 150.0 * scale)
         pics.append(cv2.resize(layer, (max(1, int(layer.shape[1] * k)), max(1, int(layer.shape[0] * k))),
                                interpolation=cv2.INTER_AREA))
+    h, w = img.shape[:2]
     for pic in pics:
         pic = pic.copy()
         pic[..., 3] *= alpha
-        look.over(img, pic, int(xy[0] - pic.shape[1] / 2), int(xy[1] - pic.shape[0] / 2))
+        hw, hh = pic.shape[1] / 2, pic.shape[0] / 2
+        m = 0.02 * w
+        cx = min(max(xy[0], hw + m), w - hw - m)
+        cy = min(max(xy[1], keep[0] * h + hh), keep[1] * h - hh)
+        look.over(img, pic, int(cx - hw), int(cy - hh))
     return img
 
 
@@ -1114,6 +1176,11 @@ def main() -> int:
     ap.add_argument("stage", choices=list(STAGES) + ["stills", "all"])
     ap.add_argument("video", help="videos/<slug>")
     ap.add_argument("--only", nargs="*", help="shoot only these shots")
+    ap.add_argument("--keep-shots", action="store_true",
+                    help="plan: keep every shot's timing, camera and actors as shot; time overlays, effects and "
+                         "captions again")
+    ap.add_argument("--replan", nargs="*", default=[],
+                    help="plan --keep-shots: shots that take the spec's current camera and actors, to shoot again")
     args = ap.parse_args()
     sh = Short(args.video)
     t0 = time.time()
@@ -1121,6 +1188,8 @@ def main() -> int:
         ok = stage_shoot(sh, args.only, stills=True)
     elif args.stage == "shoot":
         ok = stage_shoot(sh, args.only)
+    elif args.stage == "plan" and args.keep_shots:
+        ok = stage_plan(sh, keep_shots=True, replan=args.replan)
     elif args.stage == "all":
         ok = True
         for name in ("plan", "shoot", "cut", "mix", "deliver"):

@@ -12,6 +12,7 @@ python tools/make.py cut     videos/<slug>    # master.mov
 python tools/make.py mix     videos/<slug>    # mix.wav, mastered to -14 LUFS
 python tools/make.py deliver videos/<slug>    # out/<slug>.mp4 and every check on it
 python tools/make.py all     videos/<slug>    # plan to deliver, stopping at the first FAIL
+python tools/make.py plan    videos/<slug> --keep-shots   # captions timed again, every shot as already shot
 ```
 
 Everything a run makes goes in `build/<slug>/` (ignored by git); the spec, and the notes that go with it, are the
@@ -21,8 +22,9 @@ video's record and are committed.
 
 | Stage | Reads | Writes | Fails when |
 |---|---|---|---|
-| voice | `short.json` lines, `build/<slug>/takes.json` (the agent writes it after generating each line with the ElevenLabs connector: {line id: [take URL or file, ...]}; each download is named by its take, so a regenerated line's new takes are fetched) | `voice/<id>.wav`, `voice/words.json`, `voice/report.md` | any voice check fails (`docs/VOICE.md`) |
-| plan | the spec, `words.json` | `plan.json` (every shot's camera path, actors' pose and face keys, voices, effects, captions), `cut.json` (the timeline every check reads) | a time can't be resolved, a shot has no camera, a caption is up too briefly to read (`qc.py`'s rule, found before the shoot) |
+| voice | `short.json` lines, `build/<slug>/takes.json` (the agent writes it after generating each line with the ElevenLabs connector: {line id: [take URL or file, ...]}; each download is named by its take, so a regenerated line's new takes are fetched; a link expires after some
+hours, and then the copy fetched while it worked is used) | `voice/<id>.wav`, `voice/words.json`, `voice/report.md` | any voice check fails (`docs/VOICE.md`) |
+| plan | the spec, `words.json` | `plan.json` (every shot's camera path, actors' pose and face keys, voices, effects, captions), `cut.json` (the timeline every check reads) | a time can't be resolved, a shot has no camera, a caption is up too briefly to read (`qc.py`'s rule, found before the shoot); it warns about an actor a shot lists but never shows, and a face under the captions (a story's face above 36% of the height, a comedy's below 66%) |
 | shoot | `plan.json` | `shots/<shot>/f00000.png ...` (960 x 1707) | frames are missing after 4 attempts |
 | cut | `plan.json`, the frames | `master.mov` (1080 x 1920, ProRes) | a frame is missing |
 | mix | `plan.json`, `cut.json`, the voice files | `mix_raw.wav`, `mix.wav`; the placements into `cut.json` | |
