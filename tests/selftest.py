@@ -443,6 +443,7 @@ def main() -> int:
            camera.smear(small_cut, 0.1) == 0 and fast_peak > 500 and abs(drifts[0] - drifts[1]) > 1e-4)
 
     voice_checks(expect)
+    caption_checks(expect)
 
     bad = [w for w, ok in results if not ok]
     print(f"\n{len(results) - len(bad)}/{len(results)} as expected. Files in {OUT}")
@@ -496,6 +497,49 @@ def voice_checks(expect) -> None:
     bad = [what for ok_, what in voice.check(m_bad, role, {}) if not ok_]
     expect(f"voice: check passes a good line and fails a long pause and the wrong voice's pitch ({len(bad)} fails)",
            all(good) and len(bad) == 2 and any("pause" in b for b in bad) and any("pitch" in b for b in bad))
+
+
+def caption_checks(expect) -> None:
+    """The caption styles against what was measured on the reference frames (docs/CAPTIONS.md)."""
+    import cv2
+
+    import captions
+
+    def fill_lines(layer, x, y):
+        """Each line's (left, right, baseline) on the frame: rows of white fill, grouped."""
+        fill = ((layer[..., :3].min(axis=2) > 0.84) & (layer[..., 3] > 0.84)).astype(np.uint8)
+        n, lab, stats, _ = cv2.connectedComponentsWithStats(fill, 8)
+        gl = sorted((stats[i] for i in range(1, n) if stats[i][4] > 15), key=lambda s: s[1] + s[3] / 2)
+        rows = []
+        for s in gl:
+            c = s[1] + s[3] / 2
+            if rows and abs(c - rows[-1][0]) < 25:
+                rows[-1][1].append(s)
+            else:
+                rows.append([c, [s]])
+        return [(x + min(s[0] for s in g), x + max(s[0] + s[2] for s in g),
+                 y + int(np.median([s[1] + s[3] for s in g]))) for _, g in rows if len(g) > 1]  # not an i's dot
+
+    layer, (x, y) = captions.render("why are popular GIRLS so ANNOYING?\U0001F940", "comedy")
+    lines = fill_lines(layer, x, y)
+    colour = layer[..., 3] > 0.5
+    red = colour & (layer[..., 0] > 0.6) & (layer[..., 1] < 0.4)
+    expect(f"captions: the comedy test line wraps as the reference's ({captions.lines_of('why are popular GIRLS so ANNOYING?', 'comedy')}), "
+           f"baselines at {[b for _, _, b in lines]} (reference 1485, 1548), width {lines[0][1] - lines[0][0]} "
+           f"(773), the emoji drawn", len(lines) == 2 and abs(lines[0][2] - 1485) <= 3 and abs(lines[1][2] - 1548)
+           <= 3 and abs((lines[0][1] - lines[0][0]) - 773) <= 15 and red.sum() > 200)
+    layer, (x, y) = captions.render("until you TOUCH", "story")
+    lines = fill_lines(layer, x, y)
+    expect(f"captions: the story test line's baselines at {[b for _, _, b in lines]} (reference 460, 557)",
+           len(lines) == 2 and abs(lines[0][2] - 460) <= 3 and abs(lines[1][2] - 557) <= 3)
+    long = captions.lines_of("this caption keeps going and going well past the width of any phone screen", "comedy")
+    try:
+        captions.render("no picture for this ☃", "comedy")  # a snowman: not in the emoji set
+        raised = False
+    except FileNotFoundError:
+        raised = True
+    expect(f"captions: a long caption wraps to {len(long)} lines; an emoji without a picture raises instead of "
+           f"drawing a box ({raised})", len(long) >= 2 and raised)
 
 
 if __name__ == "__main__":

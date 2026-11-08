@@ -15,6 +15,13 @@ from, its license, and where it's used.
 | Roblox Studio's Baseplate template: its floor texture and sky | Roblox, built into Studio | Roblox content in Roblox Studio, under Roblox's Terms of Use | S1-S3 test renders (in `build/`, not published) |
 | Beautiful You Jeans (pants, 398634487) | Roblox Marketplace, by Roblox | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | S2-S3 test renders (in `build/`, not published) |
 
+## Fonts and emoji
+
+| Asset | Source | License | Used in |
+|---|---|---|---|
+| Montserrat, Regular to Black (`assets/fonts/montserrat/`) | github.com/JulietaUla/Montserrat, by The Montserrat Project Authors | SIL Open Font License 1.1 (`OFL.txt` beside it) | every caption, from S6 |
+| 50 Noto 3D emoji at 128 px (`assets/emoji/noto/`) | github.com/googlefonts/noto-emoji (`3D/png/128`), by Google | the repository's README: images under the Apache License 2.0, fonts under the SIL OFL 1.1 (its LICENSE file beside them) | caption emoji, from S6 |
+
 ## Voices
 
 Generated with ElevenLabs on the owner's paid plan, through the ElevenLabs connector; the output belongs to the owner
