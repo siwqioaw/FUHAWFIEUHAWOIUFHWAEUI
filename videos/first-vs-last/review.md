@@ -50,3 +50,8 @@ six hard cuts and no stray frame, the bed from 22.740 s, 120 BPM 3-3-2 confirmed
 accents, the headers on their cuts and never over a face, no logo, every asset licensed, teen-suitable.
 
 Every shot restaged and shot again (the cuts unchanged).
+
+Before the round-2 shoot, the stills and the plan's new checks caught more: in `hand_up` the fist still sat beside
+his face (an R6 arm straight up reaches only the top of the head: `hand_up` now leans the body away so the hand
+clears it by 0.6), the extra in `hello` half hidden behind Leo (dropped), `yelled` too tight for both, the friends'
+outer hands cut (wider), and a near jump cut from `hello` into `hand_up` (the hand-up camera further round).

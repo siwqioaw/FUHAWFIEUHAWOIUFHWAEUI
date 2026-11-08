@@ -53,3 +53,10 @@ its ding within 2 frames, faces and poses on their words, all 53 captions the sc
 anything, teen-suitable and original.
 
 Fourteen shots restaged and shot again within their timing (`plan --keep-shots --replan ...`), seven kept.
+
+Before the round-2 shoot, the stills and the plan's new checks caught more: the new bank of lockers filling a third
+of `past` from the foreground (the camera now in front of it) and the `quote` camera inside it (the plan's new set
+check); the gossips in profile, their drawn faces edge-on (`whisper` now over his shoulder onto her face); Leo's
+laughing arms and the jock's cheer cut at the frame's edges (the new gesture check); a jump cut from `dingding` into
+`stopped` and a near one from `sat` into `her` (the new jump-cut check); the cafeteria's other trays at Leo's lonely
+lunch (trays now placed per scene, the next day at the table behind). Fifteen shots restaged in all.
