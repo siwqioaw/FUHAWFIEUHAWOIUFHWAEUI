@@ -32,6 +32,8 @@ Any set takes props in its options, placed for the whole video: `{"props": [{"ki
 | `tray` | a lunch tray with a slice of pizza, a carton of milk and an apple | color; `at` y is the table top (2.6 in the cafeteria) |
 | `plant`, `lamp`, `table`, `rug`, `car`, `tree`, `pine`, `bookshelf`, `sofa`, `tv` | the furniture builders | their own |
 
+The gym and the cafeteria were previewed with `python tests/studio_library.py sets gym cafeteria`: the cafeteria right first time; the gym burned out white at first (its lights at 0.9 over 40 studs, and one over the whole room) and reads right at the classroom's levels (0.45 over 30).
+
 Any set also takes `{"signs": False}`: every poster, board and scoreboard blank. Set writing sat under the
 captions in three of the four first videos (a story's captions fill 15-36% of the height, where a wall's signs are in
 a level shot); M4 turned it off, M5 blanked its dance's board.
