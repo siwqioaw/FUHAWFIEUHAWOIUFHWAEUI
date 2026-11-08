@@ -49,9 +49,16 @@ sized for sitting, a menu drawn in pictures, optional trays.
 - `room()` records the room's inside; the plan then warns about a camera above its ceiling or behind a wall, and
   about any camera inside a part of any set. An exterior without `room()` gets the part check only.
 - Furniture people sit on: the seat 1 stud up, a table's top 2.6 with its underside at least 2.0 (a seated R6's
-  legs), as `lunch_table`: pose `sit` rests on it. Higher seats (the classroom's 1.7) make a sitting body rise.
-- Anything an actor hides behind, sits at or uses in one scene, make a prop in `PROPS` (`lockers`, `tray`), so a
-  video places it where its scene needs it, not where every scene sees it.
+  legs), as `lunch_table`: pose `sit` rests on it. A higher seat lifts the actor's mark by the difference: the
+  living room's sofa cushions are 2.5 up, so a sitter stands at y 4.5, not 3 (M5's Max on the sofa).
+- Anything an actor hides behind, sits at or uses in one scene, make a prop in `PROPS` (`lockers`, `tray`,
+  `laptop`, `mirror`), so a video places it where its scene needs it, not where every scene sees it. A prop that
+  faces its user (`laptop`, `mirror`) takes `facing`; a lid or a pane leaning back on a prop that can face any way
+  needs `kit._euler_xyz` (Roblox applies a part's angles about the world's axes).
+- What can't be rendered, stage: Roblox reflects no actors, so M5's mirror is an open frame with a second actor,
+  dressed the same, behind it doing the moves mirrored, shot over the first one's shoulder. A screen shows a picture
+  as a sign on its glass (the TV's cartoon, the laptop's slide count); shoot it straight enough to read, and keep the
+  user's head out of the line to it (M3's first try showed "de 0" past his hair).
 - Pictures before words on set dressing (the cafeteria's menu draws a slice, an apple, a carton): writing at head
   height sits under a story's captions. Every set takes `{"signs": False}`.
 

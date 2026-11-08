@@ -1,6 +1,6 @@
 # group-project: package
 
-The file: `out/group-project.mp4` (rant, 27.3 s, 1080 x 1920). Paste these when you upload it; uploading, scheduling and
+The file: `out/group-project.mp4` (rant, 26.9 s, 1080 x 1920). Paste these when you upload it; uploading, scheduling and
 the audience setting stay yours.
 
 ## Title (49 characters)

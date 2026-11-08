@@ -170,6 +170,12 @@ The checks have to come back clean first. Then:
 - a raised hand above the head, a point that crosses the frame, background gestures clear of foreground heads;
 - music formats: the cuts on the accents, and whether the loop is in phrase as well as in beat (M2's five bars
   over four-bar chords loops on the beat but not the phrase);
+- no story caption over the hair of a close-up (the plan warns when the top of a head reaches above 28%), and no
+  face carried off an edge by a push (the plan checks a shot's start, middle and end: M2's classmate);
+- every punch heard on a phone: its level from 300 Hz to 8 kHz against the music's, and the file still at -14 LUFS
+  after raising it (M2's boom 3 dB up took the file to -15.9);
+- every cast look against the references' recurring characters (M2's extra in their kid's jacket and tee);
+- a closer that says which side it's on (M2's "Me:" repeated the last day until the first day's Leo waved behind him);
 - the first two seconds: what is this, and why keep watching?
 - and every failure in `docs/LESSONS.md`, and every one found since.
 

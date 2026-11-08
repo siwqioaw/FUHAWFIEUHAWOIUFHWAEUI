@@ -7,6 +7,7 @@
 python tools/make.py voice   videos/<slug>    # takes -> processed lines, words.json      (needs build/<slug>/takes.json)
 python tools/make.py plan    videos/<slug>    # everything in time -> plan.json, cut.json
 python tools/make.py stills  videos/<slug>    # one frame per shot from Studio, to look at first
+python tools/make.py stills  videos/<slug> --frames 0 -1   # each shot's first and last frames
 python tools/make.py shoot   videos/<slug>    # every shot from Studio (resumes, retries)
 python tools/make.py cut     videos/<slug>    # master.mov
 python tools/make.py mix     videos/<slug>    # mix.wav, mastered to -14 LUFS

@@ -7,8 +7,11 @@ it reads `plan.json` and `cut.json`, and a newer one than the file confuses it.
 
 Every first review of the first four videos found real must-fix problems that every automated check had passed
 (bells off the frame, cuts off the beat, a camera inside a car, an actor's elbow through another's arm), and the
-second rounds found lines not shown in the picture and a speaker hidden behind its owner. A later round gets the
-earlier reviews too (`videos/<slug>/review.md`), to check the fixes hold and look past them. Fix what it
+second rounds found lines not shown in the picture and a speaker hidden behind its owner. The third and fourth
+rounds still found real things: a punchline that repeated the side before it, a fix that moved a classmate the wrong
+way out of the frame, an extra dressed like the references' recurring character, a boom raised until the file fell
+under the loudness target. A later round gets the earlier reviews too (`videos/<slug>/review.md`), to check the fixes
+hold and look past them. Fix what it
 finds, write `videos/<slug>/review.md` (each finding, its cause, its fix or why it stays), and add every new kind of
 failure to `checklist.md`.
 
@@ -49,10 +52,12 @@ Check every item in skill/roblox-shorts/checklist.md and docs/VERIFY.md's checkl
 FORMAT'S OWN QUESTIONS: does the first second state the premise; does every icon appear over the right head, when it
 should, on screen, its subject visible; do the cuts land on the music's beats; does the twist land; does it loop>; is
 each caption the script's words, in time with the voice (not before it), never over a face; does each face and pose
-change land on its word; are the right people in each shot and in frame, with every gesture inside the frame; does
-every line's action show in the picture; is any actor inside another or inside furniture; is anything wrong at any
-cut (a stray or doubled frame, a jump cut, a camera inside something, a loading texture); is the music under the
-voice; is anything a logo, a brand or someone else's content; is it suitable for teens.
+change land on its word; are the right people in each shot and in frame from its first frame to its last, with
+every gesture inside the frame and no caption over a face or hair; does every line's action show in the picture;
+is any actor inside another or inside furniture; is anything wrong at any cut (a stray or doubled frame, a jump cut,
+a camera inside something, a loading texture); is the music under the voice, and every punch heard on a phone's
+speaker (300 Hz-8 kHz); is anything a logo, a brand, someone else's content, or a look like the references'
+recurring characters; is it suitable for teens.
 
 Report: first the findings, each marked must-fix, should-fix or nit, with the time or frame, what you saw (and which
 frame file shows it), and the checklist item it fails. Then a short list of what you checked and found fine. Keep

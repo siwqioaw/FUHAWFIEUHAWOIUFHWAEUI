@@ -37,3 +37,21 @@ under the mirror's captions once that shot turned 30 degrees. Max now steps asid
 beside him, facing the lens), the bedroom's writing is off, and the plan warns about an icon over a hidden subject.
 Before that the plan's new checks had restaged `mirror` (the wave cut off; then a jump cut from the street's Max),
 `smiled` (a jump cut into `honestly`) and the dance's dancers (a hand cut off, two too close).
+
+## Round 2 (2026-11-08, on `out/pet-narrator.mp4` of 10:47)
+
+A second fresh reviewer: 2 must-fix, 5 should-fix, 7 nits. Every measured check passed (-14.6 LUFS, -2.4 dBTP, every
+line on its start, the bed 23.7 dB under the voice). Evidence in `build/review2/pet-narrator/`.
+
+| # | Finding | Severity | Cause | Fix |
+|---|---|---|---|---|
+| 1 | Max and his dog inside the coffee table for four shots, the dog's head resting on it | must | the staging check compared actors only with each other | the plan checks every limb against the set's parts (selftest); Max on the sofa, his dog on the floor by its end |
+| 2 | The reveal's bubbles come out of Max's sleeve | must | the hidden-subject check shrank actors' boxes 12% a side | no shrink (selftest); the dog a step off his right hand, the two-shots framed on both |
+| 3 | The dog's own words ("He likes you...") have no bubble | should | they played over Lily's close-up | over the dog's head at her, a bubble on each "He" |
+| 4 | Beats said but not shown: no mirror (he waved at the lens); the TV behind the camera on "cried at a cartoon"; the dance a daylit classroom | should | the props didn't exist | a mirror with his reflection in it (a second Max behind an open frame, shot over his shoulder); a cartoon on the TV, over the sofa; the gym dressed for the dance |
+| 5 | Story captions over the hair in medium shots and every close-up | should | the check looked at the face only | the plan warns when a head's top reaches above 28% (selftest); those shots framed lower |
+| 6 | Two cheers with a hand off the frame shipped | should | | one fist up on the pet's side; proud owners with arms crossed, framed a little wider |
+| 7 | The loudest sound, the last pop at 0 dB, lands inside the quotable line; no riser into the twist | should | | the pop at -8 dB; a riser into "That's me" |
+| nits | the dog's nose cut and collar under the UI in `me`; a poster on Lily's head; Max's head at the edge in `smiled`; "love it," 0.11 s late; the room empty after the dance and a dancer hidden; the storyteller's voice out of other pets; 118 words | nit | | `me` reframed; the dance in the gym with five dancers in depth; `smiled` over Max's shoulder; the caption rules re-timed "love it,"; the voices and the length kept (the script's) |
+
+Planned again in full: 18 of 20 shots shot again.

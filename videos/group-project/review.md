@@ -50,3 +50,24 @@ on its punch with its punch-in and its tail ducked, the voice 18-23 dB over the 
 each other, no jump cuts (2.3x and 2.15x where it was 1.17x), a clean loop, teen-safe.
 
 Seven shots restaged and shot again (`plan --keep-shots --replan ...`). Re-planning them with the camera aimed where each pose puts the face moved one: `alone`'s pull-back starts on the facepalm's lowered face.
+
+## Round 3 (2026-11-08, on `out/group-project.mp4` of 10:52)
+
+A third fresh reviewer, with the earlier rounds. No must-fix problems; every measured check passed again. Evidence in
+`build/review3/group-project/`.
+
+| # | Finding | Severity | Cause | Fix |
+|---|---|---|---|---|
+| 1 | Two one-word punches captioned before they're heard: "WE?!" 13 frames early, "seen." 5 | should | the take's soft glide under the music was called the first word; a caption snapped back to a cut | a line's first caption waits for the take to be heard (within 18 dB of its peak); a snap back keeps a caption within 2 frames of its word; selftests |
+| 2 | Lines said but not shown: "every single slide" over him crying by the window; "we all get the same grade" over the teacher | should | direction | a new shot over his shoulder onto a laptop reading "Slide 40 / 40" (a new prop); the three of them in a row, an A+ popping over each on its word |
+| 3 | Arms cut by the frame: the girl's cheer, the hook's hands on his head, her hands on hips in `as_we` | should | framed for faces | the hook and the title page framed wider (the plan's gesture check passes); `as_we` keeps the pose of the shot before |
+| 4 | Nobody visibly says "Seen." | nit | the jock's sleepy face held through his line | his eyes open, deadpan, on his line |
+| 5 | The girl's pose jumps across the `pres_day` cut | nit | | as above |
+| 6 | No boom after the premise | nit | | a boom after line 1 |
+| 7 | The board never whole | nit | the push started at once | the hook holds wide on the whole board for "Nah," and pushes in on "why" |
+| 8 | Captions: l2 up whole before its last clause; l8's "..." dropped; "and on presentation day?" to x 961, under the Shorts buttons | nit | | a comedy line breaks at its commas; a word-ending ellipsis stays; an emoji takes its word to the next row (selftests) |
+| 9 | `package.md` said 27.3 s; `caption_pace.py` found no captions in the pipeline's words | nit | | 26.9 s; it reads the pipeline's word file now |
+
+Nine shots planned again and shot again: `slides` is new, and the shots after it kept their seeds (their drift), so
+`pres_day` and `we` kept their frames. `slides` was shot a second time: from over his shoulder his head hid all of
+the screen but "de 0"; it's shot from high over his head now.

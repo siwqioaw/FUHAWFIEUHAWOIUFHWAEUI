@@ -30,6 +30,11 @@ https://catalog.roblox.com/v1/search/items/details?Category=3&Subcategory=57&Cre
 3. `python tests/studio_library.py cast` builds every look on R6, writes a line-up and a fit report: an accessory more
    than 1.2 studs under the head is MISFIT (made for R15). Use only looks that fit.
 4. Log every item in `ATTRIBUTION.md`.
+5. Hold the look up against the references' recurring characters (`refs/r6rants/SYNTHESIS.md`): a free catalog
+   outfit can be theirs. M2's fourth review found `extra_c` in the black jacket and motorcycle tee their recurring
+   kid wears; it's an orange sweater now. Plain body colours (`torso`, `arms`, as the `student_*` looks) are a safe
+   way to make a look nobody else has.
+6. Two actors can share a look (M5's `refl`, Max's reflection, is the same `jock` look): cast them under two names.
 
 ## Sounds
 

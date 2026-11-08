@@ -76,3 +76,17 @@ cheerers clear above the narrator); the point still didn't read, for the third r
 | kept | the loop on the beat, not the phrase | nit | five bars | noted |
 
 Six shots restaged and shot again.
+
+## Round 4 (2026-11-08, on `out/first-vs-last.mp4` of 12:01)
+
+A fourth fresh reviewer, with the earlier rounds. Every measured check passed: the cuts -10 to +7 ms from the
+accents, the boom on the turn +6.8 dB over the music at 300 Hz-8 kHz and the loudest moment through a phone-speaker
+model, -14.3 LUFS. Evidence in `build/review4/first-vs-last/`.
+
+| # | Finding | Severity | Cause | Fix |
+|---|---|---|---|---|
+| 1 | `hand_up`: the classmate out of frame, a sliver at the right edge | should | round 3 moved him toward screen-right (this camera looks along +x/+z: -x is screen-right); the plan's edge check looked mid-shot only and skipped a face already out | moved the other way, his head 180 px inside; the edge check samples the start, middle and end (selftest) |
+| 2 | "Me:" only half lands: the narrator with the last day's dead eyes reads as "me: wrecked too" | should | nothing marked the first day | "Me:" in the first day's yellow; the narrator sleepy; behind him the first day's Leo waving as in the first shot ("Me on day 1:" can't be read in the 1.23 s bar) |
+| 3 | `yelled`: the push carries the teacher's hair off the left edge | nit | | a softer push |
+| 4 | The blond extra in a black jacket and motorcycle tee resembles the references' recurring kid | nit | a free catalog outfit | `extra_c` wears an orange sweater (body colours); every shot with him in it, in every video, shot again |
+| 5 | `notes.md`'s board text out of date | nit | | fixed |

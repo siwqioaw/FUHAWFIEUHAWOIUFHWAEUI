@@ -18,8 +18,8 @@ Milestone M4, an "In this world" story (family B), made 2026-11-08 by following 
 - **Logline:** Leo has never heard a ding in his life; at a new school they ring all day, so he shuts everyone out,
   until he overhears what they're saying: it was nice all along. The loudest ding comes from her.
 - **Quotable:** "The rule never said it had to be bad."
-- **Hidden detail:** the new school's blue lockers against the old school's red; the classroom board says "Welcome
-  back!".
+- **Hidden detail:** the new school's blue lockers against the old school's red. (The classroom board said "Welcome
+  back!" until the second review: every set's writing sat under the story captions, so the sets carry none.)
 - **Loop:** opens on a stranger hearing the ding; ends on the loudest ding of all.
 - **The loophole for comments:** do nice things count? (The story says yes; commenters will argue the edge cases.)
 
@@ -27,7 +27,12 @@ Milestone M4, an "In this world" story (family B), made 2026-11-08 by following 
 
 - One storyteller (Liam at 1.2x) in three parts, each generated whole for continuous prosody; shots cut on the word
   that starts each clause.
-- Three places in one shoot: the old school's hallway, the new school's (blue lockers) 400 studs away, a classroom
-  200 studs away.
+- Four places in one shoot: the old school's hallway, the new school's (blue lockers, a free-standing bank to hide
+  behind) 400 studs away, a classroom 200 studs away, the new school's cafeteria 600 studs away (he eats alone at
+  one table; the next day he sits down at hers).
 - A bell pops over a head on every ding, with the ding sound.
 - The bed is ElevenLabs music (wistful synthwave), as for M3.
+- Round 3's restage (from the plan's new checks, before its review): students clear of the serving counter, his tray
+  pushed off his slumped face, her whisper turned at the head (turned at the body, her arm went into the table), the
+  girls far enough down the hall from where he hides that her laughing arms fit, his arms at his sides in the
+  close-up (crossed, they read as two boxes), four close-ups aimed over the head so the hair clears the captions.

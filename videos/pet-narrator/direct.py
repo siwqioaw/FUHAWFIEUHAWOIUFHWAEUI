@@ -65,7 +65,7 @@ street_props = [
 s = Spec("pet-narrator", family="story", set="street", set_options={"props": street_props},
          title="In this world, your pet narrates your life out loud", names=["Mia", "Jake"],
          cast={"max": "jock", "refl": "jock", "lily": "popular_girl", "girl1": "bestie", "ex1": "extra_a",
-               "ex2": "extra_b", "ex3": "extra_c"},
+               "ex2": "extra_b", "ex3": "extra_c", "d1": "student_a", "d2": "student_c"},
          extra_sets=[("home", "bedroom", HOME, {"signs": False,   # its GAME ON poster sat under the mirror's captions
                                                "props": [{"kind": "mirror", "at": MIRROR_AT, "facing": [0, 0, 1],
                                                           "open_": True}]}),
@@ -80,8 +80,8 @@ for ln in json.load(open(os.path.join(HERE, "lines.json"), encoding="utf-8")):
     s.line(ln["id"], ln["role"], ln["text"])
 
 
-def bubble(over, at, size=210, dur=0.9):   # about a pet's head at 9 studs: the rule's signature has to read
-    return ("\U0001F4AC", over, at, {"size": size, "lift": 0.35, "dur": dur})
+def bubble(over, at, size=210, dur=0.9, text=None):   # about a pet's head at 9 studs: the signature has to read
+    return ("\U0001F4AC", over, at, {"size": size, "lift": 0.35, "dur": dur, **({"text": text} if text else {})})
 
 
 DOG_A, CAT_A, CAT_B, DOG_B, DOG_MAX = (head(-42, 18, SOUTH), head(-24.6, 18, SOUTH, "cat"), head(9.4, 18, SOUTH, "cat"),
@@ -105,10 +105,11 @@ s.add(
     # -- B: the brags, then Max's dog
     shot("aced", {"girl1": actor([8, 3, 18.5], facing=SOUTH, poses=[(0, "arms_crossed")], faces=[(0, "proud")])},
          push([8.7, 3.6, 18.3], 12.5, 10.2, fov=50, toward=[-0.35, 0, -1]), say=[("b", "a:end+0.04")],   # clear of the car
-         sfx=[("pop", "b:mia", -10)], overlays=[bubble(CAT_B, "b:mia")], until="b:jake's"),
+         sfx=[("pop", "b:mia", -10)], overlays=[bubble(CAT_B, "b:mia", text="A+")], until="b:jake's"),   # its own
+    # brag in its bubble: the storyteller reports it (the second review heard the storyteller's voice in this cat)
     shot("fastest", {"ex3": actor([24, 3, 18.5], facing=SOUTH, poses=[(0, PUMP)], faces=[(0, "starstruck")])},
          push([24.9, 3.6, 18.3], 12.5, 10.2, fov=50, toward=[-0.3, 0, -1]), sfx=[("pop", "b:jake's", -10)],
-         overlays=[bubble(DOG_B, "b:jake's")],
+         overlays=[bubble(DOG_B, "b:jake's", text="#1")],
          until="b:but"),
     shot("max", {"max": actor([44, 3, 18.5], facing=SOUTH, faces=[(0, "nervous")])},
          push([44.9, 3.6, 18.3], 12.0, 9.2, fov=50, toward=[0, 0, -1]), sfx=[("pop", "b:truth", -10)],
@@ -146,8 +147,11 @@ s.add(
          until="c:max"),
     shot("walk", {"max": actor(MAXD, facing=TO_LILY, faces=[(0, "nervous")],
                                walk={"from": [6.4, 3, 3.0], "to": MAXD, "start": 0.0}),
-                  "lily": actor(LILY, facing=[0.75, 0, 0.66], faces=[(0, "smile")])},
-         wide([10.6, 5.4, 0.0], [0.4, 4.2, -4.4], fov=52), set="dance", until="c:and#1"),   # from the side: from
+                  "lily": actor(LILY, facing=[0.75, 0, 0.66], faces=[(0, "smile")]),
+                  "d1": actor([-8.5, 3, -6.5], facing=[1, 0, 0.2], poses=[(0, "cheer")], faces=[(0, "grin")]),
+                  "d2": actor([-6.0, 3, -10.0], facing=[1, 0, 0.3], poses=[(0, "laugh")], faces=[(0, "laugh")])},
+         wide([10.6, 5.4, 0.0], [0.4, 4.2, -4.4], fov=52), set="dance", until="c:and#1"),   # two more dancers
+    # behind her: after the dance's wide the gym stood empty (the second review)   # from the side: from
     # the front, Lily cut from the dance's wide at 1.3x and 5 degrees round
     shot("froze", {"max": actor(MAXD, facing=TO_LILY, faces=[(0, "blank")], drift=0.0)},
          push("max.head+[0,0.6,0]", 4.6, 3.4, move=0.5), set="dance", drift=0.0, until="c:so"),

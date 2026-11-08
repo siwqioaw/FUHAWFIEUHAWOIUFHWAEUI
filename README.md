@@ -53,15 +53,16 @@ flowchart LR
 
 | Video | Format | Length | Notes |
 |---|---|---|---|
-| `videos/group-project` | rant | 26.9 s | "Nah, why does every group project have that ONE person?": three examples, three booms, "WE?!"; one review round, its fixes in |
-| `videos/ding` | "In this world" story | 33.6 s | 21 shots across two schools and a classroom; a bell and a ding on every ding; one review round, eleven shots restaged |
-| `videos/first-vs-last` | music comparison | 10.0 s | cut on the accents of a YouTube Audio Library track (measured: 120 BPM, 3-3-2); "Me:" is the channel's narrator |
-| `videos/pet-narrator` | "In this world" story | 29.9 s | M5, the one-prompt run: pets built from code, four places, a speech bubble whenever a pet speaks |
+| `videos/group-project` | rant | 26.9 s | "Nah, why does every group project have that ONE person?": three examples that escalate, a boom on every punch, "Seen.", "WE?!", the forty slides on a laptop, the same A+ for all three |
+| `videos/ding` | "In this world" story | 33.6 s | 21 shots across two schools, a classroom and a cafeteria; a bell and a ding on every ding, louder as the story says louder; he hides behind a bank of lockers to listen |
+| `videos/first-vs-last` | music comparison | 10.0 s | cut on the accents of a YouTube Audio Library track (measured: 120 BPM, 3-3-2); a boom on the turn a phone can hear; "Me:", the channel's narrator, wrecked on day one |
+| `videos/pet-narrator` | "In this world" story | 29.9 s | M5, the one-prompt run: pets built from code, a mirror with Max's reflection in it, a cartoon on the TV, the gym dressed for the dance; a speech bubble whenever a pet speaks |
 | `videos/s7-test` | pipeline test | 6.4 s | the first end-to-end file |
 
 Each folder holds the video's `direct.py` (its whole spec, in code), `short.json`, `notes.md` (the concepts weighed,
-the pick, the decisions) and `package.md` (the title, description and hashtags to paste when uploading). The files
-themselves are built into `out/` and never committed.
+the pick, the decisions), `review.md` (every independent review round: what it found, why, and the fix) and
+`package.md` (the title, description and hashtags to paste when uploading). The files themselves are built into
+`out/` and never committed.
 
 ## Quick start
 
@@ -95,12 +96,12 @@ python tools/make.py all videos/group-project # plan, shoot, cut, mix, deliver (
 
 | | |
 |---|---|
-| **Sets** | classroom · hallway · bedroom · living room · street (day / night) · gym (with a school-dance dressing) · cafeteria · cyclorama, built from code with marks and camera marks, several per video; props from blocky pets to a bank of lockers to hide behind (`docs/SETS.md`) |
-| **Cast** | 14 looks from free Roblox catalog items checked on R6, including our own recurring narrator (`tools/roblox/cast.json`) |
+| **Sets** | classroom · hallway · bedroom · living room · street (day / night) · gym (with a school-dance dressing) · cafeteria · cyclorama, built from code with marks and camera marks, several per video; props from blocky pets to a bank of lockers to hide behind, a laptop with the work on its screen, a mirror whose reflection is a second actor, a cartoon on the TV (`docs/SETS.md`) |
+| **Cast** | 17 looks from free Roblox catalog items and plain colours, checked on R6 and against the references' recurring characters, including our own recurring narrator (`tools/roblox/cast.json`) |
 | **Faces** | 43 expressions in one hand-tuned line style, swapped on the word (`docs/FACES.md`) |
 | **Poses** | 16 snappy R6 poses, sitting included, that snap in 5 frames and drift; poses combine as data; planted leans; a heel-to-toe walk that ends turned to its mark (`tools/roblox/pose.py`) |
 | **Camera** | push, pull, swoop, dutch, low, top-down, over the shoulder with depth of field, two-shot, aimed where each pose puts the face (`tools/shots.py`) |
-| **Before the shoot** | the plan warns about anyone never in frame, a face under the captions, cut by the frame's edge or under the Shorts UI, a gesture cut off, a jump cut, an icon whose subject is hidden behind someone, actors inside each other or inside the furniture, and a camera inside a prop or outside the room (`tools/make.py plan`) |
+| **Before the shoot** | the plan warns about anyone never in frame, a face (or a story's hair) under the captions, a face cut by the frame's edge at a shot's start, middle or end, or under the Shorts UI, a gesture cut off, a jump cut, an icon whose subject is hidden behind someone, actors inside each other or inside the furniture, and a camera inside a prop or outside the room; `plan --check` tries a restage without writing anything (`tools/make.py plan`) |
 | **Voices** | a cast picked by measuring 14 auditions against the references: narrator, girl, deep punch, storyteller (`docs/VOICE.md`) |
 | **Captions** | the references' three styles, matched to within 2 px on full-size frames (`docs/CAPTIONS.md`) |
 | **Sound** | effects from code (a boom with 47 Hz sub and the body a phone speaker can play, whooshes, dings), music beds, ducking, mastering (`docs/AUDIO.md`) |

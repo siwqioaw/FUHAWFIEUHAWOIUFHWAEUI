@@ -251,8 +251,13 @@ default the owner can change in one place):
 - ~~Sitting~~ **Built:** pose `sit` (legs ahead, the body half a stud down) on a seat 1 stud up, the cafeteria's
   benches; M4's "Leo sat down" now walks in, turns and sits. The classroom's chairs (seat top 1.71) are too high
   for it (the body would rise as it sits): lower them, with their desks, if a classroom scene needs sitting.
-- **M5's dance in the gym.** The gym's `{"dance": True}` dressing came after M5's dance was shot in a classroom
-  with a blank board; moving the scene means shooting its eight shots again.
+- ~~M5's dance in the gym~~ **Done** in its third round, with the mirror (a reflection played by a second actor)
+  and the cartoon on the TV it lacked.
+- **Other pets' voices.** M5's storyteller voices the street pets' brags too, which a reviewer found muddies "That's
+  me" a little: a second and third voice for them means re-voicing and re-timing line b.
+- **Caption read time vs timing.** A clause said faster than it can be read borrows its time from the next one,
+  which then comes up a few frames after its word (M5's "love it," 0.11 s late). Each caption already shows 2 frames
+  early, so there's nothing to take from before it; the fix is in the script or the read.
 - **Word times.** `voice.refine_words` corrects the transcriber at phrase breaks; a forced aligner (a CTC model) would
   time every word. torchaudio's aligner is being deprecated; look for a maintained one before adding 1-2 GB of model.
 - **M4's script** has a hole a reviewer found: if kind talk dings, why did Leo hear none when everyone liked him?

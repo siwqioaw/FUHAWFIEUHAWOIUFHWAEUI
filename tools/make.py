@@ -1392,8 +1392,9 @@ def _stale_frames(d: str, key: str) -> bool:
 
 def stage_shoot(sh: Short, only: list[str] | None = None, stills: bool = False, frames: list[int] | None = None) -> bool:
     """Shoot every shot's frames (or `only` some), resuming each from its last frame; a shot whose plan has changed
-    since it was shot is shot again. `stills`: one frame from the middle of each, to look at first. `frames`: take
-    just these frames of each shot again, over the ones there (a fix to a frame or two)."""
+    since it was shot is shot again. `stills`: one frame from the middle of each, to look at first, or the `frames`
+    given (`stills --frames 0`: each shot's first frame, where a push starts widest: M5's aced opened inside a parked
+    car). `frames` when shooting: take just these frames of each shot again, over the ones there."""
     import capture
     plan = _load(sh.path("plan.json"))
     todo = [s for s in plan["shots"] if not only or s["name"] in only]
@@ -1401,15 +1402,15 @@ def stage_shoot(sh: Short, only: list[str] | None = None, stills: bool = False, 
     def body(cast):
         for s in todo:
             d = sh.path("stills" if stills else "shots", s["name"])
-            if frames:
+            if frames and not stills:
                 want = [k for k in frames if 0 <= k < s["frames"]]
                 capture.take(d, shot_fn(plan, s, cast), seconds=s["seconds"], fps=plan["fps"], only=want,
                              warmup=3.0, portrait=True)
                 print(f"{s['name']}: frames {want} again")
                 continue
             if stills:
-                mid = s["frames"] // 2
-                capture.take(d, shot_fn(plan, s, cast), seconds=s["seconds"], fps=plan["fps"], only=[mid],
+                want = [min(max(0, k if k >= 0 else s["frames"] + k), s["frames"] - 1) for k in frames] if frames                     else [s["frames"] // 2]   # a negative frame counts from the end: -1 is the last
+                capture.take(d, shot_fn(plan, s, cast), seconds=s["seconds"], fps=plan["fps"], only=sorted(set(want)),
                              warmup=2.0, portrait=True)
                 continue
             key = _shot_key(plan, s)
@@ -1794,7 +1795,9 @@ def main() -> int:
     ap.add_argument("stage", choices=list(STAGES) + ["stills", "all"])
     ap.add_argument("video", help="videos/<slug>")
     ap.add_argument("--only", nargs="*", help="shoot only these shots")
-    ap.add_argument("--frames", type=int, nargs="*", help="shoot: take only these frames of each shot again")
+    ap.add_argument("--frames", type=int, nargs="*",
+                    help="shoot: take only these frames of each shot again; stills: these frames (0 the first, -1 the "
+                         "last) instead of the middle one")
     ap.add_argument("--keep-shots", action="store_true",
                     help="plan: keep every shot's timing, camera and actors as shot; time overlays, effects and "
                          "captions again")
@@ -1806,7 +1809,7 @@ def main() -> int:
     sh = Short(args.video)
     t0 = time.time()
     if args.stage == "stills":
-        ok = stage_shoot(sh, args.only, stills=True)
+        ok = stage_shoot(sh, args.only, stills=True, frames=args.frames)
     elif args.stage == "shoot":
         ok = stage_shoot(sh, args.only, frames=args.frames)
     elif args.stage == "plan":
