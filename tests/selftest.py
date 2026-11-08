@@ -444,6 +444,7 @@ def main() -> int:
 
     voice_checks(expect)
     caption_checks(expect)
+    pipeline_checks(expect)
 
     bad = [w for w, ok in results if not ok]
     print(f"\n{len(results) - len(bad)}/{len(results)} as expected. Files in {OUT}")
@@ -568,6 +569,120 @@ def caption_checks(expect) -> None:
         raised = True
     expect(f"captions: a long caption wraps to {len(long)} lines; an emoji without a picture raises instead of "
            f"drawing a box ({raised})", len(long) >= 2 and raised)
+
+
+def pipeline_checks(expect) -> None:
+    """make.py's plan on a made-up video with made-up word times; sfx, kit, facekit and qc's speech captions."""
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    sys.path.insert(0, os.path.join(ROOT, "tools", "roblox"))
+    import make
+    import qc
+    import sfx
+    from timeline import Timeline
+
+    vdir = os.path.join(OUT, "video")
+    os.makedirs(vdir, exist_ok=True)
+    words = {"l1": [("Why", 0.0, 0.2), ("does", 0.2, 0.4), ("every", 0.4, 0.7), ("group", 0.7, 1.0),
+                    ("project", 1.0, 1.4), ("have", 1.4, 1.6), ("that", 1.6, 1.8), ("ONE", 1.8, 2.1),
+                    ("person?", 2.1, 2.6)],
+             "s": [("In", 0.0, 0.1), ("this", 0.1, 0.25), ("world,", 0.25, 0.5), ("every", 0.5, 0.8),
+                   ("ding", 0.8, 1.1), ("is", 1.1, 1.2), ("a", 1.2, 1.3), ("ding.", 1.3, 1.6),
+                   ("Then", 1.6, 1.8), ("he", 1.8, 1.9), ("left.", 1.9, 2.3)]}
+    spec = {"slug": "selftest-video", "family": "comedy", "fps": 30, "set": "baseplate",
+            "sets": [{"id": "far", "name": "hallway", "at": [400, 0, 0]}],
+            "cast": {"a": {"skin": [255, 204, 153]}},
+            "lines": [{"id": "l1", "role": "narrator", "text": "[excited] Why does every group project have that ONE person?",
+                       "emoji": "\U0001F62D"},
+                      {"id": "s", "role": "story", "text": "In this world, every ding is a ding. Then he left."}],
+            "shots": [{"name": "one", "seconds": "auto", "pad": 0.3,
+                       "actors": {"a": {"at": [0, 3, 0], "facing": [0, 0, 1], "faces": [[0, "smile"], ["l1:one", "angry"]],
+                                        "poses": [[0, "idle"], ["l1:ONE-0.1", "arms_out"]]}},
+                       "camera": [{"t": 0, "aim": "a.head", "distance": 6}], "say": [{"line": "l1", "at": 0.0}],
+                       "sfx": [{"sound": "boom", "at": "l1:end+0.05"}]},
+                      {"name": "two", "until": "s:ding#2", "set": "far",
+                       "actors": {"a": {"at": [0, 3, 0], "facing": [0, 0, 1]}},
+                       "camera": [{"t": 0, "pos": [0, 4, 8], "look": [0, 4, 0]}], "say": [{"line": "s", "at": 0.1}],
+                       "overlays": [{"icon": "bell", "over": "a.head", "at": "s:ding"}]},
+                      {"name": "three", "until": "s:end+0.2", "actors": {}, "camera": [{"t": 0, "pos": [0, 5, 9],
+                                                                                         "look": [0, 4, 0]}]}]}
+    json.dump(spec, open(os.path.join(vdir, "short.json"), "w", encoding="utf-8"), ensure_ascii=False)
+    sh = make.Short(vdir)
+    os.makedirs(sh.path("voice"), exist_ok=True)
+    json.dump({"lines": [{"id": k, "duration": v[-1][2], "heard": " ".join(w for w, _, _ in v),
+                          "words": [{"word": w, "start": a, "end": b, "p": 1.0} for w, a, b in v]}
+                         for k, v in words.items()]}, open(sh.path("voice", "words.json"), "w", encoding="utf-8"))
+    make.stage_plan(sh)
+    plan = json.load(open(sh.path("plan.json"), encoding="utf-8"))
+    one, two = plan["shots"][0], plan["shots"][1]
+    face_t = one["actors"]["a"]["faces"][1][0]
+    pose_t = one["actors"]["a"]["poses"][1][0]
+    expect(f"make: a face keyed to 'l1:one' lands on the word ({face_t:.2f} s), 'ONE-0.1' before it ({pose_t:.2f}); "
+           f"an auto shot runs to its line's end plus pad ({one['seconds']:.2f} s of 2.90)",
+           abs(face_t - 1.8) < 1e-6 and abs(pose_t - 1.7) < 1e-6 and abs(one["seconds"] - 2.9) < 1 / 30 + 1e-6)
+    s_start = two["start"] + 0.1
+    expect(f"make: 'until s:ding#2' ends a shot on the word's second time ({two['start'] + two['seconds']:.2f} s, "
+           f"expected {s_start + 1.3:.2f}); its overlay on the first 'ding' ({two['overlays'][0]['start']:.2f} s in)",
+           abs(two["start"] + two["seconds"] - (s_start + 1.3)) < 1 / 30 + 1e-6
+           and abs(two["overlays"][0]["start"] - 0.9) < 1e-6)
+    expect(f"make: a shot in another set is moved by its offset (the actor at x {two['actors']['a']['cf']['pos'][0]})",
+           abs(two["actors"]["a"]["cf"]["pos"][0] - 400) < 1e-6)
+    caps = [c["text"] for c in plan["captions"]]
+    sh.family = "story"
+    make.stage_plan(sh)
+    story_caps = [c["text"] for c in json.load(open(sh.path("plan.json"), encoding="utf-8"))["captions"]]
+    sh.family = "comedy"
+    make.stage_plan(sh)
+    expect(f"make: comedy captions a clause each, lower case, its emoji ({caps}); story captions 1-3 words "
+           f"({story_caps})",
+           caps[0].endswith("\U0001F62D") and caps[0].startswith("why does") and caps[-1] == "then he left."
+           and all(1 <= len(c.split()) <= 3 for c in story_caps) and len(story_caps) >= 5)
+    tl = Timeline.load(sh.path("cut.json"))
+    expect(f"make: the boom after the line is a picture hit ({tl.hits})",
+           len(tl.hits) == 1 and abs(tl.hits[0]["frame"] - round(2.65 * 30)) <= 1)
+    fast = Timeline({"fps": 30, "clips": [{"name": "a", "frames": 30}],
+                     "texts": [{"text": "a caption far too long to say in the time it's up", "start": 0, "frames": 15,
+                                "speech": True},
+                               {"text": "ok then", "start": 15, "frames": 12, "speech": True}]})
+    rows = qc.text_times(fast, 12.0)
+    expect(f"qc: a speech caption needs only its saying time; one up too short still fails ({[r[0] for r in rows]})",
+           rows[0][0] == "FAIL" and rows[1][0] == "PASS")
+    import look as _look
+    img = np.zeros((1920, 1080, 3), np.float32)
+    view = {"pos": [0, 4, 8], "look": [0, 4, 0], "roll": 0.0, "fov": 50.0, "dof": None}
+    make._overlay(img, {"icon": "bell", "over": [0, 3, 0], "size": 150, "lift": 1.4}, view, 0.5)
+    ys, xs = np.nonzero(img.max(axis=2) > 0.05)
+    expect(f"make: an overlay pops up over its point, centred ({xs.mean():.0f}, {ys.mean():.0f} of 1080 x 1920)",
+           len(xs) > 500 and abs(xs.mean() - 540) < 20 and ys.mean() < 960)
+    effects = {name: sfx.make(name) for name in sfx.EFFECTS}
+    boom = effects["boom"]
+    spec_b = np.abs(np.fft.rfft(boom))
+    f0 = np.fft.rfftfreq(len(boom), 1 / sfx.SR)[spec_b.argmax()]
+    expect(f"sfx: every effect stays under full scale; the boom peaks at {f0:.0f} Hz (the references' 48)",
+           all(np.abs(x).max() <= 1.0 for x in effects.values()) and 42 <= f0 <= 52)
+    import kit
+    import facekit
+    sizes = {}
+    for name, fn in kit.SETS.items():
+        st = fn({})
+        code = st.luau((400, 0, 0), append=True)
+        sizes[name] = len(st.parts)
+        assert "_Set" in code and "Atmosphere" not in code  # an appended set leaves the lighting alone
+    first = kit.SETS["hallway"]({})
+    shifted = [r[4] for r in first.parts[:5]]
+    code_shift = json.loads(json.loads(first.luau((100, 0, 0)).split("JSONDecode(")[1].split(")\n")[0]))["p"][0][4]
+    expect(f"kit: every set's code builds ({sizes}); an offset moves its parts ({shifted[0]} -> {code_shift})",
+           all(n > 0 for n in sizes.values()) and abs(code_shift - shifted[0] - 100) < 1e-6)
+    bad = []
+    for name in facekit.NAMES:
+        a = np.asarray(facekit.draw(name))[..., 3]
+        ys, xs = np.nonzero(a > 20)
+        if not len(xs) or xs.min() < 110 or xs.max() > 402 or ys.min() < 64 or ys.max() > 448:
+            bad.append(name)
+    stray = np.zeros((512, 512), np.uint8)
+    stray[20:40, 20:40] = 255  # a mark in the texture's corner, which wraps round the side of the head
+    caught = np.nonzero(stray > 20)[1].min() < 110
+    expect(f"facekit: all {len(facekit.NAMES)} faces draw on the front of the head ({bad or 'none outside'}); a mark "
+           f"in the corner would fail", not bad and caught)
 
 
 if __name__ == "__main__":

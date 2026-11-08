@@ -22,8 +22,8 @@ LIGHTING = {
                 ExposureCompensation=0.1, EnvironmentDiffuseScale=0.6, EnvironmentSpecularScale=0.4,
                 GlobalShadows=True, atmosphere=dict(Density=0.25, Offset=0.1, Haze=0.6, Glare=0.0,
                                                     Color=(199, 199, 199), Decay=(106, 112, 125))),
-    "interior": dict(ClockTime=13.0, Brightness=1.6, Ambient=(140, 140, 150), OutdoorAmbient=(160, 160, 170),
-                     ExposureCompensation=0.2, EnvironmentDiffuseScale=0.8, EnvironmentSpecularScale=0.3,
+    "interior": dict(ClockTime=13.0, Brightness=1.2, Ambient=(96, 98, 108), OutdoorAmbient=(118, 120, 130),
+                     ExposureCompensation=-0.25, EnvironmentDiffuseScale=0.7, EnvironmentSpecularScale=0.3,
                      GlobalShadows=True, atmosphere=dict(Density=0.1, Offset=0.0, Haze=0.0, Glare=0.0,
                                                          Color=(199, 199, 199), Decay=(106, 112, 125))),
     "golden": dict(ClockTime=17.6, Brightness=2.0, Ambient=(130, 110, 100), OutdoorAmbient=(170, 140, 120),
@@ -67,6 +67,10 @@ def lighting_luau(name: str) -> str:
         f"a.Density, a.Offset, a.Haze, a.Glare = {atm['Density']}, {atm['Offset']}, {atm['Haze']}, {atm['Glare']}",
         f"a.Color, a.Decay = {_c3(atm['Color'])}, {_c3(atm['Decay'])}",
         "a.Parent = L",
+        "local cc = Instance.new('ColorCorrectionEffect')",
+        "cc.Name = '_SetColor'",
+        f"cc.Contrast, cc.Saturation, cc.Brightness = {p.get('contrast', 0.08)}, {p.get('saturation', 0.12)}, 0",
+        "cc.Parent = L",
     ]
     return "\n".join(lines)
 
@@ -88,6 +92,8 @@ if folder then
   end
   local mine = L:FindFirstChild('_SetAtmosphere')
   if mine then mine:Destroy() end
+  local cc = L:FindFirstChild('_SetColor')
+  if cc then cc:Destroy() end
   local saved = folder:FindFirstChild('_SavedAtmosphere')
   if saved then saved.Name = 'Atmosphere' saved.Parent = L end
   folder:Destroy()
@@ -103,12 +109,17 @@ def _registry() -> dict:
     return kit.SETS
 
 
-def marks(name: str, options: dict | None = None) -> dict:
+def _shift(m: dict, offset) -> dict:
+    return {k: {kk: ([a + b for a, b in zip(vv, offset)] if kk in ("pos", "look") else vv) for kk, vv in v.items()}
+            for k, v in m.items()}
+
+
+def marks(name: str, options: dict | None = None, offset=(0.0, 0.0, 0.0)) -> dict:
     """The set's named spots: {name: {"pos": [x, y, z], "look": [x, y, z]}} for actors (y = 3: a standing actor's
     torso centre) and cameras."""
     if name == "baseplate":
-        return {"centre": {"pos": [0, 3, 0], "look": [0, 3, 10]}}
-    return _registry()[name](options or {}).marks
+        return _shift({"centre": {"pos": [0, 3, 0], "look": [0, 3, 10]}}, offset)
+    return _shift(_registry()[name](options or {}).marks, offset)
 
 
 def park_point(name: str) -> tuple:
@@ -118,14 +129,15 @@ def park_point(name: str) -> tuple:
     return tuple(_registry()[name]({}).park)
 
 
-def build(name: str, options: dict | None = None) -> str:
-    """Build a set in the running playtest (server side). 'baseplate' builds nothing but the lighting."""
+def build(name: str, options: dict | None = None, offset=(0.0, 0.0, 0.0), append: bool = False) -> str:
+    """Build a set in the running playtest (server side). 'baseplate' builds nothing but the lighting. With an
+    offset and `append`, another set beside the first, for a video that moves between places."""
     if name == "baseplate":
         body = "local folder = Instance.new('Folder') folder.Name = '_Set' folder.Parent = workspace\n" + \
             lighting_luau((options or {}).get("lighting", "day")) + "\nout('baseplate set')"
         return studio.server(body, wait=2)
     s = _registry()[name](options or {})
-    return studio.server(s.luau(), wait=3, timeout=300)
+    return studio.server(s.luau(offset, append), wait=3, timeout=300)
 
 
 def clear() -> str:

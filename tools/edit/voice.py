@@ -273,6 +273,31 @@ def check(m: dict, role: dict, line: dict) -> list[tuple[bool, str]]:
     return [(bool(ok), what) for ok, what in out]
 
 
+def _cache_key(take: str, role: dict) -> str:
+    import hashlib
+    st = os.stat(take)
+    keep = {k: role.get(k) for k in ("keep", "tempo", "tempo_method", "level_db")}
+    return hashlib.sha1(json.dumps([os.path.abspath(take), st.st_size, int(st.st_mtime), keep],
+                                   sort_keys=True).encode()).hexdigest()[:16]
+
+
+def _cache_get(out_dir: str, take: str, role: dict):
+    """A take already processed and transcribed with the same settings: (audio, info, words), or None."""
+    base = os.path.join(out_dir, ".cache", _cache_key(take, role))
+    if not (os.path.exists(base + ".wav") and os.path.exists(base + ".json")):
+        return None
+    y, _ = sf.read(base + ".wav", dtype="float64")
+    meta = json.load(open(base + ".json", encoding="utf-8"))
+    return y, meta["info"], meta["words"]
+
+
+def _cache_put(out_dir: str, take: str, role: dict, y, info: dict, words: list) -> None:
+    os.makedirs(os.path.join(out_dir, ".cache"), exist_ok=True)
+    base = os.path.join(out_dir, ".cache", _cache_key(take, role))
+    sf.write(base + ".wav", y.astype(np.float32), SR, subtype="FLOAT")
+    json.dump({"info": info, "words": words}, open(base + ".json", "w", encoding="utf-8"))
+
+
 def _cast_path(cast: str | None, base: str) -> str | None:
     if not cast or os.path.isabs(cast):
         return cast
@@ -315,10 +340,16 @@ def make(lines_path: str, out_dir: str, model: str = "large-v3", device: str = "
         role = {**cast.get("defaults", {}), **cast["roles"][line["role"]], **line.get("process", {})}
         tried = []
         for i, take in enumerate(_take_paths(line, base)):
-            y, info = process(decode(take), SR, role)
             dest = os.path.join(out_dir, f"{line['id']}.take{i}.wav")
-            sf.write(dest, y.astype(np.float32), SR, subtype="PCM_24")
-            words = hear(dest)
+            cached = _cache_get(out_dir, take, role)
+            if cached:
+                y, info, words = cached
+                sf.write(dest, y.astype(np.float32), SR, subtype="PCM_24")
+            else:
+                y, info = process(decode(take), SR, role)
+                sf.write(dest, y.astype(np.float32), SR, subtype="PCM_24")
+                words = hear(dest)
+                _cache_put(out_dir, take, role, y, info, words)
             m = measure(y, SR, line["text"], words)
             checks = check(m, role, line)
             bad = sum(1 for ok, _ in checks if not ok)

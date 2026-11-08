@@ -1,0 +1,30 @@
+{
+ "about": "The cast: each look is a stage.py spec (skin colour and free Roblox catalog items that fit R6), named by the part it plays. Our own designs: never the references' narrator (brown swept hair, purple round sunglasses) or their beanie kid. Checked on R6 in Studio; items logged in ATTRIBUTION.md.",
+ "looks": {
+  "narrator": {"skin": [255, 204, 153], "hair": [451221329], "face_acc": [130858694386007], "shirt": 382537702, "pants": 382537569,
+               "about": "our recurring narrator: blue hair, black glasses, a teal shirt"},
+  "me": {"skin": [234, 184, 146], "hair": [376548738], "shirt": 398635081, "pants": 398633812,
+         "about": "the 'me' kid of a story: brown hair, blue plaid shirt"},
+  "popular_girl": {"skin": [240, 196, 160], "hair": [376526888], "shirt": 398634295, "pants": 398634487,
+                   "about": "the popular girl: long blonde hair, pastel top and grey jacket"},
+  "bestie": {"skin": [160, 110, 75], "hair": [2956239660], "shirt": 4047886060, "pants": 382537569,
+             "about": "a girl friend: long red hair, purple and teal top"},
+  "little_brother": {"skin": [255, 214, 170], "hair": [376524487], "shirt": 4047884939, "pants": 382537806,
+                     "about": "the little brother: spiky blonde hair, pizza shirt, jean shorts"},
+  "mom": {"skin": [234, 184, 146], "hair": [62234425], "shirt": 144076436, "pants": 382537569,
+          "about": "mom: short brown hair, striped shirt with a denim jacket"},
+  "dad": {"skin": [105, 64, 40], "hair": [1772336109], "shirt": 144076358, "pants": 144076760,
+          "about": "dad: motorcycle shirt, green jeans"},
+  "teacher": {"skin": [255, 224, 189], "hair": [62234425], "face_acc": [130858694386007], "shirt": 607785314, "pants": 382537569,
+              "about": "the teacher: glasses, a jacket"},
+  "rich_kid": {"skin": [255, 224, 189], "hair": [376524487], "shirt": 398633584, "pants": 398635338,
+               "about": "the rich kid: spiky blonde hair, denim jacket over a white hoodie, ripped skater pants"},
+  "jock": {"skin": [160, 110, 75], "hair": [63690008], "shirt": 382538059, "pants": 382537950,
+           "about": "a sporty kid: green jersey, jean shorts"},
+  "nerd": {"skin": [255, 204, 153], "hair": [63690008], "face_acc": [130858694386007], "shirt": 144076436, "pants": 144076760,
+           "about": "the teacher's pet: glasses, neat shirt"},
+  "extra_a": {"skin": [234, 184, 146], "hair": [62234425], "shirt": 382537085, "pants": 382537806, "about": "a background kid"},
+  "extra_b": {"skin": [105, 64, 40], "hair": [376548738], "shirt": 3670737444, "pants": 398633812, "about": "a background kid"},
+  "extra_c": {"skin": [255, 224, 189], "hair": [451221329], "shirt": 398635081, "pants": 382537950, "about": "a background kid"}
+ }
+}

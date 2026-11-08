@@ -121,6 +121,8 @@ def stage_voice(sh: Short) -> bool:
 
 
 def _words(sh: Short) -> dict:
+    if not sh.spec.get("lines"):  # a music-only video: nothing said
+        return {}
     path = sh.path("voice", "words.json")
     if not os.path.exists(path):
         raise SystemExit(f"no {path}: run the voice stage first")
@@ -227,6 +229,18 @@ def _view(shot: dict, v: dict) -> dict:
     if "aim" in v:
         target = _point(shot, v["aim"])
         toward = v.get("toward")
+        if v.get("between"):  # a two-shot: framed on the point between two heads, from the side both face
+            name_b = v["between"].split(".")[0]
+            other = _point(shot, name_b + ".head")
+            target = [(p + q) / 2 for p, q in zip(target, other)]
+            if toward is None:
+                da, db = _actor_dir(shot, v["aim"].split(".")[0]), _actor_dir(shot, name_b)
+                toward = [da[0] + db[0], 0.0, da[2] + db[2]]
+                if math.hypot(toward[0], toward[2]) < 0.3:  # facing each other: from the side, +z first
+                    line = [other[0] - target[0], 0.0, other[2] - target[2]]
+                    toward = [-line[2], 0.0, line[0]]
+                    if toward[2] < 0 or (abs(toward[2]) < 1e-6 and toward[0] < 0):
+                        toward = [-toward[0], 0.0, -toward[2]]
         if toward is None and isinstance(v["aim"], str) and "." in v["aim"]:
             toward = _actor_dir(shot, v["aim"].split(".")[0])  # in front of whoever it aims at
         out = camera.aim(target, toward=toward or (0, 0, 1), distance=v.get("distance", 6.0),
@@ -327,11 +341,39 @@ def _clauses(words: list, style: str, emoji: str | None, story: bool) -> list[tu
                 trial = " ".join(x[0] for x in cur + [words[i + 1]])
                 brk = len(captions.lines_of(trial, style)) > 3  # the references run a clause over 1-3 lines
         if brk or last:
-            out.append([" ".join(x[0] for x in cur), cur[0][1], cur[-1][2]])
+            text = " ".join(x[0] for x in cur)
+            first = text.split(" ", 1)[0]
+            if not first.isupper() and not first.startswith(("I'", "I’")) and first != "I":
+                text = text[:1].lower() + text[1:]  # captions run in lower case, CAPS only where stressed
+            out.append([text, cur[0][1], cur[-1][2]])
             cur = []
     if out and emoji:
         out[-1][0] += " " + emoji
     return [tuple(c) for c in out]
+
+
+def _offset_shot(spec: dict, off) -> None:
+    """A shot staged in another set: its coordinates (not its actor-relative points) moved by the set's offset."""
+    if spec.get("_shifted"):
+        return
+
+    def mv(p):
+        return [a + b for a, b in zip(p, off)] if isinstance(p, (list, tuple)) and len(p) == 3 else p
+
+    for a in spec.get("actors", {}).values():
+        for k in ("at", "look"):
+            if k in a:
+                a[k] = mv(a[k])
+        if a.get("walk"):
+            a["walk"]["from"], a["walk"]["to"] = mv(a["walk"]["from"]), mv(a["walk"]["to"])
+    for key in spec.get("camera", []):
+        for k in ("pos", "look", "aim"):
+            if k in key:
+                key[k] = mv(key[k])
+        for sub in ("low", "top"):
+            if sub in key and "aim" in key[sub]:
+                key[sub]["aim"] = mv(key[sub]["aim"])
+    spec["_shifted"] = True
 
 
 def stage_plan(sh: Short) -> bool:
@@ -341,7 +383,10 @@ def stage_plan(sh: Short) -> bool:
     fps = sh.fps
     shots, t, line_starts, frame0 = [], 0.0, {}, 0
     # shot lengths first: an 'auto' shot runs to its last line's end plus `pad`
+    offsets = {e.get("id", e["name"]): e["at"] for e in sh.spec.get("sets", [])}
     for spec in sh.spec["shots"]:
+        if spec.get("set") and spec["set"] in offsets:
+            _offset_shot(spec, offsets[spec["set"]])
         says = spec.get("say", [])
         dur = spec.get("seconds", "auto")
         ends = []
@@ -351,10 +396,14 @@ def stage_plan(sh: Short) -> bool:
                 at = _resolve(at, t, {**line_starts}, words)
             line_starts[s["line"]] = t + at
             ends.append(at + words[s["line"]]["duration"])
-        if dur == "auto":
+        if spec.get("until") is not None:  # the shot ends on a time: 'b:switched' cuts on that word
+            dur = _resolve(spec["until"], t, line_starts, words)
+        elif dur == "auto":
             if not ends:
                 raise SystemExit(f"shot {spec['name']}: 'auto' length but no lines")
             dur = max(ends) + spec.get("pad", 0.12)
+        if float(dur) <= 0:
+            raise SystemExit(f"shot {spec['name']}: {float(dur):.2f} s long")
         n = int(round(float(dur) * fps))
         shots.append({"spec": spec, "start": t, "frames": n, "frame0": frame0})
         frame0 += n
@@ -378,7 +427,8 @@ def stage_plan(sh: Short) -> bool:
         for name, a in spec.get("actors", {}).items():
             pos = _vec(a.get("at", [0, 3, 0]))
             d = _actor_dir(spec, name)
-            actors[name] = {"cf": {"pos": pos, "look": [pos[0] + d[0] * 10, pos[1], pos[2] + d[2] * 10]},
+            actors[name] = {"planted": a.get("planted", True),
+                            "cf": {"pos": pos, "look": [pos[0] + d[0] * 10, pos[1], pos[2] + d[2] * 10]},
                             "poses": [[res(p[0]), p[1]] for p in a.get("poses", [[0, "idle"]])],
                             "faces": [[res(f[0]), f[1]] for f in a.get("faces", [[0, "smile"]])],
                             "drift": a.get("drift", 1.0)}
@@ -396,7 +446,13 @@ def stage_plan(sh: Short) -> bool:
                            "shot": spec["name"], "hit": bool(fx_.get("hit", fx_["sound"] in ("boom", "thud")))})
             if sounds[-1]["hit"]:
                 hits.append({"frame": int(round(at * fps)), "what": f"{fx_['sound']} in {spec['name']}"})
-        plan["shots"].append({"name": spec["name"], "start": st, "frames": s["frames"], "frame0": s["frame0"],
+        overlays = []
+        for ov in spec.get("overlays", []):
+            overlays.append({"icon": ov["icon"], "over": _point(spec, ov["over"]), "start": res(ov.get("at", 0.0)),
+                             "dur": float(ov.get("dur", 0.6)), "size": float(ov.get("size", 150)),
+                             "lift": float(ov.get("lift", 1.4))})
+        plan["shots"].append({"overlays": overlays, "name": spec["name"], "start": st, "frames": s["frames"],
+                              "frame0": s["frame0"],
                               "seconds": s["frames"] / fps, "camera": cam, "actors": actors,
                               "drift": spec.get("drift", 1.0), "streak": bool(spec.get("streak")),
                               "seed": k})
@@ -408,7 +464,7 @@ def stage_plan(sh: Short) -> bool:
         if ln.get("caption") is False:
             continue
         aligned = _aligned_words(ln, words[v["line"]])
-        emoji = ln.get("emoji") if not ln.get("caption") else None
+        emoji = ln.get("emoji") if not ln.get("caption") and style == "comedy" else None  # stories: no emoji
         for text, a, b in _clauses(aligned, style, emoji, story=(style == "story")):
             caps.append({"text": text, "start": v["start"] + a, "end": v["start"] + b, "style": style})
     lead = 2 / fps
@@ -479,9 +535,11 @@ def shot_fn(plan: dict, shot: dict, cast: list[str]):
                 if trav < dist:
                     joints, rootpos = pose.walking(tw, freq=w["freq"])
                 else:
-                    joints, rootpos = pose.at(a["poses"], t, drift_amount=a.get("drift", 1.0), seed=i + 1)
+                    joints, rootpos = pose.at(a["poses"], t, drift_amount=a.get("drift", 1.0), seed=i + 1,
+                                              planted=a.get("planted", True))
             else:
-                joints, rootpos = pose.at(a["poses"], t, drift_amount=a.get("drift", 1.0), seed=i + 1)
+                joints, rootpos = pose.at(a["poses"], t, drift_amount=a.get("drift", 1.0), seed=i + 1,
+                                          planted=a.get("planted", True))
             acts.append({"name": name, "cf": cf, "face": faces.url(_face_at(a["faces"], t), _face_set()),
                          "joints": joints, "rootpos": rootpos})
         st["actors"] = acts
@@ -525,6 +583,8 @@ def _studio_session(sh: Short, plan: dict, body) -> None:
         print(stage.park(sets.park_point(sh.spec.get("set", "baseplate"))))
         print(stage.actors(cast))
         print(sets.build(sh.spec.get("set", "baseplate"), sh.spec.get("set_options", {})))
+        for extra in sh.spec.get("sets", []):  # more places, each at its own offset
+            print(sets.build(extra["name"], extra.get("options", {}), tuple(extra["at"]), append=True))
         print(capture.install().strip()[-60:])
         print(capture.preload([faces.url(n, _face_set()) for n in face_names]))
         body(list(cast))
@@ -626,12 +686,50 @@ def frame_at(build: str, r: int) -> np.ndarray:
         px = camera.smear(_path_for(plan_path, shot["name"]), k / fps, fps=fps) * 1080 / 960
         if px > 1.5:
             out = fx.streak(out, px)
+    for ov in shot.get("overlays", []):
+        u = (k / fps - ov["start"]) / max(ov["dur"], 1e-3)
+        if 0.0 <= u < 1.0:
+            out = _overlay(out, ov, _path_for(plan_path, shot["name"])(k / fps), u)
     t = r / fps
     for c in plan["captions"]:
         if c["show"] <= t < c["hide"]:
             layer, (x, y) = _caption_layer(c["text"], c["style"])
             look.over(out, layer, x, y)
     return out
+
+
+@functools.lru_cache(maxsize=16)
+def _icon(name: str, size: int):
+    """An icon for an overlay: an emoji picture from the caption set, by name or emoji."""
+    import captions
+    token = {"bell": "\U0001F514", "heart": "\u2764", "money": "\U0001F4B8", "skull": "\U0001F480",
+             "fire": "\U0001F525", "eyes": "\U0001F440", "warning": "\u26A0"}.get(name, name)
+    return captions._outlined_emoji(token, size, max(3, size // 22))
+
+
+def _overlay(img: np.ndarray, ov: dict, view: dict, u: float) -> np.ndarray:
+    """An icon popping up over a point in the scene: projected through the shot's camera, scaled in with a little
+    overshoot over the first fifth of its time, faded out over the last fifth."""
+    import cv2
+
+    import camera
+    import look
+    p = list(ov["over"])
+    p[1] += ov.get("lift", 1.4)
+    xy = camera.project(view, p, size=(1080, 1920))
+    if not xy:
+        return img
+    pop = min(1.0, u / 0.2)
+    scale = 1.0 + 0.18 * math.sin(math.pi * pop) if pop < 1 else 1.0
+    scale *= pop ** 0.5
+    alpha = 1.0 if u < 0.8 else max(0.0, (1.0 - u) / 0.2)
+    size = max(4, int(ov["size"] * scale))
+    pic = _icon(ov["icon"], 256)
+    pic = cv2.resize(pic, (max(1, int(pic.shape[1] * size / pic.shape[0])), size), interpolation=cv2.INTER_AREA)
+    pic = pic.copy()
+    pic[..., 3] *= alpha
+    look.over(img, pic, int(xy[0] - pic.shape[1] / 2), int(xy[1] - pic.shape[0] / 2))
+    return img
 
 
 def stage_cut(sh: Short) -> bool:

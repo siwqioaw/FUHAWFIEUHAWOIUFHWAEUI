@@ -206,6 +206,15 @@ def norm(word: str) -> str:
 _SPLIT = re.compile(r"[\s\-–—]+|\.{2,}|…")
 
 
+# Words a transcriber can't tell apart by sound: matched as one (S5's "Seen." came back as "Scene.").
+HOMOPHONES = {w: group[0] for group in (
+    ("seen", "scene"), ("there", "their", "theyre"), ("to", "too", "two"), ("your", "youre"), ("its", "it's"),
+    ("no", "know"), ("right", "write"), ("here", "hear"), ("for", "four"), ("one", "won"), ("eight", "ate"),
+    ("by", "buy", "bye"), ("new", "knew"), ("whole", "hole"), ("weak", "week"), ("wait", "weight"),
+    ("sun", "son"), ("meet", "meat"), ("which", "witch"), ("ok", "okay"), ("alright", "allright"))
+    for w in group}
+
+
 def tokens(text: str) -> list[str]:
     """A line's words for matching: split at spaces, hyphens, dashes and ellipses; a number becomes its words, one
     token each ('21' -> 'twenty', 'one'), as a script that spells it out reads."""
@@ -217,7 +226,7 @@ def tokens(text: str) -> list[str]:
         if n.isdigit() and len(n) < 7:
             out += number_words(int(n)).split()
         else:
-            out.append(n)
+            out.append(HOMOPHONES.get(n.replace("'", ""), n))
     return out
 
 

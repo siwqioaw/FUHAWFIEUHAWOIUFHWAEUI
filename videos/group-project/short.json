@@ -1,0 +1,1024 @@
+{
+ "slug": "group-project",
+ "title": "Why does every group project have THAT one person",
+ "family": "comedy",
+ "fps": 60,
+ "set": "classroom",
+ "set_options": {
+  "board": "GROUP PROJECT\n40 slides\nDue FRIDAY"
+ },
+ "cast": {
+  "me": {
+   "look": "narrator"
+  },
+  "girl": {
+   "look": "popular_girl"
+  },
+  "jock": {
+   "look": "jock"
+  },
+  "teacher": {
+   "look": "teacher"
+  },
+  "nerd": {
+   "look": "nerd"
+  },
+  "ex1": {
+   "look": "extra_a"
+  },
+  "ex2": {
+   "look": "extra_b"
+  },
+  "ex3": {
+   "look": "extra_c"
+  }
+ },
+ "lines": [
+  {
+   "id": "l1",
+   "role": "narrator",
+   "text": "[excited] Nah, why does every group project have that ONE person?",
+   "emoji": "😭"
+  },
+  {
+   "id": "l2",
+   "role": "girl",
+   "text": "[bubbly] Oh my gosh, you guys, I'll do the title page!",
+   "emoji": "✨"
+  },
+  {
+   "id": "l3",
+   "role": "narrator",
+   "text": "[sarcastic] The title page. For a forty slide project.",
+   "emoji": "💀"
+  },
+  {
+   "id": "l4",
+   "role": "narrator",
+   "text": "[annoyed] Then there's this guy, who hasn't answered the group chat since September.",
+   "emoji": "🙄"
+  },
+  {
+   "id": "l5",
+   "role": "deep",
+   "text": "[deadpan] [deep voice] Seen.",
+   "emoji": "🗿"
+  },
+  {
+   "id": "l6",
+   "role": "narrator",
+   "text": "[frustrated] So I do the whole thing myself. Every single slide.",
+   "emoji": "😭"
+  },
+  {
+   "id": "l7",
+   "role": "narrator",
+   "text": "[suspicious] And on presentation day?",
+   "emoji": "👀"
+  },
+  {
+   "id": "l8",
+   "role": "girl",
+   "text": "[confident] So, as WE researched..."
+  },
+  {
+   "id": "l9",
+   "role": "narrator",
+   "text": "[shouting] WE?!",
+   "emoji": "😡"
+  },
+  {
+   "id": "l10",
+   "role": "narrator",
+   "text": "[defeated] And we all get the same grade.",
+   "emoji": "🥀"
+  }
+ ],
+ "shots": [
+  {
+   "name": "hook",
+   "seconds": "auto",
+   "pad": 0.18,
+   "actors": {
+    "me": {
+     "at": [
+      5,
+      3,
+      -11
+     ],
+     "poses": [
+      [
+       0,
+       "hands_on_head"
+      ],
+      [
+       "l1:why",
+       "arms_out"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "smug"
+      ],
+      [
+       "l1:one",
+       "angry"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "me.head",
+     "distance": 9.0,
+     "fov": 45,
+     "height": -0.3
+    },
+    {
+     "t": 0.04,
+     "aim": "me.head",
+     "distance": 5.6,
+     "fov": 45,
+     "height": -0.3,
+     "move": 0.28,
+     "ease": "out"
+    }
+   ],
+   "say": [
+    {
+     "line": "l1",
+     "at": 0.0
+    }
+   ],
+   "sfx": [],
+   "drift": 1.0
+  },
+  {
+   "name": "title_page",
+   "seconds": "auto",
+   "pad": 0.15,
+   "actors": {
+    "girl": {
+     "at": [
+      -1.5,
+      3,
+      -10.5
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ],
+      [
+       "l2:title",
+       "cheer"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "grin"
+      ],
+      [
+       "l2:title",
+       "starstruck"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "girl.head",
+     "distance": 8.0,
+     "fov": 45,
+     "height": -0.3
+    },
+    {
+     "t": 0.04,
+     "aim": "girl.head",
+     "distance": 5.2,
+     "fov": 45,
+     "height": -0.3,
+     "move": 0.28,
+     "ease": "out"
+    }
+   ],
+   "say": [
+    {
+     "line": "l2",
+     "at": 0.05
+    }
+   ],
+   "sfx": [],
+   "drift": 1.0
+  },
+  {
+   "name": "forty",
+   "seconds": "auto",
+   "pad": 0.55,
+   "actors": {
+    "me": {
+     "at": [
+      5,
+      3,
+      -11
+     ],
+     "poses": [
+      [
+       0,
+       "arms_crossed"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "deadpan"
+      ],
+      [
+       "l3:forty",
+       "side_eye"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "me.head",
+     "distance": 5.6,
+     "fov": 45,
+     "height": -0.3
+    },
+    {
+     "t": 0.04,
+     "aim": "me.head",
+     "distance": 4.3,
+     "fov": 45,
+     "height": -0.3,
+     "move": 0.35,
+     "ease": "out"
+    }
+   ],
+   "say": [
+    {
+     "line": "l3",
+     "at": 0.0
+    }
+   ],
+   "sfx": [
+    {
+     "sound": "boom",
+     "at": "l3:end+0.04"
+    }
+   ],
+   "drift": 1.0
+  },
+  {
+   "name": "the_chat",
+   "seconds": "auto",
+   "pad": 0.08,
+   "actors": {
+    "ex1": {
+     "at": [
+      -7.5,
+      3,
+      -4
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "bored"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    },
+    "ex2": {
+     "at": [
+      10.5,
+      3,
+      10
+     ],
+     "poses": [
+      [
+       0,
+       "slump"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "sleepy"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    },
+    "ex3": {
+     "at": [
+      -7.5,
+      3,
+      10
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "deadpan"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    },
+    "nerd": {
+     "at": [
+      10.5,
+      3,
+      3
+     ],
+     "poses": [
+      [
+       0,
+       "think"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "smile"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    },
+    "jock": {
+     "at": [
+      1.5,
+      3,
+      3
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "sleepy"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "jock.head",
+     "distance": 12.0,
+     "fov": 50,
+     "height": -0.6
+    },
+    {
+     "t": 0.04,
+     "aim": "jock.head",
+     "distance": 7.5,
+     "fov": 50,
+     "height": -0.6,
+     "move": 0.4,
+     "ease": "out"
+    }
+   ],
+   "say": [
+    {
+     "line": "l4",
+     "at": 0.0
+    }
+   ],
+   "sfx": [],
+   "drift": 1.0
+  },
+  {
+   "name": "seen",
+   "seconds": "auto",
+   "pad": 0.6,
+   "actors": {
+    "jock": {
+     "at": [
+      1.5,
+      3,
+      3
+     ],
+     "poses": [
+      [
+       0,
+       "slump"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "sleepy"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    },
+    "nerd": {
+     "at": [
+      10.5,
+      3,
+      3
+     ],
+     "poses": [
+      [
+       0,
+       "think"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "smile"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "low": {
+      "aim": "jock.head",
+      "distance": 6.1,
+      "eye": 2.6,
+      "fov": 55
+     }
+    },
+    {
+     "t": 0.04,
+     "low": {
+      "aim": "jock.head",
+      "distance": 4.6,
+      "eye": 2.6,
+      "fov": 55
+     },
+     "move": 0.3,
+     "ease": "out"
+    }
+   ],
+   "say": [
+    {
+     "line": "l5",
+     "at": 0.08
+    }
+   ],
+   "sfx": [
+    {
+     "sound": "boom",
+     "at": "l5:end+0.02"
+    }
+   ],
+   "drift": 1.0
+  },
+  {
+   "name": "alone",
+   "seconds": "auto",
+   "pad": 0.12,
+   "actors": {
+    "me": {
+     "at": [
+      10.5,
+      3,
+      -4
+     ],
+     "poses": [
+      [
+       0,
+       "facepalm"
+      ],
+      [
+       "l6:every",
+       "slump"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "teary"
+      ],
+      [
+       "l6:every",
+       "cry"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      -1,
+      0,
+      0
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "me.face",
+     "distance": 2.8,
+     "fov": 45,
+     "height": -0.2
+    },
+    {
+     "t": 0.04,
+     "aim": "me.face",
+     "distance": 7.0,
+     "fov": 45,
+     "height": -0.2,
+     "move": 0.22,
+     "ease": "out"
+    }
+   ],
+   "say": [
+    {
+     "line": "l6",
+     "at": 0.0
+    }
+   ],
+   "sfx": [],
+   "drift": 1.0
+  },
+  {
+   "name": "pres_day",
+   "seconds": "auto",
+   "pad": 0.1,
+   "actors": {
+    "girl": {
+     "at": [
+      -1.3,
+      3,
+      -14
+     ],
+     "poses": [
+      [
+       0,
+       "hands_on_hips"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "smug"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    "me": {
+     "at": [
+      1.7,
+      3,
+      -14
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "side_eye_left"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    "teacher": {
+     "at": [
+      -9,
+      3,
+      -14.5
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "smile"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "girl.head",
+     "distance": 13.0,
+     "fov": 50,
+     "height": -0.2,
+     "between": "me"
+    },
+    {
+     "t": 0.04,
+     "aim": "girl.head",
+     "distance": 11.5,
+     "fov": 50,
+     "height": -0.2,
+     "between": "me",
+     "move": 0.3,
+     "ease": "out"
+    }
+   ],
+   "say": [
+    {
+     "line": "l7",
+     "at": 0.0
+    }
+   ],
+   "sfx": [],
+   "drift": 1.0
+  },
+  {
+   "name": "as_we",
+   "seconds": "auto",
+   "pad": 0.1,
+   "actors": {
+    "girl": {
+     "at": [
+      -1.3,
+      3,
+      -14
+     ],
+     "poses": [
+      [
+       0,
+       "hands_on_hips"
+      ],
+      [
+       "l8:we",
+       "point_left"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "smug"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    "me": {
+     "at": [
+      1.7,
+      3,
+      -14
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "side_eye_left"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "girl.head",
+     "distance": 7.0,
+     "fov": 45,
+     "height": -0.3
+    },
+    {
+     "t": 0.04,
+     "aim": "girl.head",
+     "distance": 5.0,
+     "fov": 45,
+     "height": -0.3,
+     "move": 0.28,
+     "ease": "out"
+    }
+   ],
+   "say": [
+    {
+     "line": "l8",
+     "at": 0.05
+    }
+   ],
+   "sfx": [],
+   "drift": 1.0
+  },
+  {
+   "name": "we",
+   "seconds": "auto",
+   "pad": 0.5,
+   "actors": {
+    "me": {
+     "at": [
+      1.7,
+      3,
+      -14
+     ],
+     "poses": [
+      [
+       0,
+       "hands_on_head"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "furious"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    "girl": {
+     "at": [
+      -1.3,
+      3,
+      -14
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "smug"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "me.head",
+     "distance": 7.0,
+     "fov": 48
+    },
+    {
+     "t": 0.05,
+     "aim": "me.head",
+     "distance": 3.6,
+     "fov": 48,
+     "dutch": 14,
+     "move": 0.22,
+     "ease": "inout"
+    }
+   ],
+   "say": [
+    {
+     "line": "l9",
+     "at": 0.04
+    }
+   ],
+   "sfx": [
+    {
+     "sound": "boom",
+     "at": "l9:end+0.02"
+    }
+   ],
+   "drift": 1.0
+  },
+  {
+   "name": "grade",
+   "seconds": "auto",
+   "pad": 0.05,
+   "actors": {
+    "teacher": {
+     "at": [
+      -9,
+      3,
+      -14.5
+     ],
+     "poses": [
+      [
+       0,
+       "idle"
+      ],
+      [
+       "l10:same",
+       "cheer"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "grin"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "teacher.head",
+     "distance": 8.0,
+     "fov": 45,
+     "height": -0.3
+    },
+    {
+     "t": 0.04,
+     "aim": "teacher.head",
+     "distance": 5.4,
+     "fov": 45,
+     "height": -0.3,
+     "move": 0.28,
+     "ease": "out"
+    }
+   ],
+   "say": [
+    {
+     "line": "l10",
+     "at": 0.05
+    }
+   ],
+   "sfx": [],
+   "drift": 1.0
+  },
+  {
+   "name": "dead",
+   "seconds": 1.25,
+   "pad": 0.2,
+   "actors": {
+    "me": {
+     "at": [
+      1.7,
+      3,
+      -14
+     ],
+     "poses": [
+      [
+       0,
+       "slump"
+      ]
+     ],
+     "faces": [
+      [
+       0,
+       "dead"
+      ]
+     ],
+     "drift": 1.0,
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    }
+   },
+   "camera": [
+    {
+     "t": 0,
+     "aim": "me.head",
+     "distance": 5.0,
+     "fov": 45,
+     "height": -0.3
+    },
+    {
+     "t": 0.04,
+     "aim": "me.head",
+     "distance": 3.8,
+     "fov": 45,
+     "height": -0.3,
+     "move": 0.5,
+     "ease": "out"
+    }
+   ],
+   "say": [],
+   "sfx": [
+    {
+     "sound": "boom",
+     "at": 0.0
+    }
+   ],
+   "drift": 1.0
+  }
+ ],
+ "music": {
+  "track": "build/library/music/comedy_bed.mp3",
+  "start": 0.75,
+  "gain_db": -15.0,
+  "duck_db": -5.0
+ }
+}

@@ -15,12 +15,44 @@ from, its license, and where it's used.
 | Roblox Studio's Baseplate template: its floor texture and sky | Roblox, built into Studio | Roblox content in Roblox Studio, under Roblox's Terms of Use | S1-S3 test renders (in `build/`, not published) |
 | Beautiful You Jeans (pants, 398634487) | Roblox Marketplace, by Roblox | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | S2-S3 test renders (in `build/`, not published) |
 
+| True Blue Hair (hair, 451221329) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: narrator), from M2 |
+| Brown Charmer Hair (hair, 376548738) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: me, extra_b), from M2 |
+| Belle Of Belfast Long Red Hair (hair, 2956239660) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: bestie), from M2 |
+| Blonde Spiked Hair (hair, 376524487) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: little_brother, rich_kid), from M2 |
+| Brown Hair (hair, 62234425) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: mom, teacher, extra_a), from M2 |
+| Down to Earth Hair (hat, 1772336109) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: dad), from M2 |
+| Teal Shirt (shirt, 382537702) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: narrator), from M2 |
+| Blue Plaid Shirt (shirt, 398635081) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: me, extra_c), from M2 |
+| Purple and Teal Top (shirt, 4047886060) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: bestie), from M2 |
+| My Favorite Pizza Shirt (shirt, 4047884939) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: little_brother), from M2 |
+| Grey Striped Shirt with Denim Jacket (shirt, 144076436) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: mom, nerd), from M2 |
+| Blue and Black Motorcycle Shirt (shirt, 144076358) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: dad), from M2 |
+| ROBLOX Jacket (shirt, 607785314) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: teacher), from M2 |
+| Denim Jacket with White Hoodie (shirt, 398633584) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: rich_kid), from M2 |
+| Green Jersey (shirt, 382538059) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: jock), from M2 |
+| I <3 Pizza Shirt (shirt, 382537085) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: extra_a), from M2 |
+| Roblox Shirt - Simple Pattern (shirt, 3670737444) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: extra_b), from M2 |
+| Black Jeans (pants, 382537569) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: narrator, bestie, mom, teacher), from M2 |
+| Black Jeans with White Shoes (pants, 398633812) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: me, extra_b), from M2 |
+| Jean Shorts (pants, 382537806) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: little_brother, extra_a), from M2 |
+| Dark Green Jeans (pants, 144076760) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: dad, nerd), from M2 |
+| Ripped Skater Pants (pants, 398635338) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: rich_kid), from M2 |
+| Jean Shorts with White Shoes (pants, 382537950) | Roblox Marketplace, by Roblox, free | Roblox Marketplace avatar item, worn by an actor in Studio; Roblox's Terms of Use (decision 4 in `docs/ROBLOX_SHORTS_PLAN.md`) | the cast (`tools/roblox/cast.json`: jock, extra_c), from M2 |
+
 ## Fonts and emoji
 
 | Asset | Source | License | Used in |
 |---|---|---|---|
 | Montserrat, Regular to Black (`assets/fonts/montserrat/`) | github.com/JulietaUla/Montserrat, by The Montserrat Project Authors | SIL Open Font License 1.1 (`OFL.txt` beside it) | every caption, from S6 |
-| 50 Noto 3D emoji at 128 px (`assets/emoji/noto/`) | github.com/googlefonts/noto-emoji (`3D/png/128`), by Google | the repository's README: images under the Apache License 2.0, fonts under the SIL OFL 1.1 (its LICENSE file beside them) | caption emoji, from S6 |
+| 62 Noto 3D emoji at 128 px (`assets/emoji/noto/`) | github.com/googlefonts/noto-emoji (`3D/png/128`), by Google | the repository's README: images under the Apache License 2.0, fonts under the SIL OFL 1.1 (its LICENSE file beside them) | caption emoji, from S6 |
+
+## Music
+
+| Track | Source | License | Used in |
+|---|---|---|---|
+| "The Plan's Working" by Cooper Cannell (1:42) | YouTube Audio Library, downloaded 2026-11-08 into `build/library/music/` (never committed) | YouTube Audio Library licence, no attribution required; used only in videos for the owner's channel | M2 `first-vs-last` |
+| comedy bed (45 s, instrumental: pizzicato, marimba, woodblock, about 104 BPM) | made with ElevenLabs music through the connector on the owner's paid plan, 2026-11-08 (`build/library/music/comedy_bed.mp3`) | ElevenLabs Terms of Use, paid plan: the output belongs to the owner, commercial use allowed. AI-made: background only, never the focus of a video | M3 `group-project` |
+| story bed (45 s, instrumental: wistful synthwave) | as above (`build/library/music/story_bed.mp3`) | as above | M4 `ding` |
 
 ## Voices
 
