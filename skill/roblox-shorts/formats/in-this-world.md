@@ -23,15 +23,23 @@ everything, characters' lines included. 60 fps.
 ## Shots that work
 
 - `shot(..., until="b:WORD")`: each shot ends on the word that starts the next clause.
-- `swoop(a, b)` to whoever is named, landing on the name; `pull("hero.face", ...)` for realisations; `top(...)` for
-  loneliness; `ots(near, far)` for overhearing; `dutch_in` for panic; `wide(...)` + `walk` for passing time.
-- Overlays (`overlays=[("bell", "leo.head", "b:ding")]`) for the rule's signature, with a matching effect.
+- `swoop(a, b)` to whoever is named, landing on the name; `pull("hero.face", ...)` for realisations; `ots(near, far)`
+  for overhearing; `dutch_in` or a low angle for panic; `wide(...)` + `walk` for passing time. Loneliness: alone at a
+  long cafeteria table (`sit`), not `top(...)`: from above, R6s are hair and shoulders (M2 and M4's reviews).
+- Overlays (`overlays=[("bell", "leo.head", "b:ding")]`) for the rule's signature, with a matching effect: over the
+  one the rule acts on (the person talked about, the pet that speaks), and that one in the picture, not behind
+  someone (M5's dog stood behind its owner and its bubble came out of his shirt; the plan warns now). In a
+  close-up the icon goes beside the head, not on it.
+- Show the rule in the first second, before the narrator explains it (M4's first bell came at 3 s); every line's
+  action in the picture (the new school's own lockers, hiding behind a bank of `lockers`, sitting down).
 - Several places: `extra_sets=[("new_school", "hallway", (400, 0, 0), {...})]` and `set="new_school"` per shot.
 
 ## Sound plan
 
-One bed for the whole story (`story_bed`: wistful synthwave) at -15 dB ducked 4 dB; a sound for each state of the rule
-(a ding, a shimmer, a thud); a riser into the twist; the last sound on the last word.
+One bed for the whole story (`story_bed`: wistful synthwave) at -16 dB ducked 9 dB (at 4 the sad, soft lines sat
+only 6 dB over it); a sound for each state of the rule (a ding, a shimmer, a thud), louder as the story says louder
+(M4's dings measured quieter as the line said "so loud": set the gains to climb); a riser into the twist; nothing on
+the quotable line itself (the shimmer after it); the last sound on the last word, the loudest.
 
 ## Example skeleton (original)
 
